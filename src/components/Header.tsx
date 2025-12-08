@@ -8,12 +8,12 @@ export function Header() {
           <ChefHat className="h-6 w-6 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="font-serif text-2xl font-bold text-foreground">
-            PantryChef
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Turn your ingredients into delicious meals
-          </p>
+        <h1 className="font-serif text-2xl font-bold text-foreground">
+          The Plate
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Turn your ingredients into delicious meals
+        </p>
         </div>
       </div>
     </header>
