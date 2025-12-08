@@ -185,6 +185,17 @@ export const sampleRecipes: Recipe[] = [
   },
 ];
 
+// Key ingredients that MUST be present for certain recipes
+const keyIngredients: Record<string, string[]> = {
+  "avocado-toast": ["avocado"],
+  "oatmeal-berries": ["oats"],
+  "tuna-sandwich": ["tuna"],
+  "fish-tacos": ["fish"],
+  "beef-stir-fry": ["beef"],
+  "garlic-butter-chicken": ["chicken"],
+  "chicken-salad": ["chicken"],
+};
+
 export function getRecipesForIngredients(selectedIngredients: string[]): Recipe[] {
   if (selectedIngredients.length === 0) return [];
   
@@ -193,12 +204,20 @@ export function getRecipesForIngredients(selectedIngredients: string[]): Recipe[
       const matchedIngredients = recipe.ingredients.filter(ing => 
         selectedIngredients.includes(ing)
       );
+      
+      // Check if recipe has key ingredients that must be present
+      const requiredKeys = keyIngredients[recipe.id] || [];
+      const hasAllKeyIngredients = requiredKeys.every(key => 
+        selectedIngredients.includes(key)
+      );
+      
       return {
         ...recipe,
         matchedIngredients,
-        matchScore: matchedIngredients.length / recipe.ingredients.length
+        matchScore: matchedIngredients.length / recipe.ingredients.length,
+        hasAllKeyIngredients
       };
     })
-    .filter(recipe => recipe.matchScore >= 0.3) // At least 30% match
+    .filter(recipe => recipe.matchScore >= 0.4 && recipe.hasAllKeyIngredients) // At least 40% match AND has key ingredients
     .sort((a, b) => b.matchScore - a.matchScore);
 }
