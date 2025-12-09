@@ -4,7 +4,9 @@ import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
 import { SavedRecipes } from "@/components/SavedRecipes";
+import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
+import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,14 +15,16 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getRecipesForIngredients, type Recipe } from "@/data/recipes";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, ChefHat, X } from "lucide-react";
+import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart } from "lucide-react";
 
 const Index = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showRecipes, setShowRecipes] = useState(false);
   const [savedRecipes, setSavedRecipes] = useLocalStorage<string[]>("savedRecipes", []);
   const [mealPlan, setMealPlan] = useLocalStorage<MealPlanEntry[]>("mealPlan", []);
+  const [shoppingList, setShoppingList] = useLocalStorage<ShoppingItem[]>("shoppingList", []);
   const [calendarDialogRecipe, setCalendarDialogRecipe] = useState<Recipe | null>(null);
+  const [shoppingDialogIngredient, setShoppingDialogIngredient] = useState<string | null>(null);
 
   const recipes = getRecipesForIngredients(selectedIngredients);
 
@@ -96,13 +100,70 @@ const Index = () => {
     });
   };
 
+  const handleAddToShopping = (ingredientId: string) => {
+    setShoppingDialogIngredient(ingredientId);
+  };
+
+  const handleConfirmShoppingAdd = (ingredientId: string, variant: string) => {
+    const newItem: ShoppingItem = {
+      id: `${ingredientId}-${Date.now()}`,
+      ingredientId,
+      variant,
+      checked: false,
+    };
+    
+    // Check if already in list
+    const exists = shoppingList.some(item => item.variant === variant);
+    if (exists) {
+      toast({
+        title: "Already in list",
+        description: `${variant} is already in your shopping list.`,
+      });
+      return;
+    }
+    
+    setShoppingList((prev) => [...prev, newItem]);
+    toast({
+      title: "Added to shopping list",
+      description: `${variant} has been added to your list.`,
+    });
+  };
+
+  const handleToggleShoppingItem = (id: string) => {
+    setShoppingList((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      )
+    );
+  };
+
+  const handleRemoveShoppingItem = (id: string) => {
+    setShoppingList((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const handleClearCompletedShopping = () => {
+    setShoppingList((prev) => prev.filter((item) => !item.checked));
+    toast({
+      title: "Cleared completed items",
+      description: "All checked items have been removed.",
+    });
+  };
+
+  const handleClearAllShopping = () => {
+    setShoppingList([]);
+    toast({
+      title: "Shopping list cleared",
+      description: "All items have been removed.",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background gradient-cream">
       <Header />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         <Tabs defaultValue="ingredients" className="space-y-6">
-          <TabsList className="w-full max-w-md mx-auto grid grid-cols-3 h-12 bg-muted/50 p-1 rounded-xl">
+          <TabsList className="w-full max-w-lg mx-auto grid grid-cols-4 h-12 bg-muted/50 p-1 rounded-xl">
             <TabsTrigger value="ingredients" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
               <ChefHat className="h-4 w-4" />
               <span className="hidden sm:inline">Ingredients</span>
@@ -114,6 +175,15 @@ const Index = () => {
             <TabsTrigger value="saved" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
               <Heart className="h-4 w-4" />
               <span className="hidden sm:inline">Saved</span>
+            </TabsTrigger>
+            <TabsTrigger value="shopping" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2 relative">
+              <ShoppingCart className="h-4 w-4" />
+              <span className="hidden sm:inline">Shop</span>
+              {shoppingList.length > 0 && (
+                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs flex items-center justify-center">
+                  {shoppingList.length}
+                </Badge>
+              )}
             </TabsTrigger>
           </TabsList>
 
@@ -178,6 +248,7 @@ const Index = () => {
                     savedRecipes={savedRecipes}
                     onSave={handleSaveRecipe}
                     onAddToCalendar={handleAddToCalendar}
+                    onAddToShopping={handleAddToShopping}
                   />
                 ) : (
                   <Card className="shadow-card">
@@ -205,6 +276,16 @@ const Index = () => {
           <TabsContent value="saved" className="mt-6">
             <SavedRecipes savedRecipeIds={savedRecipes} onRemove={handleSaveRecipe} />
           </TabsContent>
+
+          <TabsContent value="shopping" className="mt-6">
+            <ShoppingList
+              items={shoppingList}
+              onToggleItem={handleToggleShoppingItem}
+              onRemoveItem={handleRemoveShoppingItem}
+              onClearCompleted={handleClearCompletedShopping}
+              onClearAll={handleClearAllShopping}
+            />
+          </TabsContent>
         </Tabs>
       </main>
 
@@ -213,6 +294,13 @@ const Index = () => {
         open={!!calendarDialogRecipe}
         onOpenChange={(open) => !open && setCalendarDialogRecipe(null)}
         onConfirm={handleConfirmCalendarAdd}
+      />
+
+      <AddToShoppingDialog
+        open={!!shoppingDialogIngredient}
+        onOpenChange={(open) => !open && setShoppingDialogIngredient(null)}
+        ingredientId={shoppingDialogIngredient || ""}
+        onConfirm={handleConfirmShoppingAdd}
       />
     </div>
   );
