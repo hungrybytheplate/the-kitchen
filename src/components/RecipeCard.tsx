@@ -75,7 +75,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar }: RecipeC
         <div className="flex flex-wrap gap-1.5 mt-3">
           {recipe.matchedIngredients.slice(0, 5).map((ing) => (
             <Badge key={ing} variant="outline" className="text-xs bg-primary/5 border-primary/20">
-              {ing}
+              ✓ {ing}
             </Badge>
           ))}
           {recipe.matchedIngredients.length > 5 && (
@@ -84,6 +84,27 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar }: RecipeC
             </Badge>
           )}
         </div>
+
+        {(() => {
+          const missingIngredients = recipe.ingredients.filter(
+            ing => !recipe.matchedIngredients.includes(ing)
+          );
+          if (missingIngredients.length === 0) return null;
+          return (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {missingIngredients.slice(0, 3).map((ing) => (
+                <Badge key={ing} variant="outline" className="text-xs bg-destructive/10 border-destructive/20 text-destructive">
+                  + {ing.replace("-", " ")}
+                </Badge>
+              ))}
+              {missingIngredients.length > 3 && (
+                <Badge variant="outline" className="text-xs bg-muted text-muted-foreground">
+                  +{missingIngredients.length - 3} more needed
+                </Badge>
+              )}
+            </div>
+          );
+        })()}
       </CardHeader>
 
       <CardContent className="pt-0">
