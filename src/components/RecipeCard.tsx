@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Heart, ChevronDown, ChevronUp, Plus } from "lucide-react";
+import { Clock, Users, Heart, ChevronDown, ChevronUp, Plus, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
@@ -11,6 +11,7 @@ interface RecipeCardProps {
   isSaved: boolean;
   onSave: () => void;
   onAddToCalendar: () => void;
+  onAddToShopping?: (ingredientId: string) => void;
 }
 
 const mealTypeColors = {
@@ -25,8 +26,12 @@ const mealTypeEmojis = {
   dinner: "🌙",
 };
 
-export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar }: RecipeCardProps) {
+export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping }: RecipeCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  
+  const missingIngredients = recipe.ingredients.filter(
+    ing => !recipe.matchedIngredients.includes(ing)
+  );
 
   return (
     <Card className={cn(
@@ -85,26 +90,25 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar }: RecipeC
           )}
         </div>
 
-        {(() => {
-          const missingIngredients = recipe.ingredients.filter(
-            ing => !recipe.matchedIngredients.includes(ing)
-          );
-          if (missingIngredients.length === 0) return null;
-          return (
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {missingIngredients.slice(0, 3).map((ing) => (
-                <Badge key={ing} variant="outline" className="text-xs bg-destructive/10 border-destructive/20 text-destructive">
-                  + {ing.replace("-", " ")}
-                </Badge>
-              ))}
-              {missingIngredients.length > 3 && (
-                <Badge variant="outline" className="text-xs bg-muted text-muted-foreground">
-                  +{missingIngredients.length - 3} more needed
-                </Badge>
-              )}
-            </div>
-          );
-        })()}
+        {missingIngredients.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {missingIngredients.slice(0, 3).map((ing) => (
+              <Badge
+                key={ing}
+                variant="outline"
+                className="text-xs bg-destructive/10 border-destructive/20 text-destructive cursor-pointer hover:bg-destructive/20 transition-colors"
+                onClick={() => onAddToShopping?.(ing)}
+              >
+                + {ing.replace("-", " ")}
+              </Badge>
+            ))}
+            {missingIngredients.length > 3 && (
+              <Badge variant="outline" className="text-xs bg-muted text-muted-foreground">
+                +{missingIngredients.length - 3} more needed
+              </Badge>
+            )}
+          </div>
+        )}
       </CardHeader>
 
       <CardContent className="pt-0">
@@ -145,6 +149,17 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar }: RecipeC
           </div>
         )}
 
+        {missingIngredients.length > 0 && onAddToShopping && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full mt-2 text-muted-foreground hover:text-foreground"
+            onClick={() => missingIngredients.forEach(ing => onAddToShopping(ing))}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Add all {missingIngredients.length} missing to shopping list
+          </Button>
+        )}
         <Button
           variant="outline"
           size="sm"

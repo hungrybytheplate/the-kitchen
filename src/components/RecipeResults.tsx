@@ -8,9 +8,10 @@ interface RecipeResultsProps {
   savedRecipes: string[];
   onSave: (recipeId: string) => void;
   onAddToCalendar: (recipe: Recipe) => void;
+  onAddToShopping: (ingredientId: string) => void;
 }
 
-export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar }: RecipeResultsProps) {
+export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping }: RecipeResultsProps) {
   const breakfastRecipes = recipes.filter(r => r.mealType === "breakfast");
   const lunchRecipes = recipes.filter(r => r.mealType === "lunch");
   const dinnerRecipes = recipes.filter(r => r.mealType === "dinner");
@@ -62,6 +63,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar }
                 isSaved={savedRecipes.includes(recipe.id)}
                 onSave={() => onSave(recipe.id)}
                 onAddToCalendar={() => onAddToCalendar(recipe)}
+                onAddToShopping={onAddToShopping}
               />
             ))
           ) : (
@@ -82,6 +84,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar }
                 isSaved={savedRecipes.includes(recipe.id)}
                 onSave={() => onSave(recipe.id)}
                 onAddToCalendar={() => onAddToCalendar(recipe)}
+                onAddToShopping={onAddToShopping}
               />
             ))
           ) : (
@@ -102,6 +105,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar }
                 isSaved={savedRecipes.includes(recipe.id)}
                 onSave={() => onSave(recipe.id)}
                 onAddToCalendar={() => onAddToCalendar(recipe)}
+                onAddToShopping={onAddToShopping}
               />
             ))
           ) : (
