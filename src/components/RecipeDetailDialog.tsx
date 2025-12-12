@@ -1,0 +1,404 @@
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
+import { 
+  Clock, 
+  Users, 
+  Heart, 
+  ChefHat, 
+  CheckCircle2, 
+  Circle,
+  ArrowLeft,
+  ArrowRight,
+  Utensils,
+  ShoppingCart,
+  Calendar as CalendarIcon,
+  Check,
+  Plus
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import type { Recipe } from "@/data/recipes";
+
+interface RecipeDetailDialogProps {
+  recipe: Recipe | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  isSaved: boolean;
+  onSave: () => void;
+  onAddToCalendar: () => void;
+  onAddToShopping?: (ingredientId: string) => void;
+}
+
+const mealTypeConfig = {
+  breakfast: {
+    bg: "bg-gradient-to-r from-amber-400/20 to-orange-400/20",
+    border: "border-amber-400/30",
+    text: "text-amber-700 dark:text-amber-400",
+    emoji: "🌅",
+    label: "Breakfast"
+  },
+  lunch: {
+    bg: "bg-gradient-to-r from-emerald-400/20 to-teal-400/20",
+    border: "border-emerald-400/30",
+    text: "text-emerald-700 dark:text-emerald-400",
+    emoji: "☀️",
+    label: "Lunch"
+  },
+  dinner: {
+    bg: "bg-gradient-to-r from-violet-400/20 to-purple-400/20",
+    border: "border-violet-400/30",
+    text: "text-violet-700 dark:text-violet-400",
+    emoji: "🌙",
+    label: "Dinner"
+  },
+};
+
+export function RecipeDetailDialog({ 
+  recipe, 
+  open, 
+  onOpenChange, 
+  isSaved, 
+  onSave,
+  onAddToCalendar,
+  onAddToShopping
+}: RecipeDetailDialogProps) {
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isCooking, setIsCooking] = useState(false);
+
+  if (!recipe) return null;
+
+  const config = mealTypeConfig[recipe.mealType];
+  const missingIngredients = recipe.ingredients.filter(
+    ing => !recipe.matchedIngredients.includes(ing)
+  );
+
+  const toggleStepComplete = (index: number) => {
+    setCompletedSteps(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  const handleStartCooking = () => {
+    setIsCooking(true);
+    setCurrentStep(0);
+    setCompletedSteps([]);
+  };
+
+  const handleNextStep = () => {
+    if (currentStep < recipe.instructions.length - 1) {
+      setCompletedSteps(prev => [...prev, currentStep]);
+      setCurrentStep(prev => prev + 1);
+    } else {
+      setCompletedSteps(prev => [...prev, currentStep]);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1);
+    }
+  };
+
+  const handleClose = () => {
+    setIsCooking(false);
+    setCompletedSteps([]);
+    setCurrentStep(0);
+    onOpenChange(false);
+  };
+
+  const allStepsComplete = completedSteps.length === recipe.instructions.length;
+
+  return (
+    <Dialog open={open} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden">
+        {/* Header with gradient */}
+        <div className={cn("relative px-6 pt-6 pb-4", config.bg)}>
+          <DialogHeader>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <Badge className={cn(
+                  "text-xs font-semibold px-3 py-1 rounded-full border mb-2",
+                  config.bg, config.border, config.text
+                )}>
+                  <span className="mr-1">{config.emoji}</span>
+                  {config.label}
+                </Badge>
+                <DialogTitle className="font-serif text-2xl font-semibold">
+                  {recipe.title}
+                </DialogTitle>
+                <p className="text-muted-foreground mt-2">{recipe.description}</p>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onSave}
+                className={cn(
+                  "shrink-0 rounded-full",
+                  isSaved ? "text-primary bg-primary/10" : ""
+                )}
+              >
+                <Heart className={cn("h-5 w-5", isSaved && "fill-current")} />
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-4 mt-4 text-sm">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                <span className="font-medium">{recipe.cookTime}</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60">
+                <Users className="h-4 w-4 text-muted-foreground" />
+                <span className="font-medium">{recipe.servings} servings</span>
+              </div>
+            </div>
+          </DialogHeader>
+        </div>
+
+        <ScrollArea className="flex-1 max-h-[50vh]">
+          <div className="px-6 py-4 space-y-6">
+            {!isCooking ? (
+              <>
+                {/* Ingredients Section */}
+                <Card className="p-4 bg-muted/30 border-border/50">
+                  <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
+                    <Utensils className="h-4 w-4 text-primary" />
+                    Ingredients ({recipe.ingredients.length})
+                  </h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {recipe.ingredients.map((ing, i) => {
+                      const isMatched = recipe.matchedIngredients.includes(ing);
+                      return (
+                        <div
+                          key={i}
+                          className={cn(
+                            "flex items-center gap-2 p-2 rounded-lg transition-colors",
+                            isMatched ? "bg-secondary/10" : "bg-accent/20"
+                          )}
+                        >
+                          <span className={cn(
+                            "w-5 h-5 rounded-full flex items-center justify-center text-xs",
+                            isMatched 
+                              ? "bg-secondary/20 text-secondary" 
+                              : "bg-accent/50 text-accent-foreground"
+                          )}>
+                            {isMatched ? <Check className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
+                          </span>
+                          <span className={cn(
+                            "capitalize text-sm font-medium",
+                            !isMatched && "text-muted-foreground"
+                          )}>
+                            {ing.replace("-", " ")}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {missingIngredients.length > 0 && onAddToShopping && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-4"
+                      onClick={() => missingIngredients.forEach(ing => onAddToShopping(ing))}
+                    >
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      Add {missingIngredients.length} missing to shopping list
+                    </Button>
+                  )}
+                </Card>
+
+                {/* Instructions Preview */}
+                <Card className="p-4 bg-muted/30 border-border/50">
+                  <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
+                    <ChefHat className="h-4 w-4 text-primary" />
+                    Instructions ({recipe.instructions.length} steps)
+                  </h3>
+                  <ol className="space-y-3">
+                    {recipe.instructions.map((step, i) => (
+                      <li 
+                        key={i}
+                        className="flex gap-3 group cursor-pointer"
+                        onClick={() => toggleStepComplete(i)}
+                      >
+                        <span className={cn(
+                          "flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all",
+                          completedSteps.includes(i)
+                            ? "bg-secondary text-secondary-foreground"
+                            : "gradient-warm text-primary-foreground"
+                        )}>
+                          {completedSteps.includes(i) ? (
+                            <CheckCircle2 className="h-4 w-4" />
+                          ) : (
+                            i + 1
+                          )}
+                        </span>
+                        <span className={cn(
+                          "text-sm leading-relaxed pt-0.5 transition-all",
+                          completedSteps.includes(i) 
+                            ? "text-muted-foreground line-through" 
+                            : "text-foreground"
+                        )}>
+                          {step}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </Card>
+              </>
+            ) : (
+              /* Step-by-Step Cooking Mode */
+              <div className="space-y-6">
+                {/* Progress bar */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      Step {currentStep + 1} of {recipe.instructions.length}
+                    </span>
+                    <span className="font-medium text-primary">
+                      {Math.round(((completedSteps.length) / recipe.instructions.length) * 100)}% complete
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full gradient-warm transition-all duration-500"
+                      style={{ width: `${(completedSteps.length / recipe.instructions.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Step indicators */}
+                <div className="flex justify-center gap-2">
+                  {recipe.instructions.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentStep(i)}
+                      className={cn(
+                        "w-3 h-3 rounded-full transition-all duration-300",
+                        i === currentStep 
+                          ? "w-8 gradient-warm" 
+                          : completedSteps.includes(i)
+                            ? "bg-secondary"
+                            : "bg-muted-foreground/30"
+                      )}
+                    />
+                  ))}
+                </div>
+
+                {/* Current step */}
+                <Card className={cn(
+                  "p-6 border-2 transition-all duration-300",
+                  completedSteps.includes(currentStep) 
+                    ? "border-secondary/50 bg-secondary/5" 
+                    : "border-primary/30 bg-primary/5"
+                )}>
+                  <div className="flex items-start gap-4">
+                    <span className={cn(
+                      "flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold",
+                      completedSteps.includes(currentStep)
+                        ? "bg-secondary text-secondary-foreground"
+                        : "gradient-warm text-primary-foreground"
+                    )}>
+                      {completedSteps.includes(currentStep) ? (
+                        <CheckCircle2 className="h-6 w-6" />
+                      ) : (
+                        currentStep + 1
+                      )}
+                    </span>
+                    <p className={cn(
+                      "text-lg leading-relaxed pt-2",
+                      completedSteps.includes(currentStep) && "line-through text-muted-foreground"
+                    )}>
+                      {recipe.instructions[currentStep]}
+                    </p>
+                  </div>
+                </Card>
+
+                {/* Navigation buttons */}
+                <div className="flex items-center justify-between gap-4">
+                  <Button
+                    variant="outline"
+                    onClick={handlePrevStep}
+                    disabled={currentStep === 0}
+                    className="flex-1"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Previous
+                  </Button>
+                  
+                  {currentStep === recipe.instructions.length - 1 ? (
+                    <Button
+                      variant="warm"
+                      onClick={handleNextStep}
+                      className="flex-1"
+                      disabled={allStepsComplete}
+                    >
+                      {allStepsComplete ? (
+                        <>
+                          <CheckCircle2 className="h-4 w-4 mr-2" />
+                          All Done!
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 className="h-4 w-4 mr-2" />
+                          Complete
+                        </>
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="warm"
+                      onClick={handleNextStep}
+                      className="flex-1"
+                    >
+                      Next Step
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </ScrollArea>
+
+        {/* Footer actions */}
+        <div className="px-6 py-4 border-t bg-muted/30 flex gap-3">
+          {!isCooking ? (
+            <>
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={onAddToCalendar}
+              >
+                <CalendarIcon className="h-4 w-4 mr-2" />
+                Add to Meal Plan
+              </Button>
+              <Button
+                variant="warm"
+                className="flex-1"
+                onClick={handleStartCooking}
+              >
+                <ChefHat className="h-4 w-4 mr-2" />
+                Start Cooking
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="ghost"
+              className="w-full"
+              onClick={() => setIsCooking(false)}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Overview
+            </Button>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
