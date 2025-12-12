@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Wine, GlassWater, BlendIcon } from "lucide-react";
+import { Wine, GlassWater, BlendIcon, Sparkles } from "lucide-react";
 import { DrinkCard } from "./DrinkCard";
 import type { Drink } from "@/data/drinks";
 
@@ -15,6 +15,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
   const cocktails = drinks.filter((d) => d.drinkType === "cocktail");
   const mocktails = drinks.filter((d) => d.drinkType === "mocktail");
   const smoothies = drinks.filter((d) => d.drinkType === "smoothie");
+  const wellness = drinks.filter((d) => d.drinkType === "wellness");
 
   if (drinks.length === 0) {
     return (
@@ -37,10 +38,10 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-400 via-emerald-400 to-amber-400" />
       <CardContent className="p-4">
         <Tabs defaultValue="smoothie" className="space-y-4">
-          <TabsList className="w-full grid grid-cols-3 h-12 glass p-1 rounded-xl">
+          <TabsList className="w-full grid grid-cols-4 h-12 glass p-1 rounded-xl">
             <TabsTrigger
               value="smoothie"
-              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
+              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
             >
               <BlendIcon className="h-4 w-4" />
               <span className="hidden sm:inline">Smoothies</span>
@@ -49,8 +50,18 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
               </Badge>
             </TabsTrigger>
             <TabsTrigger
+              value="wellness"
+              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
+            >
+              <Sparkles className="h-4 w-4" />
+              <span className="hidden sm:inline">Wellness</span>
+              <Badge variant="secondary" className="text-xs">
+                {wellness.length}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger
               value="mocktail"
-              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
+              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
             >
               <GlassWater className="h-4 w-4" />
               <span className="hidden sm:inline">Mocktails</span>
@@ -60,7 +71,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
             </TabsTrigger>
             <TabsTrigger
               value="cocktail"
-              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
+              className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
             >
               <Wine className="h-4 w-4" />
               <span className="hidden sm:inline">Cocktails</span>
@@ -85,6 +96,25 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
             ) : (
               <p className="text-center text-muted-foreground py-8">
                 No smoothies match. Select all ingredients for a smoothie recipe!
+              </p>
+            )}
+          </TabsContent>
+
+          <TabsContent value="wellness" className="mt-4 space-y-4">
+            {wellness.length > 0 ? (
+              <div className="grid gap-4">
+                {wellness.map((drink) => (
+                  <DrinkCard
+                    key={drink.id}
+                    drink={drink}
+                    isSaved={savedDrinks.includes(drink.id)}
+                    onSave={() => onSave(drink.id)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground py-8">
+                No wellness drinks match. Select all ingredients for a wellness recipe!
               </p>
             )}
           </TabsContent>
