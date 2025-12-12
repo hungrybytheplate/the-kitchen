@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
+import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
+import { DrinkResults } from "@/components/DrinkResults";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
 import { SavedRecipes } from "@/components/SavedRecipes";
 import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
 import { WelcomeTour } from "@/components/WelcomeTour";
-import { ProgressIndicator } from "@/components/ProgressIndicator";
 import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,15 +17,27 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getRecipesForIngredients, type Recipe } from "@/data/recipes";
+import { getDrinksForIngredients } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, HelpCircle, ArrowRight, Info } from "lucide-react";
+import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
+  // Mode switching (Cook vs Drink)
+  const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
+  
+  // Cook mode state
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showRecipes, setShowRecipes] = useState(false);
   const [savedRecipes, setSavedRecipes] = useLocalStorage<string[]>("savedRecipes", []);
+  
+  // Drink mode state
+  const [selectedDrinkIngredients, setSelectedDrinkIngredients] = useState<string[]>([]);
+  const [showDrinks, setShowDrinks] = useState(false);
+  const [savedDrinks, setSavedDrinks] = useLocalStorage<string[]>("savedDrinks", []);
+  
+  // Shared state
   const [mealPlan, setMealPlan] = useLocalStorage<MealPlanEntry[]>("mealPlan", []);
   const [shoppingList, setShoppingList] = useLocalStorage<ShoppingItem[]>("shoppingList", []);
   const [calendarDialogRecipe, setCalendarDialogRecipe] = useState<Recipe | null>(null);
@@ -34,7 +47,9 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("ingredients");
 
   const recipes = getRecipesForIngredients(selectedIngredients);
+  const drinks = getDrinksForIngredients(selectedDrinkIngredients);
 
+  // Cook mode handlers
   const handleToggleIngredient = (id: string) => {
     setSelectedIngredients((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
@@ -62,6 +77,50 @@ const Index = () => {
     });
   };
 
+  // Drink mode handlers
+  const handleToggleDrinkIngredient = (id: string) => {
+    setSelectedDrinkIngredients((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
+
+  const handleClearAllDrinks = () => {
+    setSelectedDrinkIngredients([]);
+    setShowDrinks(false);
+  };
+
+  const handleGenerateDrinks = () => {
+    if (selectedDrinkIngredients.length === 0) {
+      toast({
+        title: "No ingredients selected",
+        description: "Please select at least one ingredient to find drinks.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setShowDrinks(true);
+    toast({
+      title: "Drinks found!",
+      description: `Found ${drinks.length} drinks matching your ingredients.`,
+    });
+  };
+
+  const handleSaveDrink = (drinkId: string) => {
+    setSavedDrinks((prev) =>
+      prev.includes(drinkId)
+        ? prev.filter((id) => id !== drinkId)
+        : [...prev, drinkId]
+    );
+    const isSaving = !savedDrinks.includes(drinkId);
+    toast({
+      title: isSaving ? "Drink saved!" : "Drink removed",
+      description: isSaving
+        ? "You can find it in your saved recipes."
+        : "Drink removed from saved list.",
+    });
+  };
+
+  // Shared handlers
   const handleSaveRecipe = (recipeId: string) => {
     setSavedRecipes((prev) =>
       prev.includes(recipeId)
@@ -119,7 +178,6 @@ const Index = () => {
       checked: false,
     };
     
-    // Check if already in list
     const exists = shoppingList.some(item => item.variant === variant);
     if (exists) {
       toast({
@@ -178,25 +236,6 @@ const Index = () => {
     setHasSeenTour(true);
   };
 
-  // Progress steps for cooking flow
-  const cookingProgress = [
-    { 
-      label: "Select", 
-      completed: selectedIngredients.length > 0, 
-      active: activeTab === "ingredients" && selectedIngredients.length === 0 
-    },
-    { 
-      label: "Find", 
-      completed: showRecipes, 
-      active: selectedIngredients.length > 0 && !showRecipes 
-    },
-    { 
-      label: "Cook", 
-      completed: savedRecipes.length > 0 || mealPlan.length > 0, 
-      active: showRecipes 
-    },
-  ];
-
   return (
     <div className="min-h-screen gradient-glow">
       {showTour && (
@@ -206,12 +245,42 @@ const Index = () => {
       <Header onShowTour={() => setShowTour(true)} />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
+        {/* Top-level Cook/Drink toggle */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex p-1.5 rounded-2xl glass shadow-soft">
+            <button
+              onClick={() => setAppMode("cook")}
+              className={cn(
+                "flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300",
+                appMode === "cook"
+                  ? "bg-card shadow-md text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <ChefHat className="h-5 w-5" />
+              <span>Cook</span>
+            </button>
+            <button
+              onClick={() => setAppMode("drink")}
+              className={cn(
+                "flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300",
+                appMode === "drink"
+                  ? "bg-card shadow-md text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Wine className="h-5 w-5" />
+              <span>Drink</span>
+            </button>
+          </div>
+        </div>
+
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
           <TabsList className="w-full max-w-xl mx-auto grid grid-cols-4 h-14 glass p-1.5 rounded-2xl shadow-soft">
-            <QuickTooltip content="Select ingredients & find recipes" side="bottom">
+            <QuickTooltip content={appMode === "cook" ? "Select ingredients & find recipes" : "Select ingredients & find drinks"} side="bottom">
               <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-                <ChefHat className="h-4 w-4" />
-                <span className="hidden sm:inline">Cook</span>
+                {appMode === "cook" ? <ChefHat className="h-4 w-4" /> : <GlassWater className="h-4 w-4" />}
+                <span className="hidden sm:inline">{appMode === "cook" ? "Cook" : "Mix"}</span>
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Plan your weekly meals" side="bottom">
@@ -229,9 +298,9 @@ const Index = () => {
               <TabsTrigger value="saved" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
                 <Heart className="h-4 w-4" />
                 <span className="hidden sm:inline">Saved</span>
-                {savedRecipes.length > 0 && (
+                {(savedRecipes.length + savedDrinks.length) > 0 && (
                   <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-primary/20 text-primary">
-                    {savedRecipes.length}
+                    {savedRecipes.length + savedDrinks.length}
                   </Badge>
                 )}
               </TabsTrigger>
@@ -250,95 +319,183 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
-            <div className="grid gap-8 lg:grid-cols-2">
-              {/* Ingredient Selection */}
-              <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="font-serif text-2xl">What's in your kitchen?</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">Select ingredients to find matching recipes</p>
-                    </div>
-                    {selectedIngredients.length > 0 && (
-                      <Button variant="ghost" size="sm" onClick={handleClearAll} className="text-muted-foreground hover:text-destructive">
-                        Clear all
-                      </Button>
-                    )}
-                  </div>
-                  {selectedIngredients.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/50">
-                      {selectedIngredients.slice(0, 8).map((id, index) => (
-                        <Badge
-                          key={id}
-                          variant="secondary"
-                          className={cn(
-                            "capitalize cursor-pointer transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground group px-3 py-1",
-                            `stagger-${Math.min(index + 1, 5)}`
-                          )}
-                          onClick={() => handleToggleIngredient(id)}
-                        >
-                          {id.replace("-", " ")}
-                          <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
-                        </Badge>
-                      ))}
-                      {selectedIngredients.length > 8 && (
-                        <Badge variant="outline" className="px-3">+{selectedIngredients.length - 8} more</Badge>
+            {appMode === "cook" ? (
+              // COOK MODE
+              <div className="grid gap-8 lg:grid-cols-2">
+                <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="font-serif text-2xl">What's in your kitchen?</CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">Select ingredients to find matching recipes</p>
+                      </div>
+                      {selectedIngredients.length > 0 && (
+                        <Button variant="ghost" size="sm" onClick={handleClearAll} className="text-muted-foreground hover:text-destructive">
+                          Clear all
+                        </Button>
                       )}
                     </div>
-                  )}
-                </CardHeader>
-                <CardContent>
-                  <IngredientSelector
-                    selectedIngredients={selectedIngredients}
-                    onToggle={handleToggleIngredient}
-                  />
-                  
-                  <div className="mt-6 pt-6 border-t border-border/50">
-                    <Button
-                      variant="warm"
-                      size="xl"
-                      className="w-full"
-                      onClick={handleGenerateRecipes}
-                      disabled={selectedIngredients.length === 0}
-                    >
-                      <Sparkles className="h-5 w-5 mr-2" />
-                      Find Recipes ({selectedIngredients.length} ingredients)
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Recipe Results */}
-              <div className="space-y-6">
-                {showRecipes ? (
-                  <RecipeResults
-                    recipes={recipes}
-                    savedRecipes={savedRecipes}
-                    onSave={handleSaveRecipe}
-                    onAddToCalendar={handleAddToCalendar}
-                    onAddToShopping={handleAddToShopping}
-                  />
-                ) : (
-                  <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
-                    <CardContent className="flex flex-col items-center justify-center py-20 text-center">
-                      <div className="relative mb-6">
-                        <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
-                        <div className="relative p-5 rounded-3xl gradient-warm shadow-warm">
-                          <Sparkles className="h-10 w-10 text-primary-foreground" />
-                        </div>
+                    {selectedIngredients.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/50">
+                        {selectedIngredients.slice(0, 8).map((id, index) => (
+                          <Badge
+                            key={id}
+                            variant="secondary"
+                            className={cn(
+                              "capitalize cursor-pointer transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground group px-3 py-1",
+                              `stagger-${Math.min(index + 1, 5)}`
+                            )}
+                            onClick={() => handleToggleIngredient(id)}
+                          >
+                            {id.replace("-", " ")}
+                            <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                          </Badge>
+                        ))}
+                        {selectedIngredients.length > 8 && (
+                          <Badge variant="outline" className="px-3">+{selectedIngredients.length - 8} more</Badge>
+                        )}
                       </div>
-                      <h3 className="font-serif text-2xl font-semibold mb-3">
-                        Ready to cook?
-                      </h3>
-                      <p className="text-muted-foreground max-w-sm leading-relaxed">
-                        Select ingredients from your fridge, pantry, and spice cabinet, then click "Find Recipes" to discover delicious meals!
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
+                    )}
+                  </CardHeader>
+                  <CardContent>
+                    <IngredientSelector
+                      selectedIngredients={selectedIngredients}
+                      onToggle={handleToggleIngredient}
+                    />
+                    
+                    <div className="mt-6 pt-6 border-t border-border/50">
+                      <Button
+                        variant="warm"
+                        size="xl"
+                        className="w-full"
+                        onClick={handleGenerateRecipes}
+                        disabled={selectedIngredients.length === 0}
+                      >
+                        <Sparkles className="h-5 w-5 mr-2" />
+                        Find Recipes ({selectedIngredients.length} ingredients)
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="space-y-6">
+                  {showRecipes ? (
+                    <RecipeResults
+                      recipes={recipes}
+                      savedRecipes={savedRecipes}
+                      onSave={handleSaveRecipe}
+                      onAddToCalendar={handleAddToCalendar}
+                      onAddToShopping={handleAddToShopping}
+                    />
+                  ) : (
+                    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
+                      <CardContent className="flex flex-col items-center justify-center py-20 text-center">
+                        <div className="relative mb-6">
+                          <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
+                          <div className="relative p-5 rounded-3xl gradient-warm shadow-warm">
+                            <Sparkles className="h-10 w-10 text-primary-foreground" />
+                          </div>
+                        </div>
+                        <h3 className="font-serif text-2xl font-semibold mb-3">
+                          Ready to cook?
+                        </h3>
+                        <p className="text-muted-foreground max-w-sm leading-relaxed">
+                          Select ingredients from your fridge, pantry, and spice cabinet, then click "Find Recipes" to discover delicious meals!
+                        </p>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : (
+              // DRINK MODE
+              <div className="grid gap-8 lg:grid-cols-2">
+                <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400" />
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="font-serif text-2xl">What's in your bar?</CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">Select spirits, mixers & garnishes</p>
+                      </div>
+                      {selectedDrinkIngredients.length > 0 && (
+                        <Button variant="ghost" size="sm" onClick={handleClearAllDrinks} className="text-muted-foreground hover:text-destructive">
+                          Clear all
+                        </Button>
+                      )}
+                    </div>
+                    {selectedDrinkIngredients.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/50">
+                        {selectedDrinkIngredients.slice(0, 8).map((id, index) => (
+                          <Badge
+                            key={id}
+                            variant="secondary"
+                            className={cn(
+                              "capitalize cursor-pointer transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground group px-3 py-1",
+                              `stagger-${Math.min(index + 1, 5)}`
+                            )}
+                            onClick={() => handleToggleDrinkIngredient(id)}
+                          >
+                            {id.replace("-", " ")}
+                            <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                          </Badge>
+                        ))}
+                        {selectedDrinkIngredients.length > 8 && (
+                          <Badge variant="outline" className="px-3">+{selectedDrinkIngredients.length - 8} more</Badge>
+                        )}
+                      </div>
+                    )}
+                  </CardHeader>
+                  <CardContent>
+                    <DrinkIngredientSelector
+                      selectedIngredients={selectedDrinkIngredients}
+                      onToggle={handleToggleDrinkIngredient}
+                    />
+                    
+                    <div className="mt-6 pt-6 border-t border-border/50">
+                      <Button
+                        variant="warm"
+                        size="xl"
+                        className="w-full"
+                        onClick={handleGenerateDrinks}
+                        disabled={selectedDrinkIngredients.length === 0}
+                      >
+                        <Sparkles className="h-5 w-5 mr-2" />
+                        Find Drinks ({selectedDrinkIngredients.length} ingredients)
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="space-y-6">
+                  {showDrinks ? (
+                    <DrinkResults
+                      drinks={drinks}
+                      savedDrinks={savedDrinks}
+                      onSave={handleSaveDrink}
+                    />
+                  ) : (
+                    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
+                      <CardContent className="flex flex-col items-center justify-center py-20 text-center">
+                        <div className="relative mb-6">
+                          <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400 blur-2xl opacity-30 animate-pulse-soft" />
+                          <div className="relative p-5 rounded-3xl bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400 shadow-lg">
+                            <Wine className="h-10 w-10 text-white" />
+                          </div>
+                        </div>
+                        <h3 className="font-serif text-2xl font-semibold mb-3">
+                          Ready to mix?
+                        </h3>
+                        <p className="text-muted-foreground max-w-sm leading-relaxed">
+                          Select spirits, mixers, and garnishes from your bar to discover cocktails, mocktails, and smoothies!
+                        </p>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-6">
