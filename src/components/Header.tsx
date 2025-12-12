@@ -13,7 +13,7 @@ export function Header() {
           </div>
           <div>
             <h1 className="font-serif text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
-              The Plate
+              The Kitchen
             </h1>
             <p className="text-sm text-muted-foreground font-medium hidden sm:block">
               Turn your ingredients into delicious meals
