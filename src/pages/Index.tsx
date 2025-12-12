@@ -285,16 +285,29 @@ const Index = () => {
             </button>
           </div>
           
-          {/* Search bar */}
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder={appMode === "cook" ? "Search recipes..." : "Search drinks..."}
-              value={appMode === "cook" ? recipeSearch : drinkSearch}
-              onChange={(e) => appMode === "cook" ? setRecipeSearch(e.target.value) : setDrinkSearch(e.target.value)}
-              className="pl-9 bg-card/90 border-border/50 rounded-xl"
-            />
-          </div>
+          {/* Search bar - only show when there are results to filter */}
+          {((appMode === "cook" && showRecipes && allRecipes.length > 0) || 
+            (appMode === "drink" && showDrinks && allDrinks.length > 0)) && (
+            <div className="relative w-full max-w-md animate-fade-in">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder={appMode === "cook" 
+                  ? `Filter ${allRecipes.length} recipes by name...` 
+                  : `Filter ${allDrinks.length} drinks by name...`}
+                value={appMode === "cook" ? recipeSearch : drinkSearch}
+                onChange={(e) => appMode === "cook" ? setRecipeSearch(e.target.value) : setDrinkSearch(e.target.value)}
+                className="pl-9 pr-9 bg-card/90 border-border/50 rounded-xl"
+              />
+              {((appMode === "cook" && recipeSearch) || (appMode === "drink" && drinkSearch)) && (
+                <button
+                  onClick={() => appMode === "cook" ? setRecipeSearch("") : setDrinkSearch("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
