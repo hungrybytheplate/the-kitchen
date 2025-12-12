@@ -1,6 +1,7 @@
 import { ChefHat, Sparkles, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface HeaderProps {
   onShowTour?: () => void;
@@ -28,6 +29,8 @@ export function Header({ onShowTour }: HeaderProps) {
         </div>
         
         <div className="flex items-center gap-3">
+          <ThemeToggle />
+          
           {onShowTour && (
             <QuickTooltip content="Take a tour" side="bottom">
               <Button 
