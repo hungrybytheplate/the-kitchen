@@ -54,7 +54,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       </TabsList>
 
       <TabsContent value="breakfast" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {breakfastRecipes.length > 0 ? (
             breakfastRecipes.map((recipe) => (
               <RecipeCard
@@ -75,7 +75,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       </TabsContent>
 
       <TabsContent value="lunch" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {lunchRecipes.length > 0 ? (
             lunchRecipes.map((recipe) => (
               <RecipeCard
@@ -96,7 +96,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       </TabsContent>
 
       <TabsContent value="dinner" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {dinnerRecipes.length > 0 ? (
             dinnerRecipes.map((recipe) => (
               <RecipeCard
