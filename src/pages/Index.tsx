@@ -258,7 +258,7 @@ const Index = () => {
               )}
             >
               <ChefHat className="h-5 w-5" />
-              <span>Cook</span>
+              <span>Plate</span>
             </button>
             <button
               onClick={() => setAppMode("drink")}
@@ -270,7 +270,7 @@ const Index = () => {
               )}
             >
               <Wine className="h-5 w-5" />
-              <span>Drink</span>
+              <span>Glass</span>
             </button>
           </div>
         </div>
