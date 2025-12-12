@@ -16,6 +16,7 @@ import { getRecipesForIngredients, type Recipe } from "@/data/recipes";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Index = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
@@ -158,63 +159,70 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background gradient-cream">
+    <div className="min-h-screen gradient-glow">
       <Header />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
-        <Tabs defaultValue="ingredients" className="space-y-6">
-          <TabsList className="w-full max-w-lg mx-auto grid grid-cols-4 h-12 bg-muted/50 p-1 rounded-xl">
-            <TabsTrigger value="ingredients" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
+        <Tabs defaultValue="ingredients" className="space-y-8">
+          <TabsList className="w-full max-w-xl mx-auto grid grid-cols-4 h-14 glass p-1.5 rounded-2xl shadow-soft">
+            <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
               <ChefHat className="h-4 w-4" />
-              <span className="hidden sm:inline">Ingredients</span>
+              <span className="hidden sm:inline">Cook</span>
             </TabsTrigger>
-            <TabsTrigger value="calendar" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
+            <TabsTrigger value="calendar" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
               <Calendar className="h-4 w-4" />
-              <span className="hidden sm:inline">Meal Plan</span>
+              <span className="hidden sm:inline">Plan</span>
             </TabsTrigger>
-            <TabsTrigger value="saved" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
+            <TabsTrigger value="saved" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
               <Heart className="h-4 w-4" />
               <span className="hidden sm:inline">Saved</span>
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2 relative">
+            <TabsTrigger value="shopping" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300 relative">
               <ShoppingCart className="h-4 w-4" />
               <span className="hidden sm:inline">Shop</span>
               {shoppingList.length > 0 && (
-                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs flex items-center justify-center">
+                <Badge className="absolute -top-1.5 -right-1.5 h-5 min-w-5 p-0 text-[10px] flex items-center justify-center gradient-warm border-2 border-background">
                   {shoppingList.length}
                 </Badge>
               )}
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="ingredients" className="space-y-6 mt-6">
-            <div className="grid gap-6 lg:grid-cols-2">
+          <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
+            <div className="grid gap-8 lg:grid-cols-2">
               {/* Ingredient Selection */}
-              <Card className="shadow-card">
+              <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-serif text-xl">What's in your kitchen?</CardTitle>
+                    <div>
+                      <CardTitle className="font-serif text-2xl">What's in your kitchen?</CardTitle>
+                      <p className="text-sm text-muted-foreground mt-1">Select ingredients to find matching recipes</p>
+                    </div>
                     {selectedIngredients.length > 0 && (
-                      <Button variant="ghost" size="sm" onClick={handleClearAll}>
+                      <Button variant="ghost" size="sm" onClick={handleClearAll} className="text-muted-foreground hover:text-destructive">
                         Clear all
                       </Button>
                     )}
                   </div>
                   {selectedIngredients.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {selectedIngredients.slice(0, 8).map((id) => (
+                    <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/50">
+                      {selectedIngredients.slice(0, 8).map((id, index) => (
                         <Badge
                           key={id}
                           variant="secondary"
-                          className="capitalize cursor-pointer hover:bg-destructive hover:text-destructive-foreground transition-colors group"
+                          className={cn(
+                            "capitalize cursor-pointer transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground group px-3 py-1",
+                            `stagger-${Math.min(index + 1, 5)}`
+                          )}
                           onClick={() => handleToggleIngredient(id)}
                         >
                           {id.replace("-", " ")}
-                          <X className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100" />
+                          <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                         </Badge>
                       ))}
                       {selectedIngredients.length > 8 && (
-                        <Badge variant="outline">+{selectedIngredients.length - 8} more</Badge>
+                        <Badge variant="outline" className="px-3">+{selectedIngredients.length - 8} more</Badge>
                       )}
                     </div>
                   )}
@@ -225,7 +233,7 @@ const Index = () => {
                     onToggle={handleToggleIngredient}
                   />
                   
-                  <div className="mt-6 pt-4 border-t border-border/50">
+                  <div className="mt-6 pt-6 border-t border-border/50">
                     <Button
                       variant="warm"
                       size="xl"
@@ -251,16 +259,19 @@ const Index = () => {
                     onAddToShopping={handleAddToShopping}
                   />
                 ) : (
-                  <Card className="shadow-card">
-                    <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-                      <div className="p-4 rounded-full bg-primary/10 mb-4">
-                        <Sparkles className="h-8 w-8 text-primary" />
+                  <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
+                    <CardContent className="flex flex-col items-center justify-center py-20 text-center">
+                      <div className="relative mb-6">
+                        <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
+                        <div className="relative p-5 rounded-3xl gradient-warm shadow-warm">
+                          <Sparkles className="h-10 w-10 text-primary-foreground" />
+                        </div>
                       </div>
-                      <h3 className="font-serif text-xl font-semibold mb-2">
+                      <h3 className="font-serif text-2xl font-semibold mb-3">
                         Ready to cook?
                       </h3>
-                      <p className="text-muted-foreground max-w-sm">
-                        Select ingredients from your fridge, pantry, and spice cabinet, then click "Find Recipes" to discover what you can make!
+                      <p className="text-muted-foreground max-w-sm leading-relaxed">
+                        Select ingredients from your fridge, pantry, and spice cabinet, then click "Find Recipes" to discover delicious meals!
                       </p>
                     </CardContent>
                   </Card>
