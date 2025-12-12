@@ -869,7 +869,7 @@ export function getRecipesForIngredients(selectedIngredients: string[]): Recipe[
       
       // Check if recipe has key ingredients that must be present
       const requiredKeys = keyIngredients[recipe.id] || [];
-      const hasAllKeyIngredients = requiredKeys.length === 0 || requiredKeys.some(key => 
+      const hasAllKeyIngredients = requiredKeys.length === 0 || requiredKeys.every(key => 
         selectedIngredients.some(selected => ingredientMatches(selected, key))
       );
       
