@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
+import { RecipeLookup } from "@/components/RecipeLookup";
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
@@ -233,6 +234,38 @@ const Index = () => {
     });
   };
 
+  const handleBulkAddToShopping = (ingredients: string[]) => {
+    let addedCount = 0;
+    const newItems: ShoppingItem[] = [];
+    
+    ingredients.forEach(ing => {
+      const variant = ing.replace(/-/g, " ");
+      const exists = shoppingList.some(item => item.variant.toLowerCase() === variant.toLowerCase());
+      if (!exists && !newItems.some(item => item.variant.toLowerCase() === variant.toLowerCase())) {
+        newItems.push({
+          id: `${ing}-${Date.now()}-${Math.random()}`,
+          ingredientId: ing,
+          variant: variant.charAt(0).toUpperCase() + variant.slice(1),
+          checked: false,
+        });
+        addedCount++;
+      }
+    });
+    
+    if (newItems.length > 0) {
+      setShoppingList((prev) => [...prev, ...newItems]);
+      toast({
+        title: "Added to shopping list!",
+        description: `${addedCount} ingredient${addedCount > 1 ? 's' : ''} added to your list.`,
+      });
+    } else {
+      toast({
+        title: "Already in list",
+        description: "All these ingredients are already in your shopping list.",
+      });
+    }
+  };
+
   const handleCompleteTour = () => {
     setShowTour(false);
     setHasSeenTour(true);
@@ -424,22 +457,7 @@ const Index = () => {
                       onAddToShopping={handleAddToShopping}
                     />
                   ) : (
-                    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
-                      <CardContent className="flex flex-col items-center justify-center py-20 text-center">
-                        <div className="relative mb-6">
-                          <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
-                          <div className="relative p-5 rounded-3xl gradient-warm shadow-warm">
-                            <Sparkles className="h-10 w-10 text-primary-foreground" />
-                          </div>
-                        </div>
-                        <h3 className="font-serif text-2xl font-semibold mb-3">
-                          Ready to cook?
-                        </h3>
-                        <p className="text-muted-foreground max-w-sm leading-relaxed">
-                          Select ingredients from your fridge, pantry, and spice cabinet, then click "Find Recipes" to discover delicious meals!
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <RecipeLookup onAddToShopping={handleBulkAddToShopping} />
                   )}
                 </div>
               </div>
