@@ -729,13 +729,13 @@ export const sampleRecipes: Recipe[] = [
   },
 ];
 
-// Key ingredients that MUST be present for certain recipes
+// Key ingredients that MUST be present for certain recipes (base ingredient names)
 const keyIngredients: Record<string, string[]> = {
   "avocado-toast": ["avocado"],
   "oatmeal-berries": ["oats"],
   "tuna-sandwich": ["tuna"],
-  "fish-tacos": ["fish"],
-  "beef-stir-fry": ["beef"],
+  "fish-tacos": ["fish", "salmon", "tilapia", "cod", "halibut", "mahi"],
+  "beef-stir-fry": ["beef", "ground-beef", "stew-beef"],
   "garlic-butter-chicken": ["chicken"],
   "chicken-salad": ["chicken"],
   "banana-pancakes": ["banana"],
@@ -754,17 +754,17 @@ const keyIngredients: Record<string, string[]> = {
   "asian-noodle-salad": ["pasta"],
   "stuffed-avocado": ["avocado", "tuna"],
   "chickpea-salad": ["chickpeas"],
-  "lemon-herb-salmon": ["fish"],
-  "chicken-curry": ["chicken", "coconut-milk"],
+  "lemon-herb-salmon": ["salmon", "fish"],
+  "chicken-curry": ["chicken", "coconut"],
   "shrimp-scampi": ["shrimp"],
-  "stuffed-peppers": ["bell-pepper", "beef"],
+  "stuffed-peppers": ["bell-pepper", "beef", "ground-beef"],
   "pork-chops": ["pork"],
   "vegetable-stir-fry": ["broccoli"],
   "spaghetti-carbonara": ["pasta", "eggs"],
   "teriyaki-chicken": ["chicken"],
   "mushroom-risotto": ["mushroom", "rice"],
-  "beef-tacos": ["beef"],
-  "coconut-shrimp-curry": ["shrimp", "coconut-milk"],
+  "beef-tacos": ["beef", "ground-beef"],
+  "coconut-shrimp-curry": ["shrimp", "coconut"],
   "baked-ziti": ["pasta", "cheese"],
   "honey-garlic-chicken": ["chicken"],
   "vegetable-lasagna": ["pasta", "zucchini"],
@@ -772,19 +772,105 @@ const keyIngredients: Record<string, string[]> = {
   "tofu-stir-fry": ["tofu"],
 };
 
+// Helper function to check if a selected ingredient matches a recipe ingredient
+function ingredientMatches(selectedId: string, recipeIngredient: string): boolean {
+  // Direct match
+  if (selectedId === recipeIngredient) return true;
+  
+  // Check if selected variant matches base ingredient
+  // e.g., "chicken-breast" matches "chicken", "beef-sirloin" matches "beef"
+  const selectedBase = selectedId.split('-')[0];
+  const recipeBase = recipeIngredient.split('-')[0];
+  
+  // Match if bases are the same
+  if (selectedBase === recipeBase) return true;
+  if (selectedBase === recipeIngredient) return true;
+  if (selectedId.startsWith(recipeIngredient)) return true;
+  
+  // Special mappings for common ingredient groups
+  const ingredientGroups: Record<string, string[]> = {
+    chicken: ['chicken-breast', 'chicken-thighs', 'chicken-tenders', 'chicken-wings', 'chicken-drumsticks', 'ground-chicken', 'rotisserie-chicken'],
+    beef: ['ground-beef', 'ground-beef-lean', 'beef-sirloin', 'beef-ribeye', 'beef-filet', 'beef-flank', 'stew-beef', 'beef-roast', 'beef-short-ribs'],
+    pork: ['pork-chops', 'pork-loin', 'ground-pork', 'bacon', 'turkey-bacon', 'pork-tenderloin', 'ham', 'ham-sliced', 'sausage-italian', 'sausage-breakfast', 'chorizo'],
+    fish: ['salmon-fillet', 'salmon-smoked', 'tilapia', 'cod', 'tuna-steak', 'mahi-mahi', 'halibut', 'sea-bass'],
+    shrimp: ['shrimp-raw', 'shrimp-cooked', 'shrimp-jumbo'],
+    tofu: ['tofu-firm', 'tofu-extra-firm', 'tofu-silken'],
+    eggs: ['eggs-large', 'eggs-extra-large', 'egg-whites', 'eggs-organic'],
+    milk: ['milk-whole', 'milk-2-percent', 'milk-skim', 'milk-almond', 'milk-oat', 'milk-coconut'],
+    butter: ['butter-salted', 'butter-unsalted'],
+    cheese: ['cheese-cheddar', 'cheese-sharp-cheddar', 'cheese-mozzarella', 'cheese-fresh-mozzarella', 'cheese-parmesan', 'cheese-feta', 'cheese-swiss', 'cheese-gouda', 'cheese-brie', 'cheese-provolone', 'cheese-pepper-jack', 'cheese-ricotta', 'cheese-goat', 'cheese-mexican-blend'],
+    yogurt: ['yogurt-greek-plain', 'yogurt-greek-vanilla', 'yogurt-regular'],
+    cream: ['cream-heavy', 'cream-light', 'half-and-half'],
+    onion: ['onion-yellow', 'onion-white', 'onion-red', 'onion-sweet', 'shallots', 'green-onions'],
+    garlic: ['garlic-fresh', 'garlic-minced', 'garlic-roasted'],
+    tomato: ['tomato-roma', 'tomato-cherry', 'tomato-grape', 'tomato-beefsteak', 'tomato-heirloom'],
+    lettuce: ['lettuce-romaine', 'lettuce-iceberg', 'lettuce-butter', 'mixed-greens', 'arugula'],
+    spinach: ['spinach-baby', 'spinach-bunch', 'spinach-frozen'],
+    carrot: ['carrots-whole', 'carrots-baby', 'carrots-shredded'],
+    'bell-pepper': ['bell-pepper-red', 'bell-pepper-green', 'bell-pepper-yellow', 'bell-pepper-orange'],
+    broccoli: ['broccoli-crowns', 'broccoli-florets', 'broccoli-frozen', 'broccolini'],
+    zucchini: ['zucchini-green', 'zucchini-yellow'],
+    mushroom: ['mushroom-white', 'mushroom-cremini', 'mushroom-portobello', 'mushroom-shiitake'],
+    celery: ['celery-stalks', 'celery-hearts'],
+    cucumber: ['cucumber-english', 'cucumber-persian', 'cucumber-regular'],
+    lemon: ['lemon', 'lemon-meyer'],
+    lime: ['lime', 'lime-key'],
+    apple: ['apple-gala', 'apple-fuji', 'apple-granny-smith', 'apple-honeycrisp'],
+    banana: ['banana-regular', 'banana-organic', 'plantain'],
+    berries: ['strawberries', 'blueberries', 'raspberries', 'blackberries', 'mixed-berries'],
+    avocado: ['avocado-hass', 'avocado-florida'],
+    orange: ['orange-navel', 'orange-blood', 'mandarin', 'clementine'],
+    rice: ['rice-white', 'rice-brown', 'rice-jasmine', 'rice-basmati'],
+    pasta: ['pasta-spaghetti', 'pasta-penne', 'pasta-fettuccine', 'pasta-linguine', 'pasta-rigatoni', 'pasta-lasagna'],
+    bread: ['bread-white', 'bread-wheat', 'bread-sourdough', 'bread-baguette'],
+    oats: ['oats-rolled', 'oats-steel-cut', 'oats-instant'],
+    flour: ['flour-all-purpose', 'flour-bread', 'flour-whole-wheat'],
+    quinoa: ['quinoa-white', 'quinoa-red'],
+    beans: ['beans-black', 'beans-pinto', 'beans-kidney', 'beans-cannellini', 'beans-refried'],
+    tomatoes: ['tomatoes-diced', 'tomatoes-crushed', 'tomatoes-sauce', 'tomatoes-paste'],
+    tuna: ['tuna-white', 'tuna-chunk'],
+    'coconut-milk': ['coconut-milk-full', 'coconut-milk-light'],
+    olives: ['olives-black', 'olives-kalamata', 'olives-green'],
+    'olive-oil': ['olive-oil-evoo', 'olive-oil-light'],
+    'vegetable-oil': ['vegetable-oil', 'canola-oil'],
+    salt: ['salt-kosher', 'salt-sea', 'salt-table'],
+    pepper: ['pepper-ground', 'pepper-whole', 'pepper-white'],
+    paprika: ['paprika-sweet', 'paprika-smoked', 'paprika-hot'],
+    cumin: ['cumin-ground', 'cumin-seeds'],
+    cinnamon: ['cinnamon-ground', 'cinnamon-sticks'],
+    ginger: ['ginger-ground', 'ginger-fresh'],
+    basil: ['basil-dried', 'basil-fresh'],
+    oregano: ['oregano-dried', 'oregano-fresh'],
+    thyme: ['thyme-dried', 'thyme-fresh'],
+    rosemary: ['rosemary-dried', 'rosemary-fresh'],
+    parsley: ['parsley-dried', 'parsley-fresh'],
+    'soy-sauce': ['soy-sauce', 'soy-sauce-low-sodium'],
+    mustard: ['mustard-yellow', 'mustard-dijon', 'mustard-whole-grain'],
+  };
+  
+  // Check if selected ingredient belongs to a group that matches the recipe ingredient
+  for (const [group, variants] of Object.entries(ingredientGroups)) {
+    if (variants.includes(selectedId) && (group === recipeIngredient || recipeIngredient.startsWith(group))) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
 export function getRecipesForIngredients(selectedIngredients: string[]): Recipe[] {
   if (selectedIngredients.length === 0) return [];
   
   return sampleRecipes
     .map(recipe => {
       const matchedIngredients = recipe.ingredients.filter(ing => 
-        selectedIngredients.includes(ing)
+        selectedIngredients.some(selected => ingredientMatches(selected, ing))
       );
       
       // Check if recipe has key ingredients that must be present
       const requiredKeys = keyIngredients[recipe.id] || [];
-      const hasAllKeyIngredients = requiredKeys.every(key => 
-        selectedIngredients.includes(key)
+      const hasAllKeyIngredients = requiredKeys.length === 0 || requiredKeys.some(key => 
+        selectedIngredients.some(selected => ingredientMatches(selected, key))
       );
       
       return {
