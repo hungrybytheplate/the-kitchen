@@ -12,19 +12,19 @@ export function IngredientCategory({ category, selectedIngredients, onToggle }: 
   const selectedCount = category.items.filter(item => selectedIngredients.includes(item.id)).length;
   
   return (
-    <div className="space-y-3 animate-fade-in">
+    <div className="space-y-2 animate-fade-in">
       <div className="flex items-center justify-between px-1">
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
           {category.name}
         </h3>
         {selectedCount > 0 && (
-          <Badge variant="secondary" className="text-xs px-2 py-0.5">
-            {selectedCount} selected
+          <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
+            {selectedCount}
           </Badge>
         )}
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-        {category.items.map((item, index) => (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
+        {category.items.map((item) => (
           <IngredientCheckbox
             key={item.id}
             ingredient={item}
