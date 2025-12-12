@@ -15,12 +15,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getRecipesForIngredients, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater } from "lucide-react";
+import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
@@ -31,10 +32,12 @@ const Index = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showRecipes, setShowRecipes] = useState(false);
   const [savedRecipes, setSavedRecipes] = useLocalStorage<string[]>("savedRecipes", []);
+  const [recipeSearch, setRecipeSearch] = useState("");
   
   // Drink mode state
   const [selectedDrinkIngredients, setSelectedDrinkIngredients] = useState<string[]>([]);
   const [showDrinks, setShowDrinks] = useState(false);
+  const [drinkSearch, setDrinkSearch] = useState("");
   const [savedDrinks, setSavedDrinks] = useLocalStorage<string[]>("savedDrinks", []);
   
   // Shared state
@@ -46,8 +49,16 @@ const Index = () => {
   const [showTour, setShowTour] = useState(!hasSeenTour);
   const [activeTab, setActiveTab] = useState("ingredients");
 
-  const recipes = getRecipesForIngredients(selectedIngredients);
-  const drinks = getDrinksForIngredients(selectedDrinkIngredients);
+  const allRecipes = getRecipesForIngredients(selectedIngredients);
+  const allDrinks = getDrinksForIngredients(selectedDrinkIngredients);
+  
+  // Filter by search
+  const recipes = allRecipes.filter(r => 
+    r.title.toLowerCase().includes(recipeSearch.toLowerCase())
+  );
+  const drinks = allDrinks.filter(d => 
+    d.title.toLowerCase().includes(drinkSearch.toLowerCase())
+  );
 
   // Cook mode handlers
   const handleToggleIngredient = (id: string) => {
@@ -379,15 +390,26 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {showRecipes ? (
-                    <RecipeResults
-                      recipes={recipes}
-                      savedRecipes={savedRecipes}
-                      onSave={handleSaveRecipe}
-                      onAddToCalendar={handleAddToCalendar}
-                      onAddToShopping={handleAddToShopping}
-                    />
+                    <>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search recipes..."
+                          value={recipeSearch}
+                          onChange={(e) => setRecipeSearch(e.target.value)}
+                          className="pl-9 bg-card/90 border-border/50"
+                        />
+                      </div>
+                      <RecipeResults
+                        recipes={recipes}
+                        savedRecipes={savedRecipes}
+                        onSave={handleSaveRecipe}
+                        onAddToCalendar={handleAddToCalendar}
+                        onAddToShopping={handleAddToShopping}
+                      />
+                    </>
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
                       <CardContent className="flex flex-col items-center justify-center py-20 text-center">
@@ -468,13 +490,24 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {showDrinks ? (
-                    <DrinkResults
-                      drinks={drinks}
-                      savedDrinks={savedDrinks}
-                      onSave={handleSaveDrink}
-                    />
+                    <>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search drinks..."
+                          value={drinkSearch}
+                          onChange={(e) => setDrinkSearch(e.target.value)}
+                          className="pl-9 bg-card/90 border-border/50"
+                        />
+                      </div>
+                      <DrinkResults
+                        drinks={drinks}
+                        savedDrinks={savedDrinks}
+                        onSave={handleSaveDrink}
+                      />
+                    </>
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
                       <CardContent className="flex flex-col items-center justify-center py-20 text-center">
