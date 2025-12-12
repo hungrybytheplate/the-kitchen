@@ -11,7 +11,7 @@ export interface Recipe {
 }
 
 export const sampleRecipes: Recipe[] = [
-  // Breakfast
+  // ============ BREAKFAST ============
   {
     id: "scrambled-eggs-toast",
     title: "Fluffy Scrambled Eggs on Toast",
@@ -27,7 +27,7 @@ export const sampleRecipes: Recipe[] = [
       "Toast bread until golden",
       "Serve eggs on toast, garnish with parsley"
     ],
-    matchedIngredients: ["eggs", "butter", "bread", "salt", "pepper"],
+    matchedIngredients: [],
   },
   {
     id: "oatmeal-berries",
@@ -43,7 +43,7 @@ export const sampleRecipes: Recipe[] = [
       "Stir in cinnamon",
       "Top with fresh berries and honey"
     ],
-    matchedIngredients: ["oats", "milk", "honey"],
+    matchedIngredients: [],
   },
   {
     id: "avocado-toast",
@@ -60,9 +60,127 @@ export const sampleRecipes: Recipe[] = [
       "Spread avocado on toast, top with egg",
       "Sprinkle with chili powder"
     ],
-    matchedIngredients: ["bread", "avocado", "eggs"],
+    matchedIngredients: [],
   },
-  // Lunch
+  {
+    id: "banana-pancakes",
+    title: "Fluffy Banana Pancakes",
+    mealType: "breakfast",
+    description: "Light and fluffy pancakes with mashed banana and maple syrup",
+    cookTime: "20 min",
+    servings: 4,
+    ingredients: ["flour", "eggs", "milk", "banana", "butter", "maple-syrup", "baking-powder"],
+    instructions: [
+      "Mash banana in a bowl",
+      "Mix flour, baking powder, eggs, and milk",
+      "Fold in mashed banana",
+      "Cook pancakes in buttered pan until golden",
+      "Serve with maple syrup"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "greek-yogurt-bowl",
+    title: "Greek Yogurt Parfait",
+    mealType: "breakfast",
+    description: "Creamy yogurt layered with fresh fruits and honey",
+    cookTime: "5 min",
+    servings: 1,
+    ingredients: ["yogurt", "berries", "honey", "oats", "banana"],
+    instructions: [
+      "Layer yogurt in a bowl or glass",
+      "Add fresh berries and sliced banana",
+      "Sprinkle with oats",
+      "Drizzle with honey"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "french-toast",
+    title: "Classic French Toast",
+    mealType: "breakfast",
+    description: "Golden brown French toast with cinnamon and vanilla",
+    cookTime: "15 min",
+    servings: 2,
+    ingredients: ["bread", "eggs", "milk", "butter", "cinnamon", "vanilla", "maple-syrup"],
+    instructions: [
+      "Whisk eggs, milk, cinnamon, and vanilla",
+      "Dip bread slices in egg mixture",
+      "Cook in buttered pan until golden on both sides",
+      "Serve with maple syrup"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "veggie-omelette",
+    title: "Garden Vegetable Omelette",
+    mealType: "breakfast",
+    description: "Fluffy omelette stuffed with fresh vegetables and cheese",
+    cookTime: "15 min",
+    servings: 1,
+    ingredients: ["eggs", "bell-pepper", "onion", "mushroom", "cheese", "butter", "salt", "pepper"],
+    instructions: [
+      "Whisk eggs with salt and pepper",
+      "Sauté vegetables in butter",
+      "Pour eggs over vegetables",
+      "Cook until set, add cheese",
+      "Fold and serve"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "breakfast-burrito",
+    title: "Hearty Breakfast Burrito",
+    mealType: "breakfast",
+    description: "Scrambled eggs with beans, cheese, and salsa wrapped in a tortilla",
+    cookTime: "20 min",
+    servings: 2,
+    ingredients: ["eggs", "beans", "cheese", "onion", "bell-pepper", "flour", "salt", "hot-sauce"],
+    instructions: [
+      "Scramble eggs with salt",
+      "Warm beans in a pan",
+      "Sauté onion and bell pepper",
+      "Warm tortillas",
+      "Fill with eggs, beans, vegetables, and cheese",
+      "Add hot sauce and roll up"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "smoothie-bowl",
+    title: "Tropical Smoothie Bowl",
+    mealType: "breakfast",
+    description: "Thick and creamy smoothie bowl topped with fresh fruits",
+    cookTime: "10 min",
+    servings: 1,
+    ingredients: ["banana", "berries", "yogurt", "honey", "coconut-milk", "oats"],
+    instructions: [
+      "Blend frozen banana, berries, and coconut milk until thick",
+      "Pour into bowl",
+      "Top with fresh berries, sliced banana, and oats",
+      "Drizzle with honey"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "egg-muffins",
+    title: "Savory Egg Muffins",
+    mealType: "breakfast",
+    description: "Portable baked egg cups with vegetables and cheese",
+    cookTime: "25 min",
+    servings: 6,
+    ingredients: ["eggs", "spinach", "cheese", "onion", "salt", "pepper", "milk"],
+    instructions: [
+      "Whisk eggs with milk, salt, and pepper",
+      "Divide spinach and onion into muffin tin",
+      "Pour egg mixture over vegetables",
+      "Top with cheese",
+      "Bake at 350°F for 20 minutes"
+    ],
+    matchedIngredients: [],
+  },
+
+  // ============ LUNCH ============
   {
     id: "chicken-salad",
     title: "Mediterranean Chicken Salad",
@@ -78,7 +196,7 @@ export const sampleRecipes: Recipe[] = [
       "Add olives and crumbled cheese",
       "Drizzle with olive oil and lemon juice"
     ],
-    matchedIngredients: ["chicken", "lettuce", "tomato", "olive-oil"],
+    matchedIngredients: [],
   },
   {
     id: "pasta-primavera",
@@ -95,7 +213,7 @@ export const sampleRecipes: Recipe[] = [
       "Toss pasta with vegetables",
       "Top with fresh basil and cheese"
     ],
-    matchedIngredients: ["pasta", "bell-pepper", "garlic", "olive-oil"],
+    matchedIngredients: [],
   },
   {
     id: "tuna-sandwich",
@@ -112,9 +230,163 @@ export const sampleRecipes: Recipe[] = [
       "Layer tuna, lettuce, and tomato",
       "Close sandwich and serve"
     ],
-    matchedIngredients: ["tuna", "bread", "lettuce"],
+    matchedIngredients: [],
   },
-  // Dinner
+  {
+    id: "caesar-salad",
+    title: "Classic Caesar Salad",
+    mealType: "lunch",
+    description: "Crisp romaine with creamy Caesar dressing and croutons",
+    cookTime: "15 min",
+    servings: 2,
+    ingredients: ["lettuce", "cheese", "bread", "garlic", "lemon", "olive-oil", "eggs"],
+    instructions: [
+      "Tear lettuce into bite-sized pieces",
+      "Make croutons by toasting cubed bread with garlic and olive oil",
+      "Whisk lemon, olive oil, and egg for dressing",
+      "Toss lettuce with dressing",
+      "Top with croutons and shaved cheese"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "grilled-cheese",
+    title: "Ultimate Grilled Cheese",
+    mealType: "lunch",
+    description: "Golden crispy grilled cheese with tomato soup",
+    cookTime: "15 min",
+    servings: 2,
+    ingredients: ["bread", "cheese", "butter", "tomatoes", "garlic", "basil"],
+    instructions: [
+      "Butter bread slices on one side",
+      "Layer cheese between bread slices",
+      "Grill in pan until golden and cheese melts",
+      "Blend tomatoes, garlic, and basil for soup",
+      "Serve sandwich with soup"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "chicken-wrap",
+    title: "Grilled Chicken Caesar Wrap",
+    mealType: "lunch",
+    description: "Tender chicken with romaine and Caesar dressing in a wrap",
+    cookTime: "20 min",
+    servings: 2,
+    ingredients: ["chicken", "lettuce", "cheese", "flour", "garlic", "lemon", "olive-oil"],
+    instructions: [
+      "Season and grill chicken",
+      "Slice chicken into strips",
+      "Toss lettuce with olive oil and lemon",
+      "Layer chicken, lettuce, and cheese on tortilla",
+      "Roll up and slice in half"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "quinoa-bowl",
+    title: "Mediterranean Quinoa Bowl",
+    mealType: "lunch",
+    description: "Protein-packed quinoa with vegetables and feta",
+    cookTime: "25 min",
+    servings: 2,
+    ingredients: ["quinoa", "cucumber", "tomato", "olives", "cheese", "lemon", "olive-oil", "parsley"],
+    instructions: [
+      "Cook quinoa according to package",
+      "Dice cucumber, tomatoes, and olives",
+      "Mix vegetables with cooled quinoa",
+      "Crumble cheese on top",
+      "Dress with lemon and olive oil"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "soup-lentil",
+    title: "Hearty Lentil Soup",
+    mealType: "lunch",
+    description: "Warming soup with lentils, vegetables, and aromatic spices",
+    cookTime: "35 min",
+    servings: 4,
+    ingredients: ["beans", "carrot", "celery", "onion", "garlic", "tomatoes", "cumin", "olive-oil"],
+    instructions: [
+      "Sauté onion, carrot, and celery in olive oil",
+      "Add garlic and cumin",
+      "Add lentils and tomatoes with water",
+      "Simmer until lentils are tender",
+      "Season and serve"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "caprese-sandwich",
+    title: "Fresh Caprese Sandwich",
+    mealType: "lunch",
+    description: "Mozzarella, tomato, and basil on crusty bread",
+    cookTime: "10 min",
+    servings: 1,
+    ingredients: ["bread", "cheese", "tomato", "basil", "olive-oil", "balsamic", "salt"],
+    instructions: [
+      "Slice bread and toast lightly",
+      "Layer fresh mozzarella and tomato slices",
+      "Add fresh basil leaves",
+      "Drizzle with olive oil and balsamic",
+      "Season with salt"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "asian-noodle-salad",
+    title: "Asian Sesame Noodle Salad",
+    mealType: "lunch",
+    description: "Cold noodles with crunchy vegetables in sesame dressing",
+    cookTime: "20 min",
+    servings: 2,
+    ingredients: ["pasta", "carrot", "cucumber", "bell-pepper", "soy-sauce", "ginger", "garlic", "vegetable-oil"],
+    instructions: [
+      "Cook noodles and rinse with cold water",
+      "Julienne vegetables",
+      "Whisk soy sauce, ginger, garlic, and oil",
+      "Toss noodles with vegetables and dressing",
+      "Chill before serving"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "stuffed-avocado",
+    title: "Tuna Stuffed Avocado",
+    mealType: "lunch",
+    description: "Ripe avocado filled with seasoned tuna salad",
+    cookTime: "15 min",
+    servings: 2,
+    ingredients: ["avocado", "tuna", "onion", "lemon", "salt", "pepper", "celery"],
+    instructions: [
+      "Halve avocados and remove pit",
+      "Mix tuna with diced onion and celery",
+      "Season with lemon, salt, and pepper",
+      "Fill avocado halves with tuna mixture",
+      "Serve immediately"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "chickpea-salad",
+    title: "Crunchy Chickpea Salad",
+    mealType: "lunch",
+    description: "Protein-rich chickpea salad with fresh vegetables",
+    cookTime: "10 min",
+    servings: 2,
+    ingredients: ["chickpeas", "cucumber", "tomato", "onion", "parsley", "lemon", "olive-oil"],
+    instructions: [
+      "Drain and rinse chickpeas",
+      "Dice cucumber, tomato, and onion",
+      "Chop fresh parsley",
+      "Combine all ingredients",
+      "Dress with lemon and olive oil"
+    ],
+    matchedIngredients: [],
+  },
+
+  // ============ DINNER ============
   {
     id: "garlic-butter-chicken",
     title: "Garlic Butter Chicken",
@@ -130,7 +402,7 @@ export const sampleRecipes: Recipe[] = [
       "Squeeze lemon over finished dish",
       "Let rest before serving"
     ],
-    matchedIngredients: ["chicken", "butter", "garlic"],
+    matchedIngredients: [],
   },
   {
     id: "beef-stir-fry",
@@ -147,7 +419,7 @@ export const sampleRecipes: Recipe[] = [
       "Pour in soy sauce and ginger",
       "Serve over rice"
     ],
-    matchedIngredients: ["beef", "bell-pepper", "soy-sauce"],
+    matchedIngredients: [],
   },
   {
     id: "creamy-tomato-pasta",
@@ -164,7 +436,7 @@ export const sampleRecipes: Recipe[] = [
       "Stir in cream and basil",
       "Toss with pasta and top with cheese"
     ],
-    matchedIngredients: ["pasta", "tomatoes", "cream", "garlic"],
+    matchedIngredients: [],
   },
   {
     id: "fish-tacos",
@@ -181,7 +453,279 @@ export const sampleRecipes: Recipe[] = [
       "Warm tortillas",
       "Assemble tacos with fish, slaw, and lime sour cream"
     ],
-    matchedIngredients: ["fish", "lettuce", "lime"],
+    matchedIngredients: [],
+  },
+  {
+    id: "lemon-herb-salmon",
+    title: "Lemon Herb Baked Salmon",
+    mealType: "dinner",
+    description: "Tender salmon fillet with fresh herbs and citrus",
+    cookTime: "25 min",
+    servings: 2,
+    ingredients: ["fish", "lemon", "garlic", "thyme", "rosemary", "olive-oil", "salt", "pepper"],
+    instructions: [
+      "Preheat oven to 400°F",
+      "Place salmon on baking sheet",
+      "Top with garlic, herbs, and lemon slices",
+      "Drizzle with olive oil",
+      "Bake for 15-18 minutes"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "chicken-curry",
+    title: "Creamy Chicken Curry",
+    mealType: "dinner",
+    description: "Aromatic curry with tender chicken and coconut milk",
+    cookTime: "35 min",
+    servings: 4,
+    ingredients: ["chicken", "coconut-milk", "onion", "garlic", "ginger", "curry-powder", "tomatoes", "rice"],
+    instructions: [
+      "Sauté onion, garlic, and ginger",
+      "Add curry powder and cook until fragrant",
+      "Add chicken and brown",
+      "Pour in coconut milk and tomatoes",
+      "Simmer until chicken is cooked, serve over rice"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "shrimp-scampi",
+    title: "Garlic Shrimp Scampi",
+    mealType: "dinner",
+    description: "Succulent shrimp in garlic butter wine sauce over pasta",
+    cookTime: "20 min",
+    servings: 4,
+    ingredients: ["shrimp", "pasta", "garlic", "butter", "lemon", "parsley", "olive-oil", "pepper"],
+    instructions: [
+      "Cook pasta according to package",
+      "Sauté garlic in butter and olive oil",
+      "Add shrimp and cook until pink",
+      "Squeeze in lemon juice",
+      "Toss with pasta and parsley"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "stuffed-peppers",
+    title: "Classic Stuffed Bell Peppers",
+    mealType: "dinner",
+    description: "Bell peppers filled with seasoned beef and rice",
+    cookTime: "45 min",
+    servings: 4,
+    ingredients: ["bell-pepper", "beef", "rice", "tomatoes", "onion", "garlic", "cheese", "italian-seasoning"],
+    instructions: [
+      "Cut tops off peppers and remove seeds",
+      "Cook rice and brown beef with onion and garlic",
+      "Mix beef, rice, and tomatoes with seasoning",
+      "Fill peppers and top with cheese",
+      "Bake at 375°F for 30 minutes"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "pork-chops",
+    title: "Pan-Seared Pork Chops",
+    mealType: "dinner",
+    description: "Juicy pork chops with apple cider glaze",
+    cookTime: "25 min",
+    servings: 2,
+    ingredients: ["pork", "apple", "butter", "thyme", "garlic", "salt", "pepper", "honey"],
+    instructions: [
+      "Season pork chops with salt, pepper, and thyme",
+      "Sear in hot pan until golden",
+      "Add butter, garlic, and apple slices",
+      "Drizzle with honey",
+      "Baste and finish cooking"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "vegetable-stir-fry",
+    title: "Asian Vegetable Stir-Fry",
+    mealType: "dinner",
+    description: "Crisp vegetables in savory ginger garlic sauce",
+    cookTime: "20 min",
+    servings: 4,
+    ingredients: ["broccoli", "bell-pepper", "carrot", "mushroom", "garlic", "ginger", "soy-sauce", "vegetable-oil"],
+    instructions: [
+      "Cut all vegetables into bite-sized pieces",
+      "Heat oil in wok until smoking",
+      "Stir-fry vegetables in batches",
+      "Add garlic and ginger",
+      "Season with soy sauce and serve"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "spaghetti-carbonara",
+    title: "Classic Spaghetti Carbonara",
+    mealType: "dinner",
+    description: "Creamy pasta with crispy pancetta and parmesan",
+    cookTime: "25 min",
+    servings: 4,
+    ingredients: ["pasta", "pork", "eggs", "cheese", "garlic", "pepper", "olive-oil"],
+    instructions: [
+      "Cook pasta until al dente",
+      "Crisp pancetta in pan",
+      "Whisk eggs with cheese and pepper",
+      "Toss hot pasta with pancetta",
+      "Add egg mixture and toss quickly"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "teriyaki-chicken",
+    title: "Teriyaki Chicken Bowl",
+    mealType: "dinner",
+    description: "Glazed chicken with steamed rice and vegetables",
+    cookTime: "30 min",
+    servings: 4,
+    ingredients: ["chicken", "rice", "soy-sauce", "honey", "garlic", "ginger", "broccoli", "carrot"],
+    instructions: [
+      "Cook rice according to package",
+      "Make teriyaki sauce with soy sauce, honey, garlic, and ginger",
+      "Grill chicken and brush with sauce",
+      "Steam broccoli and carrots",
+      "Serve chicken over rice with vegetables"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "mushroom-risotto",
+    title: "Creamy Mushroom Risotto",
+    mealType: "dinner",
+    description: "Rich and creamy Italian rice with sautéed mushrooms",
+    cookTime: "40 min",
+    servings: 4,
+    ingredients: ["rice", "mushroom", "onion", "garlic", "butter", "cheese", "thyme", "olive-oil"],
+    instructions: [
+      "Sauté mushrooms until golden",
+      "Toast rice in butter with onion and garlic",
+      "Add warm broth gradually, stirring constantly",
+      "Stir in cheese and thyme",
+      "Top with sautéed mushrooms"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "beef-tacos",
+    title: "Seasoned Beef Tacos",
+    mealType: "dinner",
+    description: "Spiced ground beef in crispy shells with fresh toppings",
+    cookTime: "25 min",
+    servings: 4,
+    ingredients: ["beef", "taco-seasoning", "lettuce", "tomato", "cheese", "sour-cream", "onion"],
+    instructions: [
+      "Brown ground beef with onion",
+      "Add taco seasoning and water",
+      "Simmer until thickened",
+      "Warm taco shells",
+      "Fill with beef and top with lettuce, tomato, cheese, and sour cream"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "coconut-shrimp-curry",
+    title: "Thai Coconut Shrimp Curry",
+    mealType: "dinner",
+    description: "Creamy coconut curry with succulent shrimp",
+    cookTime: "25 min",
+    servings: 4,
+    ingredients: ["shrimp", "coconut-milk", "bell-pepper", "garlic", "ginger", "curry-powder", "lime", "rice"],
+    instructions: [
+      "Sauté garlic and ginger",
+      "Add curry powder and bell pepper",
+      "Pour in coconut milk and simmer",
+      "Add shrimp and cook until pink",
+      "Finish with lime juice, serve over rice"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "baked-ziti",
+    title: "Cheesy Baked Ziti",
+    mealType: "dinner",
+    description: "Pasta baked with marinara, ricotta, and mozzarella",
+    cookTime: "45 min",
+    servings: 6,
+    ingredients: ["pasta", "tomatoes", "cheese", "cream-cheese", "garlic", "basil", "italian-seasoning"],
+    instructions: [
+      "Cook pasta until slightly underdone",
+      "Mix ricotta with egg and basil",
+      "Layer pasta, marinara, and cheeses in baking dish",
+      "Top with mozzarella",
+      "Bake at 375°F until bubbly"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "honey-garlic-chicken",
+    title: "Honey Garlic Chicken Thighs",
+    mealType: "dinner",
+    description: "Crispy chicken thighs glazed with sweet honey garlic sauce",
+    cookTime: "35 min",
+    servings: 4,
+    ingredients: ["chicken", "honey", "garlic", "soy-sauce", "butter", "thyme", "salt", "pepper"],
+    instructions: [
+      "Season chicken thighs with salt and pepper",
+      "Sear skin-side down until crispy",
+      "Flip and add garlic and butter",
+      "Mix honey and soy sauce, pour over chicken",
+      "Baste until glazed and cooked through"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "vegetable-lasagna",
+    title: "Garden Vegetable Lasagna",
+    mealType: "dinner",
+    description: "Layers of pasta, vegetables, and creamy cheese sauce",
+    cookTime: "60 min",
+    servings: 8,
+    ingredients: ["pasta", "zucchini", "spinach", "mushroom", "cheese", "cream", "garlic", "basil"],
+    instructions: [
+      "Sauté vegetables with garlic",
+      "Make cheese sauce with cream and cheese",
+      "Layer noodles, vegetables, and cheese sauce",
+      "Top with more cheese",
+      "Bake at 375°F for 45 minutes"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "beef-and-broccoli",
+    title: "Chinese Beef and Broccoli",
+    mealType: "dinner",
+    description: "Tender beef slices with crisp broccoli in oyster sauce",
+    cookTime: "25 min",
+    servings: 4,
+    ingredients: ["beef", "broccoli", "garlic", "ginger", "soy-sauce", "vegetable-oil", "rice"],
+    instructions: [
+      "Slice beef thin and marinate in soy sauce",
+      "Blanch broccoli until bright green",
+      "Stir-fry beef until browned",
+      "Add broccoli, garlic, and ginger",
+      "Serve over steamed rice"
+    ],
+    matchedIngredients: [],
+  },
+  {
+    id: "tofu-stir-fry",
+    title: "Crispy Tofu Stir-Fry",
+    mealType: "dinner",
+    description: "Golden crispy tofu with vegetables in savory sauce",
+    cookTime: "30 min",
+    servings: 4,
+    ingredients: ["tofu", "broccoli", "bell-pepper", "carrot", "soy-sauce", "garlic", "ginger", "vegetable-oil"],
+    instructions: [
+      "Press and cube tofu",
+      "Pan-fry tofu until golden and crispy",
+      "Stir-fry vegetables with garlic and ginger",
+      "Add tofu and soy sauce",
+      "Toss and serve over rice"
+    ],
+    matchedIngredients: [],
   },
 ];
 
@@ -194,6 +738,38 @@ const keyIngredients: Record<string, string[]> = {
   "beef-stir-fry": ["beef"],
   "garlic-butter-chicken": ["chicken"],
   "chicken-salad": ["chicken"],
+  "banana-pancakes": ["banana"],
+  "greek-yogurt-bowl": ["yogurt"],
+  "french-toast": ["bread", "eggs"],
+  "veggie-omelette": ["eggs"],
+  "breakfast-burrito": ["eggs", "beans"],
+  "smoothie-bowl": ["banana"],
+  "egg-muffins": ["eggs"],
+  "caesar-salad": ["lettuce"],
+  "grilled-cheese": ["cheese", "bread"],
+  "chicken-wrap": ["chicken"],
+  "quinoa-bowl": ["quinoa"],
+  "soup-lentil": ["beans"],
+  "caprese-sandwich": ["tomato", "cheese"],
+  "asian-noodle-salad": ["pasta"],
+  "stuffed-avocado": ["avocado", "tuna"],
+  "chickpea-salad": ["chickpeas"],
+  "lemon-herb-salmon": ["fish"],
+  "chicken-curry": ["chicken", "coconut-milk"],
+  "shrimp-scampi": ["shrimp"],
+  "stuffed-peppers": ["bell-pepper", "beef"],
+  "pork-chops": ["pork"],
+  "vegetable-stir-fry": ["broccoli"],
+  "spaghetti-carbonara": ["pasta", "eggs"],
+  "teriyaki-chicken": ["chicken"],
+  "mushroom-risotto": ["mushroom", "rice"],
+  "beef-tacos": ["beef"],
+  "coconut-shrimp-curry": ["shrimp", "coconut-milk"],
+  "baked-ziti": ["pasta", "cheese"],
+  "honey-garlic-chicken": ["chicken"],
+  "vegetable-lasagna": ["pasta", "zucchini"],
+  "beef-and-broccoli": ["beef", "broccoli"],
+  "tofu-stir-fry": ["tofu"],
 };
 
 export function getRecipesForIngredients(selectedIngredients: string[]): Recipe[] {
