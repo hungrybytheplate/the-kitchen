@@ -5,6 +5,7 @@ import { RecipeResults } from "@/components/RecipeResults";
 
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
+import { DrinkLookup } from "@/components/DrinkLookup";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
 import { SavedRecipes } from "@/components/SavedRecipes";
 import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
@@ -616,6 +617,8 @@ const Index = () => {
                     </div>
                   </CardContent>
                 </Card>
+
+                <DrinkLookup onAddToShopping={handleBulkAddToShopping} />
 
                 <div className="space-y-4">
                   {showDrinks ? (
