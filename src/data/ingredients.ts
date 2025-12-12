@@ -167,10 +167,7 @@ export const fridgeItems: IngredientCategory[] = [
     name: "Dairy",
     items: [
       // Eggs
-      { id: "eggs-large", name: "Large Eggs", emoji: "🥚" },
-      { id: "eggs-extra-large", name: "Extra Large Eggs", emoji: "🥚" },
-      { id: "egg-whites", name: "Egg Whites", emoji: "🥚" },
-      { id: "eggs-organic", name: "Organic Eggs", emoji: "🥚" },
+      { id: "eggs", name: "Eggs", emoji: "🥚" },
       // Milk
       { id: "milk-whole", name: "Whole Milk", emoji: "🥛" },
       { id: "milk-2-percent", name: "2% Milk", emoji: "🥛" },
