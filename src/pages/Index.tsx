@@ -257,7 +257,7 @@ const Index = () => {
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Top-level Cook/Drink toggle */}
-        <div className="flex justify-center mb-8">
+        <div className="flex flex-col items-center gap-4 mb-8">
           <div className="inline-flex p-1.5 rounded-2xl glass shadow-soft">
             <button
               onClick={() => setAppMode("cook")}
@@ -283,6 +283,17 @@ const Index = () => {
               <Wine className="h-5 w-5" />
               <span>Glass</span>
             </button>
+          </div>
+          
+          {/* Search bar */}
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder={appMode === "cook" ? "Search recipes..." : "Search drinks..."}
+              value={appMode === "cook" ? recipeSearch : drinkSearch}
+              onChange={(e) => appMode === "cook" ? setRecipeSearch(e.target.value) : setDrinkSearch(e.target.value)}
+              className="pl-9 bg-card/90 border-border/50 rounded-xl"
+            />
           </div>
         </div>
 
@@ -392,24 +403,13 @@ const Index = () => {
 
                 <div className="space-y-4">
                   {showRecipes ? (
-                    <>
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="Search recipes..."
-                          value={recipeSearch}
-                          onChange={(e) => setRecipeSearch(e.target.value)}
-                          className="pl-9 bg-card/90 border-border/50"
-                        />
-                      </div>
-                      <RecipeResults
-                        recipes={recipes}
-                        savedRecipes={savedRecipes}
-                        onSave={handleSaveRecipe}
-                        onAddToCalendar={handleAddToCalendar}
-                        onAddToShopping={handleAddToShopping}
-                      />
-                    </>
+                    <RecipeResults
+                      recipes={recipes}
+                      savedRecipes={savedRecipes}
+                      onSave={handleSaveRecipe}
+                      onAddToCalendar={handleAddToCalendar}
+                      onAddToShopping={handleAddToShopping}
+                    />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
                       <CardContent className="flex flex-col items-center justify-center py-20 text-center">
@@ -492,22 +492,11 @@ const Index = () => {
 
                 <div className="space-y-4">
                   {showDrinks ? (
-                    <>
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="Search drinks..."
-                          value={drinkSearch}
-                          onChange={(e) => setDrinkSearch(e.target.value)}
-                          className="pl-9 bg-card/90 border-border/50"
-                        />
-                      </div>
-                      <DrinkResults
-                        drinks={drinks}
-                        savedDrinks={savedDrinks}
-                        onSave={handleSaveDrink}
-                      />
-                    </>
+                    <DrinkResults
+                      drinks={drinks}
+                      savedDrinks={savedDrinks}
+                      onSave={handleSaveDrink}
+                    />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
                       <CardContent className="flex flex-col items-center justify-center py-20 text-center">
