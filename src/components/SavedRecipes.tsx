@@ -5,10 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote } from "lucide-react";
-import { sampleRecipes } from "@/data/recipes";
-import { sampleDrinks } from "@/data/drinks";
+import { sampleRecipes, Recipe } from "@/data/recipes";
+import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
 import { RecipeNotesDialog } from "@/components/RecipeNotesDialog";
+import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
+import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { QuickTooltip } from "@/components/Tooltip";
 
 export interface RecipeNotes {
@@ -28,6 +30,8 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
   const [search, setSearch] = useState("");
   const [notesDialogOpen, setNotesDialogOpen] = useState(false);
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
@@ -127,7 +131,8 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                 savedRecipes.map((recipe) => (
                   <div
                     key={recipe.id}
-                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer"
+                    onClick={() => setSelectedRecipe(recipe)}
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
                       <Badge className={cn("text-xs shrink-0", mealTypeColors[recipe.mealType])}>
@@ -142,7 +147,7 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                       <QuickTooltip content="Add notes" side="top">
                         <Button
                           variant="ghost"
@@ -181,7 +186,8 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                 savedDrinks.map((drink) => (
                   <div
                     key={drink.id}
-                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer"
+                    onClick={() => setSelectedDrink(drink)}
                   >
                     <div className="flex items-center gap-3">
                       <Badge className={cn("text-xs", drinkTypeColors[drink.drinkType])}>
@@ -189,14 +195,16 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                       </Badge>
                       <span className="font-medium">{drink.title}</span>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => onRemoveDrink(drink.id)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => onRemoveDrink(drink.id)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -216,6 +224,27 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
             recipeId={selectedRecipeForNotes.id}
             currentNote={recipeNotes[selectedRecipeForNotes.id] || ""}
             onSaveNote={onSaveNote}
+          />
+        )}
+
+        {selectedRecipe && (
+          <RecipeDetailDialog
+            recipe={selectedRecipe}
+            open={!!selectedRecipe}
+            onOpenChange={(open) => !open && setSelectedRecipe(null)}
+            isSaved={savedRecipeIds.includes(selectedRecipe.id)}
+            onSave={() => {}}
+            onAddToCalendar={() => {}}
+          />
+        )}
+
+        {selectedDrink && (
+          <DrinkDetailDialog
+            drink={selectedDrink}
+            open={!!selectedDrink}
+            onOpenChange={(open) => !open && setSelectedDrink(null)}
+            isSaved={savedDrinkIds.includes(selectedDrink.id)}
+            onSave={() => {}}
           />
         )}
       </CardContent>
