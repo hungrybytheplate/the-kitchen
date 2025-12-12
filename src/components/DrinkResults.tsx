@@ -62,7 +62,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
       </TabsList>
 
       <TabsContent value="smoothie" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {smoothies.length > 0 ? (
             smoothies.map((drink) => (
               <DrinkCard
@@ -81,7 +81,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
       </TabsContent>
 
       <TabsContent value="wellness" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {wellness.length > 0 ? (
             wellness.map((drink) => (
               <DrinkCard
@@ -100,7 +100,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
       </TabsContent>
 
       <TabsContent value="mocktail" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {mocktails.length > 0 ? (
             mocktails.map((drink) => (
               <DrinkCard
@@ -119,7 +119,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
       </TabsContent>
 
       <TabsContent value="cocktail" className="mt-0">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {cocktails.length > 0 ? (
             cocktails.map((drink) => (
               <DrinkCard
