@@ -1,6 +1,12 @@
-import { ChefHat, Sparkles } from "lucide-react";
+import { ChefHat, Sparkles, HelpCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { QuickTooltip } from "@/components/Tooltip";
 
-export function Header() {
+interface HeaderProps {
+  onShowTour?: () => void;
+}
+
+export function Header({ onShowTour }: HeaderProps) {
   return (
     <header className="py-5 px-4 border-b border-border/30 glass sticky top-0 z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
@@ -21,9 +27,24 @@ export function Header() {
           </div>
         </div>
         
-        <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-accent/50 border border-accent-foreground/10">
-          <Sparkles className="h-4 w-4 text-accent-foreground" />
-          <span className="text-sm font-medium text-accent-foreground">AI-Powered Recipes</span>
+        <div className="flex items-center gap-3">
+          {onShowTour && (
+            <QuickTooltip content="Take a tour" side="bottom">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={onShowTour}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <HelpCircle className="h-5 w-5" />
+              </Button>
+            </QuickTooltip>
+          )}
+          
+          <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-accent/50 border border-accent-foreground/10">
+            <Sparkles className="h-4 w-4 text-accent-foreground" />
+            <span className="text-sm font-medium text-accent-foreground">AI-Powered Recipes</span>
+          </div>
         </div>
       </div>
     </header>

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Calendar, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -33,11 +33,22 @@ export function MealCalendar({ mealPlan, onRemove }: MealCalendarProps) {
     dinner: "🌙",
   };
 
+  const isEmpty = mealPlan.length === 0;
+
   return (
-    <Card className="shadow-card">
+    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-1 gradient-sage" />
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="font-serif text-xl">Meal Plan</CardTitle>
+          <div>
+            <CardTitle className="font-serif text-2xl flex items-center gap-2">
+              <Calendar className="h-6 w-6 text-secondary" />
+              Meal Plan
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              {isEmpty ? "Plan your meals for the week ahead" : `${mealPlan.length} meal${mealPlan.length === 1 ? '' : 's'} planned`}
+            </p>
+          </div>
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"

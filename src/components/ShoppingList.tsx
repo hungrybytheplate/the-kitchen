@@ -33,17 +33,25 @@ export function ShoppingList({
 
   if (items.length === 0) {
     return (
-      <Card className="shadow-card">
+      <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
         <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="p-4 rounded-full bg-primary/10 mb-4">
-            <ShoppingCart className="h-8 w-8 text-primary" />
+          <div className="relative mb-6">
+            <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
+            <div className="relative p-4 rounded-2xl gradient-warm shadow-warm">
+              <ShoppingCart className="h-8 w-8 text-primary-foreground" />
+            </div>
           </div>
-          <h3 className="font-serif text-xl font-semibold mb-2">
-            Shopping list empty
+          <h3 className="font-serif text-2xl font-semibold mb-3">
+            Shopping List
           </h3>
-          <p className="text-muted-foreground max-w-sm">
-            Add missing ingredients from recipes to build your shopping list.
+          <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
+            Missing ingredients for a recipe? Add them here to build your shopping list. Check items off as you shop!
           </p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
+            <Check className="h-4 w-4" />
+            <span>Items appear when you add missing ingredients</span>
+          </div>
         </CardContent>
       </Card>
     );
@@ -58,24 +66,30 @@ export function ShoppingList({
   }, {} as Record<string, ShoppingItem[]>);
 
   return (
-    <Card className="shadow-card">
+    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="font-serif text-xl flex items-center gap-2">
-            <ShoppingCart className="h-5 w-5" />
-            Shopping List
-          </CardTitle>
-          <Badge variant="secondary">
-            {completedCount}/{totalCount} items
+          <div>
+            <CardTitle className="font-serif text-2xl flex items-center gap-2">
+              <ShoppingCart className="h-6 w-6 text-primary" />
+              Shopping List
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              {completedCount} of {totalCount} items checked
+            </p>
+          </div>
+          <Badge variant="secondary" className="text-sm px-3 py-1">
+            {totalCount - completedCount} remaining
           </Badge>
         </div>
         {completedCount > 0 && (
-          <div className="flex gap-2 mt-2">
-            <Button variant="outline" size="sm" onClick={onClearCompleted}>
+          <div className="flex gap-2 mt-4 pt-4 border-t border-border/50">
+            <Button variant="outline" size="sm" onClick={onClearCompleted} className="flex-1">
               <Check className="h-4 w-4 mr-1" />
               Clear completed
             </Button>
-            <Button variant="ghost" size="sm" onClick={onClearAll}>
+            <Button variant="ghost" size="sm" onClick={onClearAll} className="text-muted-foreground hover:text-destructive">
               <Trash2 className="h-4 w-4 mr-1" />
               Clear all
             </Button>

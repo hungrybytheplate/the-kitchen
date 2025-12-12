@@ -7,6 +7,9 @@ import { SavedRecipes } from "@/components/SavedRecipes";
 import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
+import { WelcomeTour } from "@/components/WelcomeTour";
+import { ProgressIndicator } from "@/components/ProgressIndicator";
+import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +18,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getRecipesForIngredients, type Recipe } from "@/data/recipes";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart } from "lucide-react";
+import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, HelpCircle, ArrowRight, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
@@ -26,6 +29,9 @@ const Index = () => {
   const [shoppingList, setShoppingList] = useLocalStorage<ShoppingItem[]>("shoppingList", []);
   const [calendarDialogRecipe, setCalendarDialogRecipe] = useState<Recipe | null>(null);
   const [shoppingDialogIngredient, setShoppingDialogIngredient] = useState<string | null>(null);
+  const [hasSeenTour, setHasSeenTour] = useLocalStorage<boolean>("hasSeenTour", false);
+  const [showTour, setShowTour] = useState(!hasSeenTour);
+  const [activeTab, setActiveTab] = useState("ingredients");
 
   const recipes = getRecipesForIngredients(selectedIngredients);
 
@@ -158,34 +164,89 @@ const Index = () => {
     });
   };
 
+  const handleCompleteTour = () => {
+    setShowTour(false);
+    setHasSeenTour(true);
+    toast({
+      title: "Welcome aboard! 🎉",
+      description: "Start by selecting ingredients from your kitchen.",
+    });
+  };
+
+  const handleSkipTour = () => {
+    setShowTour(false);
+    setHasSeenTour(true);
+  };
+
+  // Progress steps for cooking flow
+  const cookingProgress = [
+    { 
+      label: "Select", 
+      completed: selectedIngredients.length > 0, 
+      active: activeTab === "ingredients" && selectedIngredients.length === 0 
+    },
+    { 
+      label: "Find", 
+      completed: showRecipes, 
+      active: selectedIngredients.length > 0 && !showRecipes 
+    },
+    { 
+      label: "Cook", 
+      completed: savedRecipes.length > 0 || mealPlan.length > 0, 
+      active: showRecipes 
+    },
+  ];
+
   return (
     <div className="min-h-screen gradient-glow">
-      <Header />
+      {showTour && (
+        <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
+      )}
+      
+      <Header onShowTour={() => setShowTour(true)} />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
-        <Tabs defaultValue="ingredients" className="space-y-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
           <TabsList className="w-full max-w-xl mx-auto grid grid-cols-4 h-14 glass p-1.5 rounded-2xl shadow-soft">
-            <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-              <ChefHat className="h-4 w-4" />
-              <span className="hidden sm:inline">Cook</span>
-            </TabsTrigger>
-            <TabsTrigger value="calendar" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-              <Calendar className="h-4 w-4" />
-              <span className="hidden sm:inline">Plan</span>
-            </TabsTrigger>
-            <TabsTrigger value="saved" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-              <Heart className="h-4 w-4" />
-              <span className="hidden sm:inline">Saved</span>
-            </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300 relative">
-              <ShoppingCart className="h-4 w-4" />
-              <span className="hidden sm:inline">Shop</span>
-              {shoppingList.length > 0 && (
-                <Badge className="absolute -top-1.5 -right-1.5 h-5 min-w-5 p-0 text-[10px] flex items-center justify-center gradient-warm border-2 border-background">
-                  {shoppingList.length}
-                </Badge>
-              )}
-            </TabsTrigger>
+            <QuickTooltip content="Select ingredients & find recipes" side="bottom">
+              <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
+                <ChefHat className="h-4 w-4" />
+                <span className="hidden sm:inline">Cook</span>
+              </TabsTrigger>
+            </QuickTooltip>
+            <QuickTooltip content="Plan your weekly meals" side="bottom">
+              <TabsTrigger value="calendar" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
+                <Calendar className="h-4 w-4" />
+                <span className="hidden sm:inline">Plan</span>
+                {mealPlan.length > 0 && (
+                  <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-secondary text-secondary-foreground">
+                    {mealPlan.length}
+                  </Badge>
+                )}
+              </TabsTrigger>
+            </QuickTooltip>
+            <QuickTooltip content="Your favorite recipes" side="bottom">
+              <TabsTrigger value="saved" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
+                <Heart className="h-4 w-4" />
+                <span className="hidden sm:inline">Saved</span>
+                {savedRecipes.length > 0 && (
+                  <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-primary/20 text-primary">
+                    {savedRecipes.length}
+                  </Badge>
+                )}
+              </TabsTrigger>
+            </QuickTooltip>
+            <QuickTooltip content="Your shopping list" side="bottom">
+              <TabsTrigger value="shopping" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300 relative">
+                <ShoppingCart className="h-4 w-4" />
+                <span className="hidden sm:inline">Shop</span>
+                {shoppingList.length > 0 && (
+                  <Badge className="absolute -top-1.5 -right-1.5 h-5 min-w-5 p-0 text-[10px] flex items-center justify-center gradient-warm border-2 border-background">
+                    {shoppingList.length}
+                  </Badge>
+                )}
+              </TabsTrigger>
+            </QuickTooltip>
           </TabsList>
 
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
