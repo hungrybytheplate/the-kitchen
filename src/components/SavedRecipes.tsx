@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, Trash2 } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight } from "lucide-react";
 import { sampleRecipes } from "@/data/recipes";
 import { cn } from "@/lib/utils";
 
@@ -15,17 +15,26 @@ export function SavedRecipes({ savedRecipeIds, onRemove }: SavedRecipesProps) {
 
   if (savedRecipes.length === 0) {
     return (
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle className="font-serif text-xl flex items-center gap-2">
-            <Heart className="h-5 w-5 text-primary" />
-            Saved Recipes
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-center py-6">
-            No saved recipes yet. Click the heart icon on a recipe to save it!
+      <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
+        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 gradient-sunset blur-2xl opacity-30 animate-pulse-soft" />
+            <div className="relative p-4 rounded-2xl gradient-sunset shadow-warm">
+              <Heart className="h-8 w-8 text-primary-foreground" />
+            </div>
+          </div>
+          <h3 className="font-serif text-2xl font-semibold mb-3">
+            Your Recipe Collection
+          </h3>
+          <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
+            Save your favorite recipes by clicking the heart icon. They'll appear here for quick access anytime!
           </p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
+            <ChefHat className="h-4 w-4" />
+            <span>Find recipes in the Cook tab</span>
+            <ArrowRight className="h-4 w-4" />
+          </div>
         </CardContent>
       </Card>
     );
@@ -38,12 +47,16 @@ export function SavedRecipes({ savedRecipeIds, onRemove }: SavedRecipesProps) {
   };
 
   return (
-    <Card className="shadow-card">
+    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
       <CardHeader>
-        <CardTitle className="font-serif text-xl flex items-center gap-2">
-          <Heart className="h-5 w-5 text-primary fill-primary" />
-          Saved Recipes ({savedRecipes.length})
+        <CardTitle className="font-serif text-2xl flex items-center gap-2">
+          <Heart className="h-6 w-6 text-primary fill-primary" />
+          Saved Recipes
         </CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">
+          {savedRecipes.length} recipe{savedRecipes.length === 1 ? '' : 's'} saved
+        </p>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
