@@ -1,7 +1,21 @@
+export type HealthTag = 
+  | "Energy Boost" 
+  | "Immune Support" 
+  | "Protein Rich" 
+  | "Antioxidant" 
+  | "Digestive" 
+  | "Detox" 
+  | "Anti-Inflammatory" 
+  | "Omega-3" 
+  | "Vitamin C" 
+  | "Heart Healthy"
+  | "Low Calorie"
+  | "Hydrating";
+
 export interface Drink {
   id: string;
   title: string;
-  drinkType: "cocktail" | "mocktail" | "smoothie";
+  drinkType: "cocktail" | "mocktail" | "smoothie" | "wellness";
   description: string;
   prepTime: string;
   ingredients: string[];
@@ -12,6 +26,7 @@ export interface Drink {
   glassType: string;
   garnish?: string;
   isAlcoholic: boolean;
+  healthTags?: HealthTag[];
 }
 
 export const sampleDrinks: Drink[] = [
@@ -803,6 +818,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Antioxidant", "Vitamin C"],
   },
   {
     id: "tropical-paradise",
@@ -820,23 +836,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
-  },
-  {
-    id: "green-machine",
-    title: "Green Machine Smoothie",
-    drinkType: "smoothie",
-    description: "Healthy green smoothie with cucumber and citrus",
-    prepTime: "5 min",
-    ingredients: ["cucumber", "mint", "lime", "apple-juice", "honey"],
-    instructions: [
-      "Add cucumber and mint to blender",
-      "Add lime juice, apple juice, and honey",
-      "Blend until smooth",
-      "Strain if desired and serve over ice"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
+    healthTags: ["Hydrating", "Vitamin C"],
   },
   {
     id: "strawberry-banana",
@@ -854,6 +854,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Energy Boost"],
   },
   {
     id: "mango-lassi",
@@ -871,6 +872,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Digestive"],
   },
   {
     id: "peanut-butter-banana",
@@ -888,6 +890,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Protein Rich", "Energy Boost"],
   },
   {
     id: "acai-bowl-drink",
@@ -905,91 +908,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
-  },
-  {
-    id: "matcha-energy",
-    title: "Matcha Energy Smoothie",
-    drinkType: "smoothie",
-    description: "Energizing green tea smoothie with natural caffeine",
-    prepTime: "4 min",
-    ingredients: ["matcha", "banana", "almond-milk", "honey"],
-    instructions: [
-      "Add matcha powder to blender",
-      "Add banana, almond milk, and honey",
-      "Blend until smooth and frothy",
-      "Serve immediately for best energy boost"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "golden-turmeric",
-    title: "Golden Turmeric Wellness",
-    drinkType: "smoothie",
-    description: "Anti-inflammatory turmeric and ginger wellness drink",
-    prepTime: "5 min",
-    ingredients: ["turmeric", "ginger-fresh", "banana", "coconut-milk", "honey"],
-    instructions: [
-      "Add turmeric, fresh ginger, and banana to blender",
-      "Pour in coconut milk and honey",
-      "Blend until smooth",
-      "Add a pinch of black pepper to activate turmeric"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "green-detox",
-    title: "Green Detox Smoothie",
-    drinkType: "smoothie",
-    description: "Nutrient-packed green smoothie with spinach and kale",
-    prepTime: "5 min",
-    ingredients: ["spinach", "kale", "banana", "apple", "almond-milk"],
-    instructions: [
-      "Add spinach and kale to blender",
-      "Add banana and chopped apple",
-      "Pour in almond milk",
-      "Blend until completely smooth"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "protein-power",
-    title: "Protein Power Shake",
-    drinkType: "smoothie",
-    description: "Post-workout protein smoothie with peanut butter",
-    prepTime: "4 min",
-    ingredients: ["protein-powder", "banana", "peanut-butter", "oat-milk"],
-    instructions: [
-      "Add protein powder and banana to blender",
-      "Add peanut butter and oat milk",
-      "Blend until thick and creamy",
-      "Add ice for a thicker consistency"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "immunity-booster",
-    title: "Immunity Booster Shot",
-    drinkType: "smoothie",
-    description: "Vitamin C packed citrus and ginger immunity drink",
-    prepTime: "3 min",
-    ingredients: ["orange", "lemon", "ginger-fresh", "turmeric", "honey"],
-    instructions: [
-      "Juice the orange and lemon",
-      "Add ginger, turmeric, and honey",
-      "Blend briefly",
-      "Serve as a concentrated wellness shot"
-    ],
-    matchedIngredients: [],
-    glassType: "Shot glass",
-    isAlcoholic: false,
+    healthTags: ["Antioxidant", "Energy Boost"],
   },
   {
     id: "dragon-fruit-dream",
@@ -1007,74 +926,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
-  },
-  {
-    id: "avocado-smoothie",
-    title: "Creamy Avocado Smoothie",
-    drinkType: "smoothie",
-    description: "Rich and creamy avocado smoothie with healthy fats",
-    prepTime: "4 min",
-    ingredients: ["avocado", "banana", "spinach", "almond-milk", "honey"],
-    instructions: [
-      "Add avocado, banana, and spinach to blender",
-      "Pour in almond milk and honey",
-      "Blend until silky smooth",
-      "Serve immediately"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "chia-berry-bowl",
-    title: "Chia Berry Power",
-    drinkType: "smoothie",
-    description: "Omega-3 rich chia seed and berry blend",
-    prepTime: "5 min",
-    ingredients: ["chia-seeds", "blueberries", "strawberries", "almond-milk", "honey"],
-    instructions: [
-      "Soak chia seeds in almond milk for 5 minutes",
-      "Add berries and honey to blender",
-      "Add chia mixture and blend",
-      "Serve thick and creamy"
-    ],
-    matchedIngredients: [],
-    glassType: "Bowl or glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "tropical-green",
-    title: "Tropical Green Smoothie",
-    drinkType: "smoothie",
-    description: "Tropical fruits with hidden greens",
-    prepTime: "5 min",
-    ingredients: ["pineapple", "mango", "spinach", "coconut-water"],
-    instructions: [
-      "Add pineapple, mango, and spinach to blender",
-      "Pour in coconut water",
-      "Blend until smooth - spinach disappears!",
-      "Serve cold"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
-  },
-  {
-    id: "kiwi-mint-refresh",
-    title: "Kiwi Mint Refresher",
-    drinkType: "smoothie",
-    description: "Tangy kiwi smoothie with fresh mint",
-    prepTime: "4 min",
-    ingredients: ["kiwi", "banana", "mint", "coconut-water", "honey"],
-    instructions: [
-      "Peel and add kiwi to blender",
-      "Add banana, mint leaves, coconut water, and honey",
-      "Blend until smooth",
-      "Garnish with mint sprig"
-    ],
-    matchedIngredients: [],
-    glassType: "Tall glass",
-    isAlcoholic: false,
+    healthTags: ["Hydrating", "Antioxidant"],
   },
   {
     id: "cherry-almond",
@@ -1092,23 +944,25 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Protein Rich", "Heart Healthy"],
   },
   {
-    id: "papaya-ginger",
-    title: "Papaya Ginger Digestive",
+    id: "kiwi-mint-refresh",
+    title: "Kiwi Mint Refresher",
     drinkType: "smoothie",
-    description: "Digestive-friendly papaya and ginger blend",
+    description: "Tangy kiwi smoothie with fresh mint",
     prepTime: "4 min",
-    ingredients: ["papaya", "ginger-fresh", "banana", "coconut-water", "lime"],
+    ingredients: ["kiwi", "banana", "mint", "coconut-water", "honey"],
     instructions: [
-      "Add papaya chunks and fresh ginger to blender",
-      "Add banana, coconut water, and lime juice",
+      "Peel and add kiwi to blender",
+      "Add banana, mint leaves, coconut water, and honey",
       "Blend until smooth",
-      "Great for digestion!"
+      "Garnish with mint sprig"
     ],
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Vitamin C", "Hydrating"],
   },
   {
     id: "oat-breakfast",
@@ -1126,23 +980,25 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Protein Rich", "Energy Boost", "Heart Healthy"],
   },
   {
-    id: "spirulina-supergreen",
-    title: "Spirulina Super Green",
+    id: "tropical-green",
+    title: "Tropical Green Smoothie",
     drinkType: "smoothie",
-    description: "Superfood spirulina smoothie packed with nutrients",
-    prepTime: "4 min",
-    ingredients: ["spirulina", "banana", "pineapple", "coconut-water"],
+    description: "Tropical fruits with hidden greens",
+    prepTime: "5 min",
+    ingredients: ["pineapple", "mango", "spinach", "coconut-water"],
     instructions: [
-      "Add spirulina powder to blender",
-      "Add banana, pineapple, and coconut water",
-      "Blend until smooth",
-      "Start with small amount of spirulina and adjust"
+      "Add pineapple, mango, and spinach to blender",
+      "Pour in coconut water",
+      "Blend until smooth - spinach disappears!",
+      "Serve cold"
     ],
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Detox", "Vitamin C"],
   },
   {
     id: "chai-smoothie",
@@ -1160,11 +1016,194 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Anti-Inflammatory", "Digestive"],
+  },
+
+  // ============ WELLNESS DRINKS ============
+  {
+    id: "matcha-energy",
+    title: "Matcha Energy Smoothie",
+    drinkType: "wellness",
+    description: "Energizing green tea smoothie with natural caffeine",
+    prepTime: "4 min",
+    ingredients: ["matcha", "banana", "almond-milk", "honey"],
+    instructions: [
+      "Add matcha powder to blender",
+      "Add banana, almond milk, and honey",
+      "Blend until smooth and frothy",
+      "Serve immediately for best energy boost"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost", "Antioxidant"],
+  },
+  {
+    id: "golden-turmeric",
+    title: "Golden Turmeric Wellness",
+    drinkType: "wellness",
+    description: "Anti-inflammatory turmeric and ginger wellness drink",
+    prepTime: "5 min",
+    ingredients: ["turmeric", "ginger-fresh", "banana", "coconut-milk", "honey"],
+    instructions: [
+      "Add turmeric, fresh ginger, and banana to blender",
+      "Pour in coconut milk and honey",
+      "Blend until smooth",
+      "Add a pinch of black pepper to activate turmeric"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Anti-Inflammatory", "Immune Support"],
+  },
+  {
+    id: "green-machine",
+    title: "Green Machine Smoothie",
+    drinkType: "wellness",
+    description: "Healthy green smoothie with cucumber and citrus",
+    prepTime: "5 min",
+    ingredients: ["cucumber", "mint", "lime", "apple-juice", "honey"],
+    instructions: [
+      "Add cucumber and mint to blender",
+      "Add lime juice, apple juice, and honey",
+      "Blend until smooth",
+      "Strain if desired and serve over ice"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Detox", "Hydrating", "Low Calorie"],
+  },
+  {
+    id: "green-detox",
+    title: "Green Detox Smoothie",
+    drinkType: "wellness",
+    description: "Nutrient-packed green smoothie with spinach and kale",
+    prepTime: "5 min",
+    ingredients: ["spinach", "kale", "banana", "apple", "almond-milk"],
+    instructions: [
+      "Add spinach and kale to blender",
+      "Add banana and chopped apple",
+      "Pour in almond milk",
+      "Blend until completely smooth"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Detox", "Immune Support", "Antioxidant"],
+  },
+  {
+    id: "protein-power",
+    title: "Protein Power Shake",
+    drinkType: "wellness",
+    description: "Post-workout protein smoothie with peanut butter",
+    prepTime: "4 min",
+    ingredients: ["protein-powder", "banana", "peanut-butter", "oat-milk"],
+    instructions: [
+      "Add protein powder and banana to blender",
+      "Add peanut butter and oat milk",
+      "Blend until thick and creamy",
+      "Add ice for a thicker consistency"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Protein Rich", "Energy Boost"],
+  },
+  {
+    id: "immunity-booster",
+    title: "Immunity Booster Shot",
+    drinkType: "wellness",
+    description: "Vitamin C packed citrus and ginger immunity drink",
+    prepTime: "3 min",
+    ingredients: ["orange", "lemon", "ginger-fresh", "turmeric", "honey"],
+    instructions: [
+      "Juice the orange and lemon",
+      "Add ginger, turmeric, and honey",
+      "Blend briefly",
+      "Serve as a concentrated wellness shot"
+    ],
+    matchedIngredients: [],
+    glassType: "Shot glass",
+    isAlcoholic: false,
+    healthTags: ["Immune Support", "Vitamin C", "Anti-Inflammatory"],
+  },
+  {
+    id: "avocado-smoothie",
+    title: "Creamy Avocado Smoothie",
+    drinkType: "wellness",
+    description: "Rich and creamy avocado smoothie with healthy fats",
+    prepTime: "4 min",
+    ingredients: ["avocado", "banana", "spinach", "almond-milk", "honey"],
+    instructions: [
+      "Add avocado, banana, and spinach to blender",
+      "Pour in almond milk and honey",
+      "Blend until silky smooth",
+      "Serve immediately"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Heart Healthy", "Protein Rich", "Detox"],
+  },
+  {
+    id: "chia-berry-bowl",
+    title: "Chia Berry Power",
+    drinkType: "wellness",
+    description: "Omega-3 rich chia seed and berry blend",
+    prepTime: "5 min",
+    ingredients: ["chia-seeds", "blueberries", "strawberries", "almond-milk", "honey"],
+    instructions: [
+      "Soak chia seeds in almond milk for 5 minutes",
+      "Add berries and honey to blender",
+      "Add chia mixture and blend",
+      "Serve thick and creamy"
+    ],
+    matchedIngredients: [],
+    glassType: "Bowl or glass",
+    isAlcoholic: false,
+    healthTags: ["Omega-3", "Antioxidant", "Protein Rich"],
+  },
+  {
+    id: "papaya-ginger",
+    title: "Papaya Ginger Digestive",
+    drinkType: "wellness",
+    description: "Digestive-friendly papaya and ginger blend",
+    prepTime: "4 min",
+    ingredients: ["papaya", "ginger-fresh", "banana", "coconut-water", "lime"],
+    instructions: [
+      "Add papaya chunks and fresh ginger to blender",
+      "Add banana, coconut water, and lime juice",
+      "Blend until smooth",
+      "Great for digestion!"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Digestive", "Anti-Inflammatory"],
+  },
+  {
+    id: "spirulina-supergreen",
+    title: "Spirulina Super Green",
+    drinkType: "wellness",
+    description: "Superfood spirulina smoothie packed with nutrients",
+    prepTime: "4 min",
+    ingredients: ["spirulina", "banana", "pineapple", "coconut-water"],
+    instructions: [
+      "Add spirulina powder to blender",
+      "Add banana, pineapple, and coconut water",
+      "Blend until smooth",
+      "Start with small amount of spirulina and adjust"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Detox", "Protein Rich", "Immune Support"],
   },
   {
     id: "pomegranate-antioxidant",
     title: "Pomegranate Antioxidant Blast",
-    drinkType: "smoothie",
+    drinkType: "wellness",
     description: "Antioxidant-rich pomegranate and berry smoothie",
     prepTime: "5 min",
     ingredients: ["pomegranate", "blueberries", "banana", "yogurt"],
@@ -1177,11 +1216,12 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Antioxidant", "Heart Healthy"],
   },
   {
     id: "ginger-lemon-detox",
     title: "Ginger Lemon Detox",
-    drinkType: "smoothie",
+    drinkType: "wellness",
     description: "Cleansing ginger and lemon wellness drink",
     prepTime: "3 min",
     ingredients: ["ginger-fresh", "lemon", "honey", "cayenne"],
@@ -1194,11 +1234,12 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Mug or glass",
     isAlcoholic: false,
+    healthTags: ["Detox", "Immune Support", "Anti-Inflammatory"],
   },
   {
     id: "coffee-protein",
     title: "Coffee Protein Smoothie",
-    drinkType: "smoothie",
+    drinkType: "wellness",
     description: "Caffeinated protein smoothie for busy mornings",
     prepTime: "4 min",
     ingredients: ["coffee", "protein-powder", "banana", "almond-milk"],
@@ -1211,11 +1252,12 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Energy Boost", "Protein Rich"],
   },
   {
     id: "flax-berry",
     title: "Flax Berry Omega Boost",
-    drinkType: "smoothie",
+    drinkType: "wellness",
     description: "Omega-3 rich smoothie with flax seeds",
     prepTime: "4 min",
     ingredients: ["flax-seeds", "strawberries", "banana", "oat-milk", "honey"],
@@ -1228,6 +1270,7 @@ export const sampleDrinks: Drink[] = [
     matchedIngredients: [],
     glassType: "Tall glass",
     isAlcoholic: false,
+    healthTags: ["Omega-3", "Heart Healthy", "Antioxidant"],
   },
 ];
 

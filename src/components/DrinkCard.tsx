@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Heart, Check, Key, Wine, GlassWater, Leaf } from "lucide-react";
+import { Clock, Heart, Check, Key, Wine, GlassWater, Leaf, Sparkles, Zap, Shield, Dumbbell, HeartPulse, Droplets } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import type { Drink } from "@/data/drinks";
+import type { Drink, HealthTag } from "@/data/drinks";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
 
 interface DrinkCardProps {
@@ -35,6 +35,28 @@ const drinkTypeConfig = {
     emoji: "🥤",
     label: "Smoothie",
   },
+  wellness: {
+    bg: "bg-gradient-to-r from-violet-400/20 to-purple-400/20",
+    border: "border-violet-400/30",
+    text: "text-violet-700 dark:text-violet-400",
+    emoji: "✨",
+    label: "Wellness",
+  },
+};
+
+const healthTagConfig: Record<HealthTag, { icon: typeof Zap; color: string }> = {
+  "Energy Boost": { icon: Zap, color: "bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-700" },
+  "Immune Support": { icon: Shield, color: "bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-700" },
+  "Protein Rich": { icon: Dumbbell, color: "bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-700" },
+  "Antioxidant": { icon: Sparkles, color: "bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-700" },
+  "Digestive": { icon: HeartPulse, color: "bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-700" },
+  "Detox": { icon: Leaf, color: "bg-emerald-100 text-emerald-700 border-emerald-300 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-700" },
+  "Anti-Inflammatory": { icon: Shield, color: "bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-700" },
+  "Omega-3": { icon: HeartPulse, color: "bg-cyan-100 text-cyan-700 border-cyan-300 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-700" },
+  "Vitamin C": { icon: Zap, color: "bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-700" },
+  "Heart Healthy": { icon: HeartPulse, color: "bg-red-100 text-red-700 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700" },
+  "Low Calorie": { icon: Leaf, color: "bg-lime-100 text-lime-700 border-lime-300 dark:bg-lime-900/30 dark:text-lime-400 dark:border-lime-700" },
+  "Hydrating": { icon: Droplets, color: "bg-sky-100 text-sky-700 border-sky-300 dark:bg-sky-900/30 dark:text-sky-400 dark:border-sky-700" },
 };
 
 export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
@@ -135,6 +157,26 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
               <span className="font-medium">{drink.glassType}</span>
             </div>
           </div>
+
+          {/* Health benefit tags */}
+          {drink.healthTags && drink.healthTags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {drink.healthTags.map((tag) => {
+                const tagConfig = healthTagConfig[tag];
+                const TagIcon = tagConfig.icon;
+                return (
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    className={cn("text-xs font-medium px-2 py-0.5 border", tagConfig.color)}
+                  >
+                    <TagIcon className="h-3 w-3 mr-1" />
+                    {tag}
+                  </Badge>
+                );
+              })}
+            </div>
+          )}
 
           {/* Key ingredients matched */}
           {drink.matchedKeyIngredients && drink.matchedKeyIngredients.length > 0 && (
