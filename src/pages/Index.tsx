@@ -321,7 +321,7 @@ const Index = () => {
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
             {appMode === "cook" ? (
               // COOK MODE
-              <div className="grid gap-8 lg:grid-cols-2">
+            <div className="grid gap-6 lg:grid-cols-2">
                 <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
                   <CardHeader className="pb-4">
@@ -410,7 +410,7 @@ const Index = () => {
               </div>
             ) : (
               // DRINK MODE
-              <div className="grid gap-8 lg:grid-cols-2">
+              <div className="grid gap-6 lg:grid-cols-2">
                 <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400" />
                   <CardHeader className="pb-4">
