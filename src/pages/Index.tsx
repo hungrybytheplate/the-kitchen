@@ -561,7 +561,7 @@ const Index = () => {
               // DRINK MODE
               <div className="grid gap-4 lg:grid-cols-2">
                 <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400" />
+                  <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
                       <div>
@@ -626,18 +626,18 @@ const Index = () => {
                     />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
-                      <CardContent className="flex flex-col items-center justify-center py-20 text-center">
+                      <CardContent className="flex flex-col items-center justify-center py-16 text-center">
                         <div className="relative mb-6">
-                          <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400 blur-2xl opacity-30 animate-pulse-soft" />
-                          <div className="relative p-5 rounded-3xl bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400 shadow-lg">
-                            <Wine className="h-10 w-10 text-white" />
+                          <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
+                          <div className="relative p-5 rounded-3xl gradient-warm shadow-warm">
+                            <Wine className="h-10 w-10 text-primary-foreground" />
                           </div>
                         </div>
                         <h3 className="font-serif text-2xl font-semibold mb-3">
                           Ready to mix?
                         </h3>
                         <p className="text-muted-foreground max-w-sm leading-relaxed">
-                          Select spirits, mixers, and garnishes from your bar to discover cocktails, mocktails, and smoothies!
+                          Select ingredients or use the search above to look up any drink and build your shopping list!
                         </p>
                       </CardContent>
                     </Card>
