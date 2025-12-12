@@ -1,3 +1,19 @@
+export type DietaryTag = "vegetarian" | "vegan" | "gluten-free" | "dairy-free" | "keto" | "paleo" | "nut-free";
+export type DifficultyLevel = "easy" | "medium" | "hard";
+
+export interface NutritionInfo {
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
+export interface IngredientWithAmount {
+  id: string;
+  amount: string;
+  unit: string;
+}
+
 export interface Recipe {
   id: string;
   title: string;
@@ -6,10 +22,14 @@ export interface Recipe {
   cookTime: string;
   servings: number;
   ingredients: string[];
+  ingredientAmounts?: IngredientWithAmount[];
   instructions: string[];
   matchedIngredients: string[];
   keyIngredients?: string[];
   matchedKeyIngredients?: string[];
+  dietaryTags?: DietaryTag[];
+  difficulty?: DifficultyLevel;
+  nutrition?: NutritionInfo;
 }
 
 export const sampleRecipes: Recipe[] = [
@@ -22,6 +42,14 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "10 min",
     servings: 2,
     ingredients: ["eggs", "butter", "bread", "salt", "pepper", "parsley"],
+    ingredientAmounts: [
+      { id: "eggs", amount: "4", unit: "large" },
+      { id: "butter", amount: "2", unit: "tbsp" },
+      { id: "bread", amount: "2", unit: "slices" },
+      { id: "salt", amount: "0.5", unit: "tsp" },
+      { id: "pepper", amount: "0.25", unit: "tsp" },
+      { id: "parsley", amount: "1", unit: "tbsp" },
+    ],
     instructions: [
       "Whisk eggs with salt and pepper",
       "Melt butter in a pan over low heat",
@@ -30,6 +58,9 @@ export const sampleRecipes: Recipe[] = [
       "Serve eggs on toast, garnish with parsley"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 320, protein: 18, carbs: 22, fat: 18 },
   },
   {
     id: "oatmeal-berries",
@@ -39,6 +70,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "15 min",
     servings: 2,
     ingredients: ["oats", "milk", "berries", "honey", "cinnamon"],
+    ingredientAmounts: [
+      { id: "oats", amount: "1", unit: "cup" },
+      { id: "milk", amount: "2", unit: "cups" },
+      { id: "berries", amount: "1", unit: "cup" },
+      { id: "honey", amount: "2", unit: "tbsp" },
+      { id: "cinnamon", amount: "0.5", unit: "tsp" },
+    ],
     instructions: [
       "Bring milk to a simmer",
       "Add oats and cook for 5 minutes",
@@ -46,6 +84,9 @@ export const sampleRecipes: Recipe[] = [
       "Top with fresh berries and honey"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 280, protein: 8, carbs: 52, fat: 6 },
   },
   {
     id: "avocado-toast",
@@ -55,6 +96,14 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "10 min",
     servings: 1,
     ingredients: ["bread", "avocado", "eggs", "salt", "pepper", "chili-powder"],
+    ingredientAmounts: [
+      { id: "bread", amount: "2", unit: "slices" },
+      { id: "avocado", amount: "1", unit: "medium" },
+      { id: "eggs", amount: "1", unit: "large" },
+      { id: "salt", amount: "0.25", unit: "tsp" },
+      { id: "pepper", amount: "0.125", unit: "tsp" },
+      { id: "chili-powder", amount: "0.25", unit: "tsp" },
+    ],
     instructions: [
       "Toast bread until golden",
       "Mash avocado with salt and pepper",
@@ -63,6 +112,9 @@ export const sampleRecipes: Recipe[] = [
       "Sprinkle with chili powder"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "dairy-free"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 14, carbs: 28, fat: 26 },
   },
   {
     id: "banana-pancakes",
@@ -72,6 +124,15 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 4,
     ingredients: ["flour", "eggs", "milk", "banana", "butter", "maple-syrup", "baking-powder"],
+    ingredientAmounts: [
+      { id: "flour", amount: "2", unit: "cups" },
+      { id: "eggs", amount: "2", unit: "large" },
+      { id: "milk", amount: "1.5", unit: "cups" },
+      { id: "banana", amount: "2", unit: "medium" },
+      { id: "butter", amount: "3", unit: "tbsp" },
+      { id: "maple-syrup", amount: "0.25", unit: "cup" },
+      { id: "baking-powder", amount: "2", unit: "tsp" },
+    ],
     instructions: [
       "Mash banana in a bowl",
       "Mix flour, baking powder, eggs, and milk",
@@ -80,6 +141,9 @@ export const sampleRecipes: Recipe[] = [
       "Serve with maple syrup"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 10, carbs: 62, fat: 12 },
   },
   {
     id: "greek-yogurt-bowl",
@@ -89,6 +153,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "5 min",
     servings: 1,
     ingredients: ["yogurt", "berries", "honey", "oats", "banana"],
+    ingredientAmounts: [
+      { id: "yogurt", amount: "1", unit: "cup" },
+      { id: "berries", amount: "0.5", unit: "cup" },
+      { id: "honey", amount: "1", unit: "tbsp" },
+      { id: "oats", amount: "0.25", unit: "cup" },
+      { id: "banana", amount: "0.5", unit: "medium" },
+    ],
     instructions: [
       "Layer yogurt in a bowl or glass",
       "Add fresh berries and sliced banana",
@@ -96,6 +167,9 @@ export const sampleRecipes: Recipe[] = [
       "Drizzle with honey"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 320, protein: 18, carbs: 52, fat: 6 },
   },
   {
     id: "french-toast",
@@ -105,6 +179,15 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "15 min",
     servings: 2,
     ingredients: ["bread", "eggs", "milk", "butter", "cinnamon", "vanilla", "maple-syrup"],
+    ingredientAmounts: [
+      { id: "bread", amount: "4", unit: "slices" },
+      { id: "eggs", amount: "2", unit: "large" },
+      { id: "milk", amount: "0.5", unit: "cup" },
+      { id: "butter", amount: "2", unit: "tbsp" },
+      { id: "cinnamon", amount: "1", unit: "tsp" },
+      { id: "vanilla", amount: "0.5", unit: "tsp" },
+      { id: "maple-syrup", amount: "2", unit: "tbsp" },
+    ],
     instructions: [
       "Whisk eggs, milk, cinnamon, and vanilla",
       "Dip bread slices in egg mixture",
@@ -112,6 +195,9 @@ export const sampleRecipes: Recipe[] = [
       "Serve with maple syrup"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 420, protein: 14, carbs: 48, fat: 20 },
   },
   {
     id: "veggie-omelette",
@@ -121,6 +207,16 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "15 min",
     servings: 1,
     ingredients: ["eggs", "bell-pepper", "onion", "mushroom", "cheese", "butter", "salt", "pepper"],
+    ingredientAmounts: [
+      { id: "eggs", amount: "3", unit: "large" },
+      { id: "bell-pepper", amount: "0.5", unit: "cup" },
+      { id: "onion", amount: "0.25", unit: "cup" },
+      { id: "mushroom", amount: "0.5", unit: "cup" },
+      { id: "cheese", amount: "0.25", unit: "cup" },
+      { id: "butter", amount: "1", unit: "tbsp" },
+      { id: "salt", amount: "0.25", unit: "tsp" },
+      { id: "pepper", amount: "0.125", unit: "tsp" },
+    ],
     instructions: [
       "Whisk eggs with salt and pepper",
       "Sauté vegetables in butter",
@@ -129,6 +225,9 @@ export const sampleRecipes: Recipe[] = [
       "Fold and serve"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free", "keto"],
+    difficulty: "medium",
+    nutrition: { calories: 380, protein: 24, carbs: 8, fat: 28 },
   },
   {
     id: "breakfast-burrito",
@@ -259,6 +358,14 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "15 min",
     servings: 2,
     ingredients: ["bread", "cheese", "butter", "tomatoes", "garlic", "basil"],
+    ingredientAmounts: [
+      { id: "bread", amount: "4", unit: "slices" },
+      { id: "cheese", amount: "4", unit: "slices" },
+      { id: "butter", amount: "3", unit: "tbsp" },
+      { id: "tomatoes", amount: "2", unit: "cups" },
+      { id: "garlic", amount: "2", unit: "cloves" },
+      { id: "basil", amount: "0.25", unit: "cup" },
+    ],
     instructions: [
       "Butter bread slices on one side",
       "Layer cheese between bread slices",
@@ -267,6 +374,9 @@ export const sampleRecipes: Recipe[] = [
       "Serve sandwich with soup"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 520, protein: 18, carbs: 42, fat: 32 },
   },
   {
     id: "chicken-wrap",
@@ -293,6 +403,16 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 2,
     ingredients: ["quinoa", "cucumber", "tomato", "olives", "cheese", "lemon", "olive-oil", "parsley"],
+    ingredientAmounts: [
+      { id: "quinoa", amount: "1", unit: "cup" },
+      { id: "cucumber", amount: "1", unit: "medium" },
+      { id: "tomato", amount: "1", unit: "cup" },
+      { id: "olives", amount: "0.5", unit: "cup" },
+      { id: "cheese", amount: "0.5", unit: "cup" },
+      { id: "lemon", amount: "2", unit: "tbsp" },
+      { id: "olive-oil", amount: "2", unit: "tbsp" },
+      { id: "parsley", amount: "0.25", unit: "cup" },
+    ],
     instructions: [
       "Cook quinoa according to package",
       "Dice cucumber, tomatoes, and olives",
@@ -301,6 +421,9 @@ export const sampleRecipes: Recipe[] = [
       "Dress with lemon and olive oil"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 14, carbs: 42, fat: 18 },
   },
   {
     id: "soup-lentil",
@@ -310,6 +433,16 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "35 min",
     servings: 4,
     ingredients: ["beans", "carrot", "celery", "onion", "garlic", "tomatoes", "cumin", "olive-oil"],
+    ingredientAmounts: [
+      { id: "beans", amount: "1.5", unit: "cups" },
+      { id: "carrot", amount: "2", unit: "medium" },
+      { id: "celery", amount: "2", unit: "stalks" },
+      { id: "onion", amount: "1", unit: "medium" },
+      { id: "garlic", amount: "3", unit: "cloves" },
+      { id: "tomatoes", amount: "1", unit: "can" },
+      { id: "cumin", amount: "1", unit: "tsp" },
+      { id: "olive-oil", amount: "2", unit: "tbsp" },
+    ],
     instructions: [
       "Sauté onion, carrot, and celery in olive oil",
       "Add garlic and cumin",
@@ -318,6 +451,9 @@ export const sampleRecipes: Recipe[] = [
       "Season and serve"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegan", "gluten-free", "dairy-free"],
+    difficulty: "easy",
+    nutrition: { calories: 280, protein: 16, carbs: 42, fat: 6 },
   },
   {
     id: "caprese-sandwich",
@@ -738,6 +874,18 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 4,
     ingredients: ["chicken", "flour", "butter", "lemon", "capers", "garlic", "parsley", "salt", "pepper", "olive-oil"],
+    ingredientAmounts: [
+      { id: "chicken", amount: "4", unit: "breasts" },
+      { id: "flour", amount: "0.5", unit: "cup" },
+      { id: "butter", amount: "4", unit: "tbsp" },
+      { id: "lemon", amount: "2", unit: "medium" },
+      { id: "capers", amount: "3", unit: "tbsp" },
+      { id: "garlic", amount: "3", unit: "cloves" },
+      { id: "parsley", amount: "0.25", unit: "cup" },
+      { id: "salt", amount: "1", unit: "tsp" },
+      { id: "pepper", amount: "0.5", unit: "tsp" },
+      { id: "olive-oil", amount: "3", unit: "tbsp" },
+    ],
     instructions: [
       "Pound chicken breasts to even thickness",
       "Season and dredge in flour",
@@ -748,6 +896,9 @@ export const sampleRecipes: Recipe[] = [
       "Garnish with fresh parsley"
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 38, carbs: 12, fat: 24 },
   },
   {
     id: "chicken-marsala",
@@ -757,6 +908,17 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "30 min",
     servings: 4,
     ingredients: ["chicken", "mushroom", "flour", "butter", "garlic", "parsley", "salt", "pepper", "olive-oil"],
+    ingredientAmounts: [
+      { id: "chicken", amount: "4", unit: "breasts" },
+      { id: "mushroom", amount: "8", unit: "oz" },
+      { id: "flour", amount: "0.5", unit: "cup" },
+      { id: "butter", amount: "4", unit: "tbsp" },
+      { id: "garlic", amount: "3", unit: "cloves" },
+      { id: "parsley", amount: "0.25", unit: "cup" },
+      { id: "salt", amount: "1", unit: "tsp" },
+      { id: "pepper", amount: "0.5", unit: "tsp" },
+      { id: "olive-oil", amount: "3", unit: "tbsp" },
+    ],
     instructions: [
       "Pound and season chicken cutlets",
       "Dredge in flour and pan-fry until golden",
@@ -767,6 +929,8 @@ export const sampleRecipes: Recipe[] = [
       "Garnish with parsley"
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 460, protein: 40, carbs: 14, fat: 28 },
   },
   {
     id: "chicken-parmesan",
@@ -776,6 +940,17 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "35 min",
     servings: 4,
     ingredients: ["chicken", "bread-crumbs", "parmesan", "mozzarella", "eggs", "tomato-sauce", "garlic", "basil", "olive-oil"],
+    ingredientAmounts: [
+      { id: "chicken", amount: "4", unit: "breasts" },
+      { id: "bread-crumbs", amount: "1", unit: "cup" },
+      { id: "parmesan", amount: "0.5", unit: "cup" },
+      { id: "mozzarella", amount: "1", unit: "cup" },
+      { id: "eggs", amount: "2", unit: "large" },
+      { id: "tomato-sauce", amount: "2", unit: "cups" },
+      { id: "garlic", amount: "3", unit: "cloves" },
+      { id: "basil", amount: "0.25", unit: "cup" },
+      { id: "olive-oil", amount: "0.25", unit: "cup" },
+    ],
     instructions: [
       "Pound chicken breasts thin",
       "Dip in egg, then breadcrumb-parmesan mixture",
@@ -785,6 +960,8 @@ export const sampleRecipes: Recipe[] = [
       "Garnish with fresh basil"
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 580, protein: 52, carbs: 28, fat: 30 },
   },
   {
     id: "eggplant-parmesan",
