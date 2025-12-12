@@ -9,22 +9,22 @@ interface IngredientCategoryProps {
   onToggle: (id: string) => void;
 }
 
-// Color mapping for different category types
+// Color mapping for different category types - more vibrant colors
 const categoryColors: Record<string, { bg: string; border: string; badge: string }> = {
   // Fridge categories
-  proteins: { bg: "bg-rose-50/50", border: "border-rose-200/50", badge: "bg-rose-100 text-rose-700" },
-  dairy: { bg: "bg-amber-50/50", border: "border-amber-200/50", badge: "bg-amber-100 text-amber-700" },
-  vegetables: { bg: "bg-emerald-50/50", border: "border-emerald-200/50", badge: "bg-emerald-100 text-emerald-700" },
-  fruits: { bg: "bg-purple-50/50", border: "border-purple-200/50", badge: "bg-purple-100 text-purple-700" },
+  proteins: { bg: "bg-rose-100", border: "border-rose-300", badge: "bg-rose-200 text-rose-800" },
+  dairy: { bg: "bg-amber-100", border: "border-amber-300", badge: "bg-amber-200 text-amber-800" },
+  vegetables: { bg: "bg-emerald-100", border: "border-emerald-300", badge: "bg-emerald-200 text-emerald-800" },
+  fruits: { bg: "bg-purple-100", border: "border-purple-300", badge: "bg-purple-200 text-purple-800" },
   // Pantry categories
-  grains: { bg: "bg-orange-50/50", border: "border-orange-200/50", badge: "bg-orange-100 text-orange-700" },
-  canned: { bg: "bg-slate-50/50", border: "border-slate-200/50", badge: "bg-slate-100 text-slate-700" },
-  oils: { bg: "bg-yellow-50/50", border: "border-yellow-200/50", badge: "bg-yellow-100 text-yellow-700" },
-  baking: { bg: "bg-pink-50/50", border: "border-pink-200/50", badge: "bg-pink-100 text-pink-700" },
+  grains: { bg: "bg-orange-100", border: "border-orange-300", badge: "bg-orange-200 text-orange-800" },
+  canned: { bg: "bg-slate-100", border: "border-slate-300", badge: "bg-slate-200 text-slate-800" },
+  oils: { bg: "bg-yellow-100", border: "border-yellow-300", badge: "bg-yellow-200 text-yellow-800" },
+  baking: { bg: "bg-pink-100", border: "border-pink-300", badge: "bg-pink-200 text-pink-800" },
   // Spice categories
-  "dried-herbs": { bg: "bg-green-50/50", border: "border-green-200/50", badge: "bg-green-100 text-green-700" },
-  spices: { bg: "bg-red-50/50", border: "border-red-200/50", badge: "bg-red-100 text-red-700" },
-  seasonings: { bg: "bg-teal-50/50", border: "border-teal-200/50", badge: "bg-teal-100 text-teal-700" },
+  "dried-herbs": { bg: "bg-green-100", border: "border-green-300", badge: "bg-green-200 text-green-800" },
+  spices: { bg: "bg-red-100", border: "border-red-300", badge: "bg-red-200 text-red-800" },
+  seasonings: { bg: "bg-teal-100", border: "border-teal-300", badge: "bg-teal-200 text-teal-800" },
 };
 
 const defaultColors = { bg: "bg-muted/30", border: "border-border/50", badge: "bg-secondary text-secondary-foreground" };
