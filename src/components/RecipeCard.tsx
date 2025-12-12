@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat } from "lucide-react";
+import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
@@ -115,17 +115,31 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
             </div>
           </div>
 
+          {/* Key ingredients matched */}
+          {recipe.matchedKeyIngredients && recipe.matchedKeyIngredients.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {recipe.matchedKeyIngredients.map((ing) => (
+                <Badge key={ing} className="text-xs font-semibold px-2.5 py-1 bg-primary/15 border border-primary/30 text-primary">
+                  <Key className="h-3 w-3 mr-1" />
+                  {ing.replace("-", " ")}
+                </Badge>
+              ))}
+            </div>
+          )}
+
           {/* Matched ingredients */}
-          <div className="flex flex-wrap gap-1.5 mt-4">
-            {recipe.matchedIngredients.slice(0, 5).map((ing) => (
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {recipe.matchedIngredients
+              .filter(ing => !recipe.matchedKeyIngredients?.includes(ing))
+              .slice(0, 4).map((ing) => (
               <Badge key={ing} variant="outline" className="text-xs font-medium bg-secondary/5 border-secondary/20 text-secondary">
                 <Check className="h-3 w-3 mr-1" />
                 {ing.replace("-", " ")}
               </Badge>
             ))}
-            {recipe.matchedIngredients.length > 5 && (
+            {recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length > 4 && (
               <Badge variant="outline" className="text-xs bg-muted/50">
-                +{recipe.matchedIngredients.length - 5}
+                +{recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length - 4}
               </Badge>
             )}
           </div>

@@ -8,6 +8,8 @@ export interface Recipe {
   ingredients: string[];
   instructions: string[];
   matchedIngredients: string[];
+  keyIngredients?: string[];
+  matchedKeyIngredients?: string[];
 }
 
 export const sampleRecipes: Recipe[] = [
@@ -869,15 +871,18 @@ export function getRecipesForIngredients(selectedIngredients: string[]): Recipe[
       
       // Check if recipe has key ingredients that must be present
       const requiredKeys = keyIngredients[recipe.id] || [];
-      const hasAllKeyIngredients = requiredKeys.length === 0 || requiredKeys.every(key => 
+      const matchedKeyIngredients = requiredKeys.filter(key => 
         selectedIngredients.some(selected => ingredientMatches(selected, key))
       );
+      const hasAllKeyIngredients = requiredKeys.length === 0 || matchedKeyIngredients.length === requiredKeys.length;
       
       return {
         ...recipe,
         matchedIngredients,
         matchScore: matchedIngredients.length / recipe.ingredients.length,
-        hasAllKeyIngredients
+        hasAllKeyIngredients,
+        keyIngredients: requiredKeys,
+        matchedKeyIngredients
       };
     })
     .filter(recipe => recipe.matchScore >= 0.4 && recipe.hasAllKeyIngredients) // At least 40% match AND has key ingredients
