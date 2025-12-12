@@ -994,7 +994,7 @@ export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] 
       };
     })
     .filter(
-      (drink) => drink.matchScore >= 0.4 && drink.hasAllKeyIngredients
+      (drink) => drink.matchScore === 1 // Require ALL ingredients to be selected
     )
     .sort((a, b) => b.matchScore - a.matchScore);
 }

@@ -25,7 +25,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
           </div>
           <h3 className="font-serif text-xl font-semibold mb-2">No drinks found</h3>
           <p className="text-muted-foreground max-w-sm">
-            Select more ingredients to discover matching drink recipes
+            Select all ingredients needed for a drink recipe to see it here
           </p>
         </CardContent>
       </Card>
@@ -34,18 +34,18 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
 
   return (
     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-400" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-400 via-emerald-400 to-amber-400" />
       <CardContent className="p-4">
-        <Tabs defaultValue="cocktail" className="space-y-4">
+        <Tabs defaultValue="smoothie" className="space-y-4">
           <TabsList className="w-full grid grid-cols-3 h-12 glass p-1 rounded-xl">
             <TabsTrigger
-              value="cocktail"
+              value="smoothie"
               className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
             >
-              <Wine className="h-4 w-4" />
-              <span className="hidden sm:inline">Cocktails</span>
+              <BlendIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Smoothies</span>
               <Badge variant="secondary" className="text-xs">
-                {cocktails.length}
+                {smoothies.length}
               </Badge>
             </TabsTrigger>
             <TabsTrigger
@@ -59,21 +59,21 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
               </Badge>
             </TabsTrigger>
             <TabsTrigger
-              value="smoothie"
+              value="cocktail"
               className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
             >
-              <BlendIcon className="h-4 w-4" />
-              <span className="hidden sm:inline">Smoothies</span>
+              <Wine className="h-4 w-4" />
+              <span className="hidden sm:inline">Cocktails</span>
               <Badge variant="secondary" className="text-xs">
-                {smoothies.length}
+                {cocktails.length}
               </Badge>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="cocktail" className="mt-4 space-y-4">
-            {cocktails.length > 0 ? (
+          <TabsContent value="smoothie" className="mt-4 space-y-4">
+            {smoothies.length > 0 ? (
               <div className="grid gap-4">
-                {cocktails.map((drink) => (
+                {smoothies.map((drink) => (
                   <DrinkCard
                     key={drink.id}
                     drink={drink}
@@ -84,7 +84,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
               </div>
             ) : (
               <p className="text-center text-muted-foreground py-8">
-                No cocktails match your ingredients. Try adding spirits!
+                No smoothies match. Select all ingredients for a smoothie recipe!
               </p>
             )}
           </TabsContent>
@@ -103,15 +103,15 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
               </div>
             ) : (
               <p className="text-center text-muted-foreground py-8">
-                No mocktails match your ingredients. Try adding citrus or mint!
+                No mocktails match. Select all ingredients for a mocktail recipe!
               </p>
             )}
           </TabsContent>
 
-          <TabsContent value="smoothie" className="mt-4 space-y-4">
-            {smoothies.length > 0 ? (
+          <TabsContent value="cocktail" className="mt-4 space-y-4">
+            {cocktails.length > 0 ? (
               <div className="grid gap-4">
-                {smoothies.map((drink) => (
+                {cocktails.map((drink) => (
                   <DrinkCard
                     key={drink.id}
                     drink={drink}
@@ -122,7 +122,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
               </div>
             ) : (
               <p className="text-center text-muted-foreground py-8">
-                No smoothies match your ingredients. Try adding fruits!
+                No cocktails match. Select all ingredients for a cocktail recipe!
               </p>
             )}
           </TabsContent>
