@@ -64,9 +64,11 @@ function DrinkCategoryCard({
             <label
               key={ingredient.id}
               className={cn(
-                "flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-200",
-                "hover:bg-background/50",
-                isSelected && "bg-background/70"
+                "flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-200",
+                "hover:bg-muted/80 border",
+                isSelected 
+                  ? "bg-primary/10 border-primary shadow-sm" 
+                  : "bg-card border-transparent"
               )}
             >
               <Checkbox
@@ -74,7 +76,12 @@ function DrinkCategoryCard({
                 onCheckedChange={() => onToggle(ingredient.id)}
                 className="h-4 w-4 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
               />
-              <span className="text-xs">{ingredient.name}</span>
+              <span className={cn(
+                "text-xs transition-colors leading-tight",
+                isSelected ? "text-foreground font-medium" : "text-muted-foreground"
+              )}>
+                {ingredient.name}
+              </span>
             </label>
           );
         })}
