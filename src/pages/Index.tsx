@@ -5,7 +5,6 @@ import { RecipeResults } from "@/components/RecipeResults";
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
-import { DrinkPairingSuggestions } from "@/components/DrinkPairingSuggestions";
 import { SavedRecipes } from "@/components/SavedRecipes";
 import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
@@ -499,13 +498,8 @@ const Index = () => {
             )}
           </TabsContent>
 
-          <TabsContent value="calendar" className="mt-6 space-y-6">
+          <TabsContent value="calendar" className="mt-6">
             <MealCalendar mealPlan={mealPlan} onRemove={handleRemoveFromCalendar} />
-            <DrinkPairingSuggestions
-              recipes={mealPlan.map(entry => entry.recipe)}
-              savedDrinks={savedDrinks}
-              onSaveDrink={handleSaveDrink}
-            />
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6">
