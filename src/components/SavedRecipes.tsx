@@ -4,20 +4,30 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote } from "lucide-react";
 import { sampleRecipes } from "@/data/recipes";
 import { sampleDrinks } from "@/data/drinks";
 import { cn } from "@/lib/utils";
+import { RecipeNotesDialog } from "@/components/RecipeNotesDialog";
+import { QuickTooltip } from "@/components/Tooltip";
+
+export interface RecipeNotes {
+  [recipeId: string]: string;
+}
 
 interface SavedRecipesProps {
   savedRecipeIds: string[];
   savedDrinkIds: string[];
   onRemoveRecipe: (id: string) => void;
   onRemoveDrink: (id: string) => void;
+  recipeNotes: RecipeNotes;
+  onSaveNote: (recipeId: string, note: string) => void;
 }
 
-export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, onRemoveDrink }: SavedRecipesProps) {
+export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, onRemoveDrink, recipeNotes, onSaveNote }: SavedRecipesProps) {
   const [search, setSearch] = useState("");
+  const [notesDialogOpen, setNotesDialogOpen] = useState(false);
+  const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
@@ -30,6 +40,11 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
   );
 
   const totalSaved = allSavedRecipes.length + allSavedDrinks.length;
+
+  const handleOpenNotes = (recipeId: string, recipeTitle: string) => {
+    setSelectedRecipeForNotes({ id: recipeId, title: recipeTitle });
+    setNotesDialogOpen(true);
+  };
 
   if (totalSaved === 0) {
     return (
@@ -114,20 +129,42 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                     key={recipe.id}
                     className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
                   >
-                    <div className="flex items-center gap-3">
-                      <Badge className={cn("text-xs", mealTypeColors[recipe.mealType])}>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <Badge className={cn("text-xs shrink-0", mealTypeColors[recipe.mealType])}>
                         {recipe.mealType}
                       </Badge>
-                      <span className="font-medium">{recipe.title}</span>
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-medium truncate">{recipe.title}</span>
+                        {recipeNotes[recipe.id] && (
+                          <span className="text-xs text-muted-foreground truncate">
+                            📝 {recipeNotes[recipe.id].slice(0, 50)}{recipeNotes[recipe.id].length > 50 ? "..." : ""}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => onRemoveRecipe(recipe.id)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      <QuickTooltip content="Add notes" side="top">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleOpenNotes(recipe.id, recipe.title)}
+                          className={cn(
+                            "transition-opacity text-muted-foreground hover:text-primary",
+                            recipeNotes[recipe.id] ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                          )}
+                        >
+                          <StickyNote className="h-4 w-4" />
+                        </Button>
+                      </QuickTooltip>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => onRemoveRecipe(recipe.id)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -170,6 +207,17 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
             </div>
           </TabsContent>
         </Tabs>
+
+        {selectedRecipeForNotes && (
+          <RecipeNotesDialog
+            open={notesDialogOpen}
+            onOpenChange={setNotesDialogOpen}
+            recipeTitle={selectedRecipeForNotes.title}
+            recipeId={selectedRecipeForNotes.id}
+            currentNote={recipeNotes[selectedRecipeForNotes.id] || ""}
+            onSaveNote={onSaveNote}
+          />
+        )}
       </CardContent>
     </Card>
   );

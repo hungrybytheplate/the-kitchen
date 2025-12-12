@@ -7,7 +7,7 @@ import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
 import { DrinkLookup } from "@/components/DrinkLookup";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
-import { SavedRecipes } from "@/components/SavedRecipes";
+import { SavedRecipes, type RecipeNotes } from "@/components/SavedRecipes";
 import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
@@ -114,6 +114,7 @@ const Index = () => {
   const [showDrinks, setShowDrinks] = useState(false);
   const [drinkSearch, setDrinkSearch] = useState("");
   const [savedDrinks, setSavedDrinks] = useLocalStorage<string[]>("savedDrinks", []);
+  const [recipeNotes, setRecipeNotes] = useLocalStorage<RecipeNotes>("recipeNotes", {});
   
   // Shared state
   const [mealPlan, setMealPlan] = useLocalStorage<MealPlanEntry[]>("mealPlan", []);
@@ -660,6 +661,10 @@ const Index = () => {
               savedDrinkIds={savedDrinks}
               onRemoveRecipe={handleSaveRecipe} 
               onRemoveDrink={handleSaveDrink}
+              recipeNotes={recipeNotes}
+              onSaveNote={(recipeId, note) => {
+                setRecipeNotes(prev => ({ ...prev, [recipeId]: note }));
+              }}
             />
           </TabsContent>
 
