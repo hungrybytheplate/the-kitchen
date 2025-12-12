@@ -684,11 +684,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["bell-pepper", "beef", "rice", "tomatoes", "onion", "garlic", "cheese", "italian-seasoning"],
     instructions: [
-      "Cut tops off peppers and remove seeds",
-      "Cook rice and brown beef with onion and garlic",
-      "Mix beef, rice, and tomatoes with seasoning",
-      "Fill peppers and top with cheese",
-      "Bake at 375°F for 30 minutes"
+      "Preheat oven to 375°F (190°C). Cut the tops off 4 large bell peppers about ½ inch from the top. Remove the seeds and white membranes. Stand peppers upright in a baking dish.",
+      "Cook 1 cup rice according to package directions. Meanwhile, brown 1 lb ground beef in a large skillet over medium-high heat for 6-8 minutes, breaking into crumbles. Drain excess fat.",
+      "Add 1 diced onion and 3 minced garlic cloves to the beef. Cook 3-4 minutes until softened. Stir in 1 can diced tomatoes, cooked rice, and 1 teaspoon Italian seasoning. Season with salt and pepper.",
+      "Carefully spoon the beef and rice mixture into each pepper, packing firmly and mounding at the top. Each pepper should be generously filled.",
+      "Cover the baking dish with foil. Bake for 30 minutes. Remove foil, top each pepper with ¼ cup shredded cheese, and bake uncovered 10 more minutes until cheese is melted and bubbly.",
+      "Let rest 5 minutes before serving. The peppers should be tender but still hold their shape. Serve with a side salad or crusty bread."
     ],
     matchedIngredients: [],
   },
@@ -701,11 +702,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 2,
     ingredients: ["pork", "apple", "butter", "thyme", "garlic", "salt", "pepper", "honey"],
     instructions: [
-      "Season pork chops with salt, pepper, and thyme",
-      "Sear in hot pan until golden",
-      "Add butter, garlic, and apple slices",
-      "Drizzle with honey",
-      "Baste and finish cooking"
+      "Remove 2 bone-in pork chops (1-inch thick) from refrigerator 30 minutes before cooking. Pat completely dry with paper towels. Season generously on both sides with 1 teaspoon salt, ½ teaspoon pepper, and 1 teaspoon dried thyme.",
+      "Heat a large cast-iron skillet over medium-high heat until very hot, about 3 minutes. Add 1 tablespoon vegetable oil. Place pork chops in pan—you should hear an immediate sizzle.",
+      "Sear without moving for 4 minutes until a deep golden-brown crust forms. Flip and cook another 3 minutes. The internal temperature should reach 145°F.",
+      "Reduce heat to medium. Push chops to one side. Add 2 tablespoons butter, 3 sliced garlic cloves, and 1 apple (cored and sliced into ½-inch wedges) to the pan.",
+      "Drizzle 2 tablespoons honey over the apples and chops. Tilt pan and use a spoon to continuously baste the pork with the honey-butter mixture for 2-3 minutes until apples are golden.",
+      "Remove from heat. Let pork rest on a cutting board for 5 minutes—the temperature will rise to 150°F. Serve with the glazed apples and pan juices spooned over top."
     ],
     matchedIngredients: [],
   },
@@ -718,11 +720,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["broccoli", "bell-pepper", "carrot", "mushroom", "garlic", "ginger", "soy-sauce", "vegetable-oil"],
     instructions: [
-      "Cut all vegetables into bite-sized pieces",
-      "Heat oil in wok until smoking",
-      "Stir-fry vegetables in batches",
-      "Add garlic and ginger",
-      "Season with soy sauce and serve"
+      "Prep all vegetables before heating the wok: Cut 2 cups broccoli into small florets. Slice 1 bell pepper into strips. Slice 1 carrot into thin coins. Slice 8 oz mushrooms. Mince 3 garlic cloves and 1 inch fresh ginger.",
+      "Heat a wok or large skillet over HIGH heat until smoking, about 2-3 minutes. Add 2 tablespoons vegetable oil and swirl to coat. The oil should shimmer immediately.",
+      "Add the carrots first (they take longest). Stir-fry 1 minute. Add broccoli, toss for 2 minutes. Add bell peppers and mushrooms, stir-fry another 2 minutes. Vegetables should be crisp-tender and slightly charred.",
+      "Push vegetables to the sides of the wok, creating a well in the center. Add 1 tablespoon oil to the center. Add garlic and ginger, stir for 30 seconds until very fragrant.",
+      "Toss everything together. Add 3 tablespoons soy sauce around the edges of the wok (it will sizzle and reduce). Toss again until all vegetables are evenly coated.",
+      "Remove from heat immediately to prevent overcooking. Serve over steamed rice. Garnish with sesame seeds and sliced green onions if desired."
     ],
     matchedIngredients: [],
   },
@@ -735,11 +738,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["pasta", "pork", "eggs", "cheese", "garlic", "pepper", "olive-oil"],
     instructions: [
-      "Cook pasta until al dente",
-      "Crisp pancetta in pan",
-      "Whisk eggs with cheese and pepper",
-      "Toss hot pasta with pancetta",
-      "Add egg mixture and toss quickly"
+      "Bring a large pot of salted water to boil. Cook 1 lb spaghetti until al dente (1 minute less than package says). Reserve 1 cup pasta water before draining.",
+      "While pasta cooks, cut 6 oz pancetta or guanciale into ½-inch cubes. Place in a cold large skillet, then turn heat to medium. Cook 8-10 minutes, stirring occasionally, until fat renders and meat is crispy. Remove from heat.",
+      "In a bowl, whisk 4 egg yolks plus 2 whole eggs with 1 cup finely grated Pecorino Romano or Parmesan. Add 1 teaspoon freshly cracked black pepper. The mixture should be thick and creamy.",
+      "Add the hot drained pasta directly to the pan with the pancetta (off heat!). Toss vigorously to coat pasta in the rendered fat.",
+      "Working quickly while pasta is still very hot, pour the egg-cheese mixture over the pasta. Toss constantly for 2 minutes—the residual heat will cook the eggs into a creamy sauce. Add splashes of pasta water if it seems dry.",
+      "The sauce should be silky and coat each strand. If eggs scramble, the pan was too hot. Serve immediately with more pepper and grated cheese on top."
     ],
     matchedIngredients: [],
   },
@@ -752,11 +756,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "rice", "soy-sauce", "honey", "garlic", "ginger", "broccoli", "carrot"],
     instructions: [
-      "Cook rice according to package",
-      "Make teriyaki sauce with soy sauce, honey, garlic, and ginger",
-      "Grill chicken and brush with sauce",
-      "Steam broccoli and carrots",
-      "Serve chicken over rice with vegetables"
+      "Cook 2 cups jasmine rice according to package. Fluff with fork and keep warm. Cut 1½ lbs chicken thighs into 2-inch pieces.",
+      "Make teriyaki sauce: In a small saucepan, whisk ½ cup soy sauce, ¼ cup honey, 3 minced garlic cloves, 1 tablespoon grated ginger, and 2 tablespoons water. Simmer 5 minutes until slightly thickened. Reserve half for serving.",
+      "Heat a large skillet or grill pan over medium-high heat. Add 1 tablespoon oil. Cook chicken pieces 4-5 minutes per side until cooked through and slightly charred.",
+      "Brush chicken generously with teriyaki sauce during the last 2 minutes of cooking. Let it caramelize slightly, turning to glaze all sides.",
+      "Meanwhile, steam 2 cups broccoli florets and 1 sliced carrot for 4-5 minutes until bright and tender-crisp. Season with a pinch of salt.",
+      "Divide rice among 4 bowls. Arrange teriyaki chicken on one side and steamed vegetables on the other. Drizzle reserved sauce over everything. Garnish with sesame seeds and sliced green onions."
     ],
     matchedIngredients: [],
   },
@@ -769,11 +774,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["rice", "mushroom", "onion", "garlic", "butter", "cheese", "thyme", "olive-oil"],
     instructions: [
-      "Sauté mushrooms until golden",
-      "Toast rice in butter with onion and garlic",
-      "Add warm broth gradually, stirring constantly",
-      "Stir in cheese and thyme",
-      "Top with sautéed mushrooms"
+      "Heat 6 cups chicken or vegetable broth in a saucepan and keep at a low simmer throughout cooking. Slice 12 oz mixed mushrooms. Dice 1 small onion and mince 3 garlic cloves.",
+      "In a large skillet, heat 2 tablespoons olive oil over medium-high heat. Add mushrooms in a single layer—don't crowd. Cook without stirring 3 minutes until browned. Stir, cook 2 more minutes. Season with salt, remove and set aside.",
+      "In a large heavy-bottomed pot, melt 2 tablespoons butter over medium heat. Add onion, cook 4 minutes until soft. Add garlic, cook 1 minute. Add 1½ cups Arborio rice, stir 2 minutes until edges look translucent.",
+      "Add 1 cup warm broth to the rice. Stir constantly until liquid is almost absorbed. Continue adding broth ½ cup at a time, stirring constantly and waiting until each addition is absorbed before adding more. This takes 18-22 minutes total.",
+      "When rice is creamy but still has a slight bite, remove from heat. Stir in 2 tablespoons butter, ¾ cup grated Parmesan, and 1 teaspoon fresh thyme leaves. Season with salt and pepper.",
+      "Divide risotto among plates. Top with the sautéed mushrooms. Drizzle with good olive oil and add more Parmesan. Serve immediately—risotto waits for no one!"
     ],
     matchedIngredients: [],
   },
@@ -786,11 +792,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["beef", "taco-seasoning", "lettuce", "tomato", "cheese", "sour-cream", "onion"],
     instructions: [
-      "Brown ground beef with onion",
-      "Add taco seasoning and water",
-      "Simmer until thickened",
-      "Warm taco shells",
-      "Fill with beef and top with lettuce, tomato, cheese, and sour cream"
+      "Heat a large skillet over medium-high heat. Add 1 lb ground beef, breaking into crumbles with a wooden spoon. Cook 6-8 minutes until no pink remains. Drain excess fat, leaving about 1 tablespoon in the pan.",
+      "Add ½ diced onion to the beef. Cook 3 minutes until softened. Add 2 tablespoons taco seasoning (or 1 teaspoon each cumin, chili powder, paprika, plus ½ teaspoon garlic powder and salt).",
+      "Pour in ½ cup water. Stir well to combine seasoning with meat. Reduce heat to medium-low and simmer 5 minutes until liquid reduces and mixture is thick and saucy.",
+      "Meanwhile, prep your toppings: Shred 2 cups lettuce. Dice 2 tomatoes. Shred 1 cup cheese. Warm taco shells in a 300°F oven for 5 minutes or according to package directions.",
+      "Set up a taco bar with warm shells, seasoned beef, and all toppings in separate bowls. Let everyone build their own tacos.",
+      "Assemble tacos: Add a generous spoonful of beef to each shell. Layer with lettuce, tomatoes, cheese, and a dollop of sour cream. Serve immediately with lime wedges and hot sauce on the side."
     ],
     matchedIngredients: [],
   },
@@ -803,11 +810,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["shrimp", "coconut-milk", "bell-pepper", "garlic", "ginger", "curry-powder", "lime", "rice"],
     instructions: [
-      "Sauté garlic and ginger",
-      "Add curry powder and bell pepper",
-      "Pour in coconut milk and simmer",
-      "Add shrimp and cook until pink",
-      "Finish with lime juice, serve over rice"
+      "Start rice first: Cook 1½ cups jasmine rice according to package. Keep warm. Pat 1 lb large shrimp dry and season with salt and pepper.",
+      "Heat 1 tablespoon oil in a large skillet over medium heat. Add 3 minced garlic cloves and 1 tablespoon minced fresh ginger. Stir 30 seconds until fragrant—don't let it brown.",
+      "Add 2 tablespoons curry powder and 1 sliced bell pepper. Stir for 2 minutes until curry is aromatic and pepper starts to soften.",
+      "Pour in 1 can (14 oz) coconut milk and ½ cup chicken broth. Stir to combine. Bring to a simmer and cook 5 minutes until sauce thickens slightly.",
+      "Add the shrimp to the curry. Cook 3-4 minutes, stirring occasionally, until shrimp turn pink and curl into a C-shape. Don't overcook—they'll become rubbery.",
+      "Remove from heat. Squeeze in the juice of 1 lime and stir. Taste and adjust salt. Serve immediately over jasmine rice, garnished with fresh cilantro and lime wedges."
     ],
     matchedIngredients: [],
   },
@@ -820,11 +828,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["pasta", "tomatoes", "cheese", "cream-cheese", "garlic", "basil", "italian-seasoning"],
     instructions: [
-      "Cook pasta until slightly underdone",
-      "Mix ricotta with egg and basil",
-      "Layer pasta, marinara, and cheeses in baking dish",
-      "Top with mozzarella",
-      "Bake at 375°F until bubbly"
+      "Preheat oven to 375°F (190°C). Bring a large pot of salted water to boil. Cook 1 lb ziti pasta for 2 minutes less than package directions (it will finish in the oven). Drain and set aside.",
+      "In a bowl, mix 15 oz ricotta cheese with 1 beaten egg, ¼ cup chopped fresh basil, 2 minced garlic cloves, ½ teaspoon salt, and ¼ teaspoon pepper until smooth.",
+      "Spread ½ cup marinara sauce on the bottom of a 9x13 inch baking dish. Add half the pasta, spreading evenly.",
+      "Dollop half the ricotta mixture over pasta. Pour 1 cup marinara over ricotta. Sprinkle with 1 cup shredded mozzarella. Repeat layers with remaining pasta, ricotta, and sauce.",
+      "Top with remaining 1 cup mozzarella and ¼ cup grated Parmesan. Cover tightly with foil and bake 25 minutes.",
+      "Remove foil and bake 15-20 more minutes until cheese is golden and bubbly. Let rest 10 minutes before serving—this helps it set up for easier portioning."
     ],
     matchedIngredients: [],
   },
@@ -837,11 +846,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "honey", "garlic", "soy-sauce", "butter", "thyme", "salt", "pepper"],
     instructions: [
-      "Season chicken thighs with salt and pepper",
-      "Sear skin-side down until crispy",
-      "Flip and add garlic and butter",
-      "Mix honey and soy sauce, pour over chicken",
-      "Baste until glazed and cooked through"
+      "Pat 4 bone-in, skin-on chicken thighs very dry with paper towels—this is crucial for crispy skin. Season both sides generously with 1 teaspoon salt and ½ teaspoon pepper.",
+      "Place thighs skin-side down in a cold large skillet. Turn heat to medium. Cook without moving for 12-15 minutes. The fat will render slowly and skin will become deeply golden and crispy.",
+      "Flip thighs. Add 2 tablespoons butter and 6 smashed garlic cloves to the pan. Cook 5 minutes, spooning the melted butter over the chicken.",
+      "In a small bowl, whisk together ¼ cup honey, 3 tablespoons soy sauce, and 1 teaspoon fresh thyme leaves. Pour mixture into the pan around the chicken.",
+      "Continue cooking 5-7 more minutes, basting constantly with the glaze, until internal temperature reaches 175°F. The sauce will thicken and become sticky.",
+      "Let rest 5 minutes before serving. Spoon the pan sauce over each thigh. Serve with rice or mashed potatoes to soak up the delicious glaze."
     ],
     matchedIngredients: [],
   },
@@ -854,11 +864,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 8,
     ingredients: ["pasta", "zucchini", "spinach", "mushroom", "cheese", "cream", "garlic", "basil"],
     instructions: [
-      "Sauté vegetables with garlic",
-      "Make cheese sauce with cream and cheese",
-      "Layer noodles, vegetables, and cheese sauce",
-      "Top with more cheese",
-      "Bake at 375°F for 45 minutes"
+      "Preheat oven to 375°F (190°C). Slice 2 medium zucchini, 8 oz mushrooms. Thaw and squeeze dry 10 oz frozen spinach. Mince 4 garlic cloves. Sauté vegetables in batches in 2 tablespoons olive oil until tender, 4-5 minutes each batch.",
+      "Make béchamel sauce: Melt 4 tablespoons butter in a saucepan over medium heat. Whisk in ¼ cup flour, cook 1 minute. Slowly whisk in 3 cups milk. Simmer 5 minutes until thickened. Stir in 1 cup Parmesan and season with salt, pepper, and nutmeg.",
+      "Cook 12 lasagna noodles according to package (or use no-boil noodles). Lay flat on oiled parchment to prevent sticking.",
+      "Spread ½ cup sauce in a 9x13 inch pan. Layer: 3 noodles, ⅓ vegetables, ⅓ remaining sauce, ½ cup mozzarella. Repeat layers twice, ending with noodles, sauce, and cheese on top.",
+      "Cover tightly with foil. Bake 30 minutes. Remove foil and bake 15 more minutes until golden and bubbling around the edges.",
+      "Let rest 15 minutes before cutting—this is essential or it will be too runny. Garnish with fresh basil. Can be made a day ahead and refrigerated."
     ],
     matchedIngredients: [],
   },
@@ -871,11 +882,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["beef", "broccoli", "garlic", "ginger", "soy-sauce", "vegetable-oil", "rice"],
     instructions: [
-      "Slice beef thin and marinate in soy sauce",
-      "Blanch broccoli until bright green",
-      "Stir-fry beef until browned",
-      "Add broccoli, garlic, and ginger",
-      "Serve over steamed rice"
+      "Slice 1 lb flank steak against the grain into very thin strips (freeze for 20 minutes to make slicing easier). Marinate in 2 tablespoons soy sauce for 15 minutes while you prep other ingredients.",
+      "Cut 4 cups broccoli into small florets. Bring a pot of salted water to boil. Blanch broccoli for 2 minutes until bright green and slightly tender. Immediately drain and rinse with cold water to stop cooking.",
+      "Heat wok or large skillet over HIGH heat until smoking. Add 2 tablespoons vegetable oil. Add beef in a single layer—work in batches to avoid steaming. Sear 1 minute per side until browned. Remove to a plate.",
+      "Add 1 more tablespoon oil. Add 4 minced garlic cloves and 1 tablespoon minced ginger. Stir 30 seconds until fragrant.",
+      "Add blanched broccoli. Stir-fry 1 minute. Add ¼ cup soy sauce, 2 tablespoons oyster sauce, and 1 tablespoon brown sugar. Return beef to pan. Toss 1 minute until sauce coats everything.",
+      "Serve immediately over steamed white rice. Garnish with sesame seeds. The beef should be tender and the broccoli crisp-tender with a glossy sauce."
     ],
     matchedIngredients: [],
   },
@@ -888,11 +900,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["tofu", "broccoli", "bell-pepper", "carrot", "soy-sauce", "garlic", "ginger", "vegetable-oil"],
     instructions: [
-      "Press and cube tofu",
-      "Pan-fry tofu until golden and crispy",
-      "Stir-fry vegetables with garlic and ginger",
-      "Add tofu and soy sauce",
-      "Toss and serve over rice"
+      "Press 14 oz extra-firm tofu: Wrap in paper towels, place on a plate, and set a heavy pan on top for 15-20 minutes. This removes moisture for crispier tofu. Cut into ¾-inch cubes.",
+      "Heat a large non-stick skillet over medium-high heat with 2 tablespoons vegetable oil. Add tofu cubes in a single layer. Don't stir for 3-4 minutes until bottom is golden. Flip and brown other sides. Remove to a plate.",
+      "Prep vegetables: Cut 2 cups broccoli into florets, slice 1 bell pepper into strips, and slice 1 carrot into thin coins. Mince 3 garlic cloves and 1 inch fresh ginger.",
+      "In the same skillet, add 1 tablespoon oil over high heat. Add vegetables and stir-fry 3-4 minutes until crisp-tender with slight char.",
+      "Push vegetables to sides. Add garlic and ginger to the center. Stir 30 seconds. Add crispy tofu back to pan along with 3 tablespoons soy sauce and 1 tablespoon sesame oil.",
+      "Toss everything together for 1 minute until sauce coats all ingredients. Serve immediately over steamed rice. Top with sliced green onions and sesame seeds."
     ],
     matchedIngredients: [],
   },
@@ -918,13 +931,12 @@ export const sampleRecipes: Recipe[] = [
       { id: "olive-oil", amount: "3", unit: "tbsp" },
     ],
     instructions: [
-      "Pound chicken breasts to even thickness",
-      "Season and dredge in flour",
-      "Pan-fry in olive oil until golden, set aside",
-      "Sauté garlic, add lemon juice and capers",
-      "Stir in butter to create sauce",
-      "Return chicken to pan and coat with sauce",
-      "Garnish with fresh parsley"
+      "Place 4 chicken breasts between plastic wrap. Using a meat mallet or rolling pin, pound to an even ½-inch thickness. This ensures even cooking. Season both sides with salt and pepper.",
+      "Set up a breading station: Place ½ cup flour on a plate. Dredge each chicken breast in flour, shaking off excess. The coating should be thin and even.",
+      "Heat 3 tablespoons olive oil in a large skillet over medium-high heat until shimmering. Add chicken breasts (work in batches if needed). Cook 3-4 minutes per side until golden brown and cooked through. Transfer to a plate and tent with foil.",
+      "Reduce heat to medium. Add 3 minced garlic cloves, cook 30 seconds. Add the juice of 2 lemons (about ⅓ cup) and 3 tablespoons brined capers. Simmer 2 minutes, scraping up browned bits from the pan.",
+      "Remove from heat. Add 4 tablespoons cold butter, one tablespoon at a time, swirling pan until each piece melts into a silky sauce. Season with salt if needed.",
+      "Return chicken to pan and spoon sauce over each piece. Garnish generously with chopped fresh parsley. Serve immediately with pasta or crusty bread to soak up the sauce."
     ],
     matchedIngredients: [],
     dietaryTags: ["dairy-free"],
@@ -951,13 +963,12 @@ export const sampleRecipes: Recipe[] = [
       { id: "olive-oil", amount: "3", unit: "tbsp" },
     ],
     instructions: [
-      "Pound and season chicken cutlets",
-      "Dredge in flour and pan-fry until golden",
-      "Sauté sliced mushrooms until browned",
-      "Add garlic and cook briefly",
-      "Create sauce with butter",
-      "Return chicken and simmer",
-      "Garnish with parsley"
+      "Pound 4 chicken breasts between plastic wrap to ½-inch thickness. Season generously with 1 teaspoon salt and ½ teaspoon pepper. Dredge in ½ cup flour, shaking off excess.",
+      "Heat 3 tablespoons olive oil in a large skillet over medium-high heat. Cook chicken 3-4 minutes per side until golden brown. Internal temp should reach 165°F. Transfer to a plate.",
+      "Add 1 tablespoon butter to the pan. Add 8 oz sliced cremini mushrooms in a single layer. Cook without stirring 3 minutes, then stir and cook 3 more minutes until deeply browned.",
+      "Add 3 minced garlic cloves. Stir 30 seconds until fragrant. Add ½ cup chicken broth, scraping up browned bits. (Note: Traditional recipe uses Marsala wine—add ½ cup if you have it.)",
+      "Simmer 3-4 minutes until sauce reduces by half. Stir in 2 tablespoons cold butter until melted and sauce is glossy. Season with salt and pepper.",
+      "Nestle chicken back into the pan. Spoon mushrooms and sauce over each cutlet. Simmer 2 minutes to rewarm chicken. Garnish with ¼ cup fresh chopped parsley. Serve over mashed potatoes or pasta."
     ],
     matchedIngredients: [],
     difficulty: "medium",
@@ -983,12 +994,12 @@ export const sampleRecipes: Recipe[] = [
       { id: "olive-oil", amount: "0.25", unit: "cup" },
     ],
     instructions: [
-      "Pound chicken breasts thin",
-      "Dip in egg, then breadcrumb-parmesan mixture",
-      "Pan-fry until golden and crispy",
-      "Top with marinara sauce and mozzarella",
-      "Bake until cheese melts",
-      "Garnish with fresh basil"
+      "Preheat oven to 425°F (220°C). Pound 4 chicken breasts to ½-inch thickness between plastic wrap. Set up a breading station: flour in one dish, 2 beaten eggs in another, and a mixture of 1 cup breadcrumbs + ½ cup grated Parmesan in a third.",
+      "Dredge each chicken breast in flour (shake off excess), then dip in egg (let excess drip off), then press firmly into the breadcrumb mixture, coating both sides well.",
+      "Heat ¼ cup olive oil in a large oven-safe skillet over medium-high heat. When oil shimmers, add breaded chicken. Fry 3-4 minutes per side until deep golden brown and crispy. Don't move the chicken while it cooks.",
+      "Spoon 2 cups warm marinara sauce over each chicken breast. Top each with ¼ cup shredded mozzarella.",
+      "Transfer skillet to oven (or transfer chicken to a baking dish). Bake 10-15 minutes until cheese is melted, bubbling, and starting to brown.",
+      "Let rest 5 minutes. Garnish with fresh basil leaves and additional Parmesan. Serve over spaghetti tossed with extra marinara sauce."
     ],
     matchedIngredients: [],
     difficulty: "medium",
@@ -1003,12 +1014,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["eggplant", "bread-crumbs", "parmesan", "mozzarella", "eggs", "tomato-sauce", "garlic", "basil", "olive-oil"],
     instructions: [
-      "Slice eggplant and salt to draw out moisture",
-      "Bread eggplant slices with egg and breadcrumbs",
-      "Pan-fry until golden",
-      "Layer in baking dish with sauce and cheese",
-      "Bake until bubbly",
-      "Rest before serving"
+      "Slice 2 large eggplants into ½-inch rounds. Arrange on paper towels and sprinkle both sides with salt. Let sit 30 minutes—this draws out bitter moisture. Pat very dry with paper towels.",
+      "Set up breading: flour in one dish, 3 beaten eggs in another, 2 cups breadcrumbs mixed with ½ cup Parmesan in a third. Dredge each slice in flour, dip in egg, then coat in breadcrumbs.",
+      "Heat ¼ inch vegetable oil in a large skillet over medium-high heat. Fry eggplant slices in batches, 2-3 minutes per side until deep golden brown. Drain on paper towel-lined rack.",
+      "Preheat oven to 375°F. Spread 1 cup marinara in a 9x13 inch baking dish. Layer ⅓ of eggplant, ⅓ remaining sauce, ⅓ of 2 cups mozzarella. Repeat layers twice.",
+      "Cover with foil and bake 25 minutes. Remove foil and bake 20 more minutes until cheese is golden and sauce is bubbling vigorously.",
+      "Rest 10-15 minutes before serving—this is crucial for the layers to set. Garnish with fresh basil. Serve with crusty bread to soak up the sauce."
     ],
     matchedIngredients: [],
   },
@@ -1021,12 +1032,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["pasta", "butter", "parmesan", "cream", "garlic", "salt", "pepper", "parsley"],
     instructions: [
-      "Cook fettuccine until al dente",
-      "Melt butter and sauté garlic",
-      "Add cream and simmer",
-      "Stir in parmesan until melted",
-      "Toss with pasta",
-      "Garnish with parsley"
+      "Bring a large pot of generously salted water to boil. Cook 1 lb fettuccine according to package directions until al dente. Reserve 1 cup pasta water before draining.",
+      "While pasta cooks, melt 4 tablespoons butter in a large skillet over medium heat. Add 3 minced garlic cloves and cook 1 minute until fragrant but not browned.",
+      "Pour in 1½ cups heavy cream. Bring to a gentle simmer and cook 3-4 minutes until slightly thickened. The sauce should coat the back of a spoon.",
+      "Remove from heat. Gradually stir in 1½ cups freshly grated Parmesan cheese, stirring constantly until completely melted and smooth. Season with ½ teaspoon salt and ¼ teaspoon pepper.",
+      "Add the hot drained pasta directly to the sauce. Toss vigorously with tongs until every strand is coated. Add splashes of pasta water if sauce seems too thick.",
+      "Divide among warm bowls. Top with extra Parmesan, freshly cracked black pepper, and chopped fresh parsley. Serve immediately—Alfredo waits for no one!"
     ],
     matchedIngredients: [],
   },
@@ -1039,12 +1050,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["pasta", "tomato-sauce", "cream", "garlic", "onion", "parmesan", "basil", "red-pepper-flakes", "olive-oil"],
     instructions: [
-      "Cook penne al dente",
-      "Sauté onion and garlic",
-      "Add tomato sauce and red pepper flakes",
-      "Stir in cream and simmer",
-      "Toss with pasta and parmesan",
-      "Garnish with basil"
+      "Bring a large pot of salted water to boil. Cook 1 lb penne until al dente, about 1 minute less than package directions. Reserve 1 cup pasta water, then drain.",
+      "Heat 2 tablespoons olive oil in a large skillet over medium heat. Add 1 diced small onion and cook 5 minutes until soft. Add 4 minced garlic cloves, cook 1 minute.",
+      "Add 1 can (28 oz) crushed tomatoes and ½ teaspoon red pepper flakes. Simmer 10 minutes, stirring occasionally, until sauce thickens slightly.",
+      "Reduce heat to low. Stir in ¾ cup heavy cream. The sauce will turn a beautiful orange-pink color. Simmer 3 more minutes. (Note: Traditional recipe uses vodka—add ½ cup before cream if desired.)",
+      "Add drained pasta to the sauce. Toss well, adding pasta water as needed for silky consistency. Remove from heat and stir in ½ cup grated Parmesan.",
+      "Divide among plates. Top with more Parmesan, fresh torn basil leaves, and a drizzle of olive oil. Serve immediately while hot."
     ],
     matchedIngredients: [],
   },
@@ -1058,12 +1069,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["chicken", "tortillas", "cheese", "onion", "garlic", "cumin", "tomato-sauce", "sour-cream", "cilantro"],
     instructions: [
-      "Cook and shred chicken with spices",
-      "Fill tortillas with chicken and cheese",
-      "Roll and place in baking dish",
-      "Cover with enchilada sauce",
-      "Top with cheese and bake",
-      "Serve with sour cream and cilantro"
+      "Preheat oven to 375°F (190°C). Poach 1½ lbs chicken breasts in simmering salted water for 18-20 minutes until cooked through. Let cool slightly, then shred with two forks into bite-sized pieces.",
+      "Mix shredded chicken with 1 cup shredded cheese, 1 teaspoon cumin, ½ teaspoon garlic powder, and salt to taste. This is your filling.",
+      "Warm 8-10 flour tortillas in the microwave for 30 seconds to make them pliable. Spread 2 cups enchilada sauce in the bottom of a 9x13 inch baking dish.",
+      "Place ¼ cup filling down the center of each tortilla. Roll tightly and place seam-side down in the dish. Pack them snugly together.",
+      "Pour 2 more cups enchilada sauce over the rolled tortillas, making sure to coat them completely. Top with 1½ cups shredded cheese.",
+      "Bake uncovered 25-30 minutes until sauce is bubbling and cheese is melted and lightly browned. Let rest 5 minutes. Serve topped with sour cream, fresh cilantro, and diced onion."
     ],
     matchedIngredients: [],
   },
@@ -1076,11 +1087,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 8,
     ingredients: ["pork", "orange", "lime", "garlic", "cumin", "oregano", "salt", "pepper", "vegetable-oil"],
     instructions: [
-      "Season pork with spices",
-      "Slow cook with citrus juices",
-      "Shred meat when tender",
-      "Crisp under broiler",
-      "Serve in tacos or bowls"
+      "Cut 3 lbs pork shoulder (pork butt) into 3-inch chunks. Season generously with 1 tablespoon salt, 2 teaspoons cumin, 1 teaspoon oregano, ½ teaspoon pepper, and 6 minced garlic cloves. Rub spices into all surfaces.",
+      "Place pork in a Dutch oven or slow cooker. Add the juice of 2 oranges and 2 limes, plus their spent halves. Add 1 bay leaf and enough water to come halfway up the meat.",
+      "For oven: Cover and braise at 300°F for 3-3½ hours. For slow cooker: Cook on low 8-10 hours. Meat is done when it falls apart with a fork.",
+      "Remove pork from liquid. Shred with two forks into bite-sized pieces, discarding large pieces of fat. Reserve ½ cup of the cooking liquid.",
+      "For crispy carnitas: Spread shredded pork on a sheet pan. Drizzle with reserved cooking liquid. Broil 4-5 minutes until edges are crispy and caramelized. Toss, broil 3 more minutes.",
+      "Serve in warm corn tortillas with diced white onion, fresh cilantro, salsa verde, and lime wedges. The crispy-juicy contrast is what makes great carnitas!"
     ],
     matchedIngredients: [],
   },
@@ -1093,12 +1105,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "rice", "beans", "corn", "tomato", "avocado", "lettuce", "cheese", "lime", "cilantro"],
     instructions: [
-      "Season and grill chicken",
-      "Cook rice with lime and cilantro",
-      "Warm black beans",
-      "Slice chicken and arrange in bowls",
-      "Top with all ingredients",
-      "Serve with salsa"
+      "Cook 1½ cups long-grain rice according to package. Fluff with fork and stir in juice of 1 lime and ¼ cup chopped cilantro. Cover to keep warm.",
+      "Season 1½ lbs chicken breast with 1 teaspoon cumin, 1 teaspoon chili powder, salt, and pepper. Grill over medium-high heat 6-7 minutes per side until internal temp reaches 165°F. Let rest 5 minutes, then slice into strips.",
+      "Heat 1 can black beans in a small pot with a pinch of cumin and salt. Keep warm. Prepare toppings: dice 2 tomatoes, shred 2 cups lettuce, slice 1 avocado.",
+      "Divide cilantro-lime rice among 4 bowls. Arrange sliced chicken on one section of each bowl.",
+      "Add black beans, lettuce, diced tomatoes, corn, and avocado slices in separate sections around the bowl. Sprinkle with ½ cup shredded cheese.",
+      "Serve with salsa, sour cream, and extra lime wedges on the side. Let everyone customize their bowl to their liking."
     ],
     matchedIngredients: [],
   },
@@ -1111,12 +1123,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 2,
     ingredients: ["chicken", "tortillas", "cheese", "bell-pepper", "onion", "cumin", "sour-cream", "salsa"],
     instructions: [
-      "Cook seasoned chicken and slice",
-      "Sauté peppers and onions",
-      "Fill tortilla with cheese, chicken, and veggies",
-      "Pan-fry until golden and cheese melts",
-      "Cut into wedges",
-      "Serve with sour cream and salsa"
+      "Season 8 oz chicken breast with ½ teaspoon cumin, salt, and pepper. Cook in an oiled skillet over medium-high heat for 6-7 minutes per side until internal temp reaches 165°F. Let rest 5 minutes, then slice into thin strips.",
+      "In the same pan, add 1 tablespoon oil. Sauté ½ sliced bell pepper and ¼ sliced onion over medium-high heat for 4-5 minutes until slightly charred and tender. Season with salt.",
+      "Lay a large flour tortilla flat. Spread 1 cup shredded cheese over half of the tortilla. Top cheese with sliced chicken and sautéed vegetables.",
+      "Fold the empty half over the filling to create a half-moon. Press gently.",
+      "Heat a clean non-stick pan over medium heat. Place quesadilla in dry pan. Cook 2-3 minutes until bottom is golden brown and crispy. Flip carefully and cook 2-3 more minutes until cheese is fully melted.",
+      "Transfer to cutting board. Let rest 1 minute, then cut into 4 triangular wedges. Serve immediately with sour cream and salsa for dipping."
     ],
     matchedIngredients: [],
   },
@@ -1130,12 +1142,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["shrimp", "eggs", "garlic", "green-onion", "bean-sprouts", "peanuts", "lime", "vegetable-oil"],
     instructions: [
-      "Soak rice noodles until soft",
-      "Stir-fry shrimp and set aside",
-      "Scramble eggs in wok",
-      "Add noodles and sauce",
-      "Toss with shrimp, bean sprouts, and peanuts",
-      "Serve with lime wedges"
+      "Place 8 oz rice noodles in a large bowl. Cover with warm (not boiling) water and soak for 30-40 minutes until soft and pliable but not mushy. Drain well.",
+      "Make the sauce: Whisk together 3 tablespoons fish sauce, 2 tablespoons tamarind paste (or lime juice), 2 tablespoons brown sugar, and 1 tablespoon soy sauce. Set aside.",
+      "Heat a wok or large skillet over HIGH heat. Add 2 tablespoons oil. Add 8 oz shrimp, stir-fry 2 minutes until pink. Push to the side. Crack 2 eggs into the wok, scramble for 30 seconds.",
+      "Add drained noodles and the sauce. Toss vigorously with tongs for 2 minutes, lifting and separating noodles so they cook evenly and absorb the sauce.",
+      "Add 1 cup bean sprouts and 3 sliced green onions. Toss 30 more seconds just to warm through—sprouts should stay crunchy.",
+      "Transfer to plates. Top with ¼ cup crushed roasted peanuts and fresh lime wedges. Serve immediately. Optional: Add fresh cilantro and chili flakes."
     ],
     matchedIngredients: [],
   },
@@ -1148,12 +1160,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["rice", "eggs", "carrot", "peas", "green-onion", "garlic", "soy-sauce", "vegetable-oil"],
     instructions: [
-      "Use day-old cold rice",
-      "Scramble eggs and set aside",
-      "Stir-fry vegetables",
-      "Add rice and soy sauce",
-      "Toss with eggs",
-      "Garnish with green onions"
+      "The secret to great fried rice is using DAY-OLD COLD RICE. Cook 3 cups rice a day ahead, spread on a sheet pan, and refrigerate uncovered. Fresh rice will be gummy.",
+      "Prep all ingredients before cooking—this goes fast! Dice 1 carrot into small cubes. Thaw ½ cup frozen peas. Mince 3 garlic cloves. Slice 4 green onions (separate white and green parts).",
+      "Heat a wok over HIGH heat until smoking. Add 2 tablespoons vegetable oil. Beat 2 eggs and pour into wok. Scramble quickly into small pieces (about 20 seconds). Remove to a plate.",
+      "Add 1 more tablespoon oil. Add diced carrots, cook 1 minute. Add peas, garlic, and white parts of green onions. Stir-fry 1 minute.",
+      "Break up the cold rice with your hands and add to the wok. Spread into an even layer and let it sit 30 seconds (this creates crispy bits). Toss and repeat. Add 3 tablespoons soy sauce around the edges.",
+      "Add back the scrambled eggs. Toss everything together for 1 minute. Taste and add more soy sauce or salt if needed. Garnish with green onion tops and serve immediately."
     ],
     matchedIngredients: [],
   },
@@ -1166,12 +1178,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "peanuts", "garlic", "ginger", "soy-sauce", "green-onion", "vegetable-oil", "rice"],
     instructions: [
-      "Cube and marinate chicken",
-      "Stir-fry until golden",
-      "Add garlic, ginger, and dried chilies",
-      "Toss in peanuts and sauce",
-      "Garnish with green onions",
-      "Serve over rice"
+      "Cut 1½ lbs boneless chicken thighs into 1-inch cubes. Marinate in 2 tablespoons soy sauce, 1 tablespoon rice wine (or dry sherry), and 1 teaspoon cornstarch for 15 minutes.",
+      "Make the sauce: Whisk 2 tablespoons soy sauce, 1 tablespoon rice vinegar, 2 teaspoons sugar, 1 teaspoon sesame oil, and 1 tablespoon cornstarch with 3 tablespoons water. Set aside.",
+      "Heat wok over HIGH heat. Add 2 tablespoons oil. When smoking, add marinated chicken in a single layer. Don't stir for 1 minute, then stir-fry 3-4 minutes until golden. Remove to a plate.",
+      "Add 1 tablespoon oil. Add 4-6 dried red chilies (or 1 teaspoon red pepper flakes), 3 minced garlic cloves, and 1 tablespoon minced ginger. Stir 30 seconds until fragrant.",
+      "Return chicken to wok. Give the sauce a stir and pour it in. Toss constantly for 1 minute until sauce thickens and coats the chicken. Add ½ cup roasted peanuts, toss to combine.",
+      "Garnish with sliced green onions and serve immediately over steamed jasmine rice. Adjust heat level by using more or fewer dried chilies."
     ],
     matchedIngredients: [],
   },
@@ -1184,12 +1196,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "orange", "garlic", "ginger", "soy-sauce", "flour", "eggs", "vegetable-oil", "rice"],
     instructions: [
-      "Cut chicken into pieces",
-      "Coat in egg and flour",
-      "Deep fry until crispy",
-      "Make sauce with orange juice, soy sauce, and ginger",
-      "Toss chicken in sauce",
-      "Serve over rice"
+      "Cut 1½ lbs boneless chicken thighs into 1½-inch pieces. Season with ½ teaspoon salt. Set up breading: ½ cup flour in one bowl, 2 beaten eggs in another, ½ cup cornstarch in a third.",
+      "Dredge chicken pieces in flour, dip in egg, then coat in cornstarch. Shake off excess. Let sit on a wire rack for 5 minutes (this helps coating adhere).",
+      "Heat 2 inches of vegetable oil in a deep pot or wok to 350°F. Fry chicken in batches for 4-5 minutes until golden and cooked through. Drain on paper towels.",
+      "Make sauce: In a saucepan, combine the juice of 2 oranges (about ⅔ cup), 3 tablespoons soy sauce, 3 tablespoons sugar, 1 tablespoon rice vinegar, 2 minced garlic cloves, and 1 teaspoon grated ginger. Bring to simmer.",
+      "Mix 1 tablespoon cornstarch with 2 tablespoons water. Stir into sauce and cook until thickened, about 2 minutes.",
+      "Toss crispy chicken in the sauce until evenly coated. Serve immediately over steamed rice, garnished with orange zest and sliced green onions."
     ],
     matchedIngredients: [],
   },
@@ -1202,11 +1214,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "broccoli", "garlic", "ginger", "soy-sauce", "flour", "eggs", "vegetable-oil", "rice"],
     instructions: [
-      "Bread and fry chicken pieces",
-      "Steam broccoli",
-      "Make spicy-sweet sauce",
-      "Toss chicken in sauce",
-      "Serve with broccoli over rice"
+      "Cut 1½ lbs chicken thighs into 1½-inch pieces. Whisk 2 eggs with ½ teaspoon salt. Add chicken and toss to coat. Dredge in ½ cup flour mixed with ½ cup cornstarch.",
+      "Heat 2 inches vegetable oil to 350°F. Fry chicken in batches 4-5 minutes until golden and crispy. Drain on paper towels. Cut 3 cups broccoli into florets and steam 4 minutes until bright green.",
+      "Make sauce: Whisk ½ cup chicken broth, 3 tablespoons soy sauce, 3 tablespoons sugar, 2 tablespoons rice vinegar, 1 tablespoon hoisin sauce, and 1 teaspoon sesame oil.",
+      "Heat 1 tablespoon oil in a wok. Add 3 minced garlic cloves, 1 tablespoon minced ginger, and 4-6 dried red chilies. Stir 30 seconds until fragrant.",
+      "Add sauce to wok. Bring to simmer. Mix 1 tablespoon cornstarch with 2 tablespoons water, stir into sauce. Cook until thickened.",
+      "Add crispy chicken to the sauce, toss until coated. Serve immediately over steamed rice with steamed broccoli on the side. Garnish with sesame seeds."
     ],
     matchedIngredients: [],
   },
@@ -1219,12 +1232,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "coconut", "bell-pepper", "zucchini", "basil", "garlic", "ginger", "rice"],
     instructions: [
-      "Sauté curry paste with garlic and ginger",
-      "Add coconut milk and simmer",
-      "Add chicken and vegetables",
-      "Simmer until cooked through",
-      "Stir in fresh basil",
-      "Serve over jasmine rice"
+      "Cook 1½ cups jasmine rice according to package. Keep warm. Cut 1 lb chicken thighs into bite-sized pieces. Slice 1 bell pepper and 1 small zucchini into thin strips.",
+      "Heat 1 tablespoon oil in a wok or large pan over medium-high heat. Add 2-3 tablespoons green curry paste (adjust to taste), 2 minced garlic cloves, and 1 tablespoon minced ginger. Stir 1 minute until fragrant.",
+      "Add 1 can (14 oz) coconut milk and ½ cup chicken broth. Stir to combine with curry paste. Bring to a simmer.",
+      "Add chicken pieces. Cook 5-6 minutes, stirring occasionally, until chicken is almost cooked through.",
+      "Add sliced bell pepper and zucchini. Simmer 4-5 more minutes until vegetables are tender and chicken is fully cooked. Taste and add fish sauce or salt if needed.",
+      "Remove from heat. Stir in 1 cup fresh Thai basil leaves (or regular basil). Serve immediately over jasmine rice with extra basil as garnish."
     ],
     matchedIngredients: [],
   },
@@ -1237,11 +1250,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "bread-crumbs", "eggs", "flour", "cabbage", "rice", "vegetable-oil"],
     instructions: [
-      "Pound chicken to even thickness",
-      "Dredge in flour, egg, then panko",
-      "Deep fry until golden",
-      "Slice and serve over rice",
-      "Serve with shredded cabbage"
+      "Place 4 chicken breasts between plastic wrap. Pound to an even ½-inch thickness. Season both sides with salt and pepper.",
+      "Set up breading station: ½ cup flour in one dish, 2 beaten eggs in another, 1 cup panko breadcrumbs in a third. Dredge chicken in flour (shake off excess), dip in egg (let excess drip), then press firmly into panko on both sides.",
+      "Heat ½ inch vegetable oil in a large skillet to 350°F (a breadcrumb should sizzle when dropped in). Fry chicken 3-4 minutes per side until deep golden brown and cooked through. Drain on a wire rack.",
+      "Let rest 2 minutes. Cut each cutlet crosswise into ½-inch strips—the traditional katsu presentation. Arrange over steamed rice.",
+      "Finely shred ¼ head of cabbage. Toss with 1 tablespoon rice vinegar and a pinch of salt. Place alongside the katsu.",
+      "Serve with tonkatsu sauce (or mix 2 tablespoons Worcestershire, 1 tablespoon ketchup, ½ teaspoon soy sauce) and hot mustard on the side."
     ],
     matchedIngredients: [],
   },
@@ -1255,10 +1269,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chicken", "lemon", "garlic", "oregano", "olive-oil", "salt", "pepper"],
     instructions: [
-      "Marinate chicken in lemon, garlic, and oregano",
-      "Roast until golden and cooked through",
-      "Rest before serving",
-      "Serve with roasted vegetables or salad"
+      "Make marinade: Whisk juice of 2 lemons, ¼ cup olive oil, 6 minced garlic cloves, 2 tablespoons dried oregano, 1 teaspoon salt, and ½ teaspoon pepper. Pour over 2 lbs chicken pieces (thighs or drumsticks) in a dish. Cover and refrigerate at least 2 hours or overnight.",
+      "Preheat oven to 425°F (220°C). Remove chicken from marinade and place skin-side up in a roasting pan. Pour remaining marinade around (not over) the chicken.",
+      "Roast 25 minutes. Baste chicken with pan juices. Continue roasting 15-20 more minutes until skin is golden brown and crispy, and internal temp reaches 175°F for dark meat.",
+      "Let rest 10 minutes. The juices will redistribute for more tender, juicy meat.",
+      "While chicken rests, the pan juices can be spooned over each piece. Serve with a Greek salad, roasted potatoes, or warm pita bread.",
+      "Garnish with fresh lemon wedges and oregano. The bright lemon flavor should really shine through."
     ],
     matchedIngredients: [],
   },
@@ -1271,12 +1287,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["eggs", "tomato", "onion", "bell-pepper", "garlic", "cumin", "paprika", "olive-oil", "parsley"],
     instructions: [
-      "Sauté onion and peppers",
-      "Add garlic and spices",
-      "Pour in crushed tomatoes and simmer",
-      "Create wells and crack eggs into sauce",
-      "Cover and cook until eggs set",
-      "Garnish with parsley"
+      "Heat 2 tablespoons olive oil in a large oven-safe skillet over medium heat. Add 1 diced onion and 1 diced bell pepper. Sauté 5-6 minutes until softened and slightly caramelized.",
+      "Add 4 minced garlic cloves, 1 teaspoon cumin, 1 teaspoon paprika (smoked paprika is best), and ½ teaspoon cayenne (optional). Stir 1 minute until very fragrant.",
+      "Add 1 can (28 oz) crushed tomatoes. Stir to combine. Simmer 10 minutes, stirring occasionally, until sauce thickens slightly. Season with 1 teaspoon salt and pepper to taste.",
+      "Reduce heat to medium-low. Using a spoon, make 4-6 wells in the sauce. Crack 1 egg into each well. Season eggs with a pinch of salt.",
+      "Cover the skillet with a lid. Cook 5-8 minutes until egg whites are set but yolks are still runny (or longer for firmer yolks). Check at 5 minutes.",
+      "Remove from heat. Garnish generously with fresh chopped parsley or cilantro, and crumbled feta cheese if desired. Serve immediately with warm pita or crusty bread for dipping."
     ],
     matchedIngredients: [],
   },
@@ -1289,11 +1305,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["chickpeas", "garlic", "onion", "parsley", "cumin", "lettuce", "tomato", "cucumber", "olive-oil"],
     instructions: [
-      "Blend chickpeas with herbs and spices",
-      "Form into balls and fry until golden",
-      "Prepare fresh vegetables",
-      "Arrange in bowls",
-      "Serve with tahini and pita"
+      "Drain 2 cans (15 oz each) chickpeas. Rinse and pat dry. Add to food processor with ½ diced onion, 4 garlic cloves, 1 cup fresh parsley, 1 teaspoon cumin, 1 teaspoon salt, ½ teaspoon cayenne, and 3 tablespoons flour.",
+      "Pulse until mixture is finely ground but NOT a paste—you want some texture. It should hold together when pressed. Refrigerate 30 minutes to firm up.",
+      "Shape mixture into 12 balls (about 2 tablespoons each), then flatten slightly into patties. They should be about ½-inch thick.",
+      "Heat ½ inch vegetable oil in a skillet to 350°F. Fry falafel in batches for 3-4 minutes per side until deep golden brown and crispy. Drain on paper towels.",
+      "Prep toppings: Dice 2 tomatoes and 1 cucumber. Shred 2 cups lettuce. Make a quick sauce by mixing ¼ cup tahini with 2 tablespoons lemon juice, 2 tablespoons water, 1 minced garlic clove, and salt.",
+      "Build bowls: Add lettuce, arrange 3 falafel per bowl, add tomatoes and cucumber. Drizzle generously with tahini sauce. Serve with warm pita bread on the side."
     ],
     matchedIngredients: [],
   },
@@ -1306,11 +1323,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["lamb", "garlic", "oregano", "cumin", "yogurt", "cucumber", "tomato", "onion", "bread"],
     instructions: [
-      "Season lamb with spices",
-      "Grill or pan-fry until cooked",
-      "Make tzatziki with yogurt and cucumber",
-      "Slice lamb thin",
-      "Serve in warm pita with toppings"
+      "Season 1 lb ground lamb (or mix of lamb and beef) with 1 teaspoon cumin, 1 teaspoon oregano, 4 minced garlic cloves, 1 teaspoon salt, and ½ teaspoon pepper. Mix well and form into a flat rectangular loaf about 1-inch thick.",
+      "Grill or pan-fry the lamb over medium-high heat for 5-6 minutes per side until cooked through and slightly charred on the outside. Let rest 5 minutes, then slice into thin strips.",
+      "Make tzatziki: Grate 1 small cucumber and squeeze out excess water with a towel. Mix with 1 cup Greek yogurt, 2 minced garlic cloves, 1 tablespoon lemon juice, 1 tablespoon fresh dill, and salt to taste.",
+      "Prep toppings: Slice 1 tomato, thinly slice ½ red onion into rings.",
+      "Warm pita bread in a dry skillet for 30 seconds per side or wrap in foil and heat in a 350°F oven for 10 minutes.",
+      "Assemble gyros: Spread tzatziki on warm pita. Add sliced lamb, tomato, and onion. Fold pita around filling and serve immediately. Optional: add feta cheese and a drizzle of olive oil."
     ],
     matchedIngredients: [],
   },
@@ -1324,11 +1342,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["pasta", "cheese", "cheddar", "butter", "milk", "flour", "bread-crumbs", "salt", "pepper"],
     instructions: [
-      "Cook macaroni al dente",
-      "Make cheese sauce with butter, flour, and milk",
-      "Add cheeses and stir until melted",
-      "Combine with pasta",
-      "Top with breadcrumbs and bake"
+      "Preheat oven to 375°F (190°C). Bring a large pot of salted water to boil. Cook 1 lb elbow macaroni 2 minutes less than package directions (it will finish in oven). Drain and set aside.",
+      "Make roux: Melt 4 tablespoons butter in a large pot over medium heat. Whisk in 4 tablespoons flour. Cook 1 minute, whisking constantly—the mixture should bubble but not brown.",
+      "Slowly whisk in 3 cups whole milk, adding in a steady stream while whisking to prevent lumps. Continue whisking 5-7 minutes until sauce thickens and coats the back of a spoon.",
+      "Remove from heat. Stir in 2 cups shredded sharp cheddar and 1 cup shredded gruyère (or more cheddar) until completely melted. Season with 1 teaspoon salt, ½ teaspoon pepper, and ¼ teaspoon nutmeg.",
+      "Fold in the cooked pasta until evenly coated. Pour into a buttered 9x13 inch baking dish. Top with ½ cup breadcrumbs mixed with 2 tablespoons melted butter.",
+      "Bake 25-30 minutes until top is golden brown and sauce is bubbling around the edges. Let rest 5 minutes before serving—the sauce will thicken as it cools slightly."
     ],
     matchedIngredients: [],
   },
