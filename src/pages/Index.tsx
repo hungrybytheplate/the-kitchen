@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
-import { RecipeLookup } from "@/components/RecipeLookup";
+
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
 import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
@@ -18,12 +18,85 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { getRecipesForIngredients, type Recipe } from "@/data/recipes";
+import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater, Search } from "lucide-react";
+import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater, Search, Clock, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Inline Lookup Results Component
+interface LookupResultsProps {
+  search: string;
+  onAddToShopping: (ingredients: string[]) => void;
+  onClear: () => void;
+}
+
+function LookupResults({ search, onAddToShopping, onClear }: LookupResultsProps) {
+  const matchingRecipes = sampleRecipes
+    .filter(r => r.title.toLowerCase().includes(search.toLowerCase()))
+    .slice(0, 5);
+
+  const mealTypeColors = {
+    breakfast: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+    lunch: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
+    dinner: "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300",
+  };
+
+  if (matchingRecipes.length === 0) {
+    return (
+      <div className="absolute z-50 w-full mt-2 p-4 rounded-xl bg-card border border-border shadow-elevated text-center">
+        <p className="text-muted-foreground text-sm">No recipes found for "{search}"</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden max-h-[400px] overflow-y-auto">
+      {matchingRecipes.map((recipe) => (
+        <div
+          key={recipe.id}
+          className="p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0"
+        >
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-2">
+              <Badge className={cn("text-xs", mealTypeColors[recipe.mealType])}>
+                {recipe.mealType}
+              </Badge>
+              <span className="font-medium text-sm">{recipe.title}</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Clock className="h-3 w-3" />
+              {recipe.cookTime}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-1 mb-2">
+            {recipe.ingredients.slice(0, 6).map((ing) => (
+              <Badge key={ing} variant="outline" className="text-[10px] capitalize">
+                {ing.replace(/-/g, " ")}
+              </Badge>
+            ))}
+            {recipe.ingredients.length > 6 && (
+              <Badge variant="outline" className="text-[10px]">+{recipe.ingredients.length - 6} more</Badge>
+            )}
+          </div>
+          <Button
+            size="sm"
+            variant="warm"
+            className="w-full h-8 text-xs"
+            onClick={() => {
+              onAddToShopping(recipe.ingredients);
+              onClear();
+            }}
+          >
+            <ShoppingCart className="h-3 w-3 mr-1" />
+            Add {recipe.ingredients.length} ingredients to list
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const Index = () => {
   // Mode switching (Cook vs Drink)
@@ -318,15 +391,14 @@ const Index = () => {
             </button>
           </div>
           
-          {/* Search bar - only show when there are results to filter */}
-          {((appMode === "cook" && showRecipes && allRecipes.length > 0) || 
-            (appMode === "drink" && showDrinks && allDrinks.length > 0)) && (
-            <div className="relative w-full max-w-md animate-fade-in">
+          {/* Recipe/Drink Lookup */}
+          <div className="w-full max-w-lg">
+            <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder={appMode === "cook" 
-                  ? `Filter ${allRecipes.length} recipes by name...` 
-                  : `Filter ${allDrinks.length} drinks by name...`}
+                  ? "Look up a recipe (e.g., chicken cutlet)..." 
+                  : "Look up a drink (e.g., margarita)..."}
                 value={appMode === "cook" ? recipeSearch : drinkSearch}
                 onChange={(e) => appMode === "cook" ? setRecipeSearch(e.target.value) : setDrinkSearch(e.target.value)}
                 className="pl-9 pr-9 bg-card/90 border-border/50 rounded-xl"
@@ -340,7 +412,16 @@ const Index = () => {
                 </button>
               )}
             </div>
-          )}
+            
+            {/* Lookup Results Dropdown */}
+            {appMode === "cook" && recipeSearch.trim().length >= 2 && (
+              <LookupResults 
+                search={recipeSearch} 
+                onAddToShopping={handleBulkAddToShopping}
+                onClear={() => setRecipeSearch("")}
+              />
+            )}
+          </div>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
@@ -457,7 +538,22 @@ const Index = () => {
                       onAddToShopping={handleAddToShopping}
                     />
                   ) : (
-                    <RecipeLookup onAddToShopping={handleBulkAddToShopping} />
+                    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
+                      <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+                        <div className="relative mb-6">
+                          <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
+                          <div className="relative p-5 rounded-3xl gradient-warm shadow-warm">
+                            <Sparkles className="h-10 w-10 text-primary-foreground" />
+                          </div>
+                        </div>
+                        <h3 className="font-serif text-2xl font-semibold mb-3">
+                          Ready to cook?
+                        </h3>
+                        <p className="text-muted-foreground max-w-sm leading-relaxed">
+                          Select ingredients or use the search above to look up any recipe and build your shopping list!
+                        </p>
+                      </CardContent>
+                    </Card>
                   )}
                 </div>
               </div>
