@@ -25,7 +25,7 @@ export function IngredientCheckbox({ ingredient, isChecked, onToggle }: Ingredie
         className="h-4 w-4 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
       />
       <span className={cn(
-        "text-sm transition-colors truncate",
+        "text-sm transition-colors leading-tight",
         isChecked ? "text-foreground font-medium" : "text-muted-foreground"
       )}>
         {ingredient.name}
