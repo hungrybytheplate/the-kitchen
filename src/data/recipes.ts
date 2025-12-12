@@ -50,12 +50,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "pepper", amount: "0.25", unit: "tsp" },
       { id: "parsley", amount: "1", unit: "tbsp" },
     ],
-    instructions: [
-      "Whisk eggs with salt and pepper",
-      "Melt butter in a pan over low heat",
-      "Add eggs and stir gently until fluffy",
-      "Toast bread until golden",
-      "Serve eggs on toast, garnish with parsley"
+  instructions: [
+      "Crack 4 eggs into a bowl. Add salt and pepper. Whisk vigorously for 30 seconds until the yolks and whites are fully combined and slightly frothy.",
+      "Place a non-stick pan over LOW heat. Add 2 tablespoons of butter and let it melt completely, swirling to coat the pan evenly.",
+      "Pour the whisked eggs into the warm (not hot) pan. Wait 20 seconds, then use a silicone spatula to gently push the eggs from the edges toward the center. Continue this motion, letting uncooked egg flow to the pan surface.",
+      "When eggs are 80% set but still slightly glossy (about 3-4 minutes), remove pan from heat. The residual heat will finish cooking them. They should be soft and creamy, not dry.",
+      "While eggs cook, toast bread slices in a toaster or under the broiler until golden brown, about 2-3 minutes.",
+      "Place toast on plates, spoon the fluffy scrambled eggs on top, and garnish with freshly chopped parsley."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
@@ -77,11 +78,12 @@ export const sampleRecipes: Recipe[] = [
       { id: "honey", amount: "2", unit: "tbsp" },
       { id: "cinnamon", amount: "0.5", unit: "tsp" },
     ],
-    instructions: [
-      "Bring milk to a simmer",
-      "Add oats and cook for 5 minutes",
-      "Stir in cinnamon",
-      "Top with fresh berries and honey"
+  instructions: [
+      "Pour 2 cups of milk into a medium saucepan. Place over medium heat and bring to a gentle simmer—you'll see small bubbles around the edges. This takes about 3-4 minutes.",
+      "Add 1 cup of rolled oats to the simmering milk. Stir immediately to prevent clumping. Reduce heat to medium-low.",
+      "Cook for 5 minutes, stirring occasionally. The oatmeal should thicken and become creamy. If it gets too thick, add a splash more milk.",
+      "Remove from heat and stir in ½ teaspoon of cinnamon until evenly distributed throughout the oatmeal.",
+      "Divide between two bowls. Top each with ½ cup of fresh berries and drizzle 1 tablespoon of honey over each serving. Serve immediately while warm."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
@@ -104,12 +106,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "pepper", amount: "0.125", unit: "tsp" },
       { id: "chili-powder", amount: "0.25", unit: "tsp" },
     ],
-    instructions: [
-      "Toast bread until golden",
-      "Mash avocado with salt and pepper",
-      "Fry or poach an egg",
-      "Spread avocado on toast, top with egg",
-      "Sprinkle with chili powder"
+  instructions: [
+      "Place 2 slices of bread in a toaster or under the broiler. Toast until golden brown and crispy, about 2-3 minutes. Set aside on a plate.",
+      "Cut the avocado in half lengthwise, remove the pit, and scoop the flesh into a bowl. Add ¼ teaspoon salt and a pinch of pepper. Mash with a fork until spreadable but still slightly chunky.",
+      "For a fried egg: Heat a non-stick pan over medium heat with a drizzle of oil. Crack the egg into the pan. Cook 2-3 minutes for runny yolk, or 4 minutes for set yolk. For poached: Bring water to a gentle simmer, create a whirlpool, drop egg in center, cook 3 minutes.",
+      "Spread the mashed avocado evenly over both pieces of toast, pressing gently to create a thick layer.",
+      "Carefully place the cooked egg on top of one avocado toast. Sprinkle ¼ teaspoon chili powder over the egg.",
+      "Season with additional salt and pepper to taste. Serve immediately while the toast is still warm and crispy."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "dairy-free"],
@@ -133,12 +136,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "maple-syrup", amount: "0.25", unit: "cup" },
       { id: "baking-powder", amount: "2", unit: "tsp" },
     ],
-    instructions: [
-      "Mash banana in a bowl",
-      "Mix flour, baking powder, eggs, and milk",
-      "Fold in mashed banana",
-      "Cook pancakes in buttered pan until golden",
-      "Serve with maple syrup"
+  instructions: [
+      "Peel 2 ripe bananas and place in a large mixing bowl. Use a fork to mash until mostly smooth with some small chunks remaining for texture.",
+      "In a separate bowl, whisk together 2 cups flour, 2 teaspoons baking powder, and a pinch of salt. In another bowl, beat 2 eggs with 1½ cups milk.",
+      "Pour the wet ingredients into the dry ingredients. Stir gently with a wooden spoon until just combined—lumps are okay! Overmixing makes tough pancakes.",
+      "Gently fold in the mashed bananas until evenly distributed throughout the batter. Let the batter rest for 5 minutes.",
+      "Heat a large non-stick pan or griddle over medium heat. Add 1 tablespoon butter. Pour ¼ cup batter per pancake. Cook until bubbles form on surface and edges look set (about 2 minutes), then flip. Cook another 1-2 minutes until golden.",
+      "Stack pancakes on plates, top with a pat of butter, and drizzle generously with maple syrup. Serve immediately while hot."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
@@ -160,11 +164,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "oats", amount: "0.25", unit: "cup" },
       { id: "banana", amount: "0.5", unit: "medium" },
     ],
-    instructions: [
-      "Layer yogurt in a bowl or glass",
-      "Add fresh berries and sliced banana",
-      "Sprinkle with oats",
-      "Drizzle with honey"
+  instructions: [
+      "Start with a clear glass or bowl for visual layers. Spoon ½ cup of Greek yogurt into the bottom, spreading it evenly to create the first layer.",
+      "Slice half a banana into ¼-inch rounds. Arrange half the banana slices on top of the yogurt in a single layer.",
+      "Add ¼ cup of fresh mixed berries (strawberries, blueberries, raspberries) on top of the bananas.",
+      "Add another ½ cup layer of Greek yogurt, then top with remaining banana slices and berries.",
+      "Sprinkle ¼ cup of rolled oats or granola evenly over the top for crunch.",
+      "Drizzle 1 tablespoon of honey in a zigzag pattern over everything. Serve immediately for the best texture contrast."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
@@ -188,11 +194,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "vanilla", amount: "0.5", unit: "tsp" },
       { id: "maple-syrup", amount: "2", unit: "tbsp" },
     ],
-    instructions: [
-      "Whisk eggs, milk, cinnamon, and vanilla",
-      "Dip bread slices in egg mixture",
-      "Cook in buttered pan until golden on both sides",
-      "Serve with maple syrup"
+  instructions: [
+      "In a wide, shallow bowl or baking dish, whisk together 2 eggs, ½ cup milk, 1 teaspoon cinnamon, and ½ teaspoon vanilla extract until completely combined.",
+      "Heat a large non-stick pan or griddle over medium heat. Add 1 tablespoon of butter and let it melt, tilting the pan to coat the surface.",
+      "Dip one slice of bread into the egg mixture, letting it soak for 10-15 seconds per side. The bread should absorb the liquid but not become soggy.",
+      "Place the soaked bread in the hot pan. Cook for 2-3 minutes until the bottom is golden brown. You should hear a gentle sizzle.",
+      "Flip using a spatula and cook the other side for another 2-3 minutes until golden. Repeat with remaining bread slices, adding more butter as needed.",
+      "Transfer to plates immediately. Top with a pat of butter and drizzle with 2 tablespoons maple syrup per serving. Serve while hot and crispy on the edges."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
@@ -217,12 +225,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "salt", amount: "0.25", unit: "tsp" },
       { id: "pepper", amount: "0.125", unit: "tsp" },
     ],
-    instructions: [
-      "Whisk eggs with salt and pepper",
-      "Sauté vegetables in butter",
-      "Pour eggs over vegetables",
-      "Cook until set, add cheese",
-      "Fold and serve"
+  instructions: [
+      "Crack 3 eggs into a bowl, add ¼ teaspoon salt and a pinch of pepper. Whisk vigorously for 30 seconds until fully combined and slightly fluffy.",
+      "Dice the bell pepper, onion, and mushrooms into small, uniform pieces (about ¼-inch). This ensures even cooking.",
+      "Heat an 8-inch non-stick pan over medium heat. Add 1 tablespoon butter. When it foams, add the vegetables. Sauté for 3-4 minutes until softened and slightly caramelized.",
+      "Reduce heat to medium-low. Pour the beaten eggs evenly over the vegetables. Let sit undisturbed for 30 seconds until the edges begin to set.",
+      "Using a spatula, gently lift the edges and tilt the pan to let uncooked egg flow underneath. Continue until the top is almost set but still slightly glossy (about 2 minutes).",
+      "Sprinkle ¼ cup shredded cheese over one half of the omelette. Using your spatula, fold the other half over the cheese. Let sit 30 seconds for cheese to melt, then slide onto a plate."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free", "keto"],
@@ -237,13 +246,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 2,
     ingredients: ["eggs", "beans", "cheese", "onion", "bell-pepper", "flour", "salt", "hot-sauce"],
-    instructions: [
-      "Scramble eggs with salt",
-      "Warm beans in a pan",
-      "Sauté onion and bell pepper",
-      "Warm tortillas",
-      "Fill with eggs, beans, vegetables, and cheese",
-      "Add hot sauce and roll up"
+  instructions: [
+      "Crack 4 eggs into a bowl, add ½ teaspoon salt. Whisk until combined. Cook in a buttered pan over medium-low heat, stirring gently, until soft curds form (about 3 minutes). Set aside.",
+      "In a small saucepan, heat 1 cup of beans over medium heat. Stir occasionally until warmed through, about 3-4 minutes. Keep warm.",
+      "Dice ½ onion and ½ bell pepper. Sauté in 1 tablespoon oil over medium-high heat for 4-5 minutes until slightly charred and tender.",
+      "Warm flour tortillas in a dry pan for 30 seconds per side, or wrap in a damp paper towel and microwave for 20-30 seconds until pliable.",
+      "Lay tortillas flat. Spoon scrambled eggs down the center of each. Top with warm beans, sautéed vegetables, and a generous handful of shredded cheese.",
+      "Add hot sauce to taste. Fold the bottom of the tortilla up over the filling, then fold in the sides. Roll tightly away from you into a burrito. Cut in half diagonally and serve."
     ],
     matchedIngredients: [],
   },
@@ -255,11 +264,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "10 min",
     servings: 1,
     ingredients: ["banana", "berries", "yogurt", "honey", "coconut-milk", "oats"],
-    instructions: [
-      "Blend frozen banana, berries, and coconut milk until thick",
-      "Pour into bowl",
-      "Top with fresh berries, sliced banana, and oats",
-      "Drizzle with honey"
+  instructions: [
+      "Add 2 frozen bananas (peel and freeze ripe bananas overnight), 1 cup frozen berries, and ½ cup coconut milk to a high-speed blender. You want it thick like soft-serve ice cream.",
+      "Blend on low, using the tamper to push ingredients down. Increase to high and blend for 30-60 seconds. The mixture should be very thick and creamy—add a splash more coconut milk only if needed.",
+      "Pour the thick smoothie into a bowl, spreading it evenly. Work quickly as it will start to melt.",
+      "Slice half a fresh banana. Arrange the banana slices in a row along one side of the bowl.",
+      "Add ¼ cup fresh berries along another section. Sprinkle ¼ cup of oats or granola for crunch.",
+      "Drizzle 1 tablespoon honey in a decorative pattern over the top. Serve immediately with a spoon—this melts quickly!"
     ],
     matchedIngredients: [],
   },
@@ -271,12 +282,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 6,
     ingredients: ["eggs", "spinach", "cheese", "onion", "salt", "pepper", "milk"],
-    instructions: [
-      "Whisk eggs with milk, salt, and pepper",
-      "Divide spinach and onion into muffin tin",
-      "Pour egg mixture over vegetables",
-      "Top with cheese",
-      "Bake at 350°F for 20 minutes"
+  instructions: [
+      "Preheat your oven to 350°F (175°C). Generously grease a 12-cup muffin tin with butter or cooking spray to prevent sticking.",
+      "In a large bowl, whisk together 8 eggs, ¼ cup milk, ½ teaspoon salt, and ¼ teaspoon pepper until well combined and slightly frothy.",
+      "Finely chop 2 cups of fresh spinach and ¼ cup of onion. Divide the vegetables evenly among the 12 muffin cups—about 1-2 tablespoons per cup.",
+      "Carefully pour the egg mixture over the vegetables in each cup, filling each about ¾ full. Stir gently with a fork to distribute.",
+      "Sprinkle about 1 tablespoon of shredded cheese on top of each egg muffin.",
+      "Bake for 18-22 minutes until the eggs are puffed and set in the center—a toothpick should come out clean. Let cool 2 minutes before removing from tin. Store refrigerated up to 4 days."
     ],
     matchedIngredients: [],
   },
@@ -290,12 +302,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 2,
     ingredients: ["chicken", "lettuce", "tomato", "cucumber", "olives", "cheese", "olive-oil", "lemon"],
-    instructions: [
-      "Season and grill chicken until cooked",
-      "Chop lettuce, tomatoes, and cucumber",
-      "Slice chicken and arrange on salad",
-      "Add olives and crumbled cheese",
-      "Drizzle with olive oil and lemon juice"
+  instructions: [
+      "Season 2 chicken breasts with 1 teaspoon salt, ½ teaspoon pepper, and 1 teaspoon dried oregano. Let sit at room temperature for 10 minutes.",
+      "Preheat a grill pan or outdoor grill to medium-high heat. Brush with olive oil. Grill chicken for 6-7 minutes per side until internal temperature reaches 165°F. Let rest 5 minutes, then slice into strips.",
+      "While chicken rests, chop 1 head of romaine lettuce into bite-sized pieces. Dice 2 tomatoes and 1 cucumber into ½-inch cubes. Place in a large salad bowl.",
+      "Add ½ cup of kalamata olives (pitted and halved) to the bowl. Crumble ½ cup feta cheese over the vegetables.",
+      "Whisk together 3 tablespoons olive oil, juice of 1 lemon, ½ teaspoon oregano, salt, and pepper for the dressing.",
+      "Arrange the sliced chicken on top of the salad. Drizzle the lemon-olive oil dressing over everything. Toss gently if desired, and serve immediately."
     ],
     matchedIngredients: [],
   },
@@ -307,12 +320,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 4,
     ingredients: ["pasta", "bell-pepper", "zucchini", "tomato", "garlic", "olive-oil", "basil", "cheese"],
-    instructions: [
-      "Cook pasta according to package",
-      "Sauté garlic in olive oil",
-      "Add vegetables and cook until tender",
-      "Toss pasta with vegetables",
-      "Top with fresh basil and cheese"
+  instructions: [
+      "Bring a large pot of salted water to a rolling boil. Add 12 oz pasta and cook according to package directions until al dente (usually 8-10 minutes). Reserve 1 cup pasta water before draining.",
+      "While pasta cooks, slice 1 bell pepper, 1 zucchini, and 2 tomatoes into thin strips. Mince 3 cloves of garlic.",
+      "Heat a large skillet over medium-high heat. Add 3 tablespoons olive oil. When shimmering, add the garlic and cook for 30 seconds until fragrant—don't let it brown.",
+      "Add the sliced vegetables to the pan. Sauté for 5-6 minutes, stirring occasionally, until the vegetables are tender-crisp with slight charring on the edges.",
+      "Add the drained pasta directly to the skillet. Toss everything together, adding splashes of pasta water to create a light sauce that coats the pasta.",
+      "Remove from heat. Tear fresh basil leaves over the top and sprinkle generously with freshly grated Parmesan cheese. Serve immediately in warm bowls."
     ],
     matchedIngredients: [],
   },
@@ -324,12 +338,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "10 min",
     servings: 2,
     ingredients: ["tuna", "bread", "lettuce", "tomato", "onion", "sour-cream", "mustard"],
-    instructions: [
-      "Drain tuna and mix with sour cream and mustard",
-      "Add diced onion",
-      "Toast bread slices",
-      "Layer tuna, lettuce, and tomato",
-      "Close sandwich and serve"
+  instructions: [
+      "Open 2 cans of tuna and drain well, pressing with a fork to remove excess liquid. Transfer to a medium bowl and flake with a fork.",
+      "Add 3 tablespoons of sour cream (or mayonnaise) and 1 tablespoon of mustard to the tuna. Mix until creamy and well combined.",
+      "Finely dice ¼ cup of onion and add to the tuna mixture. Season with salt and pepper to taste. Stir everything together.",
+      "Toast 4 slices of bread until golden brown and slightly crispy. Let cool for 1 minute so they don't make the sandwich soggy.",
+      "On 2 toast slices, layer lettuce leaves first, then add a thick layer of the tuna salad, and top with sliced tomatoes.",
+      "Place the remaining toast slices on top. Press gently, cut diagonally, and serve immediately with chips or a pickle on the side."
     ],
     matchedIngredients: [],
   },
@@ -341,12 +356,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "15 min",
     servings: 2,
     ingredients: ["lettuce", "cheese", "bread", "garlic", "lemon", "olive-oil", "eggs"],
-    instructions: [
-      "Tear lettuce into bite-sized pieces",
-      "Make croutons by toasting cubed bread with garlic and olive oil",
-      "Whisk lemon, olive oil, and egg for dressing",
-      "Toss lettuce with dressing",
-      "Top with croutons and shaved cheese"
+  instructions: [
+      "Wash and dry 1 head of romaine lettuce thoroughly. Tear into 2-inch pieces and place in a large salad bowl. Refrigerate to keep crisp.",
+      "For croutons: Cut 2 slices of bread into ¾-inch cubes. Toss with 2 tablespoons olive oil and 1 minced garlic clove. Spread on a baking sheet and toast at 375°F for 10-12 minutes until golden, stirring halfway.",
+      "For the dressing: In a small bowl, whisk together the juice of 1 lemon, 1 egg yolk (or 1 tablespoon mayo for safety), 1 minced garlic clove, and ½ cup olive oil. Drizzle oil slowly while whisking to emulsify.",
+      "Add ¼ cup finely grated Parmesan to the dressing. Whisk in salt and pepper to taste. The dressing should be creamy and tangy.",
+      "Pour about ¾ of the dressing over the chilled lettuce. Toss gently to coat every leaf evenly.",
+      "Transfer to serving plates, top with warm croutons, and shave additional Parmesan over the top using a vegetable peeler. Serve immediately."
     ],
     matchedIngredients: [],
   },
@@ -366,12 +382,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "garlic", amount: "2", unit: "cloves" },
       { id: "basil", amount: "0.25", unit: "cup" },
     ],
-    instructions: [
-      "Butter bread slices on one side",
-      "Layer cheese between bread slices",
-      "Grill in pan until golden and cheese melts",
-      "Blend tomatoes, garlic, and basil for soup",
-      "Serve sandwich with soup"
+  instructions: [
+      "Spread 1 tablespoon of softened butter generously on one side of each bread slice. This is what creates the golden, crispy exterior.",
+      "Place one bread slice butter-side down in a cold non-stick pan. Layer 2 slices of cheese (use a mix for best results—cheddar + gruyere works great). Top with second bread slice, butter-side up.",
+      "Turn heat to medium-low. Cook slowly for 3-4 minutes. The low heat is crucial—it allows the cheese to melt fully before the bread burns. Press gently with a spatula.",
+      "When the bottom is deep golden brown, carefully flip. Cook another 3-4 minutes until the second side is golden and cheese is completely melted and slightly oozing.",
+      "While sandwich cooks, blend 2 cups canned tomatoes, 2 cloves garlic, and ¼ cup fresh basil in a blender until smooth. Transfer to a pot and simmer 10 minutes. Season with salt and pepper.",
+      "Cut the grilled cheese diagonally. Serve immediately alongside a bowl of warm tomato soup for dipping."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
@@ -386,12 +403,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 2,
     ingredients: ["chicken", "lettuce", "cheese", "flour", "garlic", "lemon", "olive-oil"],
-    instructions: [
-      "Season and grill chicken",
-      "Slice chicken into strips",
-      "Toss lettuce with olive oil and lemon",
-      "Layer chicken, lettuce, and cheese on tortilla",
-      "Roll up and slice in half"
+  instructions: [
+      "Pound 2 chicken breasts to ½-inch thickness for even cooking. Season both sides generously with salt, pepper, and garlic powder. Let rest 10 minutes.",
+      "Preheat grill pan over medium-high heat. Brush with olive oil. Grill chicken 5-6 minutes per side until internal temp reaches 165°F. Rest 5 minutes, then slice into ½-inch strips.",
+      "In a large bowl, combine 4 cups chopped romaine lettuce with 1 tablespoon olive oil and the juice of half a lemon. Toss to coat evenly.",
+      "Warm 2 large flour tortillas in a dry pan for 30 seconds per side, or microwave in a damp towel for 15 seconds until pliable.",
+      "Lay tortillas flat. Arrange dressed lettuce down the center of each. Top with sliced chicken and sprinkle with ¼ cup shaved Parmesan cheese per wrap.",
+      "Fold the bottom edge up about 2 inches, then fold both sides in tightly. Roll away from you to create a sealed wrap. Slice in half diagonally and serve immediately."
     ],
     matchedIngredients: [],
   },
@@ -413,12 +431,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "olive-oil", amount: "2", unit: "tbsp" },
       { id: "parsley", amount: "0.25", unit: "cup" },
     ],
-    instructions: [
-      "Cook quinoa according to package",
-      "Dice cucumber, tomatoes, and olives",
-      "Mix vegetables with cooled quinoa",
-      "Crumble cheese on top",
-      "Dress with lemon and olive oil"
+  instructions: [
+      "Rinse 1 cup quinoa under cold water for 30 seconds to remove bitter coating. Add to pot with 2 cups water and ½ teaspoon salt. Bring to boil, reduce heat, cover, and simmer 15 minutes until water is absorbed.",
+      "Fluff quinoa with a fork and spread on a baking sheet to cool for 10 minutes. Warm quinoa will make the salad soggy.",
+      "While quinoa cools, dice 1 cucumber and 1 cup tomatoes into ½-inch cubes. Halve ½ cup olives. Chop ¼ cup fresh parsley.",
+      "In a large bowl, combine the cooled quinoa with all the diced vegetables and parsley. Toss gently to mix.",
+      "Crumble ½ cup feta cheese over the top. Whisk together 2 tablespoons lemon juice, 2 tablespoons olive oil, salt, and pepper.",
+      "Drizzle the dressing over the bowl and toss gently to combine. Taste and adjust seasoning. Can be served immediately or chilled for up to 2 days."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
@@ -443,12 +462,13 @@ export const sampleRecipes: Recipe[] = [
       { id: "cumin", amount: "1", unit: "tsp" },
       { id: "olive-oil", amount: "2", unit: "tbsp" },
     ],
-    instructions: [
-      "Sauté onion, carrot, and celery in olive oil",
-      "Add garlic and cumin",
-      "Add lentils and tomatoes with water",
-      "Simmer until lentils are tender",
-      "Season and serve"
+  instructions: [
+      "Dice 1 medium onion, 2 carrots, and 2 celery stalks into ¼-inch pieces. This is called a mirepoix and forms the flavor base.",
+      "Heat 2 tablespoons olive oil in a large pot over medium heat. Add the diced vegetables and cook for 5-6 minutes until softened and slightly golden.",
+      "Add 3 minced garlic cloves and 1 teaspoon ground cumin. Stir constantly for 1 minute until very fragrant—the cumin should bloom and become aromatic.",
+      "Add 1½ cups rinsed lentils, 1 can diced tomatoes, and 6 cups of water or vegetable broth. Stir to combine.",
+      "Bring to a boil, then reduce heat to medium-low. Simmer uncovered for 25-30 minutes, stirring occasionally, until lentils are completely tender but not mushy.",
+      "Season with 1 teaspoon salt and ½ teaspoon pepper, adjusting to taste. For a creamier soup, blend half with an immersion blender. Serve hot with crusty bread."
     ],
     matchedIngredients: [],
     dietaryTags: ["vegan", "gluten-free", "dairy-free"],
@@ -463,12 +483,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "10 min",
     servings: 1,
     ingredients: ["bread", "cheese", "tomato", "basil", "olive-oil", "balsamic", "salt"],
-    instructions: [
-      "Slice bread and toast lightly",
-      "Layer fresh mozzarella and tomato slices",
-      "Add fresh basil leaves",
-      "Drizzle with olive oil and balsamic",
-      "Season with salt"
+  instructions: [
+      "Slice a fresh baguette or ciabatta in half lengthwise. Toast cut-side down in a pan with a drizzle of olive oil until light golden, about 2 minutes.",
+      "Slice fresh mozzarella into ¼-inch thick rounds. Slice 2 ripe tomatoes to similar thickness. Pat tomatoes dry to prevent soggy bread.",
+      "On the bottom half of bread, layer alternating slices of mozzarella and tomato, overlapping slightly. You want roughly equal amounts of each.",
+      "Tuck 6-8 fresh basil leaves between the cheese and tomato layers, tearing larger leaves in half.",
+      "Drizzle generously with 2 tablespoons extra virgin olive oil and 1 tablespoon balsamic vinegar (or balsamic glaze for a sweeter touch).",
+      "Season with flaky sea salt and freshly cracked black pepper. Top with the other bread half if making a sandwich, or serve open-faced. Eat immediately."
     ],
     matchedIngredients: [],
   },
@@ -480,12 +501,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 2,
     ingredients: ["pasta", "carrot", "cucumber", "bell-pepper", "soy-sauce", "ginger", "garlic", "vegetable-oil"],
-    instructions: [
-      "Cook noodles and rinse with cold water",
-      "Julienne vegetables",
-      "Whisk soy sauce, ginger, garlic, and oil",
-      "Toss noodles with vegetables and dressing",
-      "Chill before serving"
+  instructions: [
+      "Bring a large pot of water to boil. Cook 8 oz thin rice noodles or spaghetti according to package directions. Drain and immediately rinse under cold running water for 1 minute to stop cooking and remove starch.",
+      "While noodles cook, julienne 1 carrot, 1 cucumber, and 1 bell pepper into thin matchstick-sized strips, about 2 inches long.",
+      "In a small bowl, whisk together 3 tablespoons soy sauce, 1 tablespoon rice vinegar, 1 teaspoon minced fresh ginger, 2 minced garlic cloves, 2 tablespoons vegetable oil, and 1 teaspoon sesame oil.",
+      "Transfer the cold, drained noodles to a large bowl. Add all the julienned vegetables and toss to combine.",
+      "Pour the dressing over the noodle mixture. Toss thoroughly with tongs until everything is evenly coated.",
+      "Cover and refrigerate for at least 30 minutes to let flavors meld. Serve cold, garnished with sesame seeds and chopped scallions."
     ],
     matchedIngredients: [],
   },
@@ -497,12 +519,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "15 min",
     servings: 2,
     ingredients: ["avocado", "tuna", "onion", "lemon", "salt", "pepper", "celery"],
-    instructions: [
-      "Halve avocados and remove pit",
-      "Mix tuna with diced onion and celery",
-      "Season with lemon, salt, and pepper",
-      "Fill avocado halves with tuna mixture",
-      "Serve immediately"
+  instructions: [
+      "Cut 2 ripe avocados in half lengthwise, running your knife around the pit. Twist to separate halves. Remove pit by carefully tapping it with your knife blade and twisting.",
+      "Drain 2 cans of tuna well. Transfer to a bowl and flake with a fork. Finely dice ¼ cup red onion and 1 stalk celery into small pieces.",
+      "Add the onion and celery to the tuna. Squeeze in the juice of half a lemon (about 1 tablespoon). Season with ½ teaspoon salt and ¼ teaspoon pepper.",
+      "Mix everything together thoroughly. Taste and adjust seasoning as needed.",
+      "Scoop out a little extra avocado flesh from each half to create a deeper well if needed. Divide the tuna mixture evenly among the 4 avocado halves, mounding it generously.",
+      "Drizzle with a little extra olive oil and additional lemon juice. Serve immediately—avocado browns quickly once cut. Pair with crackers or eat with a fork."
     ],
     matchedIngredients: [],
   },
@@ -514,12 +537,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "10 min",
     servings: 2,
     ingredients: ["chickpeas", "cucumber", "tomato", "onion", "parsley", "lemon", "olive-oil"],
-    instructions: [
-      "Drain and rinse chickpeas",
-      "Dice cucumber, tomato, and onion",
-      "Chop fresh parsley",
-      "Combine all ingredients",
-      "Dress with lemon and olive oil"
+  instructions: [
+      "Open and drain 1 can (15 oz) of chickpeas. Rinse thoroughly under cold water and drain well. Pat dry with paper towels for better texture.",
+      "Dice 1 medium cucumber, 2 Roma tomatoes, and ¼ red onion into ½-inch pieces. Keep the pieces uniform for even bites.",
+      "Finely chop ¼ cup fresh parsley leaves. You can also add fresh mint if you have it for extra brightness.",
+      "In a large bowl, combine the chickpeas, diced vegetables, and chopped parsley. Toss gently to distribute.",
+      "Whisk together the juice of 1 lemon, 3 tablespoons olive oil, ½ teaspoon salt, and a pinch of pepper for the dressing.",
+      "Pour dressing over the salad and toss until everything is evenly coated. Taste and adjust seasoning. Serve immediately or refrigerate—this salad actually improves after 30 minutes."
     ],
     matchedIngredients: [],
   },
@@ -533,12 +557,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "30 min",
     servings: 4,
     ingredients: ["chicken", "butter", "garlic", "thyme", "lemon", "salt", "pepper"],
-    instructions: [
-      "Season chicken with salt, pepper, and thyme",
-      "Sear chicken in butter until golden",
-      "Add minced garlic and baste chicken",
-      "Squeeze lemon over finished dish",
-      "Let rest before serving"
+  instructions: [
+      "Pat 4 chicken thighs or breasts completely dry with paper towels—this is essential for browning. Season generously on both sides with 1 teaspoon salt, ½ teaspoon pepper, and 1 teaspoon dried thyme.",
+      "Heat a large heavy skillet (cast iron is ideal) over medium-high heat. Add 2 tablespoons butter. When it foams and the foam subsides, the pan is ready.",
+      "Place chicken skin-side down (or smooth-side for boneless). Don't move it for 5-6 minutes until deep golden brown and releases easily. Flip and cook 5 more minutes.",
+      "Reduce heat to medium. Push chicken to one side. Add 4 minced garlic cloves to the butter. Tilt pan and spoon the garlic butter over the chicken continuously for 2-3 minutes.",
+      "Check internal temperature—chicken is done at 165°F. Remove to a cutting board and let rest 5 minutes. The juices will redistribute for juicier meat.",
+      "Squeeze half a lemon over the resting chicken. Slice against the grain if desired. Serve with pan juices drizzled on top and lemon wedges on the side."
     ],
     matchedIngredients: [],
   },
@@ -550,12 +575,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 4,
     ingredients: ["beef", "bell-pepper", "broccoli", "carrot", "soy-sauce", "garlic", "ginger", "vegetable-oil"],
-    instructions: [
-      "Slice beef into thin strips",
-      "Stir-fry beef in hot oil until browned",
-      "Add vegetables and garlic",
-      "Pour in soy sauce and ginger",
-      "Serve over rice"
+  instructions: [
+      "Slice 1 lb flank steak or sirloin against the grain into very thin strips (⅛-inch). Freezing the meat for 20 minutes makes slicing easier. Toss with 1 tablespoon soy sauce and set aside.",
+      "Prep all vegetables: slice 1 bell pepper into strips, cut 2 cups broccoli into small florets, and slice 1 carrot into thin coins. Mince 3 cloves garlic and 1 inch fresh ginger.",
+      "Heat a wok or large skillet over HIGH heat until smoking. Add 2 tablespoons vegetable oil. Working in batches to avoid crowding, sear the beef strips for 1-2 minutes until browned. Remove to a plate.",
+      "Add another tablespoon of oil. Stir-fry the vegetables for 3-4 minutes until crisp-tender, starting with carrots, then adding broccoli and peppers.",
+      "Push vegetables to sides. Add garlic and ginger to center. Stir for 30 seconds until fragrant. Add 3 tablespoons soy sauce and return the beef.",
+      "Toss everything together for 1 minute until sauce coats all ingredients. Serve immediately over steamed white or brown rice."
     ],
     matchedIngredients: [],
   },
@@ -567,12 +593,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 4,
     ingredients: ["pasta", "tomatoes", "cream", "garlic", "basil", "cheese", "olive-oil", "onion"],
-    instructions: [
-      "Cook pasta al dente",
-      "Sauté garlic and onion in olive oil",
-      "Add tomatoes and simmer",
-      "Stir in cream and basil",
-      "Toss with pasta and top with cheese"
+  instructions: [
+      "Bring a large pot of salted water to boil. Cook 1 lb pasta until al dente (1 minute less than package says—it will finish in the sauce). Reserve 1 cup pasta water before draining.",
+      "While pasta cooks, mince 4 garlic cloves and dice 1 small onion. Heat 3 tablespoons olive oil in a large pan over medium heat.",
+      "Sauté onion for 4-5 minutes until translucent. Add garlic and cook 1 minute until fragrant. Add 1 can (28 oz) crushed tomatoes, ½ teaspoon salt, and a pinch of red pepper flakes.",
+      "Simmer sauce for 10 minutes, stirring occasionally, until slightly thickened. Reduce heat to low.",
+      "Stir in ½ cup heavy cream and ¼ cup fresh torn basil leaves. The sauce will turn a beautiful pink-orange color. Simmer 2 more minutes.",
+      "Add drained pasta directly to the sauce. Toss, adding pasta water as needed to achieve a silky coating. Top with freshly grated Parmesan and more basil. Serve hot."
     ],
     matchedIngredients: [],
   },
@@ -584,12 +611,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 4,
     ingredients: ["fish", "flour", "lettuce", "tomato", "lime", "cumin", "chili-powder", "sour-cream"],
-    instructions: [
-      "Season fish with cumin and chili powder",
-      "Coat in flour and pan-fry until crispy",
-      "Shred lettuce and dice tomatoes",
-      "Warm tortillas",
-      "Assemble tacos with fish, slaw, and lime sour cream"
+  instructions: [
+      "Cut 1 lb white fish (cod, tilapia, or mahi-mahi) into 2-inch pieces. Season generously with 1 teaspoon cumin, 1 teaspoon chili powder, ½ teaspoon salt, and ¼ teaspoon pepper.",
+      "Place ½ cup flour in a shallow bowl. Dredge each fish piece in flour, shaking off excess. The coating should be light.",
+      "Heat ¼ inch of vegetable oil in a skillet over medium-high heat to 350°F. Fry fish pieces for 2-3 minutes per side until golden brown and crispy. Drain on paper towels.",
+      "Shred 2 cups of cabbage or lettuce. Dice 2 tomatoes. Mix ½ cup sour cream with juice of 1 lime and a pinch of salt for the crema.",
+      "Warm corn or flour tortillas in a dry skillet for 30 seconds per side, or wrap in foil and heat in a 350°F oven for 10 minutes.",
+      "Assemble tacos: Place 2-3 pieces of fish in each tortilla. Top with shredded lettuce, diced tomatoes, and a drizzle of lime crema. Serve with lime wedges."
     ],
     matchedIngredients: [],
   },
@@ -601,12 +629,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "25 min",
     servings: 2,
     ingredients: ["fish", "lemon", "garlic", "thyme", "rosemary", "olive-oil", "salt", "pepper"],
-    instructions: [
-      "Preheat oven to 400°F",
-      "Place salmon on baking sheet",
-      "Top with garlic, herbs, and lemon slices",
-      "Drizzle with olive oil",
-      "Bake for 15-18 minutes"
+  instructions: [
+      "Preheat your oven to 400°F (200°C). Line a baking sheet with parchment paper or foil for easy cleanup.",
+      "Pat 2 salmon fillets (6 oz each) dry with paper towels. Place on the prepared baking sheet. Season with ½ teaspoon salt and ¼ teaspoon pepper.",
+      "Mince 2 cloves of garlic. Strip leaves from 2-3 sprigs each of fresh thyme and rosemary. Scatter the garlic and herbs over the salmon.",
+      "Slice 1 lemon into thin rounds. Arrange 2-3 lemon slices on top of each fillet, overlapping slightly.",
+      "Drizzle 2 tablespoons olive oil generously over the fish, ensuring the herbs and garlic are coated.",
+      "Bake for 12-15 minutes for medium (slightly pink center) or 15-18 minutes for well done. Fish should flake easily with a fork. Let rest 2 minutes before serving."
     ],
     matchedIngredients: [],
   },
@@ -618,12 +647,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "35 min",
     servings: 4,
     ingredients: ["chicken", "coconut-milk", "onion", "garlic", "ginger", "curry-powder", "tomatoes", "rice"],
-    instructions: [
-      "Sauté onion, garlic, and ginger",
-      "Add curry powder and cook until fragrant",
-      "Add chicken and brown",
-      "Pour in coconut milk and tomatoes",
-      "Simmer until chicken is cooked, serve over rice"
+  instructions: [
+      "Dice 1 large onion. Mince 4 garlic cloves and 1 inch of fresh ginger (or use 1 teaspoon ground ginger). Cut 1½ lbs chicken thighs into 2-inch pieces.",
+      "Heat 2 tablespoons oil in a large deep pan or Dutch oven over medium heat. Sauté onion for 5 minutes until softened and translucent.",
+      "Add garlic and ginger. Cook 1 minute. Add 2 tablespoons curry powder (or curry paste). Stir constantly for 1 minute until very fragrant—this blooms the spices.",
+      "Push aromatics to the side. Increase heat to medium-high. Add chicken pieces and brown on all sides, about 4-5 minutes. Don't stir too much—let it develop color.",
+      "Add 1 can (14 oz) coconut milk and 1 can diced tomatoes. Stir to combine and scrape up any browned bits. Bring to a simmer.",
+      "Reduce heat to medium-low. Simmer uncovered for 20-25 minutes until chicken is cooked through and sauce has thickened. Serve over basmati rice with fresh cilantro."
     ],
     matchedIngredients: [],
   },
@@ -635,12 +665,13 @@ export const sampleRecipes: Recipe[] = [
     cookTime: "20 min",
     servings: 4,
     ingredients: ["shrimp", "pasta", "garlic", "butter", "lemon", "parsley", "olive-oil", "pepper"],
-    instructions: [
-      "Cook pasta according to package",
-      "Sauté garlic in butter and olive oil",
-      "Add shrimp and cook until pink",
-      "Squeeze in lemon juice",
-      "Toss with pasta and parsley"
+  instructions: [
+      "Bring a large pot of salted water to boil. Cook 12 oz linguine or spaghetti until al dente. Reserve 1 cup pasta water before draining.",
+      "While pasta cooks, mince 6 cloves of garlic. Pat 1 lb large shrimp dry with paper towels and season with salt and pepper.",
+      "In a large skillet, heat 2 tablespoons butter and 2 tablespoons olive oil over medium-high heat. Add shrimp in a single layer—don't crowd. Cook 1-2 minutes per side until pink. Remove to a plate.",
+      "Reduce heat to medium. Add garlic to the pan and cook 30 seconds until fragrant. Add the juice of 2 lemons and ½ cup pasta water. Simmer 2 minutes.",
+      "Add 2 more tablespoons butter and swirl until melted. Return shrimp to the pan. Add drained pasta and toss everything together.",
+      "Add ¼ cup fresh chopped parsley and toss again. Season with salt and pepper to taste. Serve immediately with additional lemon wedges."
     ],
     matchedIngredients: [],
   },
