@@ -1360,12 +1360,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["ground-beef", "onion", "garlic", "bread-crumbs", "eggs", "ketchup", "salt", "pepper"],
     instructions: [
-      "Mix ground beef with onion, garlic, and breadcrumbs",
-      "Add egg to bind",
-      "Shape into loaf and place in pan",
-      "Top with ketchup glaze",
-      "Bake until cooked through",
-      "Rest before slicing"
+      "Preheat oven to 350°F (175°C). Finely dice 1 medium onion and mince 3 garlic cloves. In a large bowl, combine 2 lbs ground beef, the onion, garlic, ¾ cup breadcrumbs, 2 beaten eggs, 2 tablespoons Worcestershire sauce, 1 teaspoon salt, and ½ teaspoon pepper.",
+      "Mix with your hands until just combined—don't overwork or the meatloaf will be tough. The mixture should hold together when pressed.",
+      "Shape into a loaf about 9x5 inches on a foil-lined baking sheet or in a loaf pan. Creating a free-form loaf on a sheet pan gives you more crispy edges.",
+      "Make the glaze: Mix ½ cup ketchup, 2 tablespoons brown sugar, and 1 tablespoon mustard. Spread half the glaze over the top and sides of the meatloaf.",
+      "Bake 45 minutes. Spread remaining glaze on top. Bake 15 more minutes until internal temperature reaches 160°F and glaze is caramelized.",
+      "Let rest 10 minutes before slicing—this is essential or it will fall apart. The internal temp will rise to 165°F. Slice into 1-inch thick pieces and serve with mashed potatoes."
     ],
     matchedIngredients: [],
   },
@@ -1378,11 +1378,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["beef", "carrot", "potato", "onion", "garlic", "rosemary", "thyme", "beef-broth"],
     instructions: [
-      "Season and sear beef on all sides",
-      "Add vegetables and herbs",
-      "Pour in broth",
-      "Cover and braise low and slow",
-      "Cook until fork-tender"
+      "Remove 3-4 lb chuck roast from refrigerator 1 hour before cooking. Pat very dry with paper towels. Season generously on all sides with 1 tablespoon salt and 1 teaspoon pepper.",
+      "Preheat oven to 300°F (150°C). Heat 2 tablespoons oil in a Dutch oven over high heat until smoking. Sear the roast 4-5 minutes per side until a deep brown crust forms on all sides. Remove to a plate.",
+      "Reduce heat to medium. Add 1 quartered onion, 4 whole garlic cloves, 3 sprigs rosemary, and 4 sprigs thyme. Cook 3 minutes until fragrant. Add 2 cups beef broth, scraping up browned bits.",
+      "Return roast to pot. Add 4 quartered potatoes and 4 large carrots cut into 2-inch pieces around the meat. The liquid should come about halfway up the roast.",
+      "Cover with lid and transfer to oven. Braise 2½-3 hours until meat is fork-tender and falling apart. Check at 2 hours—add more broth if it looks dry.",
+      "Remove from oven. Let rest 15 minutes. The meat should shred easily with two forks. Serve with the braised vegetables and spoon the rich cooking liquid over everything."
     ],
     matchedIngredients: [],
   },
@@ -1395,11 +1396,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["ground-beef", "potato", "carrot", "peas", "onion", "garlic", "butter", "milk", "beef-broth"],
     instructions: [
-      "Brown ground beef with onion",
-      "Add carrots and peas",
-      "Make mashed potatoes",
-      "Layer meat in baking dish",
-      "Top with potatoes and bake until golden"
+      "Peel and cube 2 lbs potatoes. Boil in salted water 15-20 minutes until fork-tender. Drain and mash with 4 tablespoons butter and ½ cup warm milk until smooth. Season with salt and pepper. Set aside.",
+      "While potatoes cook, heat 1 tablespoon oil in a large oven-safe skillet over medium-high heat. Add 1½ lbs ground beef, breaking into crumbles. Cook 6-8 minutes until browned. Drain excess fat.",
+      "Add 1 diced onion and 2 minced garlic cloves to the beef. Cook 3 minutes. Add 2 diced carrots and cook 5 more minutes until softened.",
+      "Stir in 2 tablespoons tomato paste, 1 cup beef broth, 1 teaspoon Worcestershire sauce, and 1 teaspoon dried thyme. Simmer 5 minutes until thickened. Stir in 1 cup frozen peas. Season with salt and pepper.",
+      "Preheat broiler. Spread mashed potatoes evenly over the meat filling, starting from the edges. Use a fork to create peaks on top (they'll get crispy). Dot with 1 tablespoon butter.",
+      "Broil 4-6 inches from heat for 5-8 minutes until potato peaks are golden brown. Watch carefully to prevent burning. Let rest 5 minutes before serving."
     ],
     matchedIngredients: [],
   },
@@ -1412,11 +1414,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["chicken", "carrot", "peas", "potato", "onion", "butter", "flour", "milk", "chicken-broth"],
     instructions: [
-      "Cook and dice chicken",
-      "Sauté vegetables",
-      "Make creamy sauce with butter and flour",
-      "Combine filling ingredients",
-      "Top with pastry and bake"
+      "Preheat oven to 400°F (200°C). Poach 1½ lbs chicken breast in simmering salted water for 18-20 minutes. Let cool slightly, then dice into ½-inch cubes.",
+      "Dice 2 carrots, 2 stalks celery, and 1 small potato into ½-inch pieces. Dice 1 onion. In a large pot, melt 4 tablespoons butter over medium heat. Add vegetables and cook 8-10 minutes until softened.",
+      "Sprinkle ¼ cup flour over vegetables. Stir 1 minute to cook the flour. Slowly whisk in 1 cup chicken broth and 1 cup milk. Simmer 5 minutes until thickened into a creamy sauce.",
+      "Stir in diced chicken and 1 cup frozen peas. Season with 1 teaspoon salt, ½ teaspoon pepper, and ½ teaspoon dried thyme. Pour into a 9-inch deep dish pie plate.",
+      "Top with 1 sheet thawed puff pastry or pie crust. Trim edges and crimp to seal. Cut 3-4 slits in the top to vent steam. Brush with 1 beaten egg for golden color.",
+      "Bake 25-30 minutes until crust is deep golden brown and filling is bubbling through the vents. Let cool 10 minutes before serving—the filling will be very hot!"
     ],
     matchedIngredients: [],
   },
@@ -1430,10 +1433,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["salmon", "asparagus", "lemon", "garlic", "dill", "olive-oil", "salt", "pepper"],
     instructions: [
-      "Season salmon with herbs",
-      "Grill until flaky",
-      "Roast asparagus with garlic",
-      "Serve with lemon wedges"
+      "Preheat oven to 400°F (200°C). Snap off woody ends of 1 lb asparagus (they'll break naturally at the right spot). Toss with 1 tablespoon olive oil, 2 minced garlic cloves, salt, and pepper. Spread on a baking sheet.",
+      "Pat 4 salmon fillets (6 oz each) dry. Season with 1 teaspoon salt, ½ teaspoon pepper, 1 tablespoon chopped fresh dill, and zest of 1 lemon. Place on a separate baking sheet lined with parchment.",
+      "Drizzle salmon with 1 tablespoon olive oil. Place both baking sheets in oven. Roast asparagus 12-15 minutes until tender and slightly charred.",
+      "Roast salmon 12-15 minutes until it flakes easily with a fork and reaches 145°F internal temperature. The center should still be slightly translucent for medium doneness.",
+      "Squeeze fresh lemon juice over both the salmon and asparagus just before serving.",
+      "Plate salmon over asparagus. Garnish with extra fresh dill and lemon wedges. Serve immediately. Great with rice pilaf or roasted potatoes."
     ],
     matchedIngredients: [],
   },
@@ -1446,11 +1451,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 2,
     ingredients: ["cauliflower", "chicken", "avocado", "tomato", "cucumber", "lime", "cilantro", "olive-oil"],
     instructions: [
-      "Rice cauliflower in food processor",
-      "Sauté cauliflower rice",
-      "Grill seasoned chicken",
-      "Arrange in bowls with fresh toppings",
-      "Drizzle with lime juice"
+      "Cut 1 medium head cauliflower into florets. Working in batches, pulse in food processor until it resembles rice grains—don't over-process or it becomes mushy. You should get about 4 cups.",
+      "Season 8 oz chicken breast with 1 teaspoon cumin, ½ teaspoon chili powder, salt, and pepper. Grill or pan-sear over medium-high heat 6-7 minutes per side until internal temp reaches 165°F. Let rest 5 minutes, then slice.",
+      "Heat 1 tablespoon olive oil in a large skillet over medium-high heat. Add cauliflower rice. Sauté 5-6 minutes, stirring frequently, until tender but not mushy. Season with salt and juice of ½ lime.",
+      "Prep toppings: Dice 1 tomato, slice 1 avocado, dice ½ cucumber. Chop ¼ cup fresh cilantro.",
+      "Divide cauliflower rice between 2 bowls. Arrange sliced chicken on top. Add tomato, avocado, and cucumber in sections around the bowl.",
+      "Drizzle with juice of remaining lime half and 1 tablespoon olive oil. Garnish with fresh cilantro. Serve with hot sauce or salsa verde on the side."
     ],
     matchedIngredients: [],
   },
@@ -1463,11 +1469,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 2,
     ingredients: ["zucchini", "basil", "garlic", "parmesan", "pine-nuts", "olive-oil", "lemon", "salt"],
     instructions: [
-      "Spiralize zucchini",
-      "Make pesto with basil, garlic, and pine nuts",
-      "Lightly sauté zoodles",
-      "Toss with pesto",
-      "Top with parmesan"
+      "Make pesto first: In a food processor, combine 2 cups packed fresh basil leaves, 3 garlic cloves, ¼ cup pine nuts (or walnuts), and ½ cup grated Parmesan. Pulse until finely chopped.",
+      "With processor running, slowly drizzle in ½ cup olive oil until smooth. Season with salt, pepper, and a squeeze of lemon juice. Taste and adjust seasoning.",
+      "Using a spiralizer or julienne peeler, create noodles from 4 medium zucchini. If using a regular peeler, make long ribbon strips. Pat zoodles dry with paper towels—excess moisture makes them soggy.",
+      "You can serve zoodles raw or lightly sauté: Heat 1 tablespoon olive oil in a large skillet over medium-high heat. Add zoodles and toss 2-3 minutes until just warmed through but still crisp.",
+      "Remove from heat immediately. Toss with ½ cup pesto (save the rest for another use). The residual heat will warm the pesto.",
+      "Divide between plates. Top with additional grated Parmesan, a drizzle of olive oil, and fresh basil leaves. Serve immediately—zoodles release water if they sit too long."
     ],
     matchedIngredients: [],
   },
@@ -1480,11 +1487,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["turkey", "lettuce", "garlic", "ginger", "soy-sauce", "green-onion", "carrot", "vegetable-oil"],
     instructions: [
-      "Brown ground turkey",
-      "Add garlic, ginger, and soy sauce",
-      "Stir in diced vegetables",
-      "Spoon into lettuce cups",
-      "Top with green onions"
+      "Separate leaves from 1 head butter lettuce or iceberg. Wash, dry thoroughly, and arrange cup-side up on a platter. These are your serving vessels.",
+      "Heat 1 tablespoon vegetable oil in a large skillet over medium-high heat. Add 1 lb ground turkey, breaking into small crumbles. Cook 5-6 minutes until cooked through and starting to brown.",
+      "Add 3 minced garlic cloves and 1 tablespoon minced fresh ginger. Stir 30 seconds until very fragrant. Add 1 finely diced carrot and cook 2 more minutes.",
+      "Pour in 3 tablespoons soy sauce, 1 tablespoon rice vinegar, 1 tablespoon hoisin sauce, and 1 teaspoon sesame oil. Stir until turkey is coated and sauce thickens slightly, about 1 minute.",
+      "Remove from heat. Stir in ½ cup diced water chestnuts (optional for crunch) and 3 sliced green onions.",
+      "Spoon turkey mixture into lettuce cups. Garnish with additional sliced green onions, sesame seeds, and a drizzle of sriracha if desired. Serve immediately while filling is hot and lettuce is cold and crispy."
     ],
     matchedIngredients: [],
   },
@@ -1498,11 +1506,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["coconut", "potato", "carrot", "bell-pepper", "onion", "garlic", "ginger", "rice"],
     instructions: [
-      "Sauté onion, garlic, and ginger",
-      "Add curry paste",
-      "Pour in coconut milk",
-      "Add vegetables and simmer",
-      "Serve over rice"
+      "Cook 1½ cups basmati rice according to package. Keep warm. Dice 2 medium potatoes, 2 carrots, and 1 bell pepper into 1-inch cubes.",
+      "Heat 2 tablespoons oil in a large pot or Dutch oven over medium heat. Add 1 diced onion and cook 5 minutes until softened. Add 4 minced garlic cloves and 1 tablespoon minced fresh ginger. Stir 1 minute.",
+      "Add 2-3 tablespoons curry paste (red, yellow, or green—your choice) or 2 tablespoons curry powder. Stir 1 minute until fragrant and paste coats the onions.",
+      "Pour in 1 can (14 oz) coconut milk and ½ cup vegetable broth. Stir to combine. Add diced potatoes and carrots. Bring to a simmer.",
+      "Cover and cook 15 minutes. Add bell pepper and cook uncovered 10 more minutes until all vegetables are tender and sauce has thickened. Season with 1 teaspoon salt and sugar to balance.",
+      "Taste and adjust seasoning—add more salt, a squeeze of lime juice, or a pinch of sugar as needed. Serve over basmati rice, garnished with fresh cilantro and lime wedges."
     ],
     matchedIngredients: [],
   },
@@ -1515,11 +1524,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["beans", "tortillas", "avocado", "tomato", "onion", "lime", "cilantro", "cumin", "cheese"],
     instructions: [
-      "Season and heat black beans",
-      "Warm tortillas",
-      "Dice fresh toppings",
-      "Assemble tacos",
-      "Squeeze lime on top"
+      "Drain and rinse 2 cans (15 oz each) black beans. In a saucepan, heat beans with 1 teaspoon cumin, ½ teaspoon chili powder, ¼ teaspoon garlic powder, and salt to taste. Mash about half the beans with a fork for better texture.",
+      "Prep toppings: Dice 2 tomatoes, thinly slice ¼ red onion, chop ¼ cup fresh cilantro. Slice 1 avocado and toss with lime juice to prevent browning.",
+      "Warm 8 small corn or flour tortillas. Stack and wrap in a damp towel, microwave 30 seconds. Or heat individually in a dry skillet 30 seconds per side until pliable with a few char spots.",
+      "Spread a generous spoonful of seasoned black beans on each tortilla. Top with diced tomatoes, sliced onion, avocado, and shredded cheese if using.",
+      "Squeeze fresh lime juice over each taco. Top with fresh cilantro.",
+      "Serve immediately with extra lime wedges, hot sauce, and sour cream on the side. These are best eaten right away while tortillas are warm and soft."
     ],
     matchedIngredients: [],
   },
@@ -1532,11 +1542,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 4,
     ingredients: ["mozzarella", "tomato", "basil", "olive-oil", "salt", "pepper"],
     instructions: [
-      "Slice mozzarella and tomatoes",
-      "Arrange alternating on plate",
-      "Tuck in fresh basil leaves",
-      "Drizzle with olive oil",
-      "Season with salt and pepper"
+      "Use the best quality ingredients you can find—this simple salad relies on their flavors. Choose ripe, in-season tomatoes and fresh mozzarella (the kind packed in water, not the dry shredded type).",
+      "Slice 2-3 large ripe tomatoes and 8 oz fresh mozzarella into ¼-inch thick rounds. Try to make them similar thickness for even stacking.",
+      "Arrange tomato and mozzarella slices alternating on a serving platter, overlapping slightly. Tuck them together at a slight angle for visual appeal.",
+      "Tuck 12-15 fresh basil leaves between and around the slices. Tear larger leaves in half. The basil should be generous.",
+      "Drizzle 3 tablespoons high-quality extra virgin olive oil over the entire platter. Add 1-2 tablespoons balsamic glaze (or aged balsamic vinegar) in a zigzag pattern.",
+      "Sprinkle with flaky sea salt (like Maldon) and freshly cracked black pepper just before serving. Serve immediately at room temperature—never refrigerate before serving."
     ],
     matchedIngredients: [],
   },
@@ -1549,11 +1560,12 @@ export const sampleRecipes: Recipe[] = [
     servings: 6,
     ingredients: ["pasta", "ricotta", "spinach", "mozzarella", "parmesan", "eggs", "garlic", "tomato-sauce"],
     instructions: [
-      "Cook jumbo shells",
-      "Mix ricotta with spinach and egg",
-      "Fill shells with mixture",
-      "Arrange in baking dish with sauce",
-      "Top with mozzarella and bake"
+      "Preheat oven to 375°F (190°C). Bring a large pot of salted water to boil. Cook 20-24 jumbo pasta shells according to package directions. Drain, rinse with cold water, and lay flat on oiled parchment to prevent sticking.",
+      "Make the filling: Thaw 10 oz frozen spinach and squeeze very dry in a towel (this is crucial—wet spinach makes watery filling). Mix in a bowl with 15 oz ricotta, 1 beaten egg, ½ cup grated Parmesan, 2 minced garlic cloves, ½ teaspoon salt, and ¼ teaspoon nutmeg.",
+      "Spread 1 cup marinara sauce on the bottom of a 9x13 inch baking dish. Fill each shell with 2-3 tablespoons of the spinach-ricotta mixture.",
+      "Arrange filled shells seam-side up in a single layer in the baking dish. Pour 1½ cups more marinara sauce over the shells. Top with 1½ cups shredded mozzarella.",
+      "Cover tightly with foil. Bake 25 minutes. Remove foil and bake 15 more minutes until cheese is melted and sauce is bubbling.",
+      "Let rest 5 minutes before serving. Garnish with fresh basil and extra Parmesan. Serve 3-4 shells per person with crusty bread on the side."
     ],
     matchedIngredients: [],
   },
