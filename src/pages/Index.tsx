@@ -652,7 +652,12 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6">
-            <SavedRecipes savedRecipeIds={savedRecipes} onRemove={handleSaveRecipe} />
+            <SavedRecipes 
+              savedRecipeIds={savedRecipes} 
+              savedDrinkIds={savedDrinks}
+              onRemoveRecipe={handleSaveRecipe} 
+              onRemoveDrink={handleSaveDrink}
+            />
           </TabsContent>
 
           <TabsContent value="shopping" className="mt-6">

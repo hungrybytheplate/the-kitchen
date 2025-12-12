@@ -3,23 +3,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Heart, Trash2, ChefHat, ArrowRight, Search } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine } from "lucide-react";
 import { sampleRecipes } from "@/data/recipes";
+import { sampleDrinks } from "@/data/drinks";
 import { cn } from "@/lib/utils";
 
 interface SavedRecipesProps {
   savedRecipeIds: string[];
-  onRemove: (id: string) => void;
+  savedDrinkIds: string[];
+  onRemoveRecipe: (id: string) => void;
+  onRemoveDrink: (id: string) => void;
 }
 
-export function SavedRecipes({ savedRecipeIds, onRemove }: SavedRecipesProps) {
+export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, onRemoveDrink }: SavedRecipesProps) {
   const [search, setSearch] = useState("");
+  
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
+  const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
+  
   const savedRecipes = allSavedRecipes.filter((r) =>
     r.title.toLowerCase().includes(search.toLowerCase())
   );
+  const savedDrinks = allSavedDrinks.filter((d) =>
+    d.title.toLowerCase().includes(search.toLowerCase())
+  );
 
-  if (allSavedRecipes.length === 0) {
+  const totalSaved = allSavedRecipes.length + allSavedDrinks.length;
+
+  if (totalSaved === 0) {
     return (
       <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
@@ -31,14 +43,14 @@ export function SavedRecipes({ savedRecipeIds, onRemove }: SavedRecipesProps) {
             </div>
           </div>
           <h3 className="font-serif text-2xl font-semibold mb-3">
-            Your Recipe Collection
+            Your Collection
           </h3>
           <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
-            Save your favorite recipes by clicking the heart icon. They'll appear here for quick access anytime!
+            Save your favorite recipes and drinks by clicking the heart icon. They'll appear here for quick access anytime!
           </p>
           <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
             <ChefHat className="h-4 w-4" />
-            <span>Find recipes in the Cook tab</span>
+            <span>Find recipes & drinks in the Cook or Mix tabs</span>
             <ArrowRight className="h-4 w-4" />
           </div>
         </CardContent>
@@ -47,9 +59,16 @@ export function SavedRecipes({ savedRecipeIds, onRemove }: SavedRecipesProps) {
   }
 
   const mealTypeColors = {
-    breakfast: "bg-accent text-accent-foreground",
-    lunch: "bg-secondary text-secondary-foreground",
-    dinner: "bg-primary text-primary-foreground",
+    breakfast: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+    lunch: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
+    dinner: "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300",
+  };
+
+  const drinkTypeColors = {
+    smoothie: "bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300",
+    wellness: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+    mocktail: "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300",
+    cocktail: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
   };
 
   return (
@@ -58,51 +77,99 @@ export function SavedRecipes({ savedRecipeIds, onRemove }: SavedRecipesProps) {
       <CardHeader>
         <CardTitle className="font-serif text-2xl flex items-center gap-2">
           <Heart className="h-6 w-6 text-primary fill-primary" />
-          Saved Recipes
+          Saved Collection
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          {allSavedRecipes.length} recipe{allSavedRecipes.length === 1 ? '' : 's'} saved
+          {allSavedRecipes.length} recipe{allSavedRecipes.length === 1 ? '' : 's'} · {allSavedDrinks.length} drink{allSavedDrinks.length === 1 ? '' : 's'}
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search saved recipes..."
+            placeholder="Search saved items..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-9"
           />
         </div>
-        <div className="space-y-3">
-          {savedRecipes.length > 0 ? (
-            savedRecipes.map((recipe) => (
-            <div
-              key={recipe.id}
-              className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
-            >
-              <div className="flex items-center gap-3">
-                <Badge className={cn("text-xs", mealTypeColors[recipe.mealType])}>
-                  {recipe.mealType}
-                </Badge>
-                <span className="font-medium">{recipe.title}</span>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onRemove(recipe.id)}
-                className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+
+        <Tabs defaultValue="recipes" className="w-full">
+          <TabsList className="w-full grid grid-cols-2 h-10 bg-muted/50 p-1 rounded-lg">
+            <TabsTrigger value="recipes" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
+              <ChefHat className="h-4 w-4" />
+              Recipes ({savedRecipes.length})
+            </TabsTrigger>
+            <TabsTrigger value="drinks" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
+              <Wine className="h-4 w-4" />
+              Drinks ({savedDrinks.length})
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="recipes" className="mt-4">
+            <div className="space-y-2">
+              {savedRecipes.length > 0 ? (
+                savedRecipes.map((recipe) => (
+                  <div
+                    key={recipe.id}
+                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Badge className={cn("text-xs", mealTypeColors[recipe.mealType])}>
+                        {recipe.mealType}
+                      </Badge>
+                      <span className="font-medium">{recipe.title}</span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onRemoveRecipe(recipe.id)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-muted-foreground py-4">
+                  {search ? `No recipes match "${search}"` : "No recipes saved yet"}
+                </p>
+              )}
             </div>
-          ))
-        ) : (
-          <p className="text-center text-muted-foreground py-4">
-            No recipes match "{search}"
-          </p>
-        )}
-        </div>
+          </TabsContent>
+
+          <TabsContent value="drinks" className="mt-4">
+            <div className="space-y-2">
+              {savedDrinks.length > 0 ? (
+                savedDrinks.map((drink) => (
+                  <div
+                    key={drink.id}
+                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Badge className={cn("text-xs", drinkTypeColors[drink.drinkType])}>
+                        {drink.drinkType}
+                      </Badge>
+                      <span className="font-medium">{drink.title}</span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onRemoveDrink(drink.id)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-muted-foreground py-4">
+                  {search ? `No drinks match "${search}"` : "No drinks saved yet"}
+                </p>
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
       </CardContent>
     </Card>
   );
