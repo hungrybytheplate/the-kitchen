@@ -12,6 +12,12 @@ export type HealthTag =
   | "Low Calorie"
   | "Hydrating";
 
+export interface DrinkNutrition {
+  calories: number;
+  sugar: number;
+  carbs: number;
+}
+
 export interface Drink {
   id: string;
   title: string;
@@ -27,6 +33,7 @@ export interface Drink {
   garnish?: string;
   isAlcoholic: boolean;
   healthTags?: HealthTag[];
+  nutrition?: DrinkNutrition;
 }
 
 export const sampleDrinks: Drink[] = [
@@ -48,6 +55,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Mint sprig and lime",
     isAlcoholic: true,
+    nutrition: { calories: 217, sugar: 12, carbs: 14 },
   },
   {
     id: "margarita",
@@ -66,6 +74,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Margarita glass",
     garnish: "Salt rim, lime wheel",
     isAlcoholic: true,
+    nutrition: { calories: 274, sugar: 11, carbs: 12 },
   },
   {
     id: "old-fashioned",
@@ -84,6 +93,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Rocks glass",
     garnish: "Orange peel, cherry",
     isAlcoholic: true,
+    nutrition: { calories: 154, sugar: 4, carbs: 5 },
   },
   {
     id: "cosmopolitan",

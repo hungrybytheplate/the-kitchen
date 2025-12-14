@@ -106,6 +106,25 @@ export const pantryItems: IngredientCategory[] = [
       { id: "yeast-instant", name: "Instant Yeast", emoji: "🧪" },
     ],
   },
+  {
+    id: "spirits",
+    name: "Cooking Spirits & Wines",
+    items: [
+      { id: "vodka", name: "Vodka", emoji: "🍸" },
+      { id: "white-wine", name: "White Wine", emoji: "🍷" },
+      { id: "red-wine", name: "Red Wine", emoji: "🍷" },
+      { id: "marsala-wine", name: "Marsala Wine", emoji: "🍷" },
+      { id: "sherry", name: "Sherry", emoji: "🍷" },
+      { id: "brandy", name: "Brandy", emoji: "🥃" },
+      { id: "rum", name: "Rum", emoji: "🍹" },
+      { id: "bourbon", name: "Bourbon", emoji: "🥃" },
+      { id: "beer", name: "Beer", emoji: "🍺" },
+      { id: "sake", name: "Sake", emoji: "🍶" },
+      { id: "kahlua", name: "Kahlúa", emoji: "☕" },
+      { id: "amaretto", name: "Amaretto", emoji: "🥃" },
+      { id: "grand-marnier", name: "Grand Marnier", emoji: "🍊" },
+    ],
+  },
 ];
 
 export const fridgeItems: IngredientCategory[] = [
