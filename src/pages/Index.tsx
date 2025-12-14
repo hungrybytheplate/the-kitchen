@@ -20,7 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
-import { getDrinksForIngredients } from "@/data/drinks";
+import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater, Search, Clock, Users } from "lucide-react";
@@ -92,6 +92,80 @@ function LookupResults({ search, onAddToShopping, onClear }: LookupResultsProps)
           >
             <ShoppingCart className="h-3 w-3 mr-1" />
             Add {recipe.ingredients.length} ingredients to list
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Inline Drink Lookup Results Component
+interface DrinkLookupResultsProps {
+  search: string;
+  onAddToShopping: (ingredients: string[]) => void;
+  onClear: () => void;
+}
+
+function DrinkLookupResults({ search, onAddToShopping, onClear }: DrinkLookupResultsProps) {
+  const matchingDrinks = sampleDrinks
+    .filter(d => d.title.toLowerCase().includes(search.toLowerCase()))
+    .slice(0, 5);
+
+  const drinkTypeColors = {
+    cocktail: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
+    mocktail: "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300",
+    smoothie: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+    wellness: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+  };
+
+  if (matchingDrinks.length === 0) {
+    return (
+      <div className="absolute z-50 w-full mt-2 p-4 rounded-xl bg-card border border-border shadow-elevated text-center">
+        <p className="text-muted-foreground text-sm">No drinks found for "{search}"</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden max-h-[400px] overflow-y-auto">
+      {matchingDrinks.map((drink) => (
+        <div
+          key={drink.id}
+          className="p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0"
+        >
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-2">
+              <Badge className={cn("text-xs capitalize", drinkTypeColors[drink.drinkType])}>
+                {drink.drinkType}
+              </Badge>
+              <span className="font-medium text-sm">{drink.title}</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Clock className="h-3 w-3" />
+              {drink.prepTime}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-1 mb-2">
+            {drink.ingredients.slice(0, 6).map((ing) => (
+              <Badge key={ing} variant="outline" className="text-[10px] capitalize">
+                {ing.replace(/-/g, " ")}
+              </Badge>
+            ))}
+            {drink.ingredients.length > 6 && (
+              <Badge variant="outline" className="text-[10px]">+{drink.ingredients.length - 6} more</Badge>
+            )}
+          </div>
+          <Button
+            size="sm"
+            variant="warm"
+            className="w-full h-8 text-xs"
+            onClick={() => {
+              onAddToShopping(drink.ingredients);
+              onClear();
+            }}
+          >
+            <ShoppingCart className="h-3 w-3 mr-1" />
+            Add {drink.ingredients.length} ingredients to list
           </Button>
         </div>
       ))}
@@ -421,6 +495,13 @@ const Index = () => {
                 search={recipeSearch} 
                 onAddToShopping={handleBulkAddToShopping}
                 onClear={() => setRecipeSearch("")}
+              />
+            )}
+            {appMode === "drink" && drinkSearch.trim().length >= 2 && (
+              <DrinkLookupResults 
+                search={drinkSearch} 
+                onAddToShopping={handleBulkAddToShopping}
+                onClear={() => setDrinkSearch("")}
               />
             )}
           </div>
