@@ -22,7 +22,7 @@ import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/rec
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, ChefHat, X, ShoppingCart, Wine, GlassWater, Search, Clock, Users } from "lucide-react";
+import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Inline Lookup Results Component
@@ -449,7 +449,7 @@ const Index = () => {
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <ChefHat className="h-5 w-5" />
+              <UtensilsCrossed className="h-5 w-5" />
               <span>Plate</span>
             </button>
             <button
@@ -510,7 +510,7 @@ const Index = () => {
           <TabsList className="w-full max-w-xl mx-auto grid grid-cols-4 h-14 glass p-1.5 rounded-2xl shadow-soft">
             <QuickTooltip content={appMode === "cook" ? "Select ingredients & find recipes" : "Select ingredients & find drinks"} side="bottom">
               <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-                {appMode === "cook" ? <ChefHat className="h-4 w-4" /> : <GlassWater className="h-4 w-4" />}
+                {appMode === "cook" ? <UtensilsCrossed className="h-4 w-4" /> : <GlassWater className="h-4 w-4" />}
                 <span className="hidden sm:inline">{appMode === "cook" ? "Cook" : "Mix"}</span>
               </TabsTrigger>
             </QuickTooltip>
