@@ -255,6 +255,9 @@ export const sampleRecipes: Recipe[] = [
       "Add hot sauce to taste. Fold the bottom of the tortilla up over the filling, then fold in the sides. Roll tightly away from you into a burrito. Cut in half diagonally and serve."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 420, protein: 18, carbs: 38, fat: 22 },
   },
   {
     id: "smoothie-bowl",
@@ -273,6 +276,9 @@ export const sampleRecipes: Recipe[] = [
       "Drizzle 1 tablespoon honey in a decorative pattern over the top. Serve immediately with a spoon—this melts quickly!"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 340, protein: 12, carbs: 58, fat: 8 },
   },
   {
     id: "egg-muffins",
@@ -291,6 +297,9 @@ export const sampleRecipes: Recipe[] = [
       "Bake for 18-22 minutes until the eggs are puffed and set in the center—a toothpick should come out clean. Let cool 2 minutes before removing from tin. Store refrigerated up to 4 days."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 145, protein: 12, carbs: 8, fat: 8 },
   },
 
   // ============ LUNCH ============
@@ -311,6 +320,9 @@ export const sampleRecipes: Recipe[] = [
       "Arrange the sliced chicken on top of the salad. Drizzle the lemon-olive oil dressing over everything. Toss gently if desired, and serve immediately."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "keto"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 38, carbs: 12, fat: 26 },
   },
   {
     id: "pasta-primavera",
@@ -329,6 +341,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove from heat. Tear fresh basil leaves over the top and sprinkle generously with freshly grated Parmesan cheese. Serve immediately in warm bowls."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14 },
   },
   {
     id: "tuna-sandwich",
@@ -347,6 +362,8 @@ export const sampleRecipes: Recipe[] = [
       "Place the remaining toast slices on top. Press gently, cut diagonally, and serve immediately with chips or a pickle on the side."
     ],
     matchedIngredients: [],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 28, carbs: 32, fat: 16 },
   },
   {
     id: "caesar-salad",
@@ -365,6 +382,9 @@ export const sampleRecipes: Recipe[] = [
       "Transfer to serving plates, top with warm croutons, and shave additional Parmesan over the top using a vegetable peeler. Serve immediately."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "medium",
+    nutrition: { calories: 450, protein: 18, carbs: 28, fat: 32 },
   },
   {
     id: "grilled-cheese",
@@ -412,6 +432,8 @@ export const sampleRecipes: Recipe[] = [
       "Fold the bottom edge up about 2 inches, then fold both sides in tightly. Roll away from you to create a sealed wrap. Slice in half diagonally and serve immediately."
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 480, protein: 36, carbs: 38, fat: 22 },
   },
   {
     id: "quinoa-bowl",
@@ -492,6 +514,9 @@ export const sampleRecipes: Recipe[] = [
       "Season with flaky sea salt and freshly cracked black pepper. Top with the other bread half if making a sandwich, or serve open-faced. Eat immediately."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 420, protein: 18, carbs: 32, fat: 26 },
   },
   {
     id: "asian-noodle-salad",
@@ -510,6 +535,9 @@ export const sampleRecipes: Recipe[] = [
       "Cover and refrigerate for at least 30 minutes to let flavors meld. Serve cold, garnished with sesame seeds and chopped scallions."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "vegan"],
+    difficulty: "easy",
+    nutrition: { calories: 320, protein: 8, carbs: 48, fat: 12 },
   },
   {
     id: "stuffed-avocado",
@@ -528,6 +556,9 @@ export const sampleRecipes: Recipe[] = [
       "Drizzle with a little extra olive oil and additional lemon juice. Serve immediately—avocado browns quickly once cut. Pair with crackers or eat with a fork."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "keto"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 28, carbs: 12, fat: 26 },
   },
   {
     id: "chickpea-salad",
@@ -546,6 +577,9 @@ export const sampleRecipes: Recipe[] = [
       "Pour dressing over the salad and toss until everything is evenly coated. Taste and adjust seasoning. Serve immediately or refrigerate—this salad actually improves after 30 minutes."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "vegan", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 280, protein: 12, carbs: 32, fat: 14 },
   },
 
   // ============ DINNER ============
@@ -566,6 +600,9 @@ export const sampleRecipes: Recipe[] = [
       "Squeeze half a lemon over the resting chicken. Slice against the grain if desired. Serve with pan juices drizzled on top and lemon wedges on the side."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "keto"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 42, carbs: 4, fat: 22 },
   },
   {
     id: "beef-stir-fry",
@@ -584,6 +621,9 @@ export const sampleRecipes: Recipe[] = [
       "Toss everything together for 1 minute until sauce coats all ingredients. Serve immediately over steamed white or brown rice."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 32, carbs: 24, fat: 22 },
   },
   {
     id: "creamy-tomato-pasta",
@@ -602,6 +642,9 @@ export const sampleRecipes: Recipe[] = [
       "Add drained pasta directly to the sauce. Toss, adding pasta water as needed to achieve a silky coating. Top with freshly grated Parmesan and more basil. Serve hot."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 480, protein: 18, carbs: 52, fat: 22 },
   },
   {
     id: "fish-tacos",
@@ -620,6 +663,8 @@ export const sampleRecipes: Recipe[] = [
       "Assemble tacos: Place 2-3 pieces of fish in each tortilla. Top with shredded lettuce, diced tomatoes, and a drizzle of lime crema. Serve with lime wedges."
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 360, protein: 28, carbs: 18, fat: 20 },
   },
   {
     id: "lemon-herb-salmon",
@@ -638,6 +683,9 @@ export const sampleRecipes: Recipe[] = [
       "Bake for 12-15 minutes for medium (slightly pink center) or 15-18 minutes for well done. Fish should flake easily with a fork. Let rest 2 minutes before serving."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "paleo"],
+    difficulty: "easy",
+    nutrition: { calories: 320, protein: 34, carbs: 4, fat: 18 },
   },
   {
     id: "chicken-curry",
@@ -656,6 +704,9 @@ export const sampleRecipes: Recipe[] = [
       "Reduce heat to medium-low. Simmer uncovered for 20-25 minutes until chicken is cooked through and sauce has thickened. Serve over basmati rice with fresh cilantro."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 450, protein: 38, carbs: 28, fat: 22 },
   },
   {
     id: "shrimp-scampi",
@@ -674,6 +725,8 @@ export const sampleRecipes: Recipe[] = [
       "Add ¼ cup fresh chopped parsley and toss again. Season with salt and pepper to taste. Serve immediately with additional lemon wedges."
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 520, protein: 32, carbs: 48, fat: 24 },
   },
   {
     id: "stuffed-peppers",
@@ -692,6 +745,9 @@ export const sampleRecipes: Recipe[] = [
       "Let rest 5 minutes before serving. The peppers should be tender but still hold their shape. Serve with a side salad or crusty bread."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 28, carbs: 38, fat: 18 },
   },
   {
     id: "pork-chops",
@@ -710,6 +766,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove from heat. Let pork rest on a cutting board for 5 minutes—the temperature will rise to 150°F. Serve with the glazed apples and pan juices spooned over top."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free"],
+    difficulty: "medium",
+    nutrition: { calories: 380, protein: 32, carbs: 22, fat: 20 },
   },
   {
     id: "vegetable-stir-fry",
@@ -728,6 +787,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove from heat immediately to prevent overcooking. Serve over steamed rice. Garnish with sesame seeds and sliced green onions if desired."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "vegan"],
+    difficulty: "easy",
+    nutrition: { calories: 180, protein: 6, carbs: 22, fat: 10 },
   },
   {
     id: "spaghetti-carbonara",
@@ -746,6 +808,8 @@ export const sampleRecipes: Recipe[] = [
       "The sauce should be silky and coat each strand. If eggs scramble, the pan was too hot. Serve immediately with more pepper and grated cheese on top."
     ],
     matchedIngredients: [],
+    difficulty: "hard",
+    nutrition: { calories: 580, protein: 24, carbs: 62, fat: 28 },
   },
   {
     id: "teriyaki-chicken",
@@ -764,6 +828,9 @@ export const sampleRecipes: Recipe[] = [
       "Divide rice among 4 bowls. Arrange teriyaki chicken on one side and steamed vegetables on the other. Drizzle reserved sauce over everything. Garnish with sesame seeds and sliced green onions."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "easy",
+    nutrition: { calories: 420, protein: 36, carbs: 38, fat: 14 },
   },
   {
     id: "mushroom-risotto",
@@ -782,6 +849,9 @@ export const sampleRecipes: Recipe[] = [
       "Divide risotto among plates. Top with the sautéed mushrooms. Drizzle with good olive oil and add more Parmesan. Serve immediately—risotto waits for no one!"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "hard",
+    nutrition: { calories: 420, protein: 12, carbs: 52, fat: 20 },
   },
   {
     id: "beef-tacos",
@@ -800,6 +870,9 @@ export const sampleRecipes: Recipe[] = [
       "Assemble tacos: Add a generous spoonful of beef to each shell. Layer with lettuce, tomatoes, cheese, and a dollop of sour cream. Serve immediately with lime wedges and hot sauce on the side."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 24, carbs: 18, fat: 24 },
   },
   {
     id: "coconut-shrimp-curry",
@@ -818,6 +891,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove from heat. Squeeze in the juice of 1 lime and stir. Taste and adjust salt. Serve immediately over jasmine rice, garnished with fresh cilantro and lime wedges."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 28, carbs: 38, fat: 18 },
   },
   {
     id: "baked-ziti",
@@ -836,6 +912,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove foil and bake 15-20 more minutes until cheese is golden and bubbly. Let rest 10 minutes before serving—this helps it set up for easier portioning."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "medium",
+    nutrition: { calories: 520, protein: 22, carbs: 48, fat: 28 },
   },
   {
     id: "honey-garlic-chicken",
@@ -890,6 +969,9 @@ export const sampleRecipes: Recipe[] = [
       "Serve immediately over steamed white rice. Garnish with sesame seeds. The beef should be tender and the broccoli crisp-tender with a glossy sauce."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "hard",
+    nutrition: { calories: 380, protein: 18, carbs: 42, fat: 18 },
   },
   {
     id: "tofu-stir-fry",
@@ -908,6 +990,9 @@ export const sampleRecipes: Recipe[] = [
       "Toss everything together for 1 minute until sauce coats all ingredients. Serve immediately over steamed rice. Top with sliced green onions and sesame seeds."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 380, protein: 32, carbs: 18, fat: 22 },
   },
   // ============ ITALIAN CLASSICS ============
   {
@@ -1022,6 +1107,9 @@ export const sampleRecipes: Recipe[] = [
       "Rest 10-15 minutes before serving—this is crucial for the layers to set. Garnish with fresh basil. Serve with crusty bread to soak up the sauce."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "hard",
+    nutrition: { calories: 420, protein: 18, carbs: 32, fat: 26 },
   },
   {
     id: "fettuccine-alfredo",
@@ -1040,6 +1128,9 @@ export const sampleRecipes: Recipe[] = [
       "Divide among warm bowls. Top with extra Parmesan, freshly cracked black pepper, and chopped fresh parsley. Serve immediately—Alfredo waits for no one!"
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 620, protein: 18, carbs: 52, fat: 38 },
   },
   {
     id: "penne-vodka",
@@ -1058,6 +1149,9 @@ export const sampleRecipes: Recipe[] = [
       "Divide among plates. Top with more Parmesan, fresh torn basil leaves, and a drizzle of olive oil. Serve immediately while hot."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "easy",
+    nutrition: { calories: 520, protein: 16, carbs: 58, fat: 24 },
   },
   // ============ MEXICAN FAVORITES ============
   {
@@ -1077,6 +1171,8 @@ export const sampleRecipes: Recipe[] = [
       "Bake uncovered 25-30 minutes until sauce is bubbling and cheese is melted and lightly browned. Let rest 5 minutes. Serve topped with sour cream, fresh cilantro, and diced onion."
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 480, protein: 32, carbs: 38, fat: 22 },
   },
   {
     id: "carnitas",
@@ -1095,6 +1191,9 @@ export const sampleRecipes: Recipe[] = [
       "Serve in warm corn tortillas with diced white onion, fresh cilantro, salsa verde, and lime wedges. The crispy-juicy contrast is what makes great carnitas!"
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "dairy-free"],
+    difficulty: "hard",
+    nutrition: { calories: 380, protein: 42, carbs: 8, fat: 22 },
   },
   {
     id: "burrito-bowl",
@@ -1131,6 +1230,9 @@ export const sampleRecipes: Recipe[] = [
       "Transfer to cutting board. Let rest 1 minute, then cut into 4 triangular wedges. Serve immediately with sour cream and salsa for dipping."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 480, protein: 38, carbs: 42, fat: 18 },
   },
   // ============ ASIAN CUISINE ============
   {
@@ -1150,6 +1252,9 @@ export const sampleRecipes: Recipe[] = [
       "Transfer to plates. Top with ¼ cup crushed roasted peanuts and fresh lime wedges. Serve immediately. Optional: Add fresh cilantro and chili flakes."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 480, protein: 28, carbs: 52, fat: 18 },
   },
   {
     id: "fried-rice",
@@ -1168,6 +1273,9 @@ export const sampleRecipes: Recipe[] = [
       "Add back the scrambled eggs. Toss everything together for 1 minute. Taste and add more soy sauce or salt if needed. Garnish with green onion tops and serve immediately."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14 },
   },
   {
     id: "kung-pao-chicken",
@@ -1186,6 +1294,9 @@ export const sampleRecipes: Recipe[] = [
       "Garnish with sliced green onions and serve immediately over steamed jasmine rice. Adjust heat level by using more or fewer dried chilies."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 32, carbs: 32, fat: 18 },
   },
   {
     id: "orange-chicken",
@@ -1204,6 +1315,9 @@ export const sampleRecipes: Recipe[] = [
       "Toss crispy chicken in the sauce until evenly coated. Serve immediately over steamed rice, garnished with orange zest and sliced green onions."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 480, protein: 28, carbs: 42, fat: 24 },
   },
   {
     id: "general-tso-chicken",
@@ -1222,6 +1336,9 @@ export const sampleRecipes: Recipe[] = [
       "Add crispy chicken to the sauce, toss until coated. Serve immediately over steamed rice with steamed broccoli on the side. Garnish with sesame seeds."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 520, protein: 28, carbs: 48, fat: 26 },
   },
   {
     id: "thai-green-curry",
@@ -1240,6 +1357,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove from heat. Stir in 1 cup fresh Thai basil leaves (or regular basil). Serve immediately over jasmine rice with extra basil as garnish."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 420, protein: 32, carbs: 38, fat: 18 },
   },
   {
     id: "japanese-chicken-katsu",
@@ -1277,6 +1397,9 @@ export const sampleRecipes: Recipe[] = [
       "Garnish with fresh lemon wedges and oregano. The bright lemon flavor should really shine through."
     ],
     matchedIngredients: [],
+    dietaryTags: ["dairy-free"],
+    difficulty: "medium",
+    nutrition: { calories: 520, protein: 36, carbs: 32, fat: 28 },
   },
   {
     id: "shakshuka",
@@ -1295,6 +1418,9 @@ export const sampleRecipes: Recipe[] = [
       "Remove from heat. Garnish generously with fresh chopped parsley or cilantro, and crumbled feta cheese if desired. Serve immediately with warm pita or crusty bread for dipping."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "dairy-free"],
+    difficulty: "easy",
+    nutrition: { calories: 380, protein: 36, carbs: 8, fat: 22 },
   },
   {
     id: "falafel-bowl",
@@ -1313,6 +1439,9 @@ export const sampleRecipes: Recipe[] = [
       "Build bowls: Add lettuce, arrange 3 falafel per bowl, add tomatoes and cucumber. Drizzle generously with tahini sauce. Serve with warm pita bread on the side."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "vegan"],
+    difficulty: "medium",
+    nutrition: { calories: 340, protein: 14, carbs: 42, fat: 14 },
   },
   {
     id: "lamb-gyro",
@@ -1331,6 +1460,8 @@ export const sampleRecipes: Recipe[] = [
       "Assemble gyros: Spread tzatziki on warm pita. Add sliced lamb, tomato, and onion. Fold pita around filling and serve immediately. Optional: add feta cheese and a drizzle of olive oil."
     ],
     matchedIngredients: [],
+    difficulty: "medium",
+    nutrition: { calories: 480, protein: 32, carbs: 28, fat: 28 },
   },
   // ============ COMFORT FOOD ============
   {
@@ -1350,6 +1481,9 @@ export const sampleRecipes: Recipe[] = [
       "Bake 25-30 minutes until top is golden brown and sauce is bubbling around the edges. Let rest 5 minutes before serving—the sauce will thicken as it cools slightly."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian"],
+    difficulty: "medium",
+    nutrition: { calories: 580, protein: 24, carbs: 48, fat: 34 },
   },
   {
     id: "meatloaf",
@@ -1368,6 +1502,8 @@ export const sampleRecipes: Recipe[] = [
       "Let rest 10 minutes before slicing—this is essential or it will fall apart. The internal temp will rise to 165°F. Slice into 1-inch thick pieces and serve with mashed potatoes."
     ],
     matchedIngredients: [],
+    difficulty: "easy",
+    nutrition: { calories: 420, protein: 32, carbs: 28, fat: 22 },
   },
   {
     id: "pot-roast",
@@ -1422,6 +1558,9 @@ export const sampleRecipes: Recipe[] = [
       "Bake 25-30 minutes until crust is deep golden brown and filling is bubbling through the vents. Let cool 10 minutes before serving—the filling will be very hot!"
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free"],
+    difficulty: "medium",
+    nutrition: { calories: 380, protein: 28, carbs: 32, fat: 18 },
   },
   // ============ HEALTHY OPTIONS ============
   {
@@ -1459,6 +1598,9 @@ export const sampleRecipes: Recipe[] = [
       "Drizzle with juice of remaining lime half and 1 tablespoon olive oil. Garnish with fresh cilantro. Serve with hot sauce or salsa verde on the side."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "paleo"],
+    difficulty: "easy",
+    nutrition: { calories: 340, protein: 38, carbs: 12, fat: 16 },
   },
   {
     id: "zucchini-noodles",
@@ -1477,6 +1619,9 @@ export const sampleRecipes: Recipe[] = [
       "Divide between plates. Top with additional grated Parmesan, a drizzle of olive oil, and fresh basil leaves. Serve immediately—zoodles release water if they sit too long."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "gluten-free", "keto"],
+    difficulty: "easy",
+    nutrition: { calories: 280, protein: 8, carbs: 12, fat: 24 },
   },
   {
     id: "turkey-lettuce-wraps",
@@ -1495,6 +1640,9 @@ export const sampleRecipes: Recipe[] = [
       "Spoon turkey mixture into lettuce cups. Garnish with additional sliced green onions, sesame seeds, and a drizzle of sriracha if desired. Serve immediately while filling is hot and lettuce is cold and crispy."
     ],
     matchedIngredients: [],
+    dietaryTags: ["gluten-free", "dairy-free"],
+    difficulty: "easy",
+    nutrition: { calories: 280, protein: 28, carbs: 12, fat: 14 },
   },
   // ============ VEGETARIAN ============
   {
@@ -1514,6 +1662,9 @@ export const sampleRecipes: Recipe[] = [
       "Taste and adjust seasoning—add more salt, a squeeze of lime juice, or a pinch of sugar as needed. Serve over basmati rice, garnished with fresh cilantro and lime wedges."
     ],
     matchedIngredients: [],
+    dietaryTags: ["vegetarian", "vegan", "gluten-free"],
+    difficulty: "easy",
+    nutrition: { calories: 340, protein: 14, carbs: 48, fat: 12 },
   },
   {
     id: "black-bean-tacos",
