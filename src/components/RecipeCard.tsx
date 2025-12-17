@@ -37,6 +37,20 @@ const mealTypeConfig = {
     emoji: "🌙",
     label: "Dinner"
   },
+  dessert: {
+    bg: "bg-gradient-to-r from-pink-400/20 to-rose-400/20",
+    border: "border-pink-400/30",
+    text: "text-pink-700 dark:text-pink-400",
+    emoji: "🍰",
+    label: "Dessert"
+  },
+  sides: {
+    bg: "bg-gradient-to-r from-stone-400/20 to-amber-400/20",
+    border: "border-stone-400/30",
+    text: "text-stone-700 dark:text-stone-400",
+    emoji: "🍞",
+    label: "Sides"
+  },
 };
 
 export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping }: RecipeCardProps) {
