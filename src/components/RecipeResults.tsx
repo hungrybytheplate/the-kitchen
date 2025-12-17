@@ -2,8 +2,10 @@ import { useState } from "react";
 import { RecipeCard } from "./RecipeCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import type { Recipe, DietaryTag } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RecipeResultsProps {
@@ -21,10 +23,42 @@ const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
   { tag: "dairy-free", label: "Dairy-Free", icon: "🥛" },
   { tag: "keto", label: "Keto", icon: "🥑" },
   { tag: "paleo", label: "Paleo", icon: "🍖" },
+  { tag: "high-protein", label: "High Protein", icon: "💪" },
+  { tag: "low-carb", label: "Low Carb", icon: "🥗" },
+  { tag: "high-fiber", label: "High Fiber", icon: "🌾" },
+];
+
+const cuisineFilters: { cuisine: CuisineType; label: string; icon: string }[] = [
+  { cuisine: "italian", label: "Italian", icon: "🇮🇹" },
+  { cuisine: "mexican", label: "Mexican", icon: "🇲🇽" },
+  { cuisine: "asian", label: "Asian", icon: "🥢" },
+  { cuisine: "mediterranean", label: "Mediterranean", icon: "🫒" },
+  { cuisine: "american", label: "American", icon: "🇺🇸" },
+  { cuisine: "french", label: "French", icon: "🇫🇷" },
+  { cuisine: "indian", label: "Indian", icon: "🇮🇳" },
+  { cuisine: "middle-eastern", label: "Middle Eastern", icon: "🧆" },
+  { cuisine: "comfort", label: "Comfort Food", icon: "🏠" },
+  { cuisine: "healthy", label: "Healthy", icon: "💚" },
+];
+
+const cookTimeFilters = [
+  { value: "quick", label: "Under 15 min", maxMinutes: 15 },
+  { value: "medium", label: "15-30 min", maxMinutes: 30, minMinutes: 15 },
+  { value: "long", label: "30-60 min", maxMinutes: 60, minMinutes: 30 },
+];
+
+const calorieFilters = [
+  { value: "low", label: "Low Cal (<300)", max: 300 },
+  { value: "medium", label: "Medium (300-500)", min: 300, max: 500 },
+  { value: "high", label: "High Cal (500+)", min: 500 },
 ];
 
 export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping }: RecipeResultsProps) {
   const [activeFilters, setActiveFilters] = useState<DietaryTag[]>([]);
+  const [activeCuisines, setActiveCuisines] = useState<CuisineType[]>([]);
+  const [cookTimeFilter, setCookTimeFilter] = useState<string | null>(null);
+  const [calorieFilter, setCalorieFilter] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -32,18 +66,61 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     );
   };
 
-  const clearFilters = () => setActiveFilters([]);
+  const toggleCuisine = (cuisine: CuisineType) => {
+    setActiveCuisines(prev => 
+      prev.includes(cuisine) ? prev.filter(c => c !== cuisine) : [...prev, cuisine]
+    );
+  };
 
-  // Filter recipes by dietary tags
-  const filteredRecipes = activeFilters.length === 0 
-    ? recipes 
-    : recipes.filter(recipe => 
-        activeFilters.every(filter => recipe.dietaryTags?.includes(filter))
-      );
+  const clearFilters = () => {
+    setActiveFilters([]);
+    setActiveCuisines([]);
+    setCookTimeFilter(null);
+    setCalorieFilter(null);
+  };
+
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter;
+
+  const parseCookTime = (cookTime: string): number => {
+    const match = cookTime.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  };
+
+  // Filter recipes
+  const filteredRecipes = recipes.filter(recipe => {
+    // Dietary filter
+    if (activeFilters.length > 0 && !activeFilters.every(filter => recipe.dietaryTags?.includes(filter))) {
+      return false;
+    }
+    // Cuisine filter
+    if (activeCuisines.length > 0 && !activeCuisines.includes(recipe.cuisine as CuisineType)) {
+      return false;
+    }
+    // Cook time filter
+    if (cookTimeFilter) {
+      const minutes = parseCookTime(recipe.cookTime);
+      const filter = cookTimeFilters.find(f => f.value === cookTimeFilter);
+      if (filter) {
+        if (filter.minMinutes && minutes < filter.minMinutes) return false;
+        if (filter.maxMinutes && minutes > filter.maxMinutes) return false;
+      }
+    }
+    // Calorie filter
+    if (calorieFilter && recipe.nutrition) {
+      const filter = calorieFilters.find(f => f.value === calorieFilter);
+      if (filter) {
+        if (filter.min && recipe.nutrition.calories < filter.min) return false;
+        if (filter.max && recipe.nutrition.calories > filter.max) return false;
+      }
+    }
+    return true;
+  });
 
   const breakfastRecipes = filteredRecipes.filter(r => r.mealType === "breakfast");
   const lunchRecipes = filteredRecipes.filter(r => r.mealType === "lunch");
   const dinnerRecipes = filteredRecipes.filter(r => r.mealType === "dinner");
+  const dessertRecipes = filteredRecipes.filter(r => r.mealType === "dessert");
+  const sidesRecipes = filteredRecipes.filter(r => r.mealType === "sides");
 
   if (recipes.length === 0) {
     return (
@@ -55,71 +132,190 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   return (
     <div className="space-y-4">
-      {/* Dietary Filters */}
-      <div className="flex flex-wrap items-center gap-2 p-3 bg-muted/30 rounded-xl border border-border/50">
-        <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mr-1">
-          <Filter className="h-4 w-4" />
-          <span className="hidden sm:inline">Diet:</span>
-        </div>
-        {dietaryFilters.map(({ tag, label, icon }) => (
-          <Badge
-            key={tag}
-            variant={activeFilters.includes(tag) ? "default" : "outline"}
-            className={cn(
-              "cursor-pointer transition-all hover:scale-105",
-              activeFilters.includes(tag) 
-                ? "bg-primary text-primary-foreground" 
-                : "bg-background hover:bg-muted"
-            )}
-            onClick={() => toggleFilter(tag)}
+      {/* Filters */}
+      <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen}>
+        <CollapsibleTrigger asChild>
+          <Button 
+            variant="outline" 
+            className="w-full justify-between bg-muted/30 border-border/50 rounded-xl"
           >
-            <span className="mr-1">{icon}</span>
-            {label}
-          </Badge>
-        ))}
-        {activeFilters.length > 0 && (
-          <Badge
-            variant="outline"
-            className="cursor-pointer text-muted-foreground hover:text-destructive hover:border-destructive"
-            onClick={clearFilters}
-          >
-            Clear all
-          </Badge>
-        )}
-      </div>
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4" />
+              <span>Filters</span>
+              {hasActiveFilters && (
+                <Badge className="h-5 min-w-5 p-0 text-[10px] bg-primary text-primary-foreground">
+                  {activeFilters.length + activeCuisines.length + (cookTimeFilter ? 1 : 0) + (calorieFilter ? 1 : 0)}
+                </Badge>
+              )}
+            </div>
+            <ChevronDown className={cn("h-4 w-4 transition-transform", filtersOpen && "rotate-180")} />
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="space-y-3 pt-3">
+          {/* Dietary Filters */}
+          <div className="p-3 bg-muted/30 rounded-xl border border-border/50">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+              <Leaf className="h-4 w-4" />
+              <span>Diet & Nutrition</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {dietaryFilters.map(({ tag, label, icon }) => (
+                <Badge
+                  key={tag}
+                  variant={activeFilters.includes(tag) ? "default" : "outline"}
+                  className={cn(
+                    "cursor-pointer transition-all hover:scale-105",
+                    activeFilters.includes(tag) 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-background hover:bg-muted"
+                  )}
+                  onClick={() => toggleFilter(tag)}
+                >
+                  <span className="mr-1">{icon}</span>
+                  {label}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Cuisine Filters */}
+          <div className="p-3 bg-muted/30 rounded-xl border border-border/50">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+              <Globe className="h-4 w-4" />
+              <span>Cuisine Type</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {cuisineFilters.map(({ cuisine, label, icon }) => (
+                <Badge
+                  key={cuisine}
+                  variant={activeCuisines.includes(cuisine) ? "default" : "outline"}
+                  className={cn(
+                    "cursor-pointer transition-all hover:scale-105",
+                    activeCuisines.includes(cuisine) 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-background hover:bg-muted"
+                  )}
+                  onClick={() => toggleCuisine(cuisine)}
+                >
+                  <span className="mr-1">{icon}</span>
+                  {label}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Cook Time & Calories */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="p-3 bg-muted/30 rounded-xl border border-border/50">
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+                <Clock className="h-4 w-4" />
+                <span>Cook Time</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {cookTimeFilters.map(({ value, label }) => (
+                  <Badge
+                    key={value}
+                    variant={cookTimeFilter === value ? "default" : "outline"}
+                    className={cn(
+                      "cursor-pointer text-xs transition-all",
+                      cookTimeFilter === value 
+                        ? "bg-primary text-primary-foreground" 
+                        : "bg-background hover:bg-muted"
+                    )}
+                    onClick={() => setCookTimeFilter(cookTimeFilter === value ? null : value)}
+                  >
+                    {label}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-3 bg-muted/30 rounded-xl border border-border/50">
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+                <Flame className="h-4 w-4" />
+                <span>Calories</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {calorieFilters.map(({ value, label }) => (
+                  <Badge
+                    key={value}
+                    variant={calorieFilter === value ? "default" : "outline"}
+                    className={cn(
+                      "cursor-pointer text-xs transition-all",
+                      calorieFilter === value 
+                        ? "bg-primary text-primary-foreground" 
+                        : "bg-background hover:bg-muted"
+                    )}
+                    onClick={() => setCalorieFilter(calorieFilter === value ? null : value)}
+                  >
+                    {label}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full text-muted-foreground hover:text-destructive"
+              onClick={clearFilters}
+            >
+              Clear all filters
+            </Button>
+          )}
+        </CollapsibleContent>
+      </Collapsible>
 
       {/* Filtered Results Count */}
-      {activeFilters.length > 0 && (
+      {hasActiveFilters && (
         <p className="text-sm text-muted-foreground">
           Showing {filteredRecipes.length} of {recipes.length} recipes
         </p>
       )}
 
       <Tabs defaultValue="breakfast" className="w-full">
-        <TabsList className="w-full grid grid-cols-3 h-12 bg-muted/50 p-1 rounded-xl mb-6">
+        <TabsList className="w-full grid grid-cols-5 h-12 bg-muted/50 p-1 rounded-xl mb-6">
           <TabsTrigger 
             value="breakfast" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
+            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
           >
             <Sunrise className="h-4 w-4" />
-            <span>Breakfast</span>
-            <span className="text-xs text-muted-foreground">({breakfastRecipes.length})</span>
+            <span className="hidden sm:inline">Breakfast</span>
+            <span className="text-[10px] text-muted-foreground">({breakfastRecipes.length})</span>
           </TabsTrigger>
           <TabsTrigger 
             value="lunch" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
+            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
           >
             <Sun className="h-4 w-4" />
-            <span>Lunch</span>
-            <span className="text-xs text-muted-foreground">({lunchRecipes.length})</span>
+            <span className="hidden sm:inline">Lunch</span>
+            <span className="text-[10px] text-muted-foreground">({lunchRecipes.length})</span>
           </TabsTrigger>
           <TabsTrigger 
             value="dinner" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2"
+            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
           >
             <Moon className="h-4 w-4" />
-            <span>Dinner</span>
-            <span className="text-xs text-muted-foreground">({dinnerRecipes.length})</span>
+            <span className="hidden sm:inline">Dinner</span>
+            <span className="text-[10px] text-muted-foreground">({dinnerRecipes.length})</span>
+          </TabsTrigger>
+          <TabsTrigger 
+            value="dessert" 
+            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+          >
+            <Cake className="h-4 w-4" />
+            <span className="hidden sm:inline">Dessert</span>
+            <span className="text-[10px] text-muted-foreground">({dessertRecipes.length})</span>
+          </TabsTrigger>
+          <TabsTrigger 
+            value="sides" 
+            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+          >
+            <Croissant className="h-4 w-4" />
+            <span className="hidden sm:inline">Sides</span>
+            <span className="text-[10px] text-muted-foreground">({sidesRecipes.length})</span>
           </TabsTrigger>
         </TabsList>
 
@@ -138,8 +334,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               ))
             ) : (
               <p className="text-muted-foreground col-span-2 text-center py-8">
-                {activeFilters.length > 0 
-                  ? "No breakfast recipes match your dietary filters. Try removing some filters!"
+                {hasActiveFilters 
+                  ? "No breakfast recipes match your filters. Try removing some filters!"
                   : "No breakfast recipes match your ingredients. Try adding eggs, oats, or bread!"}
               </p>
             )}
@@ -161,8 +357,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               ))
             ) : (
               <p className="text-muted-foreground col-span-2 text-center py-8">
-                {activeFilters.length > 0 
-                  ? "No lunch recipes match your dietary filters. Try removing some filters!"
+                {hasActiveFilters 
+                  ? "No lunch recipes match your filters. Try removing some filters!"
                   : "No lunch recipes match your ingredients. Try adding chicken, lettuce, or pasta!"}
               </p>
             )}
@@ -184,9 +380,55 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               ))
             ) : (
               <p className="text-muted-foreground col-span-2 text-center py-8">
-                {activeFilters.length > 0 
-                  ? "No dinner recipes match your dietary filters. Try removing some filters!"
+                {hasActiveFilters 
+                  ? "No dinner recipes match your filters. Try removing some filters!"
                   : "No dinner recipes match your ingredients. Try adding chicken, beef, or pasta!"}
+              </p>
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="dessert" className="mt-0">
+          <div className="grid gap-3 md:grid-cols-2">
+            {dessertRecipes.length > 0 ? (
+              dessertRecipes.map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  isSaved={savedRecipes.includes(recipe.id)}
+                  onSave={() => onSave(recipe.id)}
+                  onAddToCalendar={() => onAddToCalendar(recipe)}
+                  onAddToShopping={onAddToShopping}
+                />
+              ))
+            ) : (
+              <p className="text-muted-foreground col-span-2 text-center py-8">
+                {hasActiveFilters 
+                  ? "No dessert recipes match your filters. Try removing some filters!"
+                  : "No dessert recipes match your ingredients. Try adding flour, sugar, or chocolate!"}
+              </p>
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="sides" className="mt-0">
+          <div className="grid gap-3 md:grid-cols-2">
+            {sidesRecipes.length > 0 ? (
+              sidesRecipes.map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  isSaved={savedRecipes.includes(recipe.id)}
+                  onSave={() => onSave(recipe.id)}
+                  onAddToCalendar={() => onAddToCalendar(recipe)}
+                  onAddToShopping={onAddToShopping}
+                />
+              ))
+            ) : (
+              <p className="text-muted-foreground col-span-2 text-center py-8">
+                {hasActiveFilters 
+                  ? "No sides recipes match your filters. Try removing some filters!"
+                  : "No sides recipes match your ingredients. Try adding flour, yeast, or butter!"}
               </p>
             )}
           </div>

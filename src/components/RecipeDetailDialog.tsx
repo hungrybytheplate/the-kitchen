@@ -58,6 +58,20 @@ const mealTypeConfig = {
     emoji: "🌙",
     label: "Dinner"
   },
+  dessert: {
+    bg: "bg-gradient-to-r from-pink-400/20 to-rose-400/20",
+    border: "border-pink-400/30",
+    text: "text-pink-700 dark:text-pink-400",
+    emoji: "🍰",
+    label: "Dessert"
+  },
+  sides: {
+    bg: "bg-gradient-to-r from-stone-400/20 to-amber-400/20",
+    border: "border-stone-400/30",
+    text: "text-stone-700 dark:text-stone-400",
+    emoji: "🍞",
+    label: "Sides"
+  },
 };
 
 const dietaryTagConfig: Record<DietaryTag, { bg: string; text: string; icon: string }> = {
@@ -68,6 +82,9 @@ const dietaryTagConfig: Record<DietaryTag, { bg: string; text: string; icon: str
   keto: { bg: "bg-purple-100 dark:bg-purple-900/30", text: "text-purple-700 dark:text-purple-400", icon: "🥑" },
   paleo: { bg: "bg-orange-100 dark:bg-orange-900/30", text: "text-orange-700 dark:text-orange-400", icon: "🍖" },
   "nut-free": { bg: "bg-red-100 dark:bg-red-900/30", text: "text-red-700 dark:text-red-400", icon: "🥜" },
+  "high-protein": { bg: "bg-blue-100 dark:bg-blue-900/30", text: "text-blue-700 dark:text-blue-400", icon: "💪" },
+  "low-carb": { bg: "bg-teal-100 dark:bg-teal-900/30", text: "text-teal-700 dark:text-teal-400", icon: "🥗" },
+  "high-fiber": { bg: "bg-lime-100 dark:bg-lime-900/30", text: "text-lime-700 dark:text-lime-400", icon: "🌾" },
 };
 
 const difficultyConfig: Record<DifficultyLevel, { bg: string; text: string; label: string }> = {
