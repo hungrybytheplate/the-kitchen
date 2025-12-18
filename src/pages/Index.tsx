@@ -732,7 +732,14 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-6">
-            <MealCalendar mealPlan={mealPlan} onRemove={handleRemoveFromCalendar} />
+            <MealCalendar 
+              mealPlan={mealPlan} 
+              onRemove={handleRemoveFromCalendar}
+              onAddToShopping={handleAddToShopping}
+              savedRecipes={savedRecipes}
+              onSaveRecipe={handleSaveRecipe}
+              onAddToCalendar={handleAddToCalendar}
+            />
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6">
