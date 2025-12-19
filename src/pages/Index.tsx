@@ -5,9 +5,9 @@ import { RecipeResults } from "@/components/RecipeResults";
 
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
-import { MealCalendar, type MealPlanEntry } from "@/components/MealCalendar";
-import { SavedRecipes, type RecipeNotes } from "@/components/SavedRecipes";
-import { ShoppingList, type ShoppingItem } from "@/components/ShoppingList";
+import { MealCalendar } from "@/components/MealCalendar";
+import { SavedRecipes } from "@/components/SavedRecipes";
+import { ShoppingList } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
 import { WelcomeTour } from "@/components/WelcomeTour";
@@ -18,6 +18,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
+import { useUserData, type ShoppingItem, type MealPlanEntry, type RecipeNotes } from "@/hooks/useUserData";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
@@ -173,25 +175,39 @@ function DrinkLookupResults({ search, onAddToShopping, onClear }: DrinkLookupRes
 }
 
 const Index = () => {
+  const { user } = useAuth();
+  const {
+    savedRecipes,
+    savedDrinks,
+    mealPlan,
+    shoppingList,
+    recipeNotes,
+    loading: dataLoading,
+    saveRecipe,
+    saveDrink,
+    addToMealPlan,
+    removeFromMealPlan,
+    addToShoppingList,
+    toggleShoppingItem,
+    removeFromShoppingList,
+    clearShoppingList,
+    updateRecipeNotes
+  } = useUserData();
+
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
   
   // Cook mode state
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showRecipes, setShowRecipes] = useState(false);
-  const [savedRecipes, setSavedRecipes] = useLocalStorage<string[]>("savedRecipes", []);
   const [recipeSearch, setRecipeSearch] = useState("");
   
   // Drink mode state
   const [selectedDrinkIngredients, setSelectedDrinkIngredients] = useState<string[]>([]);
   const [showDrinks, setShowDrinks] = useState(false);
   const [drinkSearch, setDrinkSearch] = useState("");
-  const [savedDrinks, setSavedDrinks] = useLocalStorage<string[]>("savedDrinks", []);
-  const [recipeNotes, setRecipeNotes] = useLocalStorage<RecipeNotes>("recipeNotes", {});
   
   // Shared state
-  const [mealPlan, setMealPlan] = useLocalStorage<MealPlanEntry[]>("mealPlan", []);
-  const [shoppingList, setShoppingList] = useLocalStorage<ShoppingItem[]>("shoppingList", []);
   const [calendarDialogRecipe, setCalendarDialogRecipe] = useState<Recipe | null>(null);
   const [shoppingDialogIngredient, setShoppingDialogIngredient] = useState<string | null>(null);
   const [hasSeenTour, setHasSeenTour] = useLocalStorage<boolean>("hasSeenTour", false);
@@ -265,13 +281,17 @@ const Index = () => {
     });
   };
 
-  const handleSaveDrink = (drinkId: string) => {
-    setSavedDrinks((prev) =>
-      prev.includes(drinkId)
-        ? prev.filter((id) => id !== drinkId)
-        : [...prev, drinkId]
-    );
+  const handleSaveDrink = async (drinkId: string) => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to save drinks.",
+        variant: "destructive",
+      });
+      return;
+    }
     const isSaving = !savedDrinks.includes(drinkId);
+    await saveDrink(drinkId);
     toast({
       title: isSaving ? "Drink saved!" : "Drink removed",
       description: isSaving
@@ -281,13 +301,17 @@ const Index = () => {
   };
 
   // Shared handlers
-  const handleSaveRecipe = (recipeId: string) => {
-    setSavedRecipes((prev) =>
-      prev.includes(recipeId)
-        ? prev.filter((id) => id !== recipeId)
-        : [...prev, recipeId]
-    );
+  const handleSaveRecipe = async (recipeId: string) => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to save recipes.",
+        variant: "destructive",
+      });
+      return;
+    }
     const isSaving = !savedRecipes.includes(recipeId);
+    await saveRecipe(recipeId);
     toast({
       title: isSaving ? "Recipe saved!" : "Recipe removed",
       description: isSaving
@@ -297,18 +321,21 @@ const Index = () => {
   };
 
   const handleAddToCalendar = (recipe: Recipe) => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to use the meal planner.",
+        variant: "destructive",
+      });
+      return;
+    }
     setCalendarDialogRecipe(recipe);
   };
 
-  const handleConfirmCalendarAdd = (date: Date) => {
+  const handleConfirmCalendarAdd = async (date: Date) => {
     if (!calendarDialogRecipe) return;
     
-    const entry: MealPlanEntry = {
-      date: format(date, "yyyy-MM-dd"),
-      recipe: calendarDialogRecipe,
-    };
-    
-    setMealPlan((prev) => [...prev, entry]);
+    await addToMealPlan(format(date, "yyyy-MM-dd"), calendarDialogRecipe);
     toast({
       title: "Added to meal plan!",
       description: `${calendarDialogRecipe.title} added for ${format(date, "EEEE, MMM d")}.`,
@@ -316,10 +343,8 @@ const Index = () => {
     setCalendarDialogRecipe(null);
   };
 
-  const handleRemoveFromCalendar = (date: string, recipeId: string) => {
-    setMealPlan((prev) =>
-      prev.filter((entry) => !(entry.date === date && entry.recipe.id === recipeId))
-    );
+  const handleRemoveFromCalendar = async (date: string, recipeId: string) => {
+    await removeFromMealPlan(date, recipeId);
     toast({
       title: "Removed from meal plan",
       description: "The recipe has been removed from your calendar.",
@@ -327,17 +352,18 @@ const Index = () => {
   };
 
   const handleAddToShopping = (ingredientId: string) => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to use the shopping list.",
+        variant: "destructive",
+      });
+      return;
+    }
     setShoppingDialogIngredient(ingredientId);
   };
 
-  const handleConfirmShoppingAdd = (ingredientId: string, variant: string) => {
-    const newItem: ShoppingItem = {
-      id: `${ingredientId}-${Date.now()}`,
-      ingredientId,
-      variant,
-      checked: false,
-    };
-    
+  const handleConfirmShoppingAdd = async (ingredientId: string, variant: string) => {
     const exists = shoppingList.some(item => item.variant === variant);
     if (exists) {
       toast({
@@ -347,61 +373,64 @@ const Index = () => {
       return;
     }
     
-    setShoppingList((prev) => [...prev, newItem]);
+    await addToShoppingList(ingredientId, variant);
     toast({
       title: "Added to shopping list",
       description: `${variant} has been added to your list.`,
     });
   };
 
-  const handleToggleShoppingItem = (id: string) => {
-    setShoppingList((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, checked: !item.checked } : item
-      )
-    );
+  const handleToggleShoppingItem = async (id: string) => {
+    await toggleShoppingItem(id);
   };
 
-  const handleRemoveShoppingItem = (id: string) => {
-    setShoppingList((prev) => prev.filter((item) => item.id !== id));
+  const handleRemoveShoppingItem = async (id: string) => {
+    await removeFromShoppingList(id);
   };
 
-  const handleClearCompletedShopping = () => {
-    setShoppingList((prev) => prev.filter((item) => !item.checked));
+  const handleClearCompletedShopping = async () => {
+    // Remove checked items one by one
+    const checkedItems = shoppingList.filter(item => item.checked);
+    for (const item of checkedItems) {
+      await removeFromShoppingList(item.id);
+    }
     toast({
       title: "Cleared completed items",
       description: "All checked items have been removed.",
     });
   };
 
-  const handleClearAllShopping = () => {
-    setShoppingList([]);
+  const handleClearAllShopping = async () => {
+    await clearShoppingList();
     toast({
       title: "Shopping list cleared",
       description: "All items have been removed.",
     });
   };
 
-  const handleBulkAddToShopping = (ingredients: string[]) => {
-    let addedCount = 0;
-    const newItems: ShoppingItem[] = [];
+  const handleBulkAddToShopping = async (ingredients: string[]) => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to use the shopping list.",
+        variant: "destructive",
+      });
+      return;
+    }
     
-    ingredients.forEach(ing => {
+    let addedCount = 0;
+    
+    for (const ing of ingredients) {
       const variant = ing.replace(/-/g, " ");
+      const formattedVariant = variant.charAt(0).toUpperCase() + variant.slice(1);
       const exists = shoppingList.some(item => item.variant.toLowerCase() === variant.toLowerCase());
-      if (!exists && !newItems.some(item => item.variant.toLowerCase() === variant.toLowerCase())) {
-        newItems.push({
-          id: `${ing}-${Date.now()}-${Math.random()}`,
-          ingredientId: ing,
-          variant: variant.charAt(0).toUpperCase() + variant.slice(1),
-          checked: false,
-        });
+      if (!exists) {
+        await addToShoppingList(ing, formattedVariant);
         addedCount++;
       }
-    });
+    }
     
-    if (newItems.length > 0) {
-      setShoppingList((prev) => [...prev, ...newItems]);
+    if (addedCount > 0) {
       toast({
         title: "Added to shopping list!",
         description: `${addedCount} ingredient${addedCount > 1 ? 's' : ''} added to your list.`,
@@ -749,8 +778,8 @@ const Index = () => {
               onRemoveRecipe={handleSaveRecipe} 
               onRemoveDrink={handleSaveDrink}
               recipeNotes={recipeNotes}
-              onSaveNote={(recipeId, note) => {
-                setRecipeNotes(prev => ({ ...prev, [recipeId]: note }));
+              onSaveNote={async (recipeId, note) => {
+                await updateRecipeNotes(recipeId, note);
               }}
             />
           </TabsContent>
