@@ -14,7 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      meal_plans: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          recipe_data: Json
+          recipe_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          recipe_data: Json
+          recipe_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          recipe_data?: Json
+          recipe_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      recipe_notes: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string
+          recipe_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string
+          recipe_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string
+          recipe_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_drinks: {
+        Row: {
+          created_at: string
+          drink_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          drink_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          drink_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_recipes: {
+        Row: {
+          created_at: string
+          id: string
+          recipe_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipe_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipe_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      shopping_list: {
+        Row: {
+          checked: boolean
+          created_at: string
+          id: string
+          ingredient_id: string
+          user_id: string
+          variant: string
+        }
+        Insert: {
+          checked?: boolean
+          created_at?: string
+          id?: string
+          ingredient_id: string
+          user_id: string
+          variant: string
+        }
+        Update: {
+          checked?: boolean
+          created_at?: string
+          id?: string
+          ingredient_id?: string
+          user_id?: string
+          variant?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
