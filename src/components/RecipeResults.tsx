@@ -116,11 +116,91 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     return true;
   });
 
-  const breakfastRecipes = filteredRecipes.filter(r => r.mealType === "breakfast");
-  const lunchRecipes = filteredRecipes.filter(r => r.mealType === "lunch");
-  const dinnerRecipes = filteredRecipes.filter(r => r.mealType === "dinner");
-  const dessertRecipes = filteredRecipes.filter(r => r.mealType === "dessert");
-  const sidesRecipes = filteredRecipes.filter(r => r.mealType === "sides");
+  // Sort recipes: perfect matches first (100%), then by match score descending
+  const sortedRecipes = [...filteredRecipes].sort((a, b) => {
+    const scoreA = a.matchScore ?? (a.matchedIngredients.length / a.ingredients.length);
+    const scoreB = b.matchScore ?? (b.matchedIngredients.length / b.ingredients.length);
+    return scoreB - scoreA;
+  });
+
+  const breakfastRecipes = sortedRecipes.filter(r => r.mealType === "breakfast");
+  const lunchRecipes = sortedRecipes.filter(r => r.mealType === "lunch");
+  const dinnerRecipes = sortedRecipes.filter(r => r.mealType === "dinner");
+  const dessertRecipes = sortedRecipes.filter(r => r.mealType === "dessert");
+  const sidesRecipes = sortedRecipes.filter(r => r.mealType === "sides");
+
+  // Helper to render recipes grouped by match quality
+  const renderRecipeList = (recipeList: Recipe[], emptyMessage: string) => {
+    if (recipeList.length === 0) {
+      return (
+        <p className="text-muted-foreground col-span-2 text-center py-8">
+          {hasActiveFilters 
+            ? `No recipes match your filters. Try removing some filters!`
+            : emptyMessage}
+        </p>
+      );
+    }
+
+    const perfectMatches = recipeList.filter(r => {
+      const score = r.matchScore ?? (r.matchedIngredients.length / r.ingredients.length);
+      return score >= 0.99;
+    });
+    const closeMatches = recipeList.filter(r => {
+      const score = r.matchScore ?? (r.matchedIngredients.length / r.ingredients.length);
+      return score < 0.99;
+    });
+
+    return (
+      <div className="space-y-4">
+        {perfectMatches.length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">
+                ✓ Perfect Matches
+              </Badge>
+              <span className="text-xs text-muted-foreground">You have all ingredients</span>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              {perfectMatches.map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  isSaved={savedRecipes.includes(recipe.id)}
+                  onSave={() => onSave(recipe.id)}
+                  onAddToCalendar={() => onAddToCalendar(recipe)}
+                  onAddToShopping={onAddToShopping}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {closeMatches.length > 0 && (
+          <div>
+            {perfectMatches.length > 0 && (
+              <div className="flex items-center gap-2 mb-3">
+                <Badge variant="outline" className="text-muted-foreground border-border">
+                  Close Matches
+                </Badge>
+                <span className="text-xs text-muted-foreground">Missing a few ingredients</span>
+              </div>
+            )}
+            <div className="grid gap-3 md:grid-cols-2">
+              {closeMatches.map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  isSaved={savedRecipes.includes(recipe.id)}
+                  onSave={() => onSave(recipe.id)}
+                  onAddToCalendar={() => onAddToCalendar(recipe)}
+                  onAddToShopping={onAddToShopping}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   if (recipes.length === 0) {
     return (
@@ -320,118 +400,23 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
         </TabsList>
 
         <TabsContent value="breakfast" className="mt-0">
-          <div className="grid gap-3 md:grid-cols-2">
-            {breakfastRecipes.length > 0 ? (
-              breakfastRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  isSaved={savedRecipes.includes(recipe.id)}
-                  onSave={() => onSave(recipe.id)}
-                  onAddToCalendar={() => onAddToCalendar(recipe)}
-                  onAddToShopping={onAddToShopping}
-                />
-              ))
-            ) : (
-              <p className="text-muted-foreground col-span-2 text-center py-8">
-                {hasActiveFilters 
-                  ? "No breakfast recipes match your filters. Try removing some filters!"
-                  : "No breakfast recipes match your ingredients. Try adding eggs, oats, or bread!"}
-              </p>
-            )}
-          </div>
+          {renderRecipeList(breakfastRecipes, "No breakfast recipes match your ingredients. Try adding eggs, oats, or bread!")}
         </TabsContent>
 
         <TabsContent value="lunch" className="mt-0">
-          <div className="grid gap-3 md:grid-cols-2">
-            {lunchRecipes.length > 0 ? (
-              lunchRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  isSaved={savedRecipes.includes(recipe.id)}
-                  onSave={() => onSave(recipe.id)}
-                  onAddToCalendar={() => onAddToCalendar(recipe)}
-                  onAddToShopping={onAddToShopping}
-                />
-              ))
-            ) : (
-              <p className="text-muted-foreground col-span-2 text-center py-8">
-                {hasActiveFilters 
-                  ? "No lunch recipes match your filters. Try removing some filters!"
-                  : "No lunch recipes match your ingredients. Try adding chicken, lettuce, or pasta!"}
-              </p>
-            )}
-          </div>
+          {renderRecipeList(lunchRecipes, "No lunch recipes match your ingredients. Try adding chicken, lettuce, or pasta!")}
         </TabsContent>
 
         <TabsContent value="dinner" className="mt-0">
-          <div className="grid gap-3 md:grid-cols-2">
-            {dinnerRecipes.length > 0 ? (
-              dinnerRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  isSaved={savedRecipes.includes(recipe.id)}
-                  onSave={() => onSave(recipe.id)}
-                  onAddToCalendar={() => onAddToCalendar(recipe)}
-                  onAddToShopping={onAddToShopping}
-                />
-              ))
-            ) : (
-              <p className="text-muted-foreground col-span-2 text-center py-8">
-                {hasActiveFilters 
-                  ? "No dinner recipes match your filters. Try removing some filters!"
-                  : "No dinner recipes match your ingredients. Try adding chicken, beef, or pasta!"}
-              </p>
-            )}
-          </div>
+          {renderRecipeList(dinnerRecipes, "No dinner recipes match your ingredients. Try adding chicken, beef, or pasta!")}
         </TabsContent>
 
         <TabsContent value="dessert" className="mt-0">
-          <div className="grid gap-3 md:grid-cols-2">
-            {dessertRecipes.length > 0 ? (
-              dessertRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  isSaved={savedRecipes.includes(recipe.id)}
-                  onSave={() => onSave(recipe.id)}
-                  onAddToCalendar={() => onAddToCalendar(recipe)}
-                  onAddToShopping={onAddToShopping}
-                />
-              ))
-            ) : (
-              <p className="text-muted-foreground col-span-2 text-center py-8">
-                {hasActiveFilters 
-                  ? "No dessert recipes match your filters. Try removing some filters!"
-                  : "No dessert recipes match your ingredients. Try adding flour, sugar, or chocolate!"}
-              </p>
-            )}
-          </div>
+          {renderRecipeList(dessertRecipes, "No dessert recipes match your ingredients. Try adding flour, sugar, or chocolate!")}
         </TabsContent>
 
         <TabsContent value="sides" className="mt-0">
-          <div className="grid gap-3 md:grid-cols-2">
-            {sidesRecipes.length > 0 ? (
-              sidesRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  isSaved={savedRecipes.includes(recipe.id)}
-                  onSave={() => onSave(recipe.id)}
-                  onAddToCalendar={() => onAddToCalendar(recipe)}
-                  onAddToShopping={onAddToShopping}
-                />
-              ))
-            ) : (
-              <p className="text-muted-foreground col-span-2 text-center py-8">
-                {hasActiveFilters 
-                  ? "No sides recipes match your filters. Try removing some filters!"
-                  : "No sides recipes match your ingredients. Try adding flour, yeast, or butter!"}
-              </p>
-            )}
-          </div>
+          {renderRecipeList(sidesRecipes, "No sides recipes match your ingredients. Try adding flour, yeast, or butter!")}
         </TabsContent>
       </Tabs>
     </div>
