@@ -35,6 +35,7 @@ export interface Recipe {
   nutrition?: NutritionInfo;
   cuisine?: CuisineType;
   customizeSpices?: string;
+  matchScore?: number;
 }
 
 export const sampleRecipes: Recipe[] = [
