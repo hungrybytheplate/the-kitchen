@@ -190,6 +190,7 @@ const Index = () => {
     saveDrink,
     addToMealPlan,
     removeFromMealPlan,
+    moveMeal,
     addToShoppingList,
     toggleShoppingItem,
     removeFromShoppingList,
@@ -781,6 +782,7 @@ const Index = () => {
             <MealCalendar 
               mealPlan={mealPlan} 
               onRemove={handleRemoveFromCalendar}
+              onMoveMeal={moveMeal}
               onAddToShopping={handleAddToShopping}
               savedRecipes={savedRecipes}
               onSaveRecipe={handleSaveRecipe}
