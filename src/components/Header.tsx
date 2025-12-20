@@ -1,4 +1,4 @@
-import { Leaf, HelpCircle, LogIn, LogOut, User } from "lucide-react";
+import { UtensilsCrossed, Wine, HelpCircle, LogIn, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -29,7 +29,7 @@ export function Header({ onShowTour }: HeaderProps) {
           <div className="relative">
             <div className="absolute inset-0 gradient-warm blur-xl opacity-30 animate-pulse-soft" />
             <div className="relative p-3 rounded-2xl gradient-warm shadow-warm">
-              <Leaf className="h-7 w-7 text-primary-foreground" />
+              <UtensilsCrossed className="h-7 w-7 text-primary-foreground" />
             </div>
           </div>
           <div>
@@ -88,7 +88,7 @@ export function Header({ onShowTour }: HeaderProps) {
           )}
           
           <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-accent/50 border border-accent-foreground/10">
-            <Leaf className="h-4 w-4 text-accent-foreground" />
+            <Wine className="h-4 w-4 text-accent-foreground" />
             <span className="text-sm font-medium text-accent-foreground">Fresh & Simple</span>
           </div>
         </div>
