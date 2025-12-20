@@ -12,6 +12,7 @@ import { ShoppingList } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
 import { WelcomeTour } from "@/components/WelcomeTour";
+import { InstallBanner } from "@/components/InstallBanner";
 import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -465,6 +466,8 @@ const Index = () => {
       {showTour && (
         <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
       )}
+      
+      <InstallBanner />
       
       <Header onShowTour={() => setShowTour(true)} />
 
