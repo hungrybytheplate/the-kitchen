@@ -34,7 +34,7 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
-  const { familyGroup, shareRecipe, unshareRecipe, isRecipeShared } = useFamilyGroup();
+  const { familyGroup, shareRecipe, unshareRecipe, isRecipeShared, shareDrink, unshareDrink, isDrinkShared } = useFamilyGroup();
 
   const handleShareRecipe = async (recipe: Recipe) => {
     if (!familyGroup) {
@@ -74,6 +74,49 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
         toast({
           title: "Recipe shared!",
           description: `${recipe.title} is now shared with your family.`,
+        });
+      }
+    }
+  };
+
+  const handleShareDrink = async (drink: Drink) => {
+    if (!familyGroup) {
+      toast({
+        title: "No family group",
+        description: "Join or create a family group first to share drinks.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const isShared = isDrinkShared(drink.id);
+    
+    if (isShared) {
+      const result = await unshareDrink(drink.id);
+      if (result.error) {
+        toast({
+          title: "Error",
+          description: result.error,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Drink unshared",
+          description: "Drink removed from family sharing.",
+        });
+      }
+    } else {
+      const result = await shareDrink(drink);
+      if (result.error) {
+        toast({
+          title: "Error",
+          description: result.error,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Drink shared!",
+          description: `${drink.title} is now shared with your family.`,
         });
       }
     }
@@ -262,7 +305,28 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                       </Badge>
                       <span className="font-medium">{drink.title}</span>
                     </div>
-                    <div onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                      {familyGroup && (
+                        <QuickTooltip content={isDrinkShared(drink.id) ? "Shared with family" : "Share with family"} side="top">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleShareDrink(drink)}
+                            className={cn(
+                              "transition-all",
+                              isDrinkShared(drink.id)
+                                ? "text-primary opacity-100"
+                                : "text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-primary"
+                            )}
+                          >
+                            {isDrinkShared(drink.id) ? (
+                              <Check className="h-4 w-4" />
+                            ) : (
+                              <Share2 className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </QuickTooltip>
+                      )}
                       <Button
                         variant="ghost"
                         size="icon"

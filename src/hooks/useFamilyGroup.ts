@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import type { Recipe } from '@/data/recipes';
+import type { Drink } from '@/data/drinks';
 
 export interface FamilyGroup {
   id: string;
@@ -26,11 +27,20 @@ export interface SharedRecipe {
   sharedAt: string;
 }
 
+export interface SharedDrink {
+  id: string;
+  drinkId: string;
+  drinkData: Drink;
+  sharedBy: string;
+  sharedAt: string;
+}
+
 export function useFamilyGroup() {
   const { user } = useAuth();
   const [familyGroup, setFamilyGroup] = useState<FamilyGroup | null>(null);
   const [members, setMembers] = useState<FamilyMember[]>([]);
   const [sharedRecipes, setSharedRecipes] = useState<SharedRecipe[]>([]);
+  const [sharedDrinks, setSharedDrinks] = useState<SharedDrink[]>([]);
   const [loading, setLoading] = useState(true);
 
   const loadFamilyData = useCallback(async () => {
@@ -38,6 +48,7 @@ export function useFamilyGroup() {
       setFamilyGroup(null);
       setMembers([]);
       setSharedRecipes([]);
+      setSharedDrinks([]);
       setLoading(false);
       return;
     }
@@ -96,11 +107,27 @@ export function useFamilyGroup() {
             sharedBy: r.shared_by,
             sharedAt: r.shared_at
           })) || []);
+
+          // Load shared drinks
+          const { data: drinksData } = await supabase
+            .from('shared_drinks')
+            .select('*')
+            .eq('family_group_id', groupData.id)
+            .order('shared_at', { ascending: false });
+
+          setSharedDrinks(drinksData?.map(d => ({
+            id: d.id,
+            drinkId: d.drink_id,
+            drinkData: d.drink_data as unknown as Drink,
+            sharedBy: d.shared_by,
+            sharedAt: d.shared_at
+          })) || []);
         }
       } else {
         setFamilyGroup(null);
         setMembers([]);
         setSharedRecipes([]);
+        setSharedDrinks([]);
       }
     } catch (error) {
       console.error('Error loading family data:', error);
@@ -215,6 +242,7 @@ export function useFamilyGroup() {
       setFamilyGroup(null);
       setMembers([]);
       setSharedRecipes([]);
+      setSharedDrinks([]);
       return { error: null };
     } catch (error: any) {
       console.error('Error leaving family group:', error);
@@ -278,6 +306,62 @@ export function useFamilyGroup() {
     return sharedRecipes.some(r => r.recipeId === recipeId);
   };
 
+  // Share a drink with the family
+  const shareDrink = async (drink: Drink) => {
+    if (!user || !familyGroup) return { error: 'Not in a group' };
+
+    try {
+      const drinkData = JSON.parse(JSON.stringify(drink));
+
+      const { error } = await supabase
+        .from('shared_drinks')
+        .insert({
+          family_group_id: familyGroup.id,
+          drink_id: drink.id,
+          drink_data: drinkData,
+          shared_by: user.id
+        });
+
+      if (error) {
+        if (error.code === '23505') {
+          return { error: 'This drink is already shared with the group' };
+        }
+        throw error;
+      }
+
+      await loadFamilyData();
+      return { error: null };
+    } catch (error: any) {
+      console.error('Error sharing drink:', error);
+      return { error: error.message };
+    }
+  };
+
+  // Unshare a drink
+  const unshareDrink = async (drinkId: string) => {
+    if (!user || !familyGroup) return { error: 'Not in a group' };
+
+    try {
+      await supabase
+        .from('shared_drinks')
+        .delete()
+        .eq('family_group_id', familyGroup.id)
+        .eq('drink_id', drinkId)
+        .eq('shared_by', user.id);
+
+      setSharedDrinks(prev => prev.filter(d => d.drinkId !== drinkId));
+      return { error: null };
+    } catch (error: any) {
+      console.error('Error unsharing drink:', error);
+      return { error: error.message };
+    }
+  };
+
+  // Check if a drink is shared
+  const isDrinkShared = (drinkId: string) => {
+    return sharedDrinks.some(d => d.drinkId === drinkId);
+  };
+
   // Update display name
   const updateDisplayName = async (displayName: string) => {
     if (!user || !familyGroup) return { error: 'Not in a group' };
@@ -303,6 +387,7 @@ export function useFamilyGroup() {
     familyGroup,
     members,
     sharedRecipes,
+    sharedDrinks,
     loading,
     createFamilyGroup,
     joinFamilyGroup,
@@ -310,6 +395,9 @@ export function useFamilyGroup() {
     shareRecipe,
     unshareRecipe,
     isRecipeShared,
+    shareDrink,
+    unshareDrink,
+    isDrinkShared,
     updateDisplayName,
     refresh: loadFamilyData
   };
