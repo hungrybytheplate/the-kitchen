@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus } from "lucide-react";
-import { useState } from "react";
+import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus, CalendarCheck } from "lucide-react";
+import { useState, DragEvent } from "react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
@@ -22,6 +22,7 @@ export interface MealPlanEntry {
 interface MealCalendarProps {
   mealPlan: MealPlanEntry[];
   onRemove: (date: string, recipeId: string) => void;
+  onMoveMeal?: (fromDate: string, toDate: string, recipeId: string) => void;
   onAddToShopping?: (ingredientId: string) => void;
   savedRecipes?: string[];
   onSaveRecipe?: (recipeId: string) => void;
@@ -40,7 +41,8 @@ const calendarProviders: { id: CalendarProvider; name: string; icon: string }[] 
 
 export function MealCalendar({ 
   mealPlan, 
-  onRemove, 
+  onRemove,
+  onMoveMeal,
   onAddToShopping,
   savedRecipes = [],
   onSaveRecipe,
@@ -48,9 +50,93 @@ export function MealCalendar({
 }: MealCalendarProps) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [dragOverDate, setDragOverDate] = useState<string | null>(null);
+  const [isSyncingAll, setIsSyncingAll] = useState(false);
   const { toast } = useToast();
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  
+  // Get meals for the current week only
+  const weekMeals = mealPlan.filter(entry => {
+    const entryDate = new Date(entry.date);
+    const weekEnd = addDays(weekStart, 6);
+    return entryDate >= weekStart && entryDate <= weekEnd;
+  });
+
+  // Drag and drop handlers
+  const handleDragStart = (e: DragEvent<HTMLDivElement>, entry: MealPlanEntry) => {
+    e.dataTransfer.setData('application/json', JSON.stringify({ date: entry.date, recipeId: entry.recipe.id }));
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>, dateStr: string) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverDate(dateStr);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverDate(null);
+  };
+
+  const handleDrop = (e: DragEvent<HTMLDivElement>, toDateStr: string) => {
+    e.preventDefault();
+    setDragOverDate(null);
+    
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('application/json'));
+      const { date: fromDate, recipeId } = data;
+      
+      if (fromDate !== toDateStr && onMoveMeal) {
+        onMoveMeal(fromDate, toDateStr, recipeId);
+        toast({
+          title: "Meal moved",
+          description: `Moved to ${format(new Date(toDateStr), "EEEE, MMM d")}`,
+        });
+      }
+    } catch (err) {
+      console.error('Failed to parse drag data:', err);
+    }
+  };
+
+  // Bulk sync all meals for the week
+  const handleSyncAllWeek = () => {
+    const savedPreference = localStorage.getItem(CALENDAR_PREFERENCE_KEY) as CalendarProvider | null;
+    
+    if (!savedPreference) {
+      toast({
+        title: "Set a default calendar first",
+        description: "Sync a single meal first and choose 'Remember my choice'",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (weekMeals.length === 0) {
+      toast({
+        title: "No meals to sync",
+        description: "Add some meals to your week first",
+      });
+      return;
+    }
+    
+    setIsSyncingAll(true);
+    
+    // Sync each meal with a small delay to avoid popup blockers
+    weekMeals.forEach((entry, index) => {
+      setTimeout(() => {
+        handleCalendarSync(entry, savedPreference);
+        
+        if (index === weekMeals.length - 1) {
+          setIsSyncingAll(false);
+          toast({
+            title: "Week synced!",
+            description: `${weekMeals.length} meal${weekMeals.length === 1 ? '' : 's'} added to your calendar`,
+          });
+        }
+      }, index * 300);
+    });
+  };
 
   const getMealsForDay = (date: Date) => {
     const dateStr = format(date, "yyyy-MM-dd");
@@ -161,6 +247,18 @@ END:VCALENDAR`;
               </p>
             </div>
             <div className="flex items-center gap-2">
+              {weekMeals.length > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSyncAllWeek}
+                  disabled={isSyncingAll}
+                  className="mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary"
+                >
+                  <CalendarCheck className="h-4 w-4 mr-1.5" />
+                  {isSyncingAll ? "Syncing..." : "Sync Week"}
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="icon"
@@ -186,13 +284,19 @@ END:VCALENDAR`;
             {days.map((day) => {
               const meals = getMealsForDay(day);
               const isToday = isSameDay(day, new Date());
+              const dateStr = format(day, "yyyy-MM-dd");
+              const isDragOver = dragOverDate === dateStr;
 
               return (
                 <div
                   key={day.toISOString()}
+                  onDragOver={(e) => handleDragOver(e, dateStr)}
+                  onDragLeave={handleDragLeave}
+                  onDrop={(e) => handleDrop(e, dateStr)}
                   className={cn(
-                    "min-h-[120px] rounded-xl p-2 transition-colors",
-                    isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30"
+                    "min-h-[120px] rounded-xl p-2 transition-all duration-200",
+                    isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30",
+                    isDragOver && "ring-2 ring-primary bg-primary/5 scale-[1.02]"
                   )}
                 >
                   <div className={cn(
@@ -210,7 +314,9 @@ END:VCALENDAR`;
                     {meals.map((entry) => (
                       <div
                         key={entry.recipe.id}
-                        className="group relative bg-card rounded-lg p-1.5 shadow-sm text-xs cursor-pointer hover:bg-accent/50 transition-colors"
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, entry)}
+                        className="group relative bg-card rounded-lg p-1.5 shadow-sm text-xs cursor-grab active:cursor-grabbing hover:bg-accent/50 transition-colors hover:shadow-md"
                         onClick={() => setSelectedRecipe(entry.recipe)}
                       >
                         <div className="flex items-start gap-1">

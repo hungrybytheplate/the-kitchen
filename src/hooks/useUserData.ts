@@ -172,6 +172,26 @@ export function useUserData() {
     setMealPlan(prev => prev.filter(entry => !(entry.date === date && entry.recipe.id === recipeId)));
   };
 
+  // Move meal to a different date
+  const moveMeal = async (fromDate: string, toDate: string, recipeId: string) => {
+    if (!user) return;
+
+    // Update the date in the database
+    await supabase
+      .from('meal_plans')
+      .update({ date: toDate })
+      .eq('user_id', user.id)
+      .eq('date', fromDate)
+      .eq('recipe_id', recipeId);
+    
+    // Update local state
+    setMealPlan(prev => prev.map(entry => 
+      entry.date === fromDate && entry.recipe.id === recipeId
+        ? { ...entry, date: toDate }
+        : entry
+    ));
+  };
+
   // Add to shopping list
   const addToShoppingList = async (ingredientId: string, variant: string) => {
     if (!user) return;
@@ -277,6 +297,7 @@ export function useUserData() {
     saveDrink,
     addToMealPlan,
     removeFromMealPlan,
+    moveMeal,
     addToShoppingList,
     toggleShoppingItem,
     removeFromShoppingList,
