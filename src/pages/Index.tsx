@@ -195,7 +195,7 @@ const Index = () => {
     clearShoppingList,
     updateRecipeNotes
   } = useUserData();
-  const { sharedRecipes } = useFamilyGroup();
+  const { sharedRecipes, sharedDrinks } = useFamilyGroup();
 
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
@@ -572,9 +572,9 @@ const Index = () => {
               <TabsTrigger value="family" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
                 <Users className="h-4 w-4" />
                 <span className="hidden sm:inline">Family</span>
-                {sharedRecipes.length > 0 && (
+                {(sharedRecipes.length + sharedDrinks.length) > 0 && (
                   <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-primary/20 text-primary">
-                    {sharedRecipes.length}
+                    {sharedRecipes.length + sharedDrinks.length}
                   </Badge>
                 )}
               </TabsTrigger>
@@ -801,7 +801,9 @@ const Index = () => {
           <TabsContent value="family" className="mt-6">
             <SharedRecipes
               savedRecipes={savedRecipes}
+              savedDrinks={savedDrinks}
               onSaveRecipe={handleSaveRecipe}
+              onSaveDrink={handleSaveDrink}
               onAddToCalendar={handleAddToCalendar}
             />
           </TabsContent>

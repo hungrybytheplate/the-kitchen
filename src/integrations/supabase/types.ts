@@ -166,6 +166,41 @@ export type Database = {
         }
         Relationships: []
       }
+      shared_drinks: {
+        Row: {
+          drink_data: Json
+          drink_id: string
+          family_group_id: string
+          id: string
+          shared_at: string
+          shared_by: string
+        }
+        Insert: {
+          drink_data: Json
+          drink_id: string
+          family_group_id: string
+          id?: string
+          shared_at?: string
+          shared_by: string
+        }
+        Update: {
+          drink_data?: Json
+          drink_id?: string
+          family_group_id?: string
+          id?: string
+          shared_at?: string
+          shared_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shared_drinks_family_group_id_fkey"
+            columns: ["family_group_id"]
+            isOneToOne: false
+            referencedRelation: "family_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shared_recipes: {
         Row: {
           family_group_id: string
