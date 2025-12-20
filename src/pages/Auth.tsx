@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { ChefHat, Mail, Lock, Loader2, ArrowLeft, Home } from 'lucide-react';
+import { Leaf, Mail, Lock, Loader2, ArrowLeft, Home } from 'lucide-react';
 import { z } from 'zod';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
@@ -178,23 +178,23 @@ export default function Auth() {
 
   if (mode === 'forgot') {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center p-4">
         <Button
           variant="ghost"
           size="sm"
           onClick={() => navigate('/')}
-          className="absolute top-4 left-4 gap-2"
+          className="absolute top-4 left-4 gap-2 text-muted-foreground hover:text-foreground"
         >
           <Home className="h-4 w-4" />
           Back to Home
         </Button>
-        <Card className="w-full max-w-md shadow-elevated">
-          <CardHeader className="text-center space-y-2">
-            <div className="mx-auto w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-              <ChefHat className="h-6 w-6 text-primary" />
+        <Card className="w-full max-w-md border-border/50 shadow-lg">
+          <CardHeader className="text-center space-y-3">
+            <div className="mx-auto w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+              <Leaf className="h-7 w-7 text-primary" />
             </div>
-            <CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl font-display font-semibold text-foreground">Reset Password</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Enter your email and we'll send you a reset link
             </CardDescription>
           </CardHeader>
@@ -242,24 +242,24 @@ export default function Auth() {
   }
 
   if (mode === 'reset') {
-  return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => navigate('/')}
-        className="absolute top-4 left-4 gap-2"
-      >
-        <Home className="h-4 w-4" />
-        Back to Home
-      </Button>
-      <Card className="w-full max-w-md shadow-elevated">
-          <CardHeader className="text-center space-y-2">
-            <div className="mx-auto w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-              <ChefHat className="h-6 w-6 text-primary" />
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center p-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate('/')}
+          className="absolute top-4 left-4 gap-2 text-muted-foreground hover:text-foreground"
+        >
+          <Home className="h-4 w-4" />
+          Back to Home
+        </Button>
+        <Card className="w-full max-w-md border-border/50 shadow-lg">
+          <CardHeader className="text-center space-y-3">
+            <div className="mx-auto w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+              <Leaf className="h-7 w-7 text-primary" />
             </div>
-            <CardTitle className="text-2xl font-bold">Set New Password</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl font-display font-semibold text-foreground">Set New Password</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Enter your new password below
             </CardDescription>
           </CardHeader>
@@ -316,20 +316,20 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-elevated">
-        <CardHeader className="text-center space-y-2">
-          <div className="mx-auto w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-            <ChefHat className="h-6 w-6 text-primary" />
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center p-4">
+      <Card className="w-full max-w-md border-border/50 shadow-lg">
+        <CardHeader className="text-center space-y-3">
+          <div className="mx-auto w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+            <Leaf className="h-7 w-7 text-primary" />
           </div>
-          <CardTitle className="text-2xl font-bold">The Kitchen</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl font-display font-semibold text-foreground">The Kitchen</CardTitle>
+          <CardDescription className="text-muted-foreground">
             Sign in to sync your recipes, meal plans, and shopping list across devices
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-muted/50">
               <TabsTrigger value="signin">Sign In</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
