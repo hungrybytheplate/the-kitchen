@@ -7,6 +7,7 @@ import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
 import { MealCalendar } from "@/components/MealCalendar";
 import { SavedRecipes } from "@/components/SavedRecipes";
+import { SharedRecipes } from "@/components/SharedRecipes";
 import { ShoppingList } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
@@ -20,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserData, type ShoppingItem, type MealPlanEntry, type RecipeNotes } from "@/hooks/useUserData";
+import { useFamilyGroup } from "@/hooks/useFamilyGroup";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
@@ -193,6 +195,7 @@ const Index = () => {
     clearShoppingList,
     updateRecipeNotes
   } = useUserData();
+  const { sharedRecipes } = useFamilyGroup();
 
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
@@ -536,7 +539,7 @@ const Index = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="w-full max-w-xl mx-auto grid grid-cols-4 h-14 glass p-1.5 rounded-2xl shadow-soft">
+          <TabsList className="w-full max-w-2xl mx-auto grid grid-cols-5 h-14 glass p-1.5 rounded-2xl shadow-soft">
             <QuickTooltip content={appMode === "cook" ? "Select ingredients & find recipes" : "Select ingredients & find drinks"} side="bottom">
               <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
                 {appMode === "cook" ? <UtensilsCrossed className="h-4 w-4" /> : <GlassWater className="h-4 w-4" />}
@@ -561,6 +564,17 @@ const Index = () => {
                 {(savedRecipes.length + savedDrinks.length) > 0 && (
                   <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-primary/20 text-primary">
                     {savedRecipes.length + savedDrinks.length}
+                  </Badge>
+                )}
+              </TabsTrigger>
+            </QuickTooltip>
+            <QuickTooltip content="Recipes shared by family" side="bottom">
+              <TabsTrigger value="family" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
+                <Users className="h-4 w-4" />
+                <span className="hidden sm:inline">Family</span>
+                {sharedRecipes.length > 0 && (
+                  <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-primary/20 text-primary">
+                    {sharedRecipes.length}
                   </Badge>
                 )}
               </TabsTrigger>
@@ -781,6 +795,14 @@ const Index = () => {
               onSaveNote={async (recipeId, note) => {
                 await updateRecipeNotes(recipeId, note);
               }}
+            />
+          </TabsContent>
+
+          <TabsContent value="family" className="mt-6">
+            <SharedRecipes
+              savedRecipes={savedRecipes}
+              onSaveRecipe={handleSaveRecipe}
+              onAddToCalendar={handleAddToCalendar}
             />
           </TabsContent>
 
