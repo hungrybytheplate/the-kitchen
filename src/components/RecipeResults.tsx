@@ -212,7 +212,45 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   return (
     <div className="space-y-4">
-      {/* Filters */}
+      {/* Cuisine Quick Filters - Always Visible */}
+      <div className="p-3 bg-card rounded-xl border border-border/50 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 text-sm font-medium">
+            <Globe className="h-4 w-4 text-primary" />
+            <span>Filter by Cuisine</span>
+          </div>
+          {activeCuisines.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-6 px-2 text-xs text-muted-foreground hover:text-destructive"
+              onClick={() => setActiveCuisines([])}
+            >
+              Clear
+            </Button>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {cuisineFilters.map(({ cuisine, label, icon }) => (
+            <Badge
+              key={cuisine}
+              variant={activeCuisines.includes(cuisine) ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                activeCuisines.includes(cuisine) 
+                  ? "bg-primary text-primary-foreground shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => toggleCuisine(cuisine)}
+            >
+              <span className="mr-1.5 text-base">{icon}</span>
+              {label}
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      {/* More Filters (Dietary, Cook Time, Calories) */}
       <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen}>
         <CollapsibleTrigger asChild>
           <Button 
@@ -221,10 +259,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
           >
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4" />
-              <span>Filters</span>
-              {hasActiveFilters && (
+              <span>More Filters</span>
+              {(activeFilters.length > 0 || cookTimeFilter || calorieFilter) && (
                 <Badge className="h-5 min-w-5 p-0 text-[10px] bg-primary text-primary-foreground">
-                  {activeFilters.length + activeCuisines.length + (cookTimeFilter ? 1 : 0) + (calorieFilter ? 1 : 0)}
+                  {activeFilters.length + (cookTimeFilter ? 1 : 0) + (calorieFilter ? 1 : 0)}
                 </Badge>
               )}
             </div>
@@ -250,32 +288,6 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                       : "bg-background hover:bg-muted"
                   )}
                   onClick={() => toggleFilter(tag)}
-                >
-                  <span className="mr-1">{icon}</span>
-                  {label}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Cuisine Filters */}
-          <div className="p-3 bg-muted/30 rounded-xl border border-border/50">
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-              <Globe className="h-4 w-4" />
-              <span>Cuisine Type</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {cuisineFilters.map(({ cuisine, label, icon }) => (
-                <Badge
-                  key={cuisine}
-                  variant={activeCuisines.includes(cuisine) ? "default" : "outline"}
-                  className={cn(
-                    "cursor-pointer transition-all hover:scale-105",
-                    activeCuisines.includes(cuisine) 
-                      ? "bg-primary text-primary-foreground" 
-                      : "bg-background hover:bg-muted"
-                  )}
-                  onClick={() => toggleCuisine(cuisine)}
                 >
                   <span className="mr-1">{icon}</span>
                   {label}
@@ -335,14 +347,18 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
             </div>
           </div>
 
-          {hasActiveFilters && (
+          {(activeFilters.length > 0 || cookTimeFilter || calorieFilter) && (
             <Button
               variant="ghost"
               size="sm"
               className="w-full text-muted-foreground hover:text-destructive"
-              onClick={clearFilters}
+              onClick={() => {
+                setActiveFilters([]);
+                setCookTimeFilter(null);
+                setCalorieFilter(null);
+              }}
             >
-              Clear all filters
+              Clear dietary filters
             </Button>
           )}
         </CollapsibleContent>
