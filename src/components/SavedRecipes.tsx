@@ -233,7 +233,7 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
             open={!!selectedRecipe}
             onOpenChange={(open) => !open && setSelectedRecipe(null)}
             isSaved={savedRecipeIds.includes(selectedRecipe.id)}
-            onSave={() => {}}
+            onSave={() => onRemoveRecipe(selectedRecipe.id)}
             onAddToCalendar={() => {}}
           />
         )}
@@ -244,7 +244,7 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
             open={!!selectedDrink}
             onOpenChange={(open) => !open && setSelectedDrink(null)}
             isSaved={savedDrinkIds.includes(selectedDrink.id)}
-            onSave={() => {}}
+            onSave={() => onRemoveDrink(selectedDrink.id)}
           />
         )}
       </CardContent>
