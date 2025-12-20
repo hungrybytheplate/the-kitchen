@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import type { Recipe } from "@/data/recipes";
 import { Calendar as CalendarIcon, ExternalLink, Sparkles, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { useToast } from "@/hooks/use-toast";
 interface AddToCalendarDialogProps {
   recipe: Recipe | null;
   open: boolean;
@@ -73,6 +73,7 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
   const [showCalendarOptions, setShowCalendarOptions] = useState(false);
   const [rememberChoice, setRememberChoice] = useState(false);
   const [savedPreference, setSavedPreference] = useState<CalendarProvider | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const saved = localStorage.getItem(CALENDAR_PREFERENCE_KEY) as CalendarProvider | null;
@@ -110,6 +111,12 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
       } else {
         window.open(url, "_blank");
       }
+      
+      // Show confirmation toast
+      toast({
+        title: "Added to calendar!",
+        description: `"${recipe.title}" synced to ${providerConfig.name}`,
+      });
     }
     handleDone();
   };

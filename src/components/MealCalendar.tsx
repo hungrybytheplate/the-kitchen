@@ -1,12 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { X, ChevronLeft, ChevronRight, Calendar, ExternalLink } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus } from "lucide-react";
 import { useState } from "react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
+import { useToast } from "@/hooks/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export interface MealPlanEntry {
   date: string;
@@ -22,6 +28,16 @@ interface MealCalendarProps {
   onAddToCalendar?: (recipe: Recipe) => void;
 }
 
+const CALENDAR_PREFERENCE_KEY = 'preferred-calendar-provider';
+
+type CalendarProvider = 'google' | 'outlook' | 'apple';
+
+const calendarProviders: { id: CalendarProvider; name: string; icon: string }[] = [
+  { id: 'google', name: 'Google Calendar', icon: '📅' },
+  { id: 'outlook', name: 'Outlook', icon: '📧' },
+  { id: 'apple', name: 'Apple Calendar', icon: '🍎' },
+];
+
 export function MealCalendar({ 
   mealPlan, 
   onRemove, 
@@ -32,6 +48,7 @@ export function MealCalendar({
 }: MealCalendarProps) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const { toast } = useToast();
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
@@ -50,7 +67,7 @@ export function MealCalendar({
 
   const isEmpty = mealPlan.length === 0;
 
-  const generateCalendarLink = (entry: MealPlanEntry, type: 'google' | 'outlook' | 'apple') => {
+  const generateCalendarLink = (entry: MealPlanEntry, type: CalendarProvider) => {
     const startDate = new Date(entry.date);
     const endDate = new Date(entry.date);
     
@@ -96,6 +113,37 @@ END:VEVENT
 END:VCALENDAR`;
     return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
   };
+
+  const handleCalendarSync = (entry: MealPlanEntry, provider: CalendarProvider) => {
+    const url = generateCalendarLink(entry, provider);
+    
+    if (provider === 'apple') {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${entry.recipe.title.replace(/\s+/g, '-')}.ics`;
+      link.click();
+    } else {
+      window.open(url, '_blank');
+    }
+    
+    const providerName = calendarProviders.find(p => p.id === provider)?.name || 'Calendar';
+    toast({
+      title: "Added to calendar!",
+      description: `"${entry.recipe.title}" synced to ${providerName}`,
+    });
+  };
+
+  const handleQuickCalendarSync = (entry: MealPlanEntry, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const savedPreference = localStorage.getItem(CALENDAR_PREFERENCE_KEY) as CalendarProvider | null;
+    
+    if (savedPreference) {
+      handleCalendarSync(entry, savedPreference);
+    }
+    // If no preference, the dropdown will show options
+  };
+
+  const savedPreference = localStorage.getItem(CALENDAR_PREFERENCE_KEY) as CalendarProvider | null;
 
   return (
     <>
@@ -167,41 +215,58 @@ END:VCALENDAR`;
                       >
                         <div className="flex items-start gap-1">
                           <span>{mealTypeIcons[entry.recipe.mealType] || "🍽️"}</span>
-                          <span className="line-clamp-2 leading-tight font-medium">
+                          <span className="line-clamp-2 leading-tight font-medium flex-1">
                             {entry.recipe.title}
                           </span>
                         </div>
-                        <div className="flex gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <a
-                            href={generateCalendarLink(entry, 'google')}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-[9px] text-primary hover:underline"
-                            title="Add to Google Calendar"
-                          >
-                            G
-                          </a>
-                          <a
-                            href={generateCalendarLink(entry, 'outlook')}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-[9px] text-primary hover:underline"
-                            title="Add to Outlook"
-                          >
-                            O
-                          </a>
-                          <a
-                            href={generateCalendarLink(entry, 'apple')}
-                            download={`${entry.recipe.title}.ics`}
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-[9px] text-primary hover:underline"
-                            title="Download for Apple Calendar"
-                          >
-                            A
-                          </a>
+                        
+                        {/* Quick calendar sync button */}
+                        <div className="flex gap-1 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                          {savedPreference ? (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-5 px-1.5 text-[10px] bg-primary/10 hover:bg-primary/20 text-primary"
+                              onClick={(e) => handleQuickCalendarSync(entry, e)}
+                            >
+                              <CalendarPlus className="h-3 w-3 mr-0.5" />
+                              Sync
+                            </Button>
+                          ) : (
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-5 px-1.5 text-[10px] bg-primary/10 hover:bg-primary/20 text-primary"
+                                >
+                                  <CalendarPlus className="h-3 w-3 mr-0.5" />
+                                  Sync
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent 
+                                align="start" 
+                                className="w-40 bg-popover z-50"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {calendarProviders.map((provider) => (
+                                  <DropdownMenuItem
+                                    key={provider.id}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleCalendarSync(entry, provider.id);
+                                    }}
+                                    className="cursor-pointer"
+                                  >
+                                    <span className="mr-2">{provider.icon}</span>
+                                    {provider.name}
+                                  </DropdownMenuItem>
+                                ))}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          )}
                         </div>
+
                         <Button
                           variant="ghost"
                           size="icon"
