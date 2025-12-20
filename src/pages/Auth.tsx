@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { ChefHat, Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
+import { ChefHat, Mail, Lock, Loader2, ArrowLeft, Home } from 'lucide-react';
 import { z } from 'zod';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
@@ -179,6 +179,15 @@ export default function Auth() {
   if (mode === 'forgot') {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate('/')}
+          className="absolute top-4 left-4 gap-2"
+        >
+          <Home className="h-4 w-4" />
+          Back to Home
+        </Button>
         <Card className="w-full max-w-md shadow-elevated">
           <CardHeader className="text-center space-y-2">
             <div className="mx-auto w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
@@ -233,9 +242,18 @@ export default function Auth() {
   }
 
   if (mode === 'reset') {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-md shadow-elevated">
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => navigate('/')}
+        className="absolute top-4 left-4 gap-2"
+      >
+        <Home className="h-4 w-4" />
+        Back to Home
+      </Button>
+      <Card className="w-full max-w-md shadow-elevated">
           <CardHeader className="text-center space-y-2">
             <div className="mx-auto w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
               <ChefHat className="h-6 w-6 text-primary" />
