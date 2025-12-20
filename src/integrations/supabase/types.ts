@@ -97,42 +97,6 @@ export type Database = {
         }
         Relationships: []
       }
-      meal_reminder_settings: {
-        Row: {
-          breakfast_time: string
-          created_at: string
-          dinner_time: string
-          enabled: boolean
-          id: string
-          lunch_time: string
-          reminder_minutes_before: number
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          breakfast_time?: string
-          created_at?: string
-          dinner_time?: string
-          enabled?: boolean
-          id?: string
-          lunch_time?: string
-          reminder_minutes_before?: number
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          breakfast_time?: string
-          created_at?: string
-          dinner_time?: string
-          enabled?: boolean
-          id?: string
-          lunch_time?: string
-          reminder_minutes_before?: number
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       recipe_notes: {
         Row: {
           created_at: string
