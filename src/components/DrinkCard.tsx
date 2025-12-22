@@ -77,60 +77,61 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
         )}
         onClick={() => setShowDetail(true)}
       >
-        <CardHeader className="pb-3 relative">
+        <CardHeader className="p-3 sm:pb-3 sm:p-6 relative">
           {/* Decorative gradient */}
-          <div className="absolute top-0 right-0 w-32 h-32 opacity-30 pointer-events-none">
+          <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 opacity-30 pointer-events-none">
             <div className={cn("w-full h-full rounded-full blur-3xl", config.bg)} />
           </div>
 
-          <div className="flex items-start justify-between gap-3 relative">
-            <div className="flex-1 space-y-2">
-              <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-start justify-between gap-2 sm:gap-3 relative">
+            <div className="flex-1 space-y-1.5 sm:space-y-2 min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                 <Badge
                   className={cn(
-                    "text-xs font-semibold px-3 py-1 rounded-full border",
+                    "text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border",
                     config.bg,
                     config.border,
                     config.text
                   )}
                 >
-                  <span className="mr-1">{config.emoji}</span>
+                  <span className="mr-0.5 sm:mr-1">{config.emoji}</span>
                   {config.label}
                 </Badge>
                 {drink.isHoliday && (
-                  <Badge className="text-xs font-semibold px-2.5 py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
-                    <Snowflake className="h-3 w-3 mr-1" />
-                    Holiday
+                  <Badge className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
+                    <Snowflake className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden xs:inline">Holiday</span>
                   </Badge>
                 )}
                 {drink.isAlcoholic ? (
-                  <Badge variant="outline" className="text-xs">
-                    <Wine className="h-3 w-3 mr-1" />
-                    Alcoholic
+                  <Badge variant="outline" className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5">
+                    <Wine className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden sm:inline">Alcoholic</span>
                   </Badge>
                 ) : (
                   <Badge
                     variant="outline"
-                    className="text-xs text-emerald-600 border-emerald-300"
+                    className="text-[10px] sm:text-xs text-emerald-600 border-emerald-300 px-1.5 sm:px-2 py-0.5"
                   >
-                    <Leaf className="h-3 w-3 mr-1" />
-                    Non-Alcoholic
+                    <Leaf className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden sm:inline">Non-Alcoholic</span>
                   </Badge>
                 )}
                 {matchPercentage >= 80 && (
                   <Badge
                     variant="outline"
-                    className="text-xs font-medium px-2 py-0.5 bg-secondary/10 border-secondary/30 text-secondary"
+                    className="text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 bg-secondary/10 border-secondary/30 text-secondary"
                   >
-                    <Check className="h-3 w-3 mr-1" />
-                    Great Match
+                    <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden sm:inline">Great Match</span>
+                    <span className="sm:hidden">Match</span>
                   </Badge>
                 )}
               </div>
-              <h3 className="font-serif text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+              <h3 className="font-serif text-base sm:text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors line-clamp-2">
                 {drink.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">
                 {drink.description}
               </p>
             </div>
@@ -139,7 +140,7 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
               size="icon"
               onClick={(e) => { e.stopPropagation(); onSave(); }}
               className={cn(
-                "shrink-0 rounded-full transition-all duration-300",
+                "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
                 isSaved
                   ? "text-primary bg-primary/10 hover:bg-primary/20"
                   : "hover:bg-accent/60"
@@ -147,96 +148,106 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
             >
               <Heart
                 className={cn(
-                  "h-5 w-5 transition-all duration-300",
+                  "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
                   isSaved && "fill-current scale-110"
                 )}
               />
             </Button>
           </div>
 
-          <div className="flex items-center gap-4 mt-4 text-sm">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50">
-              <Clock className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-center gap-2 sm:gap-4 mt-2.5 sm:mt-4 text-xs sm:text-sm">
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-muted/50">
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               <span className="font-medium">{drink.prepTime}</span>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50">
-              <GlassWater className="h-4 w-4 text-muted-foreground" />
-              <span className="font-medium">{drink.glassType}</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-muted/50">
+              <GlassWater className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
+              <span className="font-medium truncate max-w-[80px] sm:max-w-none">{drink.glassType}</span>
             </div>
           </div>
 
           {/* Health benefit tags */}
           {drink.healthTags && drink.healthTags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-3">
-              {drink.healthTags.map((tag) => {
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-3">
+              {drink.healthTags.slice(0, 2).map((tag) => {
                 const tagConfig = healthTagConfig[tag];
                 const TagIcon = tagConfig.icon;
                 return (
                   <Badge
                     key={tag}
                     variant="outline"
-                    className={cn("text-xs font-medium px-2 py-0.5 border", tagConfig.color)}
+                    className={cn("text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 border", tagConfig.color)}
                   >
-                    <TagIcon className="h-3 w-3 mr-1" />
+                    <TagIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                     {tag}
                   </Badge>
                 );
               })}
+              {drink.healthTags.length > 2 && (
+                <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
+                  +{drink.healthTags.length - 2}
+                </Badge>
+              )}
             </div>
           )}
 
           {/* Key ingredients matched */}
           {drink.matchedKeyIngredients && drink.matchedKeyIngredients.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-4">
-              {drink.matchedKeyIngredients.map((ing) => (
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2.5 sm:mt-4">
+              {drink.matchedKeyIngredients.slice(0, 3).map((ing) => (
                 <Badge
                   key={ing}
-                  className="text-xs font-semibold px-2.5 py-1 bg-primary/15 border border-primary/30 text-primary"
+                  className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-primary/15 border border-primary/30 text-primary"
                 >
-                  <Key className="h-3 w-3 mr-1" />
+                  <Key className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                   {ing.replace("-", " ")}
                 </Badge>
               ))}
+              {drink.matchedKeyIngredients.length > 3 && (
+                <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
+                  +{drink.matchedKeyIngredients.length - 3}
+                </Badge>
+              )}
             </div>
           )}
 
           {/* Matched ingredients */}
-          <div className="flex flex-wrap gap-1.5 mt-2">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1.5 sm:mt-2">
             {drink.matchedIngredients
               .filter((ing) => !drink.matchedKeyIngredients?.includes(ing))
-              .slice(0, 4)
+              .slice(0, 3)
               .map((ing) => (
                 <Badge
                   key={ing}
                   variant="outline"
-                  className="text-xs font-medium bg-secondary/5 border-secondary/20 text-secondary"
+                  className="text-[10px] sm:text-xs font-medium bg-secondary/5 border-secondary/20 text-secondary px-1.5 sm:px-2 py-0.5"
                 >
-                  <Check className="h-3 w-3 mr-1" />
+                  <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                   {ing.replace("-", " ")}
                 </Badge>
               ))}
             {drink.matchedIngredients.filter(
               (ing) => !drink.matchedKeyIngredients?.includes(ing)
-            ).length > 4 && (
-              <Badge variant="outline" className="text-xs bg-muted/50">
+            ).length > 3 && (
+              <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
                 +
                 {drink.matchedIngredients.filter(
                   (ing) => !drink.matchedKeyIngredients?.includes(ing)
-                ).length - 4}
+                ).length - 3}
               </Badge>
             )}
           </div>
         </CardHeader>
 
-        <CardContent className="pt-0 space-y-3">
+        <CardContent className="pt-0 px-3 pb-3 sm:px-6 sm:pb-6 space-y-2 sm:space-y-3">
           <Button
             variant="warm"
-            size="default"
-            className="w-full"
+            size="sm"
+            className="w-full h-9 sm:h-10 text-xs sm:text-sm"
             onClick={(e) => { e.stopPropagation(); setShowDetail(true); }}
           >
-            <GlassWater className="h-4 w-4 mr-2" />
-            View Recipe & Make
+            <GlassWater className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+            View Recipe
           </Button>
         </CardContent>
       </Card>

@@ -169,7 +169,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               </Badge>
               <span className="text-xs text-muted-foreground">You have all ingredients</span>
             </div>
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2">
               {perfectMatches.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
@@ -194,7 +194,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                 <span className="text-xs text-muted-foreground">Missing a few ingredients</span>
               </div>
             )}
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2">
               {closeMatches.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
@@ -410,46 +410,46 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       )}
 
       <Tabs defaultValue="breakfast" className="w-full">
-        <TabsList className="w-full grid grid-cols-5 h-12 bg-muted/50 p-1 rounded-xl mb-6">
+        <TabsList className="w-full grid grid-cols-5 h-10 sm:h-12 bg-muted/50 p-0.5 sm:p-1 rounded-lg sm:rounded-xl mb-4 sm:mb-6">
           <TabsTrigger 
             value="breakfast" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+            className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-0.5 sm:gap-1 text-[10px] sm:text-sm px-1"
           >
-            <Sunrise className="h-4 w-4" />
+            <Sunrise className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
             <span className="hidden sm:inline">Breakfast</span>
-            <span className="text-[10px] text-muted-foreground">({breakfastRecipes.length})</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground">({breakfastRecipes.length})</span>
           </TabsTrigger>
           <TabsTrigger 
             value="lunch" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+            className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-0.5 sm:gap-1 text-[10px] sm:text-sm px-1"
           >
-            <Sun className="h-4 w-4" />
+            <Sun className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
             <span className="hidden sm:inline">Lunch</span>
-            <span className="text-[10px] text-muted-foreground">({lunchRecipes.length})</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground">({lunchRecipes.length})</span>
           </TabsTrigger>
           <TabsTrigger 
             value="dinner" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+            className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-0.5 sm:gap-1 text-[10px] sm:text-sm px-1"
           >
-            <Moon className="h-4 w-4" />
+            <Moon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
             <span className="hidden sm:inline">Dinner</span>
-            <span className="text-[10px] text-muted-foreground">({dinnerRecipes.length})</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground">({dinnerRecipes.length})</span>
           </TabsTrigger>
           <TabsTrigger 
             value="dessert" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+            className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-0.5 sm:gap-1 text-[10px] sm:text-sm px-1"
           >
-            <Cake className="h-4 w-4" />
+            <Cake className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
             <span className="hidden sm:inline">Dessert</span>
-            <span className="text-[10px] text-muted-foreground">({dessertRecipes.length})</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground">({dessertRecipes.length})</span>
           </TabsTrigger>
           <TabsTrigger 
             value="sides" 
-            className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-1 text-xs sm:text-sm"
+            className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-0.5 sm:gap-1 text-[10px] sm:text-sm px-1"
           >
-            <Croissant className="h-4 w-4" />
+            <Croissant className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
             <span className="hidden sm:inline">Sides</span>
-            <span className="text-[10px] text-muted-foreground">({sidesRecipes.length})</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground">({sidesRecipes.length})</span>
           </TabsTrigger>
         </TabsList>
 

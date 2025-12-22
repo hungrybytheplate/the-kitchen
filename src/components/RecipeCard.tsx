@@ -79,39 +79,40 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
         )}
         onClick={handleViewRecipe}
       >
-        <CardHeader className="pb-3 relative">
+        <CardHeader className="p-3 sm:pb-3 sm:p-6 relative">
           {/* Decorative gradient */}
-          <div className="absolute top-0 right-0 w-32 h-32 opacity-30 pointer-events-none">
+          <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 opacity-30 pointer-events-none">
             <div className={cn("w-full h-full rounded-full blur-3xl", config.bg)} />
           </div>
 
-          <div className="flex items-start justify-between gap-3 relative">
-            <div className="flex-1 space-y-2">
-              <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-start justify-between gap-2 sm:gap-3 relative">
+            <div className="flex-1 space-y-1.5 sm:space-y-2 min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                 <Badge className={cn(
-                  "text-xs font-semibold px-3 py-1 rounded-full border",
+                  "text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border",
                   config.bg, config.border, config.text
                 )}>
-                  <span className="mr-1">{config.emoji}</span>
+                  <span className="mr-0.5 sm:mr-1">{config.emoji}</span>
                   {config.label}
                 </Badge>
                 {recipe.isHoliday && (
-                  <Badge className="text-xs font-semibold px-2.5 py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
-                    <Snowflake className="h-3 w-3 mr-1" />
-                    Holiday
+                  <Badge className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
+                    <Snowflake className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden xs:inline">Holiday</span>
                   </Badge>
                 )}
                 {matchPercentage >= 80 && (
-                  <Badge variant="outline" className="text-xs font-medium px-2 py-0.5 bg-secondary/10 border-secondary/30 text-secondary">
-                    <Check className="h-3 w-3 mr-1" />
-                    Great Match
+                  <Badge variant="outline" className="text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 bg-secondary/10 border-secondary/30 text-secondary">
+                    <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden sm:inline">Great Match</span>
+                    <span className="sm:hidden">Match</span>
                   </Badge>
                 )}
               </div>
-              <h3 className="font-serif text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+              <h3 className="font-serif text-base sm:text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors line-clamp-2">
                 {recipe.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">
                 {recipe.description}
               </p>
             </div>
@@ -120,116 +121,121 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
               size="icon"
               onClick={(e) => { e.stopPropagation(); onSave(); }}
               className={cn(
-                "shrink-0 rounded-full transition-all duration-300",
+                "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
                 isSaved 
                   ? "text-primary bg-primary/10 hover:bg-primary/20" 
                   : "hover:bg-accent/60"
               )}
             >
               <Heart className={cn(
-                "h-5 w-5 transition-all duration-300",
+                "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
                 isSaved && "fill-current scale-110"
               )} />
             </Button>
           </div>
 
-          <div className="flex items-center gap-4 mt-4 text-sm">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50">
-              <Clock className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-center gap-2 sm:gap-4 mt-2.5 sm:mt-4 text-xs sm:text-sm">
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-muted/50">
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               <span className="font-medium">{recipe.cookTime}</span>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50">
-              <Users className="h-4 w-4 text-muted-foreground" />
-              <span className="font-medium">{recipe.servings} servings</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-muted/50">
+              <Users className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
+              <span className="font-medium">{recipe.servings}<span className="hidden sm:inline"> servings</span></span>
             </div>
           </div>
 
           {/* Key ingredients matched */}
           {recipe.matchedKeyIngredients && recipe.matchedKeyIngredients.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-4">
-              {recipe.matchedKeyIngredients.map((ing) => (
-                <Badge key={ing} className="text-xs font-semibold px-2.5 py-1 bg-primary/15 border border-primary/30 text-primary">
-                  <Key className="h-3 w-3 mr-1" />
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2.5 sm:mt-4">
+              {recipe.matchedKeyIngredients.slice(0, 3).map((ing) => (
+                <Badge key={ing} className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-primary/15 border border-primary/30 text-primary">
+                  <Key className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                   {ing.replace("-", " ")}
                 </Badge>
               ))}
+              {recipe.matchedKeyIngredients.length > 3 && (
+                <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
+                  +{recipe.matchedKeyIngredients.length - 3}
+                </Badge>
+              )}
             </div>
           )}
 
           {/* Matched ingredients */}
-          <div className="flex flex-wrap gap-1.5 mt-2">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1.5 sm:mt-2">
             {recipe.matchedIngredients
               .filter(ing => !recipe.matchedKeyIngredients?.includes(ing))
-              .slice(0, 4).map((ing) => (
-              <Badge key={ing} variant="outline" className="text-xs font-medium bg-secondary/5 border-secondary/20 text-secondary">
-                <Check className="h-3 w-3 mr-1" />
+              .slice(0, 3).map((ing) => (
+              <Badge key={ing} variant="outline" className="text-[10px] sm:text-xs font-medium bg-secondary/5 border-secondary/20 text-secondary px-1.5 sm:px-2 py-0.5">
+                <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                 {ing.replace("-", " ")}
               </Badge>
             ))}
-            {recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length > 4 && (
-              <Badge variant="outline" className="text-xs bg-muted/50">
-                +{recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length - 4}
+            {recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length > 3 && (
+              <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
+                +{recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length - 3}
               </Badge>
             )}
           </div>
 
           {/* Missing ingredients */}
           {missingIngredients.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {missingIngredients.slice(0, 3).map((ing) => (
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1.5 sm:mt-2">
+              {missingIngredients.slice(0, 2).map((ing) => (
                 <Badge
                   key={ing}
                   variant="outline"
                   className={cn(
-                    "text-xs font-medium cursor-pointer transition-all duration-200",
+                    "text-[10px] sm:text-xs font-medium cursor-pointer transition-all duration-200 px-1.5 sm:px-2 py-0.5",
                     "bg-accent/30 border-accent-foreground/20 text-accent-foreground",
                     "hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
                   )}
                   onClick={(e) => { e.stopPropagation(); onAddToShopping?.(ing); }}
                 >
-                  <Plus className="h-3 w-3 mr-1" />
+                  <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                   {ing.replace("-", " ")}
                 </Badge>
               ))}
-              {missingIngredients.length > 3 && (
-                <Badge variant="outline" className="text-xs bg-muted/50 text-muted-foreground">
-                  +{missingIngredients.length - 3} more
+              {missingIngredients.length > 2 && (
+                <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50 text-muted-foreground px-1.5 sm:px-2 py-0.5">
+                  +{missingIngredients.length - 2} more
                 </Badge>
               )}
             </div>
           )}
         </CardHeader>
 
-        <CardContent className="pt-0 space-y-3">
+        <CardContent className="pt-0 px-3 pb-3 sm:px-6 sm:pb-6 space-y-2 sm:space-y-3">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-center text-muted-foreground hover:text-foreground rounded-xl gap-2"
+            className="w-full justify-center text-muted-foreground hover:text-foreground rounded-lg sm:rounded-xl gap-1.5 sm:gap-2 h-8 sm:h-9 text-xs sm:text-sm"
             onClick={(e) => { e.stopPropagation(); handleViewRecipe(); }}
           >
-            <ChefHat className="h-4 w-4" />
-            <span className="font-medium">View Recipe & Cook</span>
+            <ChefHat className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="font-medium">View Recipe</span>
           </Button>
 
           {missingIngredients.length > 0 && onAddToShopping && (
             <Button
               variant="glass"
               size="sm"
-              className="w-full"
+              className="w-full h-8 sm:h-9 text-xs sm:text-sm"
               onClick={(e) => { e.stopPropagation(); missingIngredients.forEach(ing => onAddToShopping(ing)); }}
             >
-              <ShoppingCart className="h-4 w-4 mr-2" />
-              Add {missingIngredients.length} missing to list
+              <ShoppingCart className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+              Add {missingIngredients.length} missing
             </Button>
           )}
           
           <Button
             variant="warm"
-            size="default"
-            className="w-full"
+            size="sm"
+            className="w-full h-9 sm:h-10 text-xs sm:text-sm"
             onClick={(e) => { e.stopPropagation(); onAddToCalendar(); }}
           >
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
             Add to Meal Plan
           </Button>
         </CardContent>
