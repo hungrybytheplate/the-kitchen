@@ -65,11 +65,14 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
 
   return (
     <>
-      <Card className={cn(
-        "group overflow-hidden transition-all duration-500 hover-lift border-border/50",
-        "bg-card/80 backdrop-blur-sm",
-        "animate-scale-in"
-      )}>
+      <Card 
+        className={cn(
+          "group overflow-hidden transition-all duration-500 hover-lift border-border/50",
+          "bg-card/80 backdrop-blur-sm",
+          "animate-scale-in cursor-pointer"
+        )}
+        onClick={() => setShowDetail(true)}
+      >
         <CardHeader className="pb-3 relative">
           {/* Decorative gradient */}
           <div className="absolute top-0 right-0 w-32 h-32 opacity-30 pointer-events-none">
@@ -103,7 +106,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
             <Button
               variant="ghost"
               size="icon"
-              onClick={onSave}
+              onClick={(e) => { e.stopPropagation(); onSave(); }}
               className={cn(
                 "shrink-0 rounded-full transition-all duration-300",
                 isSaved 
@@ -170,7 +173,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
                     "bg-accent/30 border-accent-foreground/20 text-accent-foreground",
                     "hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
                   )}
-                  onClick={() => onAddToShopping?.(ing)}
+                  onClick={(e) => { e.stopPropagation(); onAddToShopping?.(ing); }}
                 >
                   <Plus className="h-3 w-3 mr-1" />
                   {ing.replace("-", " ")}
@@ -190,7 +193,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
             variant="ghost"
             size="sm"
             className="w-full justify-center text-muted-foreground hover:text-foreground rounded-xl gap-2"
-            onClick={() => setShowDetail(true)}
+            onClick={(e) => { e.stopPropagation(); setShowDetail(true); }}
           >
             <ChefHat className="h-4 w-4" />
             <span className="font-medium">View Recipe & Cook</span>
@@ -201,7 +204,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
               variant="glass"
               size="sm"
               className="w-full"
-              onClick={() => missingIngredients.forEach(ing => onAddToShopping(ing))}
+              onClick={(e) => { e.stopPropagation(); missingIngredients.forEach(ing => onAddToShopping(ing)); }}
             >
               <ShoppingCart className="h-4 w-4 mr-2" />
               Add {missingIngredients.length} missing to list
@@ -212,7 +215,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
             variant="warm"
             size="default"
             className="w-full"
-            onClick={onAddToCalendar}
+            onClick={(e) => { e.stopPropagation(); onAddToCalendar(); }}
           >
             <Plus className="h-4 w-4 mr-2" />
             Add to Meal Plan
