@@ -17,7 +17,6 @@ import { InstallBanner } from "@/components/InstallBanner";
 import { QuickTooltip } from "@/components/Tooltip";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
-import { HolidayMealPlanTemplate } from "@/components/HolidayMealPlanTemplate";
 import { UndoToast } from "@/components/UndoToast";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
@@ -924,18 +923,6 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-6 space-y-8">
-            {/* Holiday Meal Plan Template */}
-            <div className="animate-fade-in">
-              <HolidayMealPlanTemplate
-                onAddToCalendar={handleAddToCalendar}
-                onAddToShopping={handleAddToShopping}
-                savedRecipes={savedRecipes}
-                onSaveRecipe={handleSaveRecipe}
-                savedDrinks={savedDrinks}
-                onSaveDrink={handleSaveDrink}
-              />
-            </div>
-
             {/* Regular Meal Calendar */}
             <MealCalendar 
               mealPlan={mealPlan} 
