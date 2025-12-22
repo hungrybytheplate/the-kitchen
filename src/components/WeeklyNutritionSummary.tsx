@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Flame, Drumstick, Wheat, Droplets, Heart, Activity } from "lucide-react";
+import { Flame, Drumstick, Wheat, Droplets, Heart, Activity, Sparkles, CircleDot } from "lucide-react";
 import { format, addDays, startOfWeek } from "date-fns";
 import type { MealPlanEntry } from "@/components/MealCalendar";
 
@@ -14,6 +14,8 @@ interface NutritionTotals {
   carbs: number;
   fat: number;
   fiber: number;
+  sodium: number;
+  cholesterol: number;
   mealCount: number;
 }
 
@@ -37,11 +39,13 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
         acc.carbs += nutrition.carbs || 0;
         acc.fat += nutrition.fat || 0;
         acc.fiber += nutrition.fiber || 0;
+        acc.sodium += nutrition.sodium || 0;
+        acc.cholesterol += nutrition.cholesterol || 0;
       }
       acc.mealCount += 1;
       return acc;
     },
-    { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, mealCount: 0 }
+    { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sodium: 0, cholesterol: 0, mealCount: 0 }
   );
 
   // Calculate daily averages
@@ -51,6 +55,8 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
     carbs: Math.round(totals.carbs / 7),
     fat: Math.round(totals.fat / 7),
     fiber: Math.round(totals.fiber / 7),
+    sodium: Math.round(totals.sodium / 7),
+    cholesterol: Math.round(totals.cholesterol / 7),
   };
 
   const nutritionItems = [
@@ -99,6 +105,24 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
       color: "text-green-500",
       bgColor: "bg-green-500/10",
     },
+    {
+      label: "Sodium",
+      total: totals.sodium,
+      daily: dailyAvg.sodium,
+      unit: "mg",
+      icon: Sparkles,
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
+    },
+    {
+      label: "Cholesterol",
+      total: totals.cholesterol,
+      daily: dailyAvg.cholesterol,
+      unit: "mg",
+      icon: CircleDot,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+    },
   ];
 
   if (weekMeals.length === 0) {
@@ -122,7 +146,7 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
           {nutritionItems.map((item) => (
             <div
               key={item.label}
