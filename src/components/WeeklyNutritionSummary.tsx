@@ -84,8 +84,8 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
       daily: dailyAvg.carbs,
       unit: "g",
       icon: Wheat,
-      color: "text-amber-500",
-      bgColor: "bg-amber-500/10",
+      color: "text-sky-500",
+      bgColor: "bg-sky-500/10",
     },
     {
       label: "Fat",
@@ -93,8 +93,8 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
       daily: dailyAvg.fat,
       unit: "g",
       icon: Droplets,
-      color: "text-yellow-500",
-      bgColor: "bg-yellow-500/10",
+      color: "text-violet-500",
+      bgColor: "bg-violet-500/10",
     },
     {
       label: "Fiber",
@@ -192,12 +192,12 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
                       title={`Protein: ${Math.round(proteinPct)}%`}
                     />
                     <div 
-                      className="bg-amber-400 transition-all" 
+                      className="bg-sky-400 transition-all" 
                       style={{ width: `${carbsPct}%` }}
                       title={`Carbs: ${Math.round(carbsPct)}%`}
                     />
                     <div 
-                      className="bg-yellow-400 transition-all" 
+                      className="bg-violet-400 transition-all" 
                       style={{ width: `${fatPct}%` }}
                       title={`Fat: ${Math.round(fatPct)}%`}
                     />
@@ -210,10 +210,10 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
                 <span className="w-2 h-2 rounded-full bg-red-400" /> Protein
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-amber-400" /> Carbs
+                <span className="w-2 h-2 rounded-full bg-sky-400" /> Carbs
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-yellow-400" /> Fat
+                <span className="w-2 h-2 rounded-full bg-violet-400" /> Fat
               </span>
             </div>
           </div>
