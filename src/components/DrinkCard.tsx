@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Heart, Check, Key, Wine, GlassWater, Leaf, Sparkles, Zap, Shield, Dumbbell, HeartPulse, Droplets } from "lucide-react";
+import { Clock, Heart, Check, Key, Wine, GlassWater, Leaf, Sparkles, Zap, Shield, Dumbbell, HeartPulse, Droplets, Snowflake } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Drink, HealthTag } from "@/data/drinks";
@@ -97,6 +97,12 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
                   <span className="mr-1">{config.emoji}</span>
                   {config.label}
                 </Badge>
+                {drink.isHoliday && (
+                  <Badge className="text-xs font-semibold px-2.5 py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
+                    <Snowflake className="h-3 w-3 mr-1" />
+                    Holiday
+                  </Badge>
+                )}
                 {drink.isAlcoholic ? (
                   <Badge variant="outline" className="text-xs">
                     <Wine className="h-3 w-3 mr-1" />
