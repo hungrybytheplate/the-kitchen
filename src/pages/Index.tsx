@@ -595,32 +595,32 @@ const Index = () => {
       
       <Header onShowTour={() => setShowTour(true)} />
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
         {/* Top-level Cook/Drink toggle */}
-        <div className="flex flex-col items-center gap-4 mb-8">
-          <div className="inline-flex p-1.5 rounded-2xl glass shadow-soft">
+        <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="inline-flex p-1 sm:p-1.5 rounded-xl sm:rounded-2xl glass shadow-soft">
             <button
               onClick={() => setAppMode("cook")}
               className={cn(
-                "flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300",
+                "flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base",
                 appMode === "cook"
                   ? "bg-card shadow-md text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <UtensilsCrossed className="h-5 w-5" />
+              <UtensilsCrossed className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>Plate</span>
             </button>
             <button
               onClick={() => setAppMode("drink")}
               className={cn(
-                "flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300",
+                "flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base",
                 appMode === "drink"
                   ? "bg-card shadow-md text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <Wine className="h-5 w-5" />
+              <Wine className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>Glass</span>
             </button>
           </div>
@@ -670,42 +670,42 @@ const Index = () => {
           </div>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="w-full max-w-2xl mx-auto grid grid-cols-4 h-14 glass p-1.5 rounded-2xl shadow-soft">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 sm:space-y-8">
+          <TabsList className="w-full max-w-2xl mx-auto grid grid-cols-4 h-12 sm:h-14 glass p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-soft">
             <QuickTooltip content={appMode === "cook" ? "Select ingredients & find recipes" : "Select ingredients & find drinks"} side="bottom">
-              <TabsTrigger value="ingredients" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-                {appMode === "cook" ? <UtensilsCrossed className="h-4 w-4" /> : <GlassWater className="h-4 w-4" />}
+              <TabsTrigger value="ingredients" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3">
+                {appMode === "cook" ? <UtensilsCrossed className="h-4 w-4 shrink-0" /> : <GlassWater className="h-4 w-4 shrink-0" />}
                 <span className="hidden sm:inline">{appMode === "cook" ? "Cook" : "Mix"}</span>
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Plan your weekly meals" side="bottom">
-              <TabsTrigger value="calendar" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-                <Calendar className="h-4 w-4" />
+              <TabsTrigger value="calendar" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+                <Calendar className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Plan</span>
                 {mealPlan.length > 0 && (
-                  <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-secondary text-secondary-foreground">
+                  <Badge className="h-4 sm:h-5 min-w-4 sm:min-w-5 p-0 text-[9px] sm:text-[10px] flex items-center justify-center bg-secondary text-secondary-foreground ml-0.5 sm:ml-1">
                     {mealPlan.length}
                   </Badge>
                 )}
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Your favorite recipes" side="bottom">
-              <TabsTrigger value="saved" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300">
-                <Heart className="h-4 w-4" />
+              <TabsTrigger value="saved" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+                <Heart className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Saved</span>
                 {(savedRecipes.length + savedDrinks.length) > 0 && (
-                  <Badge className="h-5 min-w-5 p-0 text-[10px] flex items-center justify-center bg-primary/20 text-primary">
+                  <Badge className="h-4 sm:h-5 min-w-4 sm:min-w-5 p-0 text-[9px] sm:text-[10px] flex items-center justify-center bg-primary/20 text-primary ml-0.5 sm:ml-1">
                     {savedRecipes.length + savedDrinks.length}
                   </Badge>
                 )}
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Your shopping list" side="bottom">
-              <TabsTrigger value="shopping" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center gap-2 font-semibold transition-all duration-300 relative">
-                <ShoppingCart className="h-4 w-4" />
+              <TabsTrigger value="shopping" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+                <ShoppingCart className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Shop</span>
                 {shoppingList.length > 0 && (
-                  <Badge className="absolute -top-1.5 -right-1.5 h-5 min-w-5 p-0 text-[10px] flex items-center justify-center gradient-warm border-2 border-background">
+                  <Badge className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 h-4 sm:h-5 min-w-4 sm:min-w-5 p-0 text-[9px] sm:text-[10px] flex items-center justify-center gradient-warm border-2 border-background">
                     {shoppingList.length}
                   </Badge>
                 )}

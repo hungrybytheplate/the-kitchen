@@ -265,27 +265,27 @@ END:VCALENDAR`;
     <>
       <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden relative">
         <div className="absolute top-0 left-0 w-full h-1 gradient-sage z-10" />
-        <CardHeader className="pb-4 sticky top-0 bg-card/95 backdrop-blur-sm z-10 border-b border-border/30 sm:static sm:bg-transparent sm:backdrop-blur-none sm:border-b-0">
-          <div className="flex items-center justify-between">
+        <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <CardTitle className="font-serif text-2xl flex items-center gap-2">
-                <Calendar className="h-6 w-6 text-secondary" />
+              <CardTitle className="font-serif text-xl sm:text-2xl flex items-center gap-2">
+                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-secondary" />
                 Meal Plan
               </CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                 {isEmpty ? "Plan your meals for the week ahead" : `${mealPlan.length} meal${mealPlan.length === 1 ? '' : 's'} planned`}
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between sm:justify-end gap-1 sm:gap-2">
               {weekMeals.length > 0 && (
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleSyncAllWeek}
                   disabled={isSyncingAll}
-                  className="mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-10 w-10 sm:h-auto sm:w-auto p-2 sm:px-3"
+                  className="mr-1 sm:mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
                 >
-                  <CalendarCheck className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-1.5" />
+                  <CalendarCheck className="h-4 w-4 sm:mr-1.5" />
                   <span className="hidden sm:inline">{isSyncingAll ? "Syncing..." : "Sync Week"}</span>
                 </Button>
               )}
@@ -293,26 +293,85 @@ END:VCALENDAR`;
                 variant="ghost"
                 size="icon"
                 onClick={() => setWeekStart(addDays(weekStart, -7))}
-                className="h-10 w-10 sm:h-9 sm:w-9"
+                className="h-8 w-8 sm:h-9 sm:w-9"
               >
-                <ChevronLeft className="h-5 w-5 sm:h-4 sm:w-4" />
+                <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
-              <span className="text-sm font-medium min-w-[120px] sm:min-w-[140px] text-center">
+              <span className="text-xs sm:text-sm font-medium min-w-[100px] sm:min-w-[140px] text-center">
                 {format(weekStart, "MMM d")} - {format(addDays(weekStart, 6), "MMM d")}
               </span>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setWeekStart(addDays(weekStart, 7))}
-                className="h-10 w-10 sm:h-9 sm:w-9"
+                className="h-8 w-8 sm:h-9 sm:w-9"
               >
-                <ChevronRight className="h-5 w-5 sm:h-4 sm:w-4" />
+                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+        <CardContent className="px-2 sm:px-6">
+          {/* Mobile: Horizontal scroll view */}
+          <div className="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory sm:hidden -mx-2 px-2">
+            {days.map((day) => {
+              const meals = getMealsForDay(day);
+              const isToday = isSameDay(day, new Date());
+              const dateStr = format(day, "yyyy-MM-dd");
+
+              return (
+                <div
+                  key={day.toISOString()}
+                  className={cn(
+                    "min-w-[140px] w-[140px] flex-shrink-0 snap-start min-h-[100px] rounded-xl p-2 transition-all duration-200",
+                    isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30"
+                  )}
+                >
+                  <div className={cn(
+                    "flex flex-col text-center items-center gap-0 mb-2 pb-2 border-b border-border/50",
+                    isToday && "text-primary font-semibold"
+                  )}>
+                    <div className="text-xs text-muted-foreground uppercase">
+                      {format(day, "EEE")}
+                    </div>
+                    <div className="text-lg font-medium">
+                      {format(day, "d")}
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    {meals.map((entry) => (
+                      <div
+                        key={entry.recipe.id}
+                        className="group relative bg-card rounded-lg p-1.5 shadow-sm text-xs cursor-pointer hover:bg-accent/50 transition-colors"
+                        onClick={() => setSelectedRecipe(entry.recipe)}
+                      >
+                        <div className="flex items-start gap-1">
+                          <span>{mealTypeIcons[entry.recipe.mealType] || "🍽️"}</span>
+                          <span className="line-clamp-2 leading-tight font-medium flex-1 text-[11px]">
+                            {entry.recipe.title}
+                          </span>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute -top-1 -right-1 h-5 w-5 bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRemove(entry.date, entry.recipe.id);
+                          }}
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop: Grid view */}
+          <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
             {days.map((day) => {
               const meals = getMealsForDay(day);
               const isToday = isSameDay(day, new Date());
@@ -326,13 +385,13 @@ END:VCALENDAR`;
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, dateStr)}
                   className={cn(
-                    "min-h-[80px] sm:min-h-[120px] rounded-xl p-2 transition-all duration-200",
+                    "min-h-[120px] rounded-xl p-2 transition-all duration-200",
                     isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30",
                     isDragOver && "ring-2 ring-primary bg-primary/5 scale-[1.02]"
                   )}
                 >
                   <div className={cn(
-                    "flex sm:flex-col sm:text-center items-center sm:items-stretch gap-2 sm:gap-0 mb-2 pb-2 border-b border-border/50",
+                    "flex flex-col text-center items-stretch gap-0 mb-2 pb-2 border-b border-border/50",
                     isToday && "text-primary font-semibold"
                   )}>
                     <div className="text-xs text-muted-foreground uppercase">
