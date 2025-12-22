@@ -9,6 +9,8 @@ export interface NutritionInfo {
   carbs: number;
   fat: number;
   fiber?: number;
+  sodium?: number;      // in mg
+  cholesterol?: number; // in mg
 }
 
 export interface IngredientWithAmount {
@@ -68,7 +70,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 320, protein: 18, carbs: 22, fat: 18 },
+    nutrition: { calories: 320, protein: 18, carbs: 22, fat: 18, sodium: 580, cholesterol: 370 },
   },
   {
     id: "oatmeal-berries",
@@ -95,7 +97,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
-    nutrition: { calories: 280, protein: 8, carbs: 52, fat: 6 },
+    nutrition: { calories: 280, protein: 8, carbs: 52, fat: 6, sodium: 120, cholesterol: 10 },
   },
   {
     id: "avocado-toast",
@@ -124,7 +126,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "dairy-free"],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 14, carbs: 28, fat: 26 },
+    nutrition: { calories: 380, protein: 14, carbs: 28, fat: 26, sodium: 320, cholesterol: 185 },
   },
   {
     id: "banana-pancakes",
@@ -154,7 +156,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 10, carbs: 62, fat: 12 },
+    nutrition: { calories: 380, protein: 10, carbs: 62, fat: 12, sodium: 450, cholesterol: 95 },
   },
   {
     id: "greek-yogurt-bowl",
@@ -182,7 +184,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
-    nutrition: { calories: 320, protein: 18, carbs: 52, fat: 6 },
+    nutrition: { calories: 320, protein: 18, carbs: 52, fat: 6, sodium: 85, cholesterol: 15 },
   },
   {
     id: "french-toast",
@@ -212,7 +214,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 420, protein: 14, carbs: 48, fat: 20 },
+    nutrition: { calories: 420, protein: 14, carbs: 48, fat: 20, sodium: 520, cholesterol: 215 },
   },
   {
     id: "veggie-omelette",
@@ -243,7 +245,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free", "keto"],
     difficulty: "medium",
-    nutrition: { calories: 380, protein: 24, carbs: 8, fat: 28 },
+    nutrition: { calories: 380, protein: 24, carbs: 8, fat: 28, sodium: 640, cholesterol: 560 },
   },
   {
     id: "breakfast-burrito",
@@ -264,7 +266,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 420, protein: 18, carbs: 38, fat: 22 },
+    nutrition: { calories: 420, protein: 18, carbs: 38, fat: 22, sodium: 780, cholesterol: 285 },
   },
   {
     id: "smoothie-bowl",
@@ -285,7 +287,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
-    nutrition: { calories: 340, protein: 12, carbs: 58, fat: 8 },
+    nutrition: { calories: 340, protein: 12, carbs: 58, fat: 8, sodium: 45, cholesterol: 5 },
   },
   {
     id: "egg-muffins",
@@ -306,7 +308,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
-    nutrition: { calories: 145, protein: 12, carbs: 8, fat: 8 },
+    nutrition: { calories: 145, protein: 12, carbs: 8, fat: 8, sodium: 320, cholesterol: 190 },
   },
 
   // ============ LUNCH ============
@@ -350,7 +352,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14 },
+    nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14, sodium: 420, cholesterol: 15 },
   },
   {
     id: "tuna-sandwich",
@@ -370,7 +372,7 @@ export const sampleRecipes: Recipe[] = [
     ],
     matchedIngredients: [],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 28, carbs: 32, fat: 16 },
+    nutrition: { calories: 380, protein: 28, carbs: 32, fat: 16, sodium: 680, cholesterol: 45 },
   },
   {
     id: "caesar-salad",
@@ -391,7 +393,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
-    nutrition: { calories: 450, protein: 18, carbs: 28, fat: 32 },
+    nutrition: { calories: 450, protein: 18, carbs: 28, fat: 32, sodium: 720, cholesterol: 85 },
   },
   {
     id: "grilled-cheese",
@@ -420,7 +422,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 520, protein: 18, carbs: 42, fat: 32 },
+    nutrition: { calories: 520, protein: 18, carbs: 42, fat: 32, sodium: 980, cholesterol: 65 },
   },
   {
     id: "chicken-wrap",
@@ -440,7 +442,7 @@ export const sampleRecipes: Recipe[] = [
     ],
     matchedIngredients: [],
     difficulty: "medium",
-    nutrition: { calories: 480, protein: 36, carbs: 38, fat: 22 },
+    nutrition: { calories: 480, protein: 36, carbs: 38, fat: 22, sodium: 890, cholesterol: 85 },
   },
   {
     id: "quinoa-bowl",
@@ -471,7 +473,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 14, carbs: 42, fat: 18 },
+    nutrition: { calories: 380, protein: 14, carbs: 42, fat: 18, sodium: 560, cholesterol: 25 },
   },
   {
     id: "soup-lentil",
@@ -502,7 +504,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegan", "gluten-free", "dairy-free"],
     difficulty: "easy",
-    nutrition: { calories: 280, protein: 16, carbs: 42, fat: 6 },
+    nutrition: { calories: 280, protein: 16, carbs: 42, fat: 6, sodium: 580, cholesterol: 0 },
   },
   {
     id: "caprese-sandwich",
@@ -523,7 +525,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 420, protein: 18, carbs: 32, fat: 26 },
+    nutrition: { calories: 420, protein: 18, carbs: 32, fat: 26, sodium: 480, cholesterol: 45 },
   },
   {
     id: "asian-noodle-salad",
@@ -544,7 +546,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "vegan"],
     difficulty: "easy",
-    nutrition: { calories: 320, protein: 8, carbs: 48, fat: 12 },
+    nutrition: { calories: 320, protein: 8, carbs: 48, fat: 12, sodium: 920, cholesterol: 0 },
   },
   {
     id: "stuffed-avocado",
@@ -565,7 +567,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["gluten-free", "keto"],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 28, carbs: 12, fat: 26 },
+    nutrition: { calories: 380, protein: 28, carbs: 12, fat: 26, sodium: 520, cholesterol: 35 },
   },
   {
     id: "chickpea-salad",
@@ -586,7 +588,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian", "vegan", "gluten-free"],
     difficulty: "easy",
-    nutrition: { calories: 280, protein: 12, carbs: 32, fat: 14 },
+    nutrition: { calories: 280, protein: 12, carbs: 32, fat: 14, sodium: 380, cholesterol: 0 },
   },
 
   // ============ DINNER ============
@@ -609,7 +611,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["gluten-free", "keto"],
     difficulty: "easy",
-    nutrition: { calories: 380, protein: 42, carbs: 4, fat: 22 },
+    nutrition: { calories: 380, protein: 42, carbs: 4, fat: 22, sodium: 640, cholesterol: 130 },
   },
   {
     id: "beef-stir-fry",
@@ -630,7 +632,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
-    nutrition: { calories: 420, protein: 32, carbs: 24, fat: 22 },
+    nutrition: { calories: 420, protein: 32, carbs: 24, fat: 22, sodium: 1020, cholesterol: 75 },
   },
   {
     id: "creamy-tomato-pasta",
@@ -651,7 +653,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
-    nutrition: { calories: 480, protein: 18, carbs: 52, fat: 22 },
+    nutrition: { calories: 480, protein: 18, carbs: 52, fat: 22, sodium: 520, cholesterol: 55 },
   },
   {
     id: "fish-tacos",
@@ -671,7 +673,7 @@ export const sampleRecipes: Recipe[] = [
     ],
     matchedIngredients: [],
     difficulty: "medium",
-    nutrition: { calories: 360, protein: 28, carbs: 18, fat: 20 },
+    nutrition: { calories: 360, protein: 28, carbs: 18, fat: 20, sodium: 680, cholesterol: 55 },
   },
   {
     id: "lemon-herb-salmon",
@@ -692,7 +694,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["gluten-free", "paleo"],
     difficulty: "easy",
-    nutrition: { calories: 320, protein: 34, carbs: 4, fat: 18 },
+    nutrition: { calories: 320, protein: 34, carbs: 4, fat: 18, sodium: 420, cholesterol: 78 },
   },
   {
     id: "chicken-curry",
@@ -713,7 +715,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["gluten-free", "dairy-free"],
     difficulty: "medium",
-    nutrition: { calories: 450, protein: 38, carbs: 28, fat: 22 },
+    nutrition: { calories: 450, protein: 38, carbs: 28, fat: 22, sodium: 720, cholesterol: 105 },
   },
   {
     id: "shrimp-scampi",
@@ -733,7 +735,7 @@ export const sampleRecipes: Recipe[] = [
     ],
     matchedIngredients: [],
     difficulty: "medium",
-    nutrition: { calories: 520, protein: 32, carbs: 48, fat: 24 },
+    nutrition: { calories: 520, protein: 32, carbs: 48, fat: 24, sodium: 840, cholesterol: 215 },
   },
   {
     id: "stuffed-peppers",
@@ -754,7 +756,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["gluten-free"],
     difficulty: "medium",
-    nutrition: { calories: 420, protein: 28, carbs: 38, fat: 18 },
+    nutrition: { calories: 420, protein: 28, carbs: 38, fat: 18, sodium: 680, cholesterol: 75 },
   },
   {
     id: "pork-chops",
@@ -775,7 +777,7 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     dietaryTags: ["gluten-free"],
     difficulty: "medium",
-    nutrition: { calories: 380, protein: 32, carbs: 22, fat: 20 },
+    nutrition: { calories: 380, protein: 32, carbs: 22, fat: 20, sodium: 520, cholesterol: 95 },
   },
   {
     id: "vegetable-stir-fry",
