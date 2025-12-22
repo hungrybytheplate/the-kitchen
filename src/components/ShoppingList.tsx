@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ShoppingCart, Trash2, Check } from "lucide-react";
+import { ShoppingCart, Trash2, Check, Printer } from "lucide-react";
 import { ingredientVariants } from "@/data/ingredientVariants";
 
 export interface ShoppingItem {
@@ -65,9 +65,13 @@ export function ShoppingList({
     return acc;
   }, {} as Record<string, ShoppingItem[]>);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
+    <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden print:shadow-none print:border print:border-border">
+      <div className="absolute top-0 left-0 w-full h-1 gradient-warm no-print" />
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
@@ -79,12 +83,23 @@ export function ShoppingList({
               {completedCount} of {totalCount} items checked
             </p>
           </div>
-          <Badge variant="secondary" className="text-sm px-3 py-1">
-            {totalCount - completedCount} remaining
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handlePrint}
+              className="no-print"
+            >
+              <Printer className="h-4 w-4 mr-1" />
+              Print
+            </Button>
+            <Badge variant="secondary" className="text-sm px-3 py-1 no-print">
+              {totalCount - completedCount} remaining
+            </Badge>
+          </div>
         </div>
         {completedCount > 0 && (
-          <div className="flex gap-2 mt-4 pt-4 border-t border-border/50">
+          <div className="flex gap-2 mt-4 pt-4 border-t border-border/50 no-print">
             <Button variant="outline" size="sm" onClick={onClearCompleted} className="flex-1">
               <Check className="h-4 w-4 mr-1" />
               Clear completed
@@ -108,7 +123,7 @@ export function ShoppingList({
                   {categoryItems.map((item) => (
                     <div
                       key={item.id}
-                      className={`flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                      className={`shopping-list-item flex items-center gap-3 p-2 rounded-lg transition-colors print:rounded-none print:border-b print:border-border ${
                         item.checked ? "bg-muted/50" : "bg-card hover:bg-muted/30"
                       }`}
                     >
@@ -116,6 +131,7 @@ export function ShoppingList({
                         id={item.id}
                         checked={item.checked}
                         onCheckedChange={() => onToggleItem(item.id)}
+                        className="print:h-4 print:w-4"
                       />
                       <label
                         htmlFor={item.id}
@@ -128,7 +144,7 @@ export function ShoppingList({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive no-print"
                         onClick={() => onRemoveItem(item.id)}
                       >
                         <Trash2 className="h-4 w-4" />

@@ -342,3 +342,70 @@
     opacity: 0.7;
   }
 }
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  .no-print,
+  header,
+  nav,
+  .tabs-list,
+  button:not(.print-include),
+  [data-state="closed"],
+  .shadow-elevated,
+  .backdrop-blur-sm {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .card,
+  [class*="Card"] {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shopping-list-item {
+    display: flex !important;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .shopping-list-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+  }
+
+  .recipe-print {
+    page-break-before: always;
+  }
+
+  .recipe-print:first-child {
+    page-break-before: auto;
+  }
+
+  h1, h2, h3, h4 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+
+  @page {
+    margin: 1cm;
+  }
+}
