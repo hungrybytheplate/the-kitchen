@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      custom_recipes: {
+        Row: {
+          cook_time: string
+          created_at: string
+          description: string | null
+          dietary_tags: Json | null
+          difficulty: string | null
+          id: string
+          ingredient_amounts: Json | null
+          ingredients: Json
+          instructions: Json
+          meal_type: string
+          nutrition: Json | null
+          servings: number
+          source_url: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cook_time?: string
+          created_at?: string
+          description?: string | null
+          dietary_tags?: Json | null
+          difficulty?: string | null
+          id?: string
+          ingredient_amounts?: Json | null
+          ingredients?: Json
+          instructions?: Json
+          meal_type?: string
+          nutrition?: Json | null
+          servings?: number
+          source_url?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cook_time?: string
+          created_at?: string
+          description?: string | null
+          dietary_tags?: Json | null
+          difficulty?: string | null
+          id?: string
+          ingredient_amounts?: Json | null
+          ingredients?: Json
+          instructions?: Json
+          meal_type?: string
+          nutrition?: Json | null
+          servings?: number
+          source_url?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       family_groups: {
         Row: {
           created_at: string
