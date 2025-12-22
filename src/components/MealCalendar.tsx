@@ -263,9 +263,9 @@ END:VCALENDAR`;
 
   return (
     <>
-      <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 gradient-sage" />
-        <CardHeader className="pb-4">
+      <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-1 gradient-sage z-10" />
+        <CardHeader className="pb-4 sticky top-0 bg-card/95 backdrop-blur-sm z-10 border-b border-border/30 sm:static sm:bg-transparent sm:backdrop-blur-none sm:border-b-0">
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="font-serif text-2xl flex items-center gap-2">
