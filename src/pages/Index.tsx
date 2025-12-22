@@ -19,6 +19,7 @@ import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { HolidayMealPlanTemplate } from "@/components/HolidayMealPlanTemplate";
 import { UndoToast } from "@/components/UndoToast";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,7 @@ import { useUserData, type ShoppingItem, type MealPlanEntry, type RecipeNotes } 
 import { useFamilyGroup } from "@/hooks/useFamilyGroup";
 import { useUndo } from "@/hooks/useUndo";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
@@ -255,6 +257,8 @@ const Index = () => {
   } = useUserData();
   const { sharedRecipes, sharedDrinks } = useFamilyGroup();
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
+  const { recentlyViewed, addRecentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
+  const [recentViewedRecipe, setRecentViewedRecipe] = useState<Recipe | null>(null);
 
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
@@ -703,6 +707,21 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
+            {/* Recently Viewed Section */}
+            {appMode === "cook" && recentlyViewed.length > 0 && (
+              <RecentlyViewed
+                recentIds={recentlyViewed}
+                onClear={clearRecentlyViewed}
+                onViewRecipe={(recipe) => {
+                  setRecentViewedRecipe(recipe);
+                  addRecentlyViewed(recipe.id);
+                }}
+                savedRecipes={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                onAddToCalendar={handleAddToCalendar}
+              />
+            )}
+
             {appMode === "cook" ? (
               // COOK MODE
             <div className="grid gap-4 lg:grid-cols-2">
@@ -771,6 +790,7 @@ const Index = () => {
                       onSave={handleSaveRecipe}
                       onAddToCalendar={handleAddToCalendar}
                       onAddToShopping={handleAddToShopping}
+                      onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
                     />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
@@ -968,6 +988,23 @@ const Index = () => {
           message={`Item removed`}
           onUndo={executeUndo}
           onDismiss={dismissUndo}
+        />
+      )}
+
+      {/* Dialog for viewing recently viewed recipes */}
+      {recentViewedRecipe && (
+        <RecipeDetailDialog
+          recipe={{
+            ...recentViewedRecipe,
+            matchedIngredients: [],
+            matchedKeyIngredients: []
+          }}
+          open={!!recentViewedRecipe}
+          onOpenChange={(open) => !open && setRecentViewedRecipe(null)}
+          isSaved={savedRecipes.includes(recentViewedRecipe.id)}
+          onSave={() => handleSaveRecipe(recentViewedRecipe.id)}
+          onAddToCalendar={() => handleAddToCalendar(recentViewedRecipe)}
+          onAddToShopping={handleAddToShopping}
         />
       )}
     </div>
