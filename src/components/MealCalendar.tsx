@@ -31,12 +31,14 @@ interface MealCalendarProps {
 
 const CALENDAR_PREFERENCE_KEY = 'preferred-calendar-provider';
 
-type CalendarProvider = 'google' | 'outlook' | 'apple';
+type CalendarProvider = 'google' | 'outlook' | 'apple' | 'samsung' | 'yahoo';
 
 const calendarProviders: { id: CalendarProvider; name: string; icon: string }[] = [
   { id: 'google', name: 'Google Calendar', icon: '📅' },
   { id: 'outlook', name: 'Outlook', icon: '📧' },
   { id: 'apple', name: 'Apple Calendar', icon: '🍎' },
+  { id: 'samsung', name: 'Samsung Calendar', icon: '📱' },
+  { id: 'yahoo', name: 'Yahoo Calendar', icon: '📆' },
 ];
 
 export function MealCalendar({ 
@@ -184,17 +186,45 @@ export function MealCalendar({
       const end = endDate.toISOString();
       return `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${start}&enddt=${end}&body=${details}`;
     }
+
+    if (type === 'samsung') {
+      // Samsung Calendar uses similar format to Google on Android
+      const start = format(startDate, "yyyyMMdd'T'HHmmss");
+      const end = format(endDate, "yyyyMMdd'T'HHmmss");
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}`;
+    }
+
+    if (type === 'yahoo') {
+      const start = format(startDate, "yyyyMMdd'T'HHmmss");
+      const duration = '0100'; // 1 hour in HHMM format
+      return `https://calendar.yahoo.com/?v=60&title=${title}&st=${start}&dur=${duration}&desc=${details}`;
+    }
     
-    // Apple Calendar (ICS file)
+    // Apple Calendar & Default (ICS file) - Enhanced format
     const start = format(startDate, "yyyyMMdd'T'HHmmss");
     const end = format(endDate, "yyyyMMdd'T'HHmmss");
+    const uid = `${entry.recipe.id}-${entry.date}@thekitchen.app`;
+    const now = format(new Date(), "yyyyMMdd'T'HHmmss");
+    const escapedDesc = entry.recipe.instructions.join('\\n').replace(/,/g, '\\,');
     const ics = `BEGIN:VCALENDAR
 VERSION:2.0
+PRODID:-//The Kitchen//Meal Planner//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
 BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${now}
 DTSTART:${start}
 DTEND:${end}
 SUMMARY:${entry.recipe.title}
-DESCRIPTION:${entry.recipe.instructions.join(' ')}
+DESCRIPTION:${escapedDesc}
+CATEGORIES:Meal Prep,Cooking
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Time to start cooking ${entry.recipe.title}!
+END:VALARM
 END:VEVENT
 END:VCALENDAR`;
     return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
