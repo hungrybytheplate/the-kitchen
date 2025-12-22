@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Header } from "@/components/Header";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
@@ -17,6 +17,8 @@ import { QuickTooltip } from "@/components/Tooltip";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { HolidayMealPlanTemplate } from "@/components/HolidayMealPlanTemplate";
+import { UndoToast } from "@/components/UndoToast";
+import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +28,8 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserData, type ShoppingItem, type MealPlanEntry, type RecipeNotes } from "@/hooks/useUserData";
 import { useFamilyGroup } from "@/hooks/useFamilyGroup";
+import { useUndo } from "@/hooks/useUndo";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
@@ -250,6 +254,7 @@ const Index = () => {
     updateRecipeNotes
   } = useUserData();
   const { sharedRecipes, sharedDrinks } = useFamilyGroup();
+  const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
 
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
@@ -270,6 +275,21 @@ const Index = () => {
   const [hasSeenTour, setHasSeenTour] = useLocalStorage<boolean>("hasSeenTour", false);
   const [showTour, setShowTour] = useState(!hasSeenTour);
   const [activeTab, setActiveTab] = useState("ingredients");
+  const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    { key: 's', action: () => setActiveTab('shopping'), description: 'Shopping list' },
+    { key: 'm', action: () => setActiveTab('calendar'), description: 'Meal plan' },
+    { key: 'r', action: () => setActiveTab('saved'), description: 'Saved recipes' },
+    { key: 'i', action: () => setActiveTab('ingredients'), description: 'Ingredients' },
+    { key: '?', action: () => setShowShortcutsHelp(true), description: 'Show help' },
+    { key: 'Escape', action: () => {
+      setCalendarDialogRecipe(null);
+      setShoppingDialogIngredient(null);
+      setShowShortcutsHelp(false);
+    }, description: 'Close dialogs' },
+  ]);
 
   const allRecipes = getRecipesForIngredients(selectedIngredients);
   const allDrinks = getDrinksForIngredients(selectedDrinkIngredients);
@@ -400,13 +420,28 @@ const Index = () => {
     setCalendarDialogRecipe(null);
   };
 
-  const handleRemoveFromCalendar = async (date: string, recipeId: string) => {
+  const handleRemoveFromCalendar = useCallback(async (date: string, recipeId: string) => {
+    // Find the meal entry for undo
+    const mealEntry = mealPlan.find(m => m.date === date && m.recipe.id === recipeId);
+    
     await removeFromMealPlan(date, recipeId);
+    
+    if (mealEntry) {
+      addUndoAction({
+        id: `meal-${date}-${recipeId}`,
+        description: `Restored "${mealEntry.recipe.title}" to meal plan`,
+        data: mealEntry,
+        undo: async () => {
+          await addToMealPlan(date, mealEntry.recipe);
+        }
+      });
+    }
+    
     toast({
       title: "Removed from meal plan",
-      description: "The recipe has been removed from your calendar.",
+      description: "The recipe has been removed. Undo available for 5 seconds.",
     });
-  };
+  }, [mealPlan, removeFromMealPlan, addToMealPlan, addUndoAction]);
 
   const handleAddToShopping = (ingredientId: string) => {
     if (!user) {
@@ -441,9 +476,23 @@ const Index = () => {
     await toggleShoppingItem(id);
   };
 
-  const handleRemoveShoppingItem = async (id: string) => {
+  const handleRemoveShoppingItem = useCallback(async (id: string) => {
+    // Find the item for undo
+    const item = shoppingList.find(i => i.id === id);
+    
     await removeFromShoppingList(id);
-  };
+    
+    if (item) {
+      addUndoAction({
+        id: `shopping-${id}`,
+        description: `Restored "${item.variant}" to shopping list`,
+        data: item,
+        undo: async () => {
+          await addToShoppingList(item.ingredientId, item.variant);
+        }
+      });
+    }
+  }, [shoppingList, removeFromShoppingList, addToShoppingList, addUndoAction]);
 
   const handleClearCompletedShopping = async () => {
     // Remove checked items one by one
@@ -908,6 +957,19 @@ const Index = () => {
         ingredientId={shoppingDialogIngredient || ""}
         onConfirm={handleConfirmShoppingAdd}
       />
+
+      <KeyboardShortcutsHelp 
+        open={showShortcutsHelp} 
+        onOpenChange={setShowShortcutsHelp} 
+      />
+
+      {hasUndo && pendingAction && (
+        <UndoToast
+          message={`Item removed`}
+          onUndo={executeUndo}
+          onDismiss={dismissUndo}
+        />
+      )}
     </div>
   );
 };
