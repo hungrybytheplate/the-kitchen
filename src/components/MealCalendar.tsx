@@ -310,7 +310,7 @@ END:VCALENDAR`;
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
             {days.map((day) => {
               const meals = getMealsForDay(day);
               const isToday = isSameDay(day, new Date());
@@ -324,13 +324,13 @@ END:VCALENDAR`;
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, dateStr)}
                   className={cn(
-                    "min-h-[120px] rounded-xl p-2 transition-all duration-200",
+                    "min-h-[80px] sm:min-h-[120px] rounded-xl p-2 transition-all duration-200",
                     isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30",
                     isDragOver && "ring-2 ring-primary bg-primary/5 scale-[1.02]"
                   )}
                 >
                   <div className={cn(
-                    "text-center mb-2 pb-2 border-b border-border/50",
+                    "flex sm:flex-col sm:text-center items-center sm:items-stretch gap-2 sm:gap-0 mb-2 pb-2 border-b border-border/50",
                     isToday && "text-primary font-semibold"
                   )}>
                     <div className="text-xs text-muted-foreground uppercase">
