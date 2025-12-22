@@ -14,6 +14,8 @@ import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
 import { WelcomeTour } from "@/components/WelcomeTour";
 import { InstallBanner } from "@/components/InstallBanner";
 import { QuickTooltip } from "@/components/Tooltip";
+import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
+import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -35,17 +37,24 @@ interface LookupResultsProps {
   search: string;
   onAddToShopping: (ingredients: string[]) => void;
   onClear: () => void;
+  savedRecipes: string[];
+  onSave: (recipeId: string) => void;
+  onAddToCalendar: (recipe: Recipe) => void;
 }
 
-function LookupResults({ search, onAddToShopping, onClear }: LookupResultsProps) {
+function LookupResults({ search, onAddToShopping, onClear, savedRecipes, onSave, onAddToCalendar }: LookupResultsProps) {
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  
   const matchingRecipes = sampleRecipes
     .filter(r => r.title.toLowerCase().includes(search.toLowerCase()))
     .slice(0, 5);
 
-  const mealTypeColors = {
+  const mealTypeColors: Record<string, string> = {
     breakfast: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
     lunch: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
     dinner: "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300",
+    dessert: "bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300",
+    sides: "bg-stone-100 text-stone-800 dark:bg-stone-900/30 dark:text-stone-300",
   };
 
   if (matchingRecipes.length === 0) {
@@ -57,49 +66,69 @@ function LookupResults({ search, onAddToShopping, onClear }: LookupResultsProps)
   }
 
   return (
-    <div className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden max-h-[400px] overflow-y-auto">
-      {matchingRecipes.map((recipe) => (
-        <div
-          key={recipe.id}
-          className="p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0"
-        >
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <div className="flex items-center gap-2">
-              <Badge className={cn("text-xs", mealTypeColors[recipe.mealType])}>
-                {recipe.mealType}
-              </Badge>
-              <span className="font-medium text-sm">{recipe.title}</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Clock className="h-3 w-3" />
-              {recipe.cookTime}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-1 mb-2">
-            {recipe.ingredients.slice(0, 6).map((ing) => (
-              <Badge key={ing} variant="outline" className="text-[10px] capitalize">
-                {ing.replace(/-/g, " ")}
-              </Badge>
-            ))}
-            {recipe.ingredients.length > 6 && (
-              <Badge variant="outline" className="text-[10px]">+{recipe.ingredients.length - 6} more</Badge>
-            )}
-          </div>
-          <Button
-            size="sm"
-            variant="warm"
-            className="w-full h-8 text-xs"
-            onClick={() => {
-              onAddToShopping(recipe.ingredients);
-              onClear();
-            }}
+    <>
+      <div className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden max-h-[400px] overflow-y-auto">
+        {matchingRecipes.map((recipe) => (
+          <div
+            key={recipe.id}
+            className="p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0 cursor-pointer"
+            onClick={() => setSelectedRecipe(recipe)}
           >
-            <ShoppingCart className="h-3 w-3 mr-1" />
-            Add {recipe.ingredients.length} ingredients to list
-          </Button>
-        </div>
-      ))}
-    </div>
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <Badge className={cn("text-xs", mealTypeColors[recipe.mealType])}>
+                  {recipe.mealType}
+                </Badge>
+                <span className="font-medium text-sm">{recipe.title}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Clock className="h-3 w-3" />
+                {recipe.cookTime}
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-1 mb-2">
+              {recipe.ingredients.slice(0, 6).map((ing) => (
+                <Badge key={ing} variant="outline" className="text-[10px] capitalize">
+                  {ing.replace(/-/g, " ")}
+                </Badge>
+              ))}
+              {recipe.ingredients.length > 6 && (
+                <Badge variant="outline" className="text-[10px]">+{recipe.ingredients.length - 6} more</Badge>
+              )}
+            </div>
+            <Button
+              size="sm"
+              variant="warm"
+              className="w-full h-8 text-xs"
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddToShopping(recipe.ingredients);
+                onClear();
+              }}
+            >
+              <ShoppingCart className="h-3 w-3 mr-1" />
+              Add {recipe.ingredients.length} ingredients to list
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      {selectedRecipe && (
+        <RecipeDetailDialog
+          recipe={{
+            ...selectedRecipe,
+            matchedIngredients: [],
+            matchedKeyIngredients: []
+          }}
+          open={!!selectedRecipe}
+          onOpenChange={(open) => !open && setSelectedRecipe(null)}
+          isSaved={savedRecipes.includes(selectedRecipe.id)}
+          onSave={() => onSave(selectedRecipe.id)}
+          onAddToCalendar={() => onAddToCalendar(selectedRecipe)}
+          onAddToShopping={(ing) => onAddToShopping([ing])}
+        />
+      )}
+    </>
   );
 }
 
@@ -108,14 +137,18 @@ interface DrinkLookupResultsProps {
   search: string;
   onAddToShopping: (ingredients: string[]) => void;
   onClear: () => void;
+  savedDrinks: string[];
+  onSave: (drinkId: string) => void;
 }
 
-function DrinkLookupResults({ search, onAddToShopping, onClear }: DrinkLookupResultsProps) {
+function DrinkLookupResults({ search, onAddToShopping, onClear, savedDrinks, onSave }: DrinkLookupResultsProps) {
+  const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
+  
   const matchingDrinks = sampleDrinks
     .filter(d => d.title.toLowerCase().includes(search.toLowerCase()))
     .slice(0, 5);
 
-  const drinkTypeColors = {
+  const drinkTypeColors: Record<string, string> = {
     cocktail: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
     mocktail: "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300",
     smoothie: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
@@ -131,49 +164,67 @@ function DrinkLookupResults({ search, onAddToShopping, onClear }: DrinkLookupRes
   }
 
   return (
-    <div className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden max-h-[400px] overflow-y-auto">
-      {matchingDrinks.map((drink) => (
-        <div
-          key={drink.id}
-          className="p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0"
-        >
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <div className="flex items-center gap-2">
-              <Badge className={cn("text-xs capitalize", drinkTypeColors[drink.drinkType])}>
-                {drink.drinkType}
-              </Badge>
-              <span className="font-medium text-sm">{drink.title}</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Clock className="h-3 w-3" />
-              {drink.prepTime}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-1 mb-2">
-            {drink.ingredients.slice(0, 6).map((ing) => (
-              <Badge key={ing} variant="outline" className="text-[10px] capitalize">
-                {ing.replace(/-/g, " ")}
-              </Badge>
-            ))}
-            {drink.ingredients.length > 6 && (
-              <Badge variant="outline" className="text-[10px]">+{drink.ingredients.length - 6} more</Badge>
-            )}
-          </div>
-          <Button
-            size="sm"
-            variant="warm"
-            className="w-full h-8 text-xs"
-            onClick={() => {
-              onAddToShopping(drink.ingredients);
-              onClear();
-            }}
+    <>
+      <div className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden max-h-[400px] overflow-y-auto">
+        {matchingDrinks.map((drink) => (
+          <div
+            key={drink.id}
+            className="p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0 cursor-pointer"
+            onClick={() => setSelectedDrink(drink)}
           >
-            <ShoppingCart className="h-3 w-3 mr-1" />
-            Add {drink.ingredients.length} ingredients to list
-          </Button>
-        </div>
-      ))}
-    </div>
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <Badge className={cn("text-xs capitalize", drinkTypeColors[drink.drinkType])}>
+                  {drink.drinkType}
+                </Badge>
+                <span className="font-medium text-sm">{drink.title}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Clock className="h-3 w-3" />
+                {drink.prepTime}
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-1 mb-2">
+              {drink.ingredients.slice(0, 6).map((ing) => (
+                <Badge key={ing} variant="outline" className="text-[10px] capitalize">
+                  {ing.replace(/-/g, " ")}
+                </Badge>
+              ))}
+              {drink.ingredients.length > 6 && (
+                <Badge variant="outline" className="text-[10px]">+{drink.ingredients.length - 6} more</Badge>
+              )}
+            </div>
+            <Button
+              size="sm"
+              variant="warm"
+              className="w-full h-8 text-xs"
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddToShopping(drink.ingredients);
+                onClear();
+              }}
+            >
+              <ShoppingCart className="h-3 w-3 mr-1" />
+              Add {drink.ingredients.length} ingredients to list
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      {selectedDrink && (
+        <DrinkDetailDialog
+          drink={{
+            ...selectedDrink,
+            matchedIngredients: [],
+            matchedKeyIngredients: []
+          }}
+          open={!!selectedDrink}
+          onOpenChange={(open) => !open && setSelectedDrink(null)}
+          isSaved={savedDrinks.includes(selectedDrink.id)}
+          onSave={() => onSave(selectedDrink.id)}
+        />
+      )}
+    </>
   );
 }
 
@@ -530,6 +581,9 @@ const Index = () => {
                 search={recipeSearch} 
                 onAddToShopping={handleBulkAddToShopping}
                 onClear={() => setRecipeSearch("")}
+                savedRecipes={savedRecipes}
+                onSave={handleSaveRecipe}
+                onAddToCalendar={handleAddToCalendar}
               />
             )}
             {appMode === "drink" && drinkSearch.trim().length >= 2 && (
@@ -537,6 +591,8 @@ const Index = () => {
                 search={drinkSearch} 
                 onAddToShopping={handleBulkAddToShopping}
                 onClear={() => setDrinkSearch("")}
+                savedDrinks={savedDrinks}
+                onSave={handleSaveDrink}
               />
             )}
           </div>
