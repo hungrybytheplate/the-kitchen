@@ -283,10 +283,10 @@ END:VCALENDAR`;
                   size="sm"
                   onClick={handleSyncAllWeek}
                   disabled={isSyncingAll}
-                  className="mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary"
+                  className="mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-10 w-10 sm:h-auto sm:w-auto p-2 sm:px-3"
                 >
-                  <CalendarCheck className="h-4 w-4 mr-1.5" />
-                  {isSyncingAll ? "Syncing..." : "Sync Week"}
+                  <CalendarCheck className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-1.5" />
+                  <span className="hidden sm:inline">{isSyncingAll ? "Syncing..." : "Sync Week"}</span>
                 </Button>
               )}
               <Button
