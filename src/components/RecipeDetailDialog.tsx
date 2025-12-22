@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
+import { ShareRecipeButton } from "./ShareRecipeButton";
 
 interface RecipeDetailDialogProps {
   recipe: Recipe | null;
@@ -189,17 +190,20 @@ export function RecipeDetailDialog({
                 </DialogTitle>
                 <p className="text-muted-foreground mt-2">{recipe.description}</p>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onSave}
-                className={cn(
-                  "shrink-0 rounded-full",
-                  isSaved ? "text-primary bg-primary/10" : ""
-                )}
-              >
-                <Heart className={cn("h-5 w-5", isSaved && "fill-current")} />
-              </Button>
+              <div className="flex items-center gap-1 shrink-0">
+                <ShareRecipeButton recipe={recipe} size="icon" className="rounded-full" />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onSave}
+                  className={cn(
+                    "shrink-0 rounded-full",
+                    isSaved ? "text-primary bg-primary/10" : ""
+                  )}
+                >
+                  <Heart className={cn("h-5 w-5", isSaved && "fill-current")} />
+                </Button>
+              </div>
             </div>
 
             {/* Dietary Tags */}

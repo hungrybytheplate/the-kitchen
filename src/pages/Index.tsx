@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
@@ -20,6 +21,7 @@ import { HolidayMealPlanTemplate } from "@/components/HolidayMealPlanTemplate";
 import { UndoToast } from "@/components/UndoToast";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
+import { SmartSuggestions } from "@/components/SmartSuggestions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -236,6 +238,7 @@ function DrinkLookupResults({ search, onAddToShopping, onClear, savedDrinks, onS
 }
 
 const Index = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const {
     savedRecipes,
@@ -259,6 +262,21 @@ const Index = () => {
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
   const { recentlyViewed, addRecentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
   const [recentViewedRecipe, setRecentViewedRecipe] = useState<Recipe | null>(null);
+  const [sharedRecipeDialog, setSharedRecipeDialog] = useState<Recipe | null>(null);
+
+  // Handle shared recipe URL
+  useEffect(() => {
+    const recipeId = searchParams.get('recipe');
+    if (recipeId) {
+      const recipe = sampleRecipes.find(r => r.id === recipeId);
+      if (recipe) {
+        setSharedRecipeDialog(recipe);
+        addRecentlyViewed(recipeId);
+        // Clear the URL param without refreshing
+        setSearchParams({}, { replace: true });
+      }
+    }
+  }, [searchParams, setSearchParams, addRecentlyViewed]);
 
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
@@ -929,7 +947,15 @@ const Index = () => {
             />
           </TabsContent>
 
-          <TabsContent value="saved" className="mt-6">
+          <TabsContent value="saved" className="mt-6 space-y-6">
+            {/* Smart Suggestions */}
+            <SmartSuggestions
+              savedRecipeIds={savedRecipes}
+              onSaveRecipe={handleSaveRecipe}
+              onAddToCalendar={handleAddToCalendar}
+              onAddToShopping={handleAddToShopping}
+            />
+            
             <SavedRecipes 
               savedRecipeIds={savedRecipes} 
               savedDrinkIds={savedDrinks}
@@ -1004,6 +1030,23 @@ const Index = () => {
           isSaved={savedRecipes.includes(recentViewedRecipe.id)}
           onSave={() => handleSaveRecipe(recentViewedRecipe.id)}
           onAddToCalendar={() => handleAddToCalendar(recentViewedRecipe)}
+          onAddToShopping={handleAddToShopping}
+        />
+      )}
+
+      {/* Dialog for shared recipe links */}
+      {sharedRecipeDialog && (
+        <RecipeDetailDialog
+          recipe={{
+            ...sharedRecipeDialog,
+            matchedIngredients: [],
+            matchedKeyIngredients: []
+          }}
+          open={!!sharedRecipeDialog}
+          onOpenChange={(open) => !open && setSharedRecipeDialog(null)}
+          isSaved={savedRecipes.includes(sharedRecipeDialog.id)}
+          onSave={() => handleSaveRecipe(sharedRecipeDialog.id)}
+          onAddToCalendar={() => handleAddToCalendar(sharedRecipeDialog)}
           onAddToShopping={handleAddToShopping}
         />
       )}
