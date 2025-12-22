@@ -15,35 +15,65 @@ interface AddToCalendarDialogProps {
   onConfirm: (date: Date) => void;
 }
 
-type CalendarProvider = 'google' | 'outlook' | 'apple';
+type CalendarProvider = 'google' | 'outlook' | 'apple' | 'samsung' | 'yahoo';
 
 const CALENDAR_PREFERENCE_KEY = 'preferred-calendar-provider';
+
+// Detect if user is on mobile
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+// Detect specific platforms
+const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent);
+const isAndroid = () => /Android/i.test(navigator.userAgent);
+const isSamsung = () => /Samsung/i.test(navigator.userAgent);
 
 function generateCalendarLinks(recipe: Recipe, date: Date) {
   const title = encodeURIComponent(recipe.title);
   const description = encodeURIComponent(`Meal prep: ${recipe.title}\nCook time: ${recipe.cookTime}\nIngredients: ${recipe.ingredients.join(", ")}`);
   const startDate = format(date, "yyyyMMdd");
-  const endDate = startDate;
+  const uid = `${recipe.id}-${startDate}@thekitchen.app`;
+  const now = format(new Date(), "yyyyMMdd'T'HHmmss");
 
   // Google Calendar
-  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${description}`;
+  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${startDate}&details=${description}`;
 
   // Outlook Calendar
   const outlookUrl = `https://outlook.live.com/calendar/0/action/compose?subject=${title}&startdt=${format(date, "yyyy-MM-dd")}&enddt=${format(date, "yyyy-MM-dd")}&body=${description}&allday=true`;
 
-  // Apple Calendar (webcal format - will prompt to add to calendar on iOS/Mac)
+  // Yahoo Calendar
+  const yahooUrl = `https://calendar.yahoo.com/?v=60&title=${title}&st=${startDate}&dur=allday&desc=${description}`;
+
+  // Samsung Calendar (uses Google Calendar on Android)
+  const samsungUrl = googleUrl;
+
+  // Enhanced ICS for Apple Calendar with alarm
+  const escapedDesc = `Meal prep: ${recipe.title}. Cook time: ${recipe.cookTime}.`.replace(/,/g, '\\,');
   const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
+PRODID:-//The Kitchen//Meal Planner//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
 BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${now}
 DTSTART;VALUE=DATE:${startDate}
 DTEND;VALUE=DATE:${startDate}
 SUMMARY:${recipe.title}
-DESCRIPTION:Meal prep: ${recipe.title}. Cook time: ${recipe.cookTime}.
+DESCRIPTION:${escapedDesc}
+CATEGORIES:Meal Prep,Cooking
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Time to prep ${recipe.title}!
+END:VALARM
 END:VEVENT
 END:VCALENDAR`;
   const appleUrl = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
 
-  return { googleUrl, outlookUrl, appleUrl };
+  return { googleUrl, outlookUrl, appleUrl, yahooUrl, samsungUrl };
 }
 
 const calendarProviders = [
@@ -52,12 +82,14 @@ const calendarProviders = [
     name: 'Google Calendar',
     gradient: 'from-blue-500 via-green-500 to-yellow-500',
     urlKey: 'googleUrl' as const,
+    mobileNote: 'Opens Google Calendar app on Android',
   },
   {
     id: 'outlook' as CalendarProvider,
     name: 'Outlook Calendar',
     bg: 'bg-[#0078D4]',
     urlKey: 'outlookUrl' as const,
+    mobileNote: 'Opens Outlook app if installed',
   },
   {
     id: 'apple' as CalendarProvider,
@@ -65,6 +97,21 @@ const calendarProviders = [
     gradient: 'from-red-400 to-red-600',
     urlKey: 'appleUrl' as const,
     isDownload: true,
+    mobileNote: 'Downloads .ics file for iOS Calendar',
+  },
+  {
+    id: 'samsung' as CalendarProvider,
+    name: 'Samsung Calendar',
+    bg: 'bg-[#1428A0]',
+    urlKey: 'samsungUrl' as const,
+    mobileNote: 'For Samsung Galaxy devices',
+  },
+  {
+    id: 'yahoo' as CalendarProvider,
+    name: 'Yahoo Calendar',
+    bg: 'bg-[#6001D2]',
+    urlKey: 'yahooUrl' as const,
+    mobileNote: 'Opens Yahoo Calendar',
   },
 ];
 
@@ -73,12 +120,14 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
   const [showCalendarOptions, setShowCalendarOptions] = useState(false);
   const [rememberChoice, setRememberChoice] = useState(false);
   const [savedPreference, setSavedPreference] = useState<CalendarProvider | null>(null);
+  const [autoSyncEnabled, setAutoSyncEnabled] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     const saved = localStorage.getItem(CALENDAR_PREFERENCE_KEY) as CalendarProvider | null;
     if (saved) {
       setSavedPreference(saved);
+      setAutoSyncEnabled(true);
     }
   }, []);
 
@@ -87,23 +136,55 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
   const handleAddToMealPlan = () => {
     if (selectedDate) {
       onConfirm(selectedDate);
-      setShowCalendarOptions(true);
+      
+      // If auto-sync is enabled and we have a saved preference, sync immediately
+      if (autoSyncEnabled && savedPreference) {
+        handleCalendarSelect(savedPreference, true);
+      } else {
+        setShowCalendarOptions(true);
+      }
     }
   };
 
   const calendarLinks = selectedDate ? generateCalendarLinks(recipe, selectedDate) : null;
 
-  const handleCalendarSelect = (provider: CalendarProvider) => {
-    if (rememberChoice) {
+  // Get recommended providers based on device
+  const getRecommendedProviders = () => {
+    const providers = [...calendarProviders];
+    
+    if (isIOS()) {
+      // Move Apple to top for iOS
+      const appleIndex = providers.findIndex(p => p.id === 'apple');
+      if (appleIndex > 0) {
+        const [apple] = providers.splice(appleIndex, 1);
+        providers.unshift(apple);
+      }
+    } else if (isSamsung()) {
+      // Move Samsung to top for Samsung devices
+      const samsungIndex = providers.findIndex(p => p.id === 'samsung');
+      if (samsungIndex > 0) {
+        const [samsung] = providers.splice(samsungIndex, 1);
+        providers.unshift(samsung);
+      }
+    } else if (isAndroid()) {
+      // Google is already first, which is good for Android
+    }
+    
+    return providers;
+  };
+
+  const handleCalendarSelect = (provider: CalendarProvider, isAutoSync = false) => {
+    if (rememberChoice || isAutoSync) {
       localStorage.setItem(CALENDAR_PREFERENCE_KEY, provider);
       setSavedPreference(provider);
+      setAutoSyncEnabled(true);
     }
     
     const providerConfig = calendarProviders.find(p => p.id === provider);
     if (providerConfig && calendarLinks) {
       const url = calendarLinks[providerConfig.urlKey];
       if (providerConfig.isDownload) {
-        // For Apple, trigger download
+        // For Apple/ICS, trigger download
         const link = document.createElement('a');
         link.href = url;
         link.download = `${recipe.title.replace(/\s+/g, "-")}.ics`;
@@ -112,10 +193,13 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
         window.open(url, "_blank");
       }
       
-      // Show confirmation toast
+      // Show confirmation toast with mobile-friendly message
+      const mobileMsg = isMobile() && providerConfig.mobileNote 
+        ? ` ${providerConfig.mobileNote}` 
+        : '';
       toast({
-        title: "Added to calendar!",
-        description: `"${recipe.title}" synced to ${providerConfig.name}`,
+        title: isAutoSync ? "Auto-synced to calendar!" : "Added to calendar!",
+        description: `"${recipe.title}" synced to ${providerConfig.name}.${mobileMsg}`,
       });
     }
     handleDone();
@@ -130,7 +214,10 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
   const clearPreference = () => {
     localStorage.removeItem(CALENDAR_PREFERENCE_KEY);
     setSavedPreference(null);
+    setAutoSyncEnabled(false);
   };
+
+  const sortedProviders = getRecommendedProviders();
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => {
@@ -188,21 +275,31 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
                 <div className="flex-1">
                   <h4 className="font-semibold text-sm">Never miss a meal!</h4>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    Sync to your phone calendar for automatic reminders
+                    {isMobile() 
+                      ? "Sync to your phone's calendar for reminders" 
+                      : "Sync to your calendar for automatic reminders"}
                   </p>
                 </div>
               </div>
             </div>
 
+            {/* Mobile device detection hint */}
+            {isMobile() && (
+              <div className="text-xs text-center text-muted-foreground bg-muted/30 rounded-lg py-2 px-3">
+                📱 Recommended for your device shown first
+              </div>
+            )}
+
             {/* Calendar provider buttons */}
             <div className="grid gap-2">
-              {calendarProviders.map((provider) => (
+              {sortedProviders.map((provider, index) => (
                 <Button
                   key={provider.id}
                   variant="outline"
                   className={cn(
                     "w-full justify-start gap-3 h-14 transition-all hover:scale-[1.02] hover:shadow-md",
-                    savedPreference === provider.id && "ring-2 ring-primary ring-offset-2"
+                    savedPreference === provider.id && "ring-2 ring-primary ring-offset-2",
+                    index === 0 && isMobile() && !savedPreference && "ring-2 ring-secondary ring-offset-1"
                   )}
                   onClick={() => handleCalendarSelect(provider.id)}
                 >
@@ -215,7 +312,10 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
                   <div className="flex-1 text-left">
                     <span className="font-medium">{provider.name}</span>
                     {savedPreference === provider.id && (
-                      <span className="ml-2 text-xs text-primary">(Your default)</span>
+                      <span className="ml-2 text-xs text-primary">(Auto-sync enabled)</span>
+                    )}
+                    {index === 0 && isMobile() && !savedPreference && (
+                      <span className="ml-2 text-xs text-secondary">(Recommended)</span>
                     )}
                   </div>
                   {savedPreference === provider.id ? (
@@ -236,9 +336,12 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
               />
               <label 
                 htmlFor="remember-choice" 
-                className="text-sm text-muted-foreground cursor-pointer select-none"
+                className="text-sm text-muted-foreground cursor-pointer select-none flex-1"
               >
-                Remember my choice for next time
+                <span>Enable one-tap auto-sync</span>
+                <span className="block text-xs opacity-70">
+                  Future meals will sync automatically to your chosen calendar
+                </span>
               </label>
             </div>
 
@@ -247,7 +350,7 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
                 onClick={clearPreference}
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
               >
-                Clear saved preference
+                Disable auto-sync & clear preference
               </button>
             )}
 
