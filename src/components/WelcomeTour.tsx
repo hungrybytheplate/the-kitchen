@@ -79,8 +79,8 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-fade-in">
-      <Card className="w-full max-w-md shadow-elevated border-border/50 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-sm animate-fade-in">
+      <Card className="w-full max-w-md shadow-elevated border-border/50 overflow-hidden mx-2 sm:mx-0">
         <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
         
         {/* Skip button */}
@@ -93,9 +93,9 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
           <X className="h-4 w-4" />
         </Button>
 
-        <CardContent className="p-6 pt-10">
+        <CardContent className="p-4 sm:p-6 pt-8 sm:pt-10">
           {/* Progress dots */}
-          <div className="flex justify-center gap-1.5 mb-6">
+          <div className="flex justify-center gap-1.5 mb-4 sm:mb-6">
             {steps.map((_, index) => (
               <button
                 key={index}
@@ -103,7 +103,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
                 className={cn(
                   "w-2 h-2 rounded-full transition-all duration-300",
                   index === currentStep 
-                    ? "w-6 gradient-warm" 
+                    ? "w-5 sm:w-6 gradient-warm" 
                     : index < currentStep 
                       ? "bg-primary/60" 
                       : "bg-muted-foreground/30"
@@ -113,20 +113,20 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
           </div>
 
           {/* Icon */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4 sm:mb-6">
             <div className="relative">
               <div className="absolute inset-0 gradient-warm blur-2xl opacity-30 animate-pulse-soft" />
-              <div className="relative p-4 rounded-2xl gradient-warm shadow-warm">
-                <Icon className="h-8 w-8 text-primary-foreground" />
+              <div className="relative p-3 sm:p-4 rounded-xl sm:rounded-2xl gradient-warm shadow-warm">
+                <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary-foreground" />
               </div>
             </div>
           </div>
 
           {/* Content */}
-          <div className="text-center mb-6 animate-fade-in" key={currentStep}>
-            <h2 className="font-serif text-2xl font-semibold mb-3">{step.title}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
-            <Badge variant="secondary" className="px-3 py-1">
+          <div className="text-center mb-4 sm:mb-6 animate-fade-in" key={currentStep}>
+            <h2 className="font-serif text-xl sm:text-2xl font-semibold mb-2 sm:mb-3">{step.title}</h2>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3 sm:mb-4">{step.description}</p>
+            <Badge variant="secondary" className="px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm">
               {step.highlight}
             </Badge>
           </div>

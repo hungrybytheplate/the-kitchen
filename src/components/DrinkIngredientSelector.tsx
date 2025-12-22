@@ -105,27 +105,27 @@ export function DrinkIngredientSelector({
 
   return (
     <Tabs defaultValue="mixers" className="w-full">
-      <TabsList className="w-full grid grid-cols-3 h-14 bg-muted/50 p-1 rounded-xl">
+      <TabsList className="w-full grid grid-cols-3 h-11 sm:h-14 bg-muted/50 p-1 rounded-lg sm:rounded-xl">
         <TabsTrigger 
           value="mixers" 
-          className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2 font-medium"
+          className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
         >
-          <CupSoda className="h-4 w-4" />
-          <span className="hidden sm:inline">Mixers</span>
+          <CupSoda className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+          <span className="hidden xs:inline sm:inline">Mixers</span>
         </TabsTrigger>
         <TabsTrigger 
           value="spirits" 
-          className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2 font-medium"
+          className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
         >
-          <Wine className="h-4 w-4" />
-          <span className="hidden sm:inline">Spirits</span>
+          <Wine className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+          <span className="hidden xs:inline sm:inline">Spirits</span>
         </TabsTrigger>
         <TabsTrigger 
           value="extras" 
-          className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2 font-medium"
+          className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
         >
-          <Leaf className="h-4 w-4" />
-          <span className="hidden sm:inline">Extras</span>
+          <Leaf className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+          <span className="hidden xs:inline sm:inline">Extras</span>
         </TabsTrigger>
       </TabsList>
 

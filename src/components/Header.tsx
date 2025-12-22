@@ -23,26 +23,26 @@ export function Header({ onShowTour }: HeaderProps) {
   };
 
   return (
-    <header className="py-5 px-4 border-b border-border/30 glass sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="relative">
+    <header className="py-3 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+          <div className="relative shrink-0">
             <div className="absolute inset-0 gradient-warm blur-xl opacity-30 animate-pulse-soft" />
-            <div className="relative p-3 rounded-2xl gradient-warm shadow-warm">
-              <UtensilsCrossed className="h-7 w-7 text-primary-foreground" />
+            <div className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl gradient-warm shadow-warm">
+              <UtensilsCrossed className="h-5 w-5 sm:h-7 sm:w-7 text-primary-foreground" />
             </div>
           </div>
-          <div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+          <div className="min-w-0">
+            <h1 className="font-serif text-lg sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight truncate">
               The Kitchen
             </h1>
-            <p className="text-sm text-muted-foreground font-medium hidden sm:block">
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium hidden sm:block">
               Fresh recipes from your ingredients
             </p>
           </div>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <ThemeToggle />
           
           {onShowTour && (
@@ -51,9 +51,9 @@ export function Header({ onShowTour }: HeaderProps) {
                 variant="ghost" 
                 size="icon" 
                 onClick={onShowTour}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9"
               >
-                <HelpCircle className="h-5 w-5" />
+                <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </QuickTooltip>
           )}

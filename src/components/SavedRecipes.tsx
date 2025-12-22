@@ -167,17 +167,20 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
 
         <Tabs defaultValue="recipes" className="w-full">
           <TabsList className="w-full grid grid-cols-3 h-10 bg-muted/50 p-1 rounded-lg">
-            <TabsTrigger value="recipes" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
-              <ChefHat className="h-4 w-4" />
-              <span className="hidden sm:inline">Saved</span> ({savedRecipes.length})
+            <TabsTrigger value="recipes" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-1 sm:px-3">
+              <ChefHat className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="hidden xs:inline sm:hidden">{savedRecipes.length}</span>
+              <span className="hidden sm:inline">Saved ({savedRecipes.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="imported" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
-              <ExternalLink className="h-4 w-4" />
-              <span className="hidden sm:inline">Imported</span> ({filteredImportedRecipes.length})
+            <TabsTrigger value="imported" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-1 sm:px-3">
+              <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="hidden xs:inline sm:hidden">{filteredImportedRecipes.length}</span>
+              <span className="hidden sm:inline">Imported ({filteredImportedRecipes.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="drinks" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center gap-2">
-              <Wine className="h-4 w-4" />
-              <span className="hidden sm:inline">Drinks</span> ({savedDrinks.length})
+            <TabsTrigger value="drinks" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-1 sm:px-3">
+              <Wine className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="hidden xs:inline sm:hidden">{savedDrinks.length}</span>
+              <span className="hidden sm:inline">Drinks ({savedDrinks.length})</span>
             </TabsTrigger>
           </TabsList>
 
