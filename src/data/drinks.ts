@@ -34,6 +34,7 @@ export interface Drink {
   isAlcoholic: boolean;
   healthTags?: HealthTag[];
   nutrition?: DrinkNutrition;
+  isHoliday?: boolean;
 }
 
 export const sampleDrinks: Drink[] = [
@@ -4740,6 +4741,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Champagne flute",
     garnish: "Fresh cranberries, orange twist",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 120, sugar: 14, carbs: 16 },
   },
   {
@@ -4759,6 +4761,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Mug",
     garnish: "Cinnamon stick",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 245, sugar: 12, carbs: 14 },
   },
   {
@@ -4778,6 +4781,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Wine glass",
     garnish: "Orange slice, cranberries, cinnamon stick",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 180, sugar: 18, carbs: 22 },
   },
   {
@@ -4797,6 +4801,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Martini glass",
     garnish: "Candy cane rim, chocolate drizzle",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 210, sugar: 16, carbs: 18 },
   },
   {
@@ -4816,6 +4821,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Mug",
     garnish: "Cinnamon stick, lemon wheel",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 165, sugar: 14, carbs: 16 },
   },
   {
@@ -4835,6 +4841,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Punch glass",
     garnish: "Orange slice, cinnamon stick",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 195, sugar: 12, carbs: 14 },
   },
   {
@@ -4854,6 +4861,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Margarita glass",
     garnish: "Sugared cranberries, lime wheel",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 225, sugar: 18, carbs: 20 },
   },
   {
@@ -4873,6 +4881,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Martini glass",
     garnish: "White chocolate shavings, edible glitter",
     isAlcoholic: true,
+    isHoliday: true,
     nutrition: { calories: 265, sugar: 20, carbs: 22 },
   },
 
@@ -4894,6 +4903,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Glass mug",
     garnish: "Freshly grated nutmeg, cinnamon stick",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Protein Rich"],
     nutrition: { calories: 180, sugar: 16, carbs: 18 },
   },
@@ -4914,6 +4924,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Punch glass",
     garnish: "Fresh cranberries, orange slice, mint",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Vitamin C", "Antioxidant"],
     nutrition: { calories: 85, sugar: 18, carbs: 22 },
   },
@@ -4934,6 +4945,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Mug",
     garnish: "Whipped cream, chocolate shavings, marshmallows",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Antioxidant"],
     nutrition: { calories: 245, sugar: 28, carbs: 32 },
   },
@@ -4954,6 +4966,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Mug",
     garnish: "Whipped cream, crushed candy cane",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Antioxidant"],
     nutrition: { calories: 235, sugar: 26, carbs: 30 },
   },
@@ -4974,6 +4987,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Mug",
     garnish: "Orange wheel, cinnamon stick",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Immune Support", "Anti-Inflammatory"],
     nutrition: { calories: 65, sugar: 14, carbs: 16 },
   },
@@ -4994,6 +5008,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Collins glass",
     garnish: "Pomegranate seeds, rosemary sprig",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Antioxidant", "Vitamin C"],
     nutrition: { calories: 75, sugar: 16, carbs: 18 },
   },
@@ -5014,6 +5029,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Glass mug",
     garnish: "Whipped cream, cinnamon dust, apple slice",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Vitamin C"],
     nutrition: { calories: 145, sugar: 28, carbs: 32 },
   },
@@ -5034,6 +5050,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Copper mug",
     garnish: "Lime wheel, fresh cranberries, mint",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Vitamin C", "Antioxidant"],
     nutrition: { calories: 95, sugar: 20, carbs: 24 },
   },
@@ -5054,6 +5071,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Latte mug",
     garnish: "Whipped cream, gingerbread cookie",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Energy Boost"],
     nutrition: { calories: 165, sugar: 18, carbs: 22 },
   },
@@ -5074,6 +5092,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Champagne flute",
     garnish: "Sugar rim, edible flowers",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Antioxidant"],
     nutrition: { calories: 110, sugar: 24, carbs: 28 },
   },
@@ -5094,6 +5113,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     garnish: "Whipped cream, maple drizzle",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Energy Boost"],
     nutrition: { calories: 155, sugar: 20, carbs: 24 },
   },
@@ -5114,6 +5134,7 @@ export const sampleDrinks: Drink[] = [
     glassType: "Mug",
     garnish: "Orange slice, cinnamon stick, star anise",
     isAlcoholic: false,
+    isHoliday: true,
     healthTags: ["Vitamin C", "Immune Support", "Anti-Inflammatory"],
     nutrition: { calories: 125, sugar: 26, carbs: 30 },
   },

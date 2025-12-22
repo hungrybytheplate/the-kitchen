@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RecipeResultsProps {
@@ -59,6 +59,9 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [cookTimeFilter, setCookTimeFilter] = useState<string | null>(null);
   const [calorieFilter, setCalorieFilter] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [showHolidayOnly, setShowHolidayOnly] = useState(false);
+
+  const holidayCount = recipes.filter(r => r.isHoliday).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -77,9 +80,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setActiveCuisines([]);
     setCookTimeFilter(null);
     setCalorieFilter(null);
+    setShowHolidayOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly;
 
   const parseCookTime = (cookTime: string): number => {
     const match = cookTime.match(/(\d+)/);
@@ -88,6 +92,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
+    // Holiday filter
+    if (showHolidayOnly && !recipe.isHoliday) {
+      return false;
+    }
     // Dietary filter
     if (activeFilters.length > 0 && !activeFilters.every(filter => recipe.dietaryTags?.includes(filter))) {
       return false;
@@ -212,6 +220,33 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   return (
     <div className="space-y-4">
+      {/* Holiday Favorites Filter - Prominent Position */}
+      {holidayCount > 0 && (
+        <div className="p-3 bg-gradient-to-r from-red-500/10 to-green-500/10 rounded-xl border border-border/50 shadow-sm">
+          <div className="flex items-center gap-3">
+            <Badge
+              variant={showHolidayOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-4 py-2 text-sm",
+                showHolidayOnly 
+                  ? "bg-red-500 hover:bg-red-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowHolidayOnly(!showHolidayOnly)}
+            >
+              <Snowflake className="h-4 w-4 mr-2" />
+              Holiday Favorites
+              <span className="ml-2 text-xs opacity-80">({holidayCount})</span>
+            </Badge>
+            {showHolidayOnly && (
+              <span className="text-sm text-muted-foreground">
+                Showing seasonal recipes perfect for the holidays
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Cuisine Quick Filters - Always Visible */}
       <div className="p-3 bg-card rounded-xl border border-border/50 shadow-sm">
         <div className="flex items-center justify-between mb-2">
