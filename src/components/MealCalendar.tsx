@@ -293,18 +293,20 @@ END:VCALENDAR`;
                 variant="ghost"
                 size="icon"
                 onClick={() => setWeekStart(addDays(weekStart, -7))}
+                className="h-10 w-10 sm:h-9 sm:w-9"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-5 w-5 sm:h-4 sm:w-4" />
               </Button>
-              <span className="text-sm font-medium min-w-[140px] text-center">
+              <span className="text-sm font-medium min-w-[120px] sm:min-w-[140px] text-center">
                 {format(weekStart, "MMM d")} - {format(addDays(weekStart, 6), "MMM d")}
               </span>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setWeekStart(addDays(weekStart, 7))}
+                className="h-10 w-10 sm:h-9 sm:w-9"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-5 w-5 sm:h-4 sm:w-4" />
               </Button>
             </div>
           </div>
