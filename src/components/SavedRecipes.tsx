@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, Share2, Check } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
@@ -12,8 +12,6 @@ import { RecipeNotesDialog } from "@/components/RecipeNotesDialog";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { QuickTooltip } from "@/components/Tooltip";
-import { useFamilyGroup } from "@/hooks/useFamilyGroup";
-import { toast } from "@/hooks/use-toast";
 
 export interface RecipeNotes {
   [recipeId: string]: string;
@@ -34,93 +32,6 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
-  const { familyGroup, shareRecipe, unshareRecipe, isRecipeShared, shareDrink, unshareDrink, isDrinkShared } = useFamilyGroup();
-
-  const handleShareRecipe = async (recipe: Recipe) => {
-    if (!familyGroup) {
-      toast({
-        title: "No family group",
-        description: "Join or create a family group first to share recipes.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const isShared = isRecipeShared(recipe.id);
-    
-    if (isShared) {
-      const result = await unshareRecipe(recipe.id);
-      if (result.error) {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Recipe unshared",
-          description: "Recipe removed from family sharing.",
-        });
-      }
-    } else {
-      const result = await shareRecipe(recipe);
-      if (result.error) {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Recipe shared!",
-          description: `${recipe.title} is now shared with your family.`,
-        });
-      }
-    }
-  };
-
-  const handleShareDrink = async (drink: Drink) => {
-    if (!familyGroup) {
-      toast({
-        title: "No family group",
-        description: "Join or create a family group first to share drinks.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const isShared = isDrinkShared(drink.id);
-    
-    if (isShared) {
-      const result = await unshareDrink(drink.id);
-      if (result.error) {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Drink unshared",
-          description: "Drink removed from family sharing.",
-        });
-      }
-    } else {
-      const result = await shareDrink(drink);
-      if (result.error) {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Drink shared!",
-          description: `${drink.title} is now shared with your family.`,
-        });
-      }
-    }
-  };
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
@@ -237,27 +148,6 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                       </div>
                     </div>
                     <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-                      {familyGroup && (
-                        <QuickTooltip content={isRecipeShared(recipe.id) ? "Shared with family" : "Share with family"} side="top">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleShareRecipe(recipe)}
-                            className={cn(
-                              "transition-all",
-                              isRecipeShared(recipe.id)
-                                ? "text-primary opacity-100"
-                                : "text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-primary"
-                            )}
-                          >
-                            {isRecipeShared(recipe.id) ? (
-                              <Check className="h-4 w-4" />
-                            ) : (
-                              <Share2 className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </QuickTooltip>
-                      )}
                       <QuickTooltip content="Add notes" side="top">
                         <Button
                           variant="ghost"
@@ -306,27 +196,6 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                       <span className="font-medium">{drink.title}</span>
                     </div>
                     <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-                      {familyGroup && (
-                        <QuickTooltip content={isDrinkShared(drink.id) ? "Shared with family" : "Share with family"} side="top">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleShareDrink(drink)}
-                            className={cn(
-                              "transition-all",
-                              isDrinkShared(drink.id)
-                                ? "text-primary opacity-100"
-                                : "text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-primary"
-                            )}
-                          >
-                            {isDrinkShared(drink.id) ? (
-                              <Check className="h-4 w-4" />
-                            ) : (
-                              <Share2 className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </QuickTooltip>
-                      )}
                       <Button
                         variant="ghost"
                         size="icon"
