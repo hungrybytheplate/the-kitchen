@@ -22,6 +22,7 @@ import { UndoToast } from "@/components/UndoToast";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { SmartSuggestions } from "@/components/SmartSuggestions";
+import { WeeklyNutritionSummary } from "@/components/WeeklyNutritionSummary";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -945,6 +946,9 @@ const Index = () => {
               onSaveRecipe={handleSaveRecipe}
               onAddToCalendar={handleAddToCalendar}
             />
+
+            {/* Weekly Nutrition Summary */}
+            <WeeklyNutritionSummary mealPlan={mealPlan} />
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6 space-y-6">
