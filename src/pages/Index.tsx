@@ -16,6 +16,7 @@ import { InstallBanner } from "@/components/InstallBanner";
 import { QuickTooltip } from "@/components/Tooltip";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
+import { HolidayMealPlanTemplate } from "@/components/HolidayMealPlanTemplate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -29,7 +30,7 @@ import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/rec
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Users } from "lucide-react";
+import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Users, Snowflake } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Inline Lookup Results Component
@@ -834,7 +835,20 @@ const Index = () => {
             )}
           </TabsContent>
 
-          <TabsContent value="calendar" className="mt-6">
+          <TabsContent value="calendar" className="mt-6 space-y-8">
+            {/* Holiday Meal Plan Template */}
+            <div className="animate-fade-in">
+              <HolidayMealPlanTemplate
+                onAddToCalendar={handleAddToCalendar}
+                onAddToShopping={handleAddToShopping}
+                savedRecipes={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                savedDrinks={savedDrinks}
+                onSaveDrink={handleSaveDrink}
+              />
+            </div>
+
+            {/* Regular Meal Calendar */}
             <MealCalendar 
               mealPlan={mealPlan} 
               onRemove={handleRemoveFromCalendar}
