@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key } from "lucide-react";
+import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key, Snowflake } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
@@ -81,7 +81,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
 
           <div className="flex items-start justify-between gap-3 relative">
             <div className="flex-1 space-y-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <Badge className={cn(
                   "text-xs font-semibold px-3 py-1 rounded-full border",
                   config.bg, config.border, config.text
@@ -89,6 +89,12 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
                   <span className="mr-1">{config.emoji}</span>
                   {config.label}
                 </Badge>
+                {recipe.isHoliday && (
+                  <Badge className="text-xs font-semibold px-2.5 py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
+                    <Snowflake className="h-3 w-3 mr-1" />
+                    Holiday
+                  </Badge>
+                )}
                 {matchPercentage >= 80 && (
                   <Badge variant="outline" className="text-xs font-medium px-2 py-0.5 bg-secondary/10 border-secondary/30 text-secondary">
                     <Check className="h-3 w-3 mr-1" />
