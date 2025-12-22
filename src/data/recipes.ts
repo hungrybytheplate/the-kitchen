@@ -36,6 +36,7 @@ export interface Recipe {
   cuisine?: CuisineType;
   customizeSpices?: string;
   matchScore?: number;
+  isHoliday?: boolean;
 }
 
 export const sampleRecipes: Recipe[] = [
