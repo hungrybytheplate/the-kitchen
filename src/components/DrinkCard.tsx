@@ -73,8 +73,9 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
         className={cn(
           "group overflow-hidden transition-all duration-500 hover-lift border-border/50",
           "bg-card/80 backdrop-blur-sm",
-          "animate-scale-in"
+          "animate-scale-in cursor-pointer"
         )}
+        onClick={() => setShowDetail(true)}
       >
         <CardHeader className="pb-3 relative">
           {/* Decorative gradient */}
@@ -130,7 +131,7 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={onSave}
+              onClick={(e) => { e.stopPropagation(); onSave(); }}
               className={cn(
                 "shrink-0 rounded-full transition-all duration-300",
                 isSaved
@@ -226,7 +227,7 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
             variant="warm"
             size="default"
             className="w-full"
-            onClick={() => setShowDetail(true)}
+            onClick={(e) => { e.stopPropagation(); setShowDetail(true); }}
           >
             <GlassWater className="h-4 w-4 mr-2" />
             View Recipe & Make
