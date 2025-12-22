@@ -13,6 +13,7 @@ interface RecipeCardProps {
   onSave: () => void;
   onAddToCalendar: () => void;
   onAddToShopping?: (ingredientId: string) => void;
+  onViewRecipe?: () => void;
 }
 
 const mealTypeConfig = {
@@ -53,8 +54,13 @@ const mealTypeConfig = {
   },
 };
 
-export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping }: RecipeCardProps) {
+export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping, onViewRecipe }: RecipeCardProps) {
   const [showDetail, setShowDetail] = useState(false);
+  
+  const handleViewRecipe = () => {
+    setShowDetail(true);
+    onViewRecipe?.();
+  };
   
   const missingIngredients = recipe.ingredients.filter(
     ing => !recipe.matchedIngredients.includes(ing)
@@ -71,7 +77,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
           "bg-card/80 backdrop-blur-sm",
           "animate-scale-in cursor-pointer"
         )}
-        onClick={() => setShowDetail(true)}
+        onClick={handleViewRecipe}
       >
         <CardHeader className="pb-3 relative">
           {/* Decorative gradient */}
@@ -199,7 +205,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
             variant="ghost"
             size="sm"
             className="w-full justify-center text-muted-foreground hover:text-foreground rounded-xl gap-2"
-            onClick={(e) => { e.stopPropagation(); setShowDetail(true); }}
+            onClick={(e) => { e.stopPropagation(); handleViewRecipe(); }}
           >
             <ChefHat className="h-4 w-4" />
             <span className="font-medium">View Recipe & Cook</span>
