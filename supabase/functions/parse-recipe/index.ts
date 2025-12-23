@@ -1,9 +1,61 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// SSRF protection: validate URL is safe to fetch
+function isUrlSafe(urlString: string): { safe: boolean; error?: string } {
+  try {
+    const url = new URL(urlString);
+    
+    // Only allow http/https protocols
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      return { safe: false, error: 'Only HTTP and HTTPS URLs are allowed' };
+    }
+    
+    const hostname = url.hostname.toLowerCase();
+    
+    // Block localhost variations
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+      return { safe: false, error: 'Localhost URLs are not allowed' };
+    }
+    
+    // Block private IP ranges
+    const ipPatterns = [
+      /^10\./,                          // 10.0.0.0/8
+      /^172\.(1[6-9]|2[0-9]|3[0-1])\./, // 172.16.0.0/12
+      /^192\.168\./,                     // 192.168.0.0/16
+      /^169\.254\./,                     // 169.254.0.0/16 (link-local, AWS metadata)
+      /^0\./,                            // 0.0.0.0/8
+      /^100\.(6[4-9]|[7-9][0-9]|1[0-1][0-9]|12[0-7])\./, // 100.64.0.0/10 (carrier-grade NAT)
+    ];
+    
+    for (const pattern of ipPatterns) {
+      if (pattern.test(hostname)) {
+        return { safe: false, error: 'Private network URLs are not allowed' };
+      }
+    }
+    
+    // Block internal hostnames
+    const blockedHostnames = [
+      'metadata.google.internal',
+      'metadata.google.com',
+      'metadata',
+      'internal',
+    ];
+    
+    if (blockedHostnames.some(blocked => hostname === blocked || hostname.endsWith('.' + blocked))) {
+      return { safe: false, error: 'Internal network URLs are not allowed' };
+    }
+    
+    return { safe: true };
+  } catch {
+    return { safe: false, error: 'Invalid URL format' };
+  }
+}
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -12,6 +64,33 @@ serve(async (req) => {
   }
 
   try {
+    // Verify authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      console.error('No authorization header');
+      return new Response(
+        JSON.stringify({ success: false, error: 'Authentication required' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      console.error('Auth error:', authError);
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid authentication' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log('Authenticated user:', user.id);
+
     const { url } = await req.json();
 
     if (!url) {
@@ -22,15 +101,34 @@ serve(async (req) => {
       );
     }
 
+    // Validate URL for SSRF protection
+    const urlCheck = isUrlSafe(url);
+    if (!urlCheck.safe) {
+      console.error('URL validation failed:', urlCheck.error);
+      return new Response(
+        JSON.stringify({ success: false, error: urlCheck.error }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     console.log('Fetching recipe from URL:', url);
 
-    // Fetch the webpage content
-    const pageResponse = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-      }
-    });
+    // Fetch the webpage content with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+    
+    let pageResponse;
+    try {
+      pageResponse = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        },
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!pageResponse.ok) {
       console.error('Failed to fetch URL:', pageResponse.status);
