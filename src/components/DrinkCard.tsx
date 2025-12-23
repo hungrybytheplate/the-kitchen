@@ -57,6 +57,7 @@ const healthTagConfig: Record<HealthTag, { icon: typeof Zap; color: string }> = 
   "Heart Healthy": { icon: HeartPulse, color: "bg-red-100 text-red-700 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700" },
   "Low Calorie": { icon: Leaf, color: "bg-lime-100 text-lime-700 border-lime-300 dark:bg-lime-900/30 dark:text-lime-400 dark:border-lime-700" },
   "Hydrating": { icon: Droplets, color: "bg-sky-100 text-sky-700 border-sky-300 dark:bg-sky-900/30 dark:text-sky-400 dark:border-sky-700" },
+  "High Fiber": { icon: Leaf, color: "bg-teal-100 text-teal-700 border-teal-300 dark:bg-teal-900/30 dark:text-teal-400 dark:border-teal-700" },
 };
 
 export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
