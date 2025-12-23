@@ -71,62 +71,6 @@ export type Database = {
         }
         Relationships: []
       }
-      family_groups: {
-        Row: {
-          created_at: string
-          created_by: string
-          id: string
-          invite_code: string
-          name: string
-        }
-        Insert: {
-          created_at?: string
-          created_by: string
-          id?: string
-          invite_code?: string
-          name: string
-        }
-        Update: {
-          created_at?: string
-          created_by?: string
-          id?: string
-          invite_code?: string
-          name?: string
-        }
-        Relationships: []
-      }
-      family_members: {
-        Row: {
-          display_name: string | null
-          family_group_id: string
-          id: string
-          joined_at: string
-          user_id: string
-        }
-        Insert: {
-          display_name?: string | null
-          family_group_id: string
-          id?: string
-          joined_at?: string
-          user_id: string
-        }
-        Update: {
-          display_name?: string | null
-          family_group_id?: string
-          id?: string
-          joined_at?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "family_members_family_group_id_fkey"
-            columns: ["family_group_id"]
-            isOneToOne: false
-            referencedRelation: "family_groups"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       meal_plans: {
         Row: {
           created_at: string
@@ -223,76 +167,6 @@ export type Database = {
         }
         Relationships: []
       }
-      shared_drinks: {
-        Row: {
-          drink_data: Json
-          drink_id: string
-          family_group_id: string
-          id: string
-          shared_at: string
-          shared_by: string
-        }
-        Insert: {
-          drink_data: Json
-          drink_id: string
-          family_group_id: string
-          id?: string
-          shared_at?: string
-          shared_by: string
-        }
-        Update: {
-          drink_data?: Json
-          drink_id?: string
-          family_group_id?: string
-          id?: string
-          shared_at?: string
-          shared_by?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "shared_drinks_family_group_id_fkey"
-            columns: ["family_group_id"]
-            isOneToOne: false
-            referencedRelation: "family_groups"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      shared_recipes: {
-        Row: {
-          family_group_id: string
-          id: string
-          recipe_data: Json
-          recipe_id: string
-          shared_at: string
-          shared_by: string
-        }
-        Insert: {
-          family_group_id: string
-          id?: string
-          recipe_data: Json
-          recipe_id: string
-          shared_at?: string
-          shared_by: string
-        }
-        Update: {
-          family_group_id?: string
-          id?: string
-          recipe_data?: Json
-          recipe_id?: string
-          shared_at?: string
-          shared_by?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "shared_recipes_family_group_id_fkey"
-            columns: ["family_group_id"]
-            isOneToOne: false
-            referencedRelation: "family_groups"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       shopping_list: {
         Row: {
           checked: boolean
@@ -325,11 +199,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_user_family_group: { Args: { _user_id: string }; Returns: string }
-      is_family_member: {
-        Args: { _family_group_id: string; _user_id: string }
-        Returns: boolean
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
