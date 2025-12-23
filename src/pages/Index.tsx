@@ -714,17 +714,6 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
-            {/* Meal Calendar - always visible in ingredients tab */}
-            <MealCalendar 
-              mealPlan={mealPlan} 
-              onRemove={handleRemoveFromCalendar}
-              onMoveMeal={moveMeal}
-              onAddToShopping={handleAddToShopping}
-              savedRecipes={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              onAddToCalendar={handleAddToCalendar}
-            />
-            
             {/* Recently Viewed Section */}
             {appMode === "cook" && recentlyViewed.length > 0 && (
               <RecentlyViewed
