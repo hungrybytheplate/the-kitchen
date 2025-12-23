@@ -312,8 +312,8 @@ END:VCALENDAR`;
           </div>
         </CardHeader>
         <CardContent className="px-2 sm:px-6">
-          {/* Mobile: Horizontal scroll view */}
-          <div className="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory sm:hidden -mx-2 px-2">
+          {/* Mobile: Vertical stacked view */}
+          <div className="flex flex-col gap-2 sm:hidden">
             {days.map((day) => {
               const meals = getMealsForDay(day);
               const isToday = isSameDay(day, new Date());
@@ -323,48 +323,55 @@ END:VCALENDAR`;
                 <div
                   key={day.toISOString()}
                   className={cn(
-                    "min-w-[140px] w-[140px] flex-shrink-0 snap-start min-h-[100px] rounded-xl p-2 transition-all duration-200",
+                    "rounded-xl p-3 transition-all duration-200",
                     isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30"
                   )}
                 >
                   <div className={cn(
-                    "flex flex-col text-center items-center gap-0 mb-2 pb-2 border-b border-border/50",
+                    "flex items-center gap-3 mb-2 pb-2 border-b border-border/50",
                     isToday && "text-primary font-semibold"
                   )}>
-                    <div className="text-xs text-muted-foreground uppercase">
-                      {format(day, "EEE")}
-                    </div>
-                    <div className="text-lg font-medium">
+                    <div className="text-lg font-medium min-w-[28px]">
                       {format(day, "d")}
                     </div>
+                    <div className="text-sm text-muted-foreground">
+                      {format(day, "EEEE")}
+                    </div>
+                    {isToday && (
+                      <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full ml-auto">Today</span>
+                    )}
                   </div>
-                  <div className="space-y-1.5">
-                    {meals.map((entry) => (
-                      <div
-                        key={entry.recipe.id}
-                        className="group relative bg-card rounded-lg p-1.5 shadow-sm text-xs cursor-pointer hover:bg-accent/50 transition-colors"
-                        onClick={() => setSelectedRecipe(entry.recipe)}
-                      >
-                        <div className="flex items-start gap-1">
-                          <span>{mealTypeIcons[entry.recipe.mealType] || "🍽️"}</span>
-                          <span className="line-clamp-2 leading-tight font-medium flex-1 text-[11px]">
-                            {entry.recipe.title}
-                          </span>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="absolute -top-1 -right-1 h-5 w-5 bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onRemove(entry.date, entry.recipe.id);
-                          }}
+                  {meals.length > 0 ? (
+                    <div className="space-y-2">
+                      {meals.map((entry) => (
+                        <div
+                          key={entry.recipe.id}
+                          className="group relative bg-card rounded-lg p-2 shadow-sm cursor-pointer hover:bg-accent/50 transition-colors"
+                          onClick={() => setSelectedRecipe(entry.recipe)}
                         >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg">{mealTypeIcons[entry.recipe.mealType] || "🍽️"}</span>
+                            <span className="font-medium flex-1 text-sm">
+                              {entry.recipe.title}
+                            </span>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-6 w-6 bg-destructive/10 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-full"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onRemove(entry.date, entry.recipe.id);
+                              }}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground italic">No meals planned</p>
+                  )}
                 </div>
               );
             })}
