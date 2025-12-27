@@ -89,6 +89,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
           size="icon"
           className="absolute top-3 right-3 h-8 w-8 text-muted-foreground hover:text-foreground z-10"
           onClick={onSkip}
+          aria-label="Skip tour"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -100,6 +101,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
               <button
                 key={index}
                 onClick={() => setCurrentStep(index)}
+                aria-label={`Go to step ${index + 1} of ${steps.length}`}
                 className={cn(
                   "w-2 h-2 rounded-full transition-all duration-300",
                   index === currentStep 
