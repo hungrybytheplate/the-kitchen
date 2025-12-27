@@ -42,6 +42,8 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
     icon: "cup-soda",
     color: "sky",
     ingredients: [
+      { id: "water", name: "Water" },
+      { id: "ice", name: "Ice" },
       { id: "club-soda", name: "Club Soda" },
       { id: "tonic-water", name: "Tonic Water" },
       { id: "ginger-beer", name: "Ginger Beer" },
