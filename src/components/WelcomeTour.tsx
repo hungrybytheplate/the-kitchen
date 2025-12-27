@@ -95,22 +95,31 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
         </Button>
 
         <CardContent className="p-4 sm:p-6 pt-8 sm:pt-10">
-          {/* Progress dots */}
-          <div className="flex justify-center gap-1.5 mb-4 sm:mb-6">
+          {/* Progress dots - using padding for touch target size */}
+          <div className="flex justify-center gap-3 mb-4 sm:mb-6" role="tablist" aria-label="Tour progress">
             {steps.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentStep(index)}
                 aria-label={`Go to step ${index + 1} of ${steps.length}`}
+                role="tab"
+                aria-selected={index === currentStep}
                 className={cn(
-                  "w-2 h-2 rounded-full transition-all duration-300",
-                  index === currentStep 
-                    ? "w-5 sm:w-6 gradient-warm" 
-                    : index < currentStep 
-                      ? "bg-primary/60" 
-                      : "bg-muted-foreground/30"
+                  "relative p-2 -m-2 rounded-full transition-all duration-300",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 )}
-              />
+              >
+                <span
+                  className={cn(
+                    "block w-2 h-2 rounded-full transition-all duration-300",
+                    index === currentStep 
+                      ? "w-5 sm:w-6 gradient-warm" 
+                      : index < currentStep 
+                        ? "bg-primary/60" 
+                        : "bg-muted-foreground/30"
+                  )}
+                />
+              </button>
             ))}
           </div>
 
