@@ -16,6 +16,7 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
         <TabsTrigger 
           value="fridge" 
           className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
+          aria-label="Fridge ingredients"
         >
           <Refrigerator className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
           <span className="hidden xs:inline sm:inline">Fridge</span>
@@ -23,6 +24,7 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
         <TabsTrigger 
           value="pantry" 
           className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
+          aria-label="Pantry ingredients"
         >
           <ShoppingBasket className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
           <span className="hidden xs:inline sm:inline">Pantry</span>
@@ -30,6 +32,7 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
         <TabsTrigger 
           value="spices" 
           className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
+          aria-label="Spices and seasonings"
         >
           <Flame className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
           <span className="hidden xs:inline sm:inline">Spices</span>

@@ -673,13 +673,13 @@ const Index = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 sm:space-y-8">
           <TabsList className="w-full max-w-2xl mx-auto grid grid-cols-4 h-12 sm:h-14 glass p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-soft">
             <QuickTooltip content={appMode === "cook" ? "Select ingredients & find recipes" : "Select ingredients & find drinks"} side="bottom">
-              <TabsTrigger value="ingredients" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3">
+              <TabsTrigger value="ingredients" aria-label={appMode === "cook" ? "Cook - Select ingredients and find recipes" : "Mix - Select ingredients and find drinks"} className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3">
                 {appMode === "cook" ? <UtensilsCrossed className="h-4 w-4 shrink-0" /> : <GlassWater className="h-4 w-4 shrink-0" />}
                 <span className="hidden sm:inline">{appMode === "cook" ? "Cook" : "Mix"}</span>
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Plan your weekly meals" side="bottom">
-              <TabsTrigger value="calendar" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+              <TabsTrigger value="calendar" aria-label="Plan - Plan your weekly meals" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
                 <Calendar className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Plan</span>
                 {mealPlan.length > 0 && (
@@ -690,7 +690,7 @@ const Index = () => {
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Your favorite recipes" side="bottom">
-              <TabsTrigger value="saved" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+              <TabsTrigger value="saved" aria-label="Saved - Your favorite recipes" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
                 <Heart className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Saved</span>
                 {(savedRecipes.length + savedDrinks.length) > 0 && (
@@ -701,7 +701,7 @@ const Index = () => {
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Your shopping list" side="bottom">
-              <TabsTrigger value="shopping" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+              <TabsTrigger value="shopping" aria-label="Shop - Your shopping list" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
                 <ShoppingCart className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Shop</span>
                 {shoppingList.length > 0 && (

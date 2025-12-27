@@ -52,6 +52,7 @@ export function Header({ onShowTour }: HeaderProps) {
                 size="icon" 
                 onClick={onShowTour}
                 className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9"
+                aria-label="Take a tour"
               >
                 <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
@@ -67,6 +68,7 @@ export function Header({ onShowTour }: HeaderProps) {
                     size="sm"
                     onClick={handleSignOut}
                     className="gap-2"
+                    aria-label="Sign out"
                   >
                     <User className="h-4 w-4" />
                     <span className="hidden sm:inline">Sign Out</span>

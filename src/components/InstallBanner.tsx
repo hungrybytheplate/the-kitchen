@@ -94,6 +94,7 @@ export function InstallBanner() {
               size="icon"
               className="shrink-0 -mt-1 -mr-1 h-8 w-8"
               onClick={handleDismiss}
+              aria-label="Dismiss install banner"
             >
               <X className="h-4 w-4" />
             </Button>
