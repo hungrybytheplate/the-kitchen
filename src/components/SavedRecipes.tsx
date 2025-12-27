@@ -4,14 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, Plus, ExternalLink } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
 import { RecipeNotesDialog } from "@/components/RecipeNotesDialog";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
-import { ImportRecipeDialog } from "@/components/ImportRecipeDialog";
 import { QuickTooltip } from "@/components/Tooltip";
 import { useCustomRecipes } from "@/hooks/useCustomRecipes";
 import { toast } from "@/hooks/use-toast";
@@ -35,9 +34,8 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
-  const [importDialogOpen, setImportDialogOpen] = useState(false);
   
-  const { customRecipes, refresh: refreshCustomRecipes, deleteCustomRecipe, getRecipesAsAppFormat } = useCustomRecipes();
+  const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat } = useCustomRecipes();
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
@@ -81,41 +79,28 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
 
   if (totalSaved === 0) {
     return (
-      <>
-        <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
-          <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="relative mb-6">
-              <div className="absolute inset-0 gradient-sunset blur-2xl opacity-30 animate-pulse-soft" />
-              <div className="relative p-4 rounded-2xl gradient-sunset shadow-warm">
-                <Heart className="h-8 w-8 text-primary-foreground" />
-              </div>
+      <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
+        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 gradient-sunset blur-2xl opacity-30 animate-pulse-soft" />
+            <div className="relative p-4 rounded-2xl gradient-sunset shadow-warm">
+              <Heart className="h-8 w-8 text-primary-foreground" />
             </div>
-            <h3 className="font-serif text-2xl font-semibold mb-3">
-              Your Collection
-            </h3>
-            <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
-              Save your favorite recipes and drinks by clicking the heart icon, or import your own recipes!
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-3">
-              <Button onClick={() => setImportDialogOpen(true)} className="gap-2">
-                <Plus className="h-4 w-4" />
-                Import Recipe
-              </Button>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
-                <ChefHat className="h-4 w-4" />
-                <span>Find recipes in Cook tab</span>
-                <ArrowRight className="h-4 w-4" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <ImportRecipeDialog
-          open={importDialogOpen}
-          onOpenChange={setImportDialogOpen}
-          onRecipeImported={refreshCustomRecipes}
-        />
-      </>
+          </div>
+          <h3 className="font-serif text-2xl font-semibold mb-3">
+            Your Collection
+          </h3>
+          <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
+            Save your favorite recipes and drinks by clicking the heart icon.
+          </p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
+            <ChefHat className="h-4 w-4" />
+            <span>Find recipes in Cook tab</span>
+            <ArrowRight className="h-4 w-4" />
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -138,20 +123,14 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="font-serif text-2xl flex items-center gap-2">
-              <Heart className="h-6 w-6 text-primary fill-primary" />
-              Saved Collection
-            </CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">
-              {allSavedRecipes.length + customRecipes.length} recipe{(allSavedRecipes.length + customRecipes.length) === 1 ? '' : 's'} · {allSavedDrinks.length} drink{allSavedDrinks.length === 1 ? '' : 's'}
-            </p>
-          </div>
-          <Button onClick={() => setImportDialogOpen(true)} size="sm" className="gap-2">
-            <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Import</span>
-          </Button>
+        <div>
+          <CardTitle className="font-serif text-2xl flex items-center gap-2">
+            <Heart className="h-6 w-6 text-primary fill-primary" />
+            Saved Collection
+          </CardTitle>
+          <p className="text-sm text-muted-foreground mt-1">
+            {allSavedRecipes.length + customRecipes.length} recipe{(allSavedRecipes.length + customRecipes.length) === 1 ? '' : 's'} · {allSavedDrinks.length} drink{allSavedDrinks.length === 1 ? '' : 's'}
+          </p>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -313,11 +292,6 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
           </TabsContent>
         </Tabs>
 
-        <ImportRecipeDialog
-          open={importDialogOpen}
-          onOpenChange={setImportDialogOpen}
-          onRecipeImported={refreshCustomRecipes}
-        />
 
         {selectedRecipeForNotes && (
           <RecipeNotesDialog
