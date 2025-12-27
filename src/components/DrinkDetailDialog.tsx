@@ -18,6 +18,7 @@ import {
   ChevronRight,
   GlassWater,
   Leaf,
+  Repeat,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Drink } from "@/data/drinks";
@@ -51,6 +52,13 @@ const drinkTypeConfig = {
     text: "text-pink-700 dark:text-pink-400",
     emoji: "🥤",
     label: "Smoothie",
+  },
+  wellness: {
+    bg: "bg-gradient-to-r from-green-400/20 to-emerald-400/20",
+    border: "border-green-400/30",
+    text: "text-green-700 dark:text-green-400",
+    emoji: "🌿",
+    label: "Wellness",
   },
 };
 
@@ -200,6 +208,35 @@ export function DrinkDetailDialog({
                 ))}
               </ol>
             </div>
+
+            {/* Alcohol Substitutions */}
+            {drink.alcoholSubstitutions && drink.alcoholSubstitutions.length > 0 && (
+              <>
+                <Separator />
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <Repeat className="h-4 w-4 text-primary" />
+                    Spirit Substitutions
+                  </h3>
+                  <div className="space-y-2">
+                    {drink.alcoholSubstitutions.map((sub, index) => (
+                      <div key={index} className="p-3 rounded-lg bg-muted/50 border border-border/50">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-sm font-medium capitalize">{sub.original.replace("-", " ")}</span>
+                          <span className="text-muted-foreground">→</span>
+                          <span className="text-sm text-primary font-medium">
+                            {sub.alternatives.map(a => a.replace("-", " ")).join(", ")}
+                          </span>
+                        </div>
+                        {sub.notes && (
+                          <p className="text-xs text-muted-foreground">{sub.notes}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
 
             {drink.garnish && (
               <>

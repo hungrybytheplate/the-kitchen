@@ -19,6 +19,12 @@ export interface DrinkNutrition {
   carbs: number;
 }
 
+export interface AlcoholSubstitution {
+  original: string;
+  alternatives: string[];
+  notes?: string;
+}
+
 export interface Drink {
   id: string;
   title: string;
@@ -36,6 +42,7 @@ export interface Drink {
   healthTags?: HealthTag[];
   nutrition?: DrinkNutrition;
   isHoliday?: boolean;
+  alcoholSubstitutions?: AlcoholSubstitution[];
 }
 
 export const sampleDrinks: Drink[] = [
@@ -58,6 +65,9 @@ export const sampleDrinks: Drink[] = [
     garnish: "Mint sprig and lime",
     isAlcoholic: true,
     nutrition: { calories: 217, sugar: 12, carbs: 14 },
+    alcoholSubstitutions: [
+      { original: "rum-white", alternatives: ["vodka", "gin", "tequila"], notes: "Vodka creates a lighter flavor, gin adds botanicals" },
+    ],
   },
   {
     id: "margarita",
@@ -77,6 +87,9 @@ export const sampleDrinks: Drink[] = [
     garnish: "Salt rim, lime wheel",
     isAlcoholic: true,
     nutrition: { calories: 274, sugar: 11, carbs: 12 },
+    alcoholSubstitutions: [
+      { original: "tequila", alternatives: ["mezcal", "vodka"], notes: "Mezcal adds smokiness, vodka makes it lighter" },
+    ],
   },
   {
     id: "old-fashioned",
@@ -2999,6 +3012,9 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Fresh cranberries, rosemary",
     isAlcoholic: true,
+    alcoholSubstitutions: [
+      { original: "bourbon", alternatives: ["vodka", "gin", "whiskey"], notes: "Vodka makes it lighter, gin adds botanical notes" },
+    ],
   },
   {
     id: "pear-ginger-bourbon",
