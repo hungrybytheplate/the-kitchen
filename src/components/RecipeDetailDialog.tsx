@@ -22,7 +22,8 @@ import {
   Flame,
   Leaf,
   Gauge,
-  Wheat
+  Wheat,
+  Repeat
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
@@ -414,6 +415,38 @@ export function RecipeDetailDialog({
                         Selected: {selectedSides.map(id => availableSideDishes.find(s => s.id === id)?.name).join(", ")}
                       </p>
                     )}
+                  </Card>
+                )}
+
+                {/* Protein Substitutions */}
+                {recipe.proteinSubstitutions && recipe.proteinSubstitutions.length > 0 && (
+                  <Card className="p-4 bg-muted/30 border-border/50">
+                    <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                      <Repeat className="h-4 w-4 text-primary" />
+                      Protein Substitutions
+                    </h3>
+                    <div className="space-y-2">
+                      {recipe.proteinSubstitutions.map((sub, index) => (
+                        <div key={index} className="p-3 rounded-lg bg-background/60 border border-border/50">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-medium capitalize bg-primary/10 text-primary px-2 py-0.5 rounded">
+                              {sub.original.replace(/-/g, " ")}
+                            </span>
+                            <span className="text-muted-foreground">→</span>
+                            <div className="flex flex-wrap gap-1">
+                              {sub.alternatives.map((alt, i) => (
+                                <span key={i} className="text-sm bg-secondary/10 text-secondary-foreground px-2 py-0.5 rounded capitalize">
+                                  {alt.replace(/-/g, " ")}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          {sub.notes && (
+                            <p className="text-xs text-muted-foreground mt-1.5">{sub.notes}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </Card>
                 )}
 

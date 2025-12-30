@@ -24,6 +24,12 @@ export interface SuggestedSide {
   description: string;
 }
 
+export interface ProteinSubstitution {
+  original: string;
+  alternatives: string[];
+  notes?: string;
+}
+
 export interface Recipe {
   id: string;
   title: string;
@@ -45,6 +51,7 @@ export interface Recipe {
   matchScore?: number;
   isHoliday?: boolean;
   suggestedSides?: SuggestedSide[];
+  proteinSubstitutions?: ProteinSubstitution[];
 }
 
 export const sampleRecipes: Recipe[] = [
@@ -639,6 +646,9 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 420, protein: 32, carbs: 24, fat: 22, sodium: 1020, cholesterol: 75 },
+    proteinSubstitutions: [
+      { original: "beef", alternatives: ["chicken", "pork", "shrimp", "tofu"], notes: "Tofu makes it vegetarian; shrimp cooks faster (1-2 min)" },
+    ],
   },
   {
     id: "creamy-tomato-pasta",
@@ -680,6 +690,9 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     difficulty: "medium",
     nutrition: { calories: 360, protein: 28, carbs: 18, fat: 20, sodium: 680, cholesterol: 55 },
+    proteinSubstitutions: [
+      { original: "fish", alternatives: ["shrimp", "chicken", "carnitas", "tofu"], notes: "Shrimp needs less cook time; carnitas for a Mexican twist" },
+    ],
   },
   {
     id: "lemon-herb-salmon",
@@ -722,6 +735,9 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 450, protein: 38, carbs: 28, fat: 22, sodium: 720, cholesterol: 105 },
+    proteinSubstitutions: [
+      { original: "chicken", alternatives: ["shrimp", "tofu", "chickpeas", "lamb"], notes: "Chickpeas make it vegan; lamb adds richness" },
+    ],
   },
   {
     id: "shrimp-scampi",
@@ -742,6 +758,9 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     difficulty: "medium",
     nutrition: { calories: 520, protein: 32, carbs: 48, fat: 24, sodium: 840, cholesterol: 215 },
+    proteinSubstitutions: [
+      { original: "shrimp", alternatives: ["chicken", "scallops", "lobster", "crab"], notes: "Chicken takes longer to cook (3-4 min per side); lobster makes it luxurious" },
+    ],
   },
   {
     id: "stuffed-peppers",
@@ -846,6 +865,9 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "easy",
     nutrition: { calories: 420, protein: 36, carbs: 38, fat: 14 },
+    proteinSubstitutions: [
+      { original: "chicken", alternatives: ["salmon", "tofu", "beef", "shrimp"], notes: "Salmon adds omega-3s; tofu makes it vegetarian" },
+    ],
   },
   {
     id: "mushroom-risotto",
@@ -888,6 +910,9 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 380, protein: 24, carbs: 18, fat: 24 },
+    proteinSubstitutions: [
+      { original: "beef", alternatives: ["ground-turkey", "chicken", "carnitas", "black-beans"], notes: "Ground turkey is leaner; black beans make it vegetarian" },
+    ],
   },
   {
     id: "coconut-shrimp-curry",
@@ -909,6 +934,9 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 420, protein: 28, carbs: 38, fat: 18 },
+    proteinSubstitutions: [
+      { original: "shrimp", alternatives: ["chicken", "tofu", "fish", "scallops"], notes: "Tofu makes it vegan; chicken needs more cook time" },
+    ],
   },
   {
     id: "baked-ziti",
@@ -948,6 +976,9 @@ export const sampleRecipes: Recipe[] = [
       "Let rest 5 minutes before serving. Spoon the pan sauce over each thigh. Serve with rice or mashed potatoes to soak up the delicious glaze."
     ],
     matchedIngredients: [],
+    proteinSubstitutions: [
+      { original: "chicken", alternatives: ["pork-chops", "salmon", "tofu"], notes: "Pork chops are equally delicious; salmon needs less cook time" },
+    ],
   },
   {
     id: "vegetable-lasagna",
