@@ -109,6 +109,9 @@ export const sampleDrinks: Drink[] = [
     garnish: "Orange peel, cherry",
     isAlcoholic: true,
     nutrition: { calories: 154, sugar: 4, carbs: 5 },
+    alcoholSubstitutions: [
+      { original: "bourbon", alternatives: ["rye-whiskey", "scotch", "brandy"], notes: "Rye adds spice, scotch brings smokiness, brandy makes it sweeter" },
+    ],
   },
   {
     id: "cosmopolitan",
@@ -180,6 +183,9 @@ export const sampleDrinks: Drink[] = [
     glassType: "Copper mug",
     garnish: "Lime wheel",
     isAlcoholic: true,
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["bourbon", "tequila", "rum-white", "gin"], notes: "Bourbon makes a Kentucky Mule, tequila makes a Mexican Mule" },
+    ],
   },
   {
     id: "pina-colada",
@@ -197,6 +203,9 @@ export const sampleDrinks: Drink[] = [
     glassType: "Hurricane glass",
     garnish: "Pineapple wedge, cherry",
     isAlcoholic: true,
+    alcoholSubstitutions: [
+      { original: "rum-white", alternatives: ["vodka", "rum-dark", "tequila"], notes: "Dark rum adds depth, vodka makes it lighter, tequila creates a tropical margarita vibe" },
+    ],
   },
   {
     id: "negroni",
@@ -267,6 +276,9 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Lime wedge",
     isAlcoholic: true,
+    alcoholSubstitutions: [
+      { original: "rum-dark", alternatives: ["bourbon", "rum-spiced", "whiskey"], notes: "Bourbon creates a warming variation, spiced rum adds complexity" },
+    ],
   },
 
   // ============ MOCKTAILS ============
