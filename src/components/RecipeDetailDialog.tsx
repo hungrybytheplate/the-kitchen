@@ -21,11 +21,28 @@ import {
   Minus,
   Flame,
   Leaf,
-  Gauge
+  Gauge,
+  Wheat
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
 import { ShareRecipeButton } from "./ShareRecipeButton";
+
+interface SideDish {
+  id: string;
+  name: string;
+  emoji: string;
+  description: string;
+}
+
+const availableSideDishes: SideDish[] = [
+  { id: "pasta", name: "Pasta", emoji: "🍝", description: "Buttered pasta with herbs" },
+  { id: "rice", name: "Rice", emoji: "🍚", description: "Fluffy steamed rice" },
+  { id: "mashed-potatoes", name: "Mashed Potatoes", emoji: "🥔", description: "Creamy mashed potatoes" },
+  { id: "roasted-vegetables", name: "Roasted Vegetables", emoji: "🥦", description: "Seasonal roasted veggies" },
+  { id: "garlic-bread", name: "Garlic Bread", emoji: "🥖", description: "Toasted garlic bread" },
+  { id: "salad", name: "Side Salad", emoji: "🥗", description: "Fresh garden salad" },
+];
 
 interface RecipeDetailDialogProps {
   recipe: Recipe | null;
@@ -33,7 +50,7 @@ interface RecipeDetailDialogProps {
   onOpenChange: (open: boolean) => void;
   isSaved: boolean;
   onSave: () => void;
-  onAddToCalendar: () => void;
+  onAddToCalendar: (selectedSides?: string[]) => void;
   onAddToShopping?: (ingredientId: string) => void;
 }
 
@@ -107,6 +124,7 @@ export function RecipeDetailDialog({
   const [currentStep, setCurrentStep] = useState(0);
   const [isCooking, setIsCooking] = useState(false);
   const [servingMultiplier, setServingMultiplier] = useState(1);
+  const [selectedSides, setSelectedSides] = useState<string[]>([]);
 
   if (!recipe) return null;
 
@@ -358,6 +376,47 @@ export function RecipeDetailDialog({
                   )}
                 </Card>
 
+                {/* Side Dish Selector - Only show for dinner and lunch */}
+                {(recipe.mealType === "dinner" || recipe.mealType === "lunch") && (
+                  <Card className="p-4 bg-muted/30 border-border/50">
+                    <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                      <Wheat className="h-4 w-4 text-primary" />
+                      Add a Side Dish
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      {availableSideDishes.map((side) => {
+                        const isSelected = selectedSides.includes(side.id);
+                        return (
+                          <button
+                            key={side.id}
+                            onClick={() => {
+                              setSelectedSides(prev => 
+                                isSelected 
+                                  ? prev.filter(s => s !== side.id)
+                                  : [...prev, side.id]
+                              );
+                            }}
+                            className={cn(
+                              "flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all text-center",
+                              isSelected 
+                                ? "border-primary bg-primary/10" 
+                                : "border-border hover:border-primary/50 hover:bg-muted/50"
+                            )}
+                          >
+                            <span className="text-2xl">{side.emoji}</span>
+                            <span className="text-xs font-medium">{side.name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {selectedSides.length > 0 && (
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Selected: {selectedSides.map(id => availableSideDishes.find(s => s.id === id)?.name).join(", ")}
+                      </p>
+                    )}
+                  </Card>
+                )}
+
                 {/* Instructions Preview */}
                 <Card className="p-4 bg-muted/30 border-border/50">
                   <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
@@ -518,10 +577,10 @@ export function RecipeDetailDialog({
               <Button
                 variant="outline"
                 className="flex-1"
-                onClick={onAddToCalendar}
+                onClick={() => onAddToCalendar(selectedSides)}
               >
                 <CalendarIcon className="h-4 w-4 mr-2" />
-                Add to Meal Plan
+                Add to Meal Plan{selectedSides.length > 0 ? ` + ${selectedSides.length} side${selectedSides.length > 1 ? 's' : ''}` : ''}
               </Button>
               <Button
                 variant="warm"
