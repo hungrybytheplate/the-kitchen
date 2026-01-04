@@ -4,16 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
 import { RecipeNotesDialog } from "@/components/RecipeNotesDialog";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
+import { StarRating } from "@/components/StarRating";
 import { QuickTooltip } from "@/components/Tooltip";
 import { useCustomRecipes } from "@/hooks/useCustomRecipes";
 import { toast } from "@/hooks/use-toast";
+import type { Ratings } from "@/hooks/useUserData";
 
 export interface RecipeNotes {
   [recipeId: string]: string;
@@ -26,9 +28,20 @@ interface SavedRecipesProps {
   onRemoveDrink: (id: string) => void;
   recipeNotes: RecipeNotes;
   onSaveNote: (recipeId: string, note: string) => void;
+  ratings?: Ratings;
+  onRate?: (itemId: string, itemType: 'recipe' | 'drink', rating: number) => void;
 }
 
-export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, onRemoveDrink, recipeNotes, onSaveNote }: SavedRecipesProps) {
+export function SavedRecipes({ 
+  savedRecipeIds, 
+  savedDrinkIds, 
+  onRemoveRecipe, 
+  onRemoveDrink, 
+  recipeNotes, 
+  onSaveNote,
+  ratings = {},
+  onRate
+}: SavedRecipesProps) {
   const [search, setSearch] = useState("");
   const [notesDialogOpen, setNotesDialogOpen] = useState(false);
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
@@ -51,7 +64,24 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
     d.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Get favorites (items with rating >= 4)
+  const favoriteRecipes = savedRecipes.filter((r) => (ratings[`recipe-${r.id}`] || 0) >= 4);
+  const favoriteDrinks = savedDrinks.filter((d) => (ratings[`drink-${d.id}`] || 0) >= 4);
+  const totalFavorites = favoriteRecipes.length + favoriteDrinks.length;
+
   const totalSaved = allSavedRecipes.length + allSavedDrinks.length + customRecipes.length;
+
+  const handleRate = (itemId: string, itemType: 'recipe' | 'drink', rating: number) => {
+    if (onRate) {
+      onRate(itemId, itemType, rating);
+      if (rating >= 4) {
+        toast({
+          title: "Added to favorites!",
+          description: `${rating === 5 ? "⭐⭐⭐⭐⭐" : "⭐⭐⭐⭐"} Great choice!`,
+        });
+      }
+    }
+  };
 
   const handleOpenNotes = (recipeId: string, recipeTitle: string) => {
     setSelectedRecipeForNotes({ id: recipeId, title: recipeTitle });
@@ -129,7 +159,7 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
             Saved Collection
           </CardTitle>
           <p className="text-sm text-muted-foreground mt-1">
-            {allSavedRecipes.length + customRecipes.length} recipe{(allSavedRecipes.length + customRecipes.length) === 1 ? '' : 's'} · {allSavedDrinks.length} drink{allSavedDrinks.length === 1 ? '' : 's'}
+            {allSavedRecipes.length + customRecipes.length} recipe{(allSavedRecipes.length + customRecipes.length) === 1 ? '' : 's'} · {allSavedDrinks.length} drink{allSavedDrinks.length === 1 ? '' : 's'} · {totalFavorites} favorite{totalFavorites === 1 ? '' : 's'}
           </p>
         </div>
       </CardHeader>
@@ -144,24 +174,109 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
           />
         </div>
 
-        <Tabs defaultValue="recipes" className="w-full">
-          <TabsList className="w-full grid grid-cols-3 h-10 bg-muted/50 p-1 rounded-lg">
-            <TabsTrigger value="recipes" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-1 sm:px-3">
+        <Tabs defaultValue="favorites" className="w-full">
+          <TabsList className="w-full grid grid-cols-4 h-10 bg-muted/50 p-1 rounded-lg">
+            <TabsTrigger value="favorites" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 text-xs sm:text-sm px-1 sm:px-2">
+              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 fill-amber-400 text-amber-400" />
+              <span className="hidden sm:inline">Favorites</span>
+              <span className="text-xs">({totalFavorites})</span>
+            </TabsTrigger>
+            <TabsTrigger value="recipes" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 text-xs sm:text-sm px-1 sm:px-2">
               <ChefHat className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-              <span className="hidden xs:inline sm:hidden">{savedRecipes.length}</span>
-              <span className="hidden sm:inline">Saved ({savedRecipes.length})</span>
+              <span className="hidden sm:inline">Recipes</span>
+              <span className="text-xs">({savedRecipes.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="imported" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-1 sm:px-3">
+            <TabsTrigger value="imported" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 text-xs sm:text-sm px-1 sm:px-2">
               <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-              <span className="hidden xs:inline sm:hidden">{filteredImportedRecipes.length}</span>
-              <span className="hidden sm:inline">Imported ({filteredImportedRecipes.length})</span>
+              <span className="hidden sm:inline">Imported</span>
+              <span className="text-xs">({filteredImportedRecipes.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="drinks" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-1 sm:px-3">
+            <TabsTrigger value="drinks" className="rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 text-xs sm:text-sm px-1 sm:px-2">
               <Wine className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-              <span className="hidden xs:inline sm:hidden">{savedDrinks.length}</span>
-              <span className="hidden sm:inline">Drinks ({savedDrinks.length})</span>
+              <span className="hidden sm:inline">Drinks</span>
+              <span className="text-xs">({savedDrinks.length})</span>
             </TabsTrigger>
           </TabsList>
+
+          {/* Favorites Tab */}
+          <TabsContent value="favorites" className="mt-4">
+            <div className="space-y-4">
+              {totalFavorites > 0 ? (
+                <>
+                  {favoriteRecipes.length > 0 && (
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                        <ChefHat className="h-4 w-4" />
+                        Favorite Recipes
+                      </h4>
+                      {favoriteRecipes.map((recipe) => (
+                        <div
+                          key={recipe.id}
+                          className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer"
+                          onClick={() => setSelectedRecipe(recipe)}
+                        >
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <Badge className={cn("text-xs shrink-0", mealTypeColors[recipe.mealType])}>
+                              {recipe.mealType}
+                            </Badge>
+                            <div className="flex flex-col min-w-0">
+                              <span className="font-medium truncate">{recipe.title}</span>
+                              <div onClick={(e) => e.stopPropagation()}>
+                                <StarRating
+                                  rating={ratings[`recipe-${recipe.id}`]}
+                                  onRate={(r) => handleRate(recipe.id, 'recipe', r)}
+                                  size="sm"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {favoriteDrinks.length > 0 && (
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                        <Wine className="h-4 w-4" />
+                        Favorite Drinks
+                      </h4>
+                      {favoriteDrinks.map((drink) => (
+                        <div
+                          key={drink.id}
+                          className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer"
+                          onClick={() => setSelectedDrink(drink)}
+                        >
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <Badge className={cn("text-xs shrink-0", drinkTypeColors[drink.drinkType])}>
+                              {drink.drinkType}
+                            </Badge>
+                            <div className="flex flex-col min-w-0">
+                              <span className="font-medium truncate">{drink.title}</span>
+                              <div onClick={(e) => e.stopPropagation()}>
+                                <StarRating
+                                  rating={ratings[`drink-${drink.id}`]}
+                                  onRate={(r) => handleRate(drink.id, 'drink', r)}
+                                  size="sm"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="text-center py-8">
+                  <Star className="h-10 w-10 mx-auto text-muted-foreground/30 mb-3" />
+                  <p className="text-muted-foreground">No favorites yet</p>
+                  <p className="text-sm text-muted-foreground/70 mt-1">
+                    Rate recipes and drinks with 4+ stars to add them here
+                  </p>
+                </div>
+              )}
+            </div>
+          </TabsContent>
 
           <TabsContent value="recipes" className="mt-4">
             <div className="space-y-2">
@@ -178,11 +293,18 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                       </Badge>
                       <div className="flex flex-col min-w-0">
                         <span className="font-medium truncate">{recipe.title}</span>
-                        {recipeNotes[recipe.id] && (
-                          <span className="text-xs text-muted-foreground truncate">
-                            📝 {recipeNotes[recipe.id].slice(0, 50)}{recipeNotes[recipe.id].length > 50 ? "..." : ""}
-                          </span>
-                        )}
+                        <div className="flex items-center gap-2">
+                          <div onClick={(e) => e.stopPropagation()}>
+                            <StarRating
+                              rating={ratings[`recipe-${recipe.id}`]}
+                              onRate={(r) => handleRate(recipe.id, 'recipe', r)}
+                              size="sm"
+                            />
+                          </div>
+                          {recipeNotes[recipe.id] && (
+                            <span className="text-xs text-muted-foreground">📝</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
@@ -265,11 +387,20 @@ export function SavedRecipes({ savedRecipeIds, savedDrinkIds, onRemoveRecipe, on
                     className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer"
                     onClick={() => setSelectedDrink(drink)}
                   >
-                    <div className="flex items-center gap-3">
-                      <Badge className={cn("text-xs", drinkTypeColors[drink.drinkType])}>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <Badge className={cn("text-xs shrink-0", drinkTypeColors[drink.drinkType])}>
                         {drink.drinkType}
                       </Badge>
-                      <span className="font-medium">{drink.title}</span>
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-medium truncate">{drink.title}</span>
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <StarRating
+                            rating={ratings[`drink-${drink.id}`]}
+                            onRate={(r) => handleRate(drink.id, 'drink', r)}
+                            size="sm"
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                       <Button
