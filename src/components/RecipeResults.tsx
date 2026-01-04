@@ -5,8 +5,28 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Recipe IDs that are snacks and appetizers
+const snackRecipeIds = [
+  // Dips
+  "buffalo-chicken-dip",
+  "spinach-artichoke-dip",
+  "classic-hummus",
+  "queso-dip",
+  "french-onion-dip",
+  "seven-layer-dip",
+  // Mini muffins
+  "mini-blueberry-muffins",
+  "chocolate-chip-mini-muffins",
+  "banana-nut-mini-muffins",
+  // Cookie dough
+  "edible-cookie-dough",
+  "peanut-butter-cookie-dough",
+  // Appetizers
+  "crab-rangoon",
+];
 
 interface RecipeResultsProps {
   recipes: Recipe[];
@@ -61,8 +81,12 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [calorieFilter, setCalorieFilter] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [showHolidayOnly, setShowHolidayOnly] = useState(false);
+  const [showSnacksOnly, setShowSnacksOnly] = useState(false);
+  const [showOnePanOnly, setShowOnePanOnly] = useState(false);
 
   const holidayCount = recipes.filter(r => r.isHoliday).length;
+  const snacksCount = recipes.filter(r => snackRecipeIds.includes(r.id)).length;
+  const onePanCount = recipes.filter(r => r.isOnePan).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -82,9 +106,11 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setCookTimeFilter(null);
     setCalorieFilter(null);
     setShowHolidayOnly(false);
+    setShowSnacksOnly(false);
+    setShowOnePanOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showOnePanOnly;
 
   const parseCookTime = (cookTime: string): number => {
     const match = cookTime.match(/(\d+)/);
@@ -121,6 +147,14 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
         if (filter.min && recipe.nutrition.calories < filter.min) return false;
         if (filter.max && recipe.nutrition.calories > filter.max) return false;
       }
+    }
+    // Snacks & Appetizers filter
+    if (showSnacksOnly && !snackRecipeIds.includes(recipe.id)) {
+      return false;
+    }
+    // One-Pan filter
+    if (showOnePanOnly && !recipe.isOnePan) {
+      return false;
     }
     return true;
   });
@@ -223,32 +257,75 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   return (
     <div className="space-y-4">
-      {/* Holiday Favorites Filter - Prominent Position */}
-      {holidayCount > 0 && (
-        <div className="p-3 bg-gradient-to-r from-red-500/10 to-green-500/10 rounded-xl border border-border/50 shadow-sm">
-          <div className="flex items-center gap-3">
+      {/* Special Category Filters */}
+      <div className="p-3 bg-card rounded-xl border border-border/50 shadow-sm">
+        <div className="flex items-center gap-2 text-sm font-medium mb-2">
+          <ChefHat className="h-4 w-4 text-primary" />
+          <span>Quick Filters</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {/* Holiday Filter */}
+          {holidayCount > 0 && (
             <Badge
               variant={showHolidayOnly ? "default" : "outline"}
               className={cn(
-                "cursor-pointer transition-all hover:scale-105 px-4 py-2 text-sm",
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
                 showHolidayOnly 
                   ? "bg-red-500 hover:bg-red-600 text-white shadow-md" 
                   : "bg-background hover:bg-muted border-border"
               )}
               onClick={() => setShowHolidayOnly(!showHolidayOnly)}
             >
-              <Snowflake className="h-4 w-4 mr-2" />
+              <Snowflake className="h-3.5 w-3.5 mr-1.5" />
               Holiday Favorites
-              <span className="ml-2 text-xs opacity-80">({holidayCount})</span>
+              <span className="ml-1.5 text-xs opacity-80">({holidayCount})</span>
             </Badge>
-            {showHolidayOnly && (
-              <span className="text-sm text-muted-foreground">
-                Showing seasonal recipes perfect for the holidays
-              </span>
-            )}
-          </div>
+          )}
+
+          {/* Snacks & Appetizers Filter */}
+          {snacksCount > 0 && (
+            <Badge
+              variant={showSnacksOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showSnacksOnly 
+                  ? "bg-amber-500 hover:bg-amber-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowSnacksOnly(!showSnacksOnly)}
+            >
+              <Cookie className="h-3.5 w-3.5 mr-1.5" />
+              Snacks & Appetizers
+              <span className="ml-1.5 text-xs opacity-80">({snacksCount})</span>
+            </Badge>
+          )}
+
+          {/* One-Pan Dinners Filter */}
+          {onePanCount > 0 && (
+            <Badge
+              variant={showOnePanOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showOnePanOnly 
+                  ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowOnePanOnly(!showOnePanOnly)}
+            >
+              <Flame className="h-3.5 w-3.5 mr-1.5" />
+              One-Pan Dinners
+              <span className="ml-1.5 text-xs opacity-80">({onePanCount})</span>
+            </Badge>
+          )}
         </div>
-      )}
+        {(showHolidayOnly || showSnacksOnly || showOnePanOnly) && (
+          <p className="text-xs text-muted-foreground mt-2">
+            {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
+            {showSnacksOnly && "Showing dips, muffins, and finger foods"}
+            {showOnePanOnly && "Showing easy one-pan and sheet pan dinners"}
+          </p>
+        )}
+      </div>
 
       {/* Cuisine Quick Filters - Always Visible */}
       <div className="p-3 bg-card rounded-xl border border-border/50 shadow-sm">
