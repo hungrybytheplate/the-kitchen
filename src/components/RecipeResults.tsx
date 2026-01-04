@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RecipeCard } from "./RecipeCard";
+import { RecipeCardSkeletonGrid } from "./RecipeCardSkeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,7 @@ interface RecipeResultsProps {
   onAddToCalendar: (recipe: Recipe) => void;
   onAddToShopping: (ingredientId: string) => void;
   onViewRecipe?: (recipe: Recipe) => void;
+  loading?: boolean;
 }
 
 const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
@@ -78,7 +80,7 @@ const calorieFilters = [
   { value: "high", label: "High Cal (500+)", min: 500 },
 ];
 
-export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping, onViewRecipe }: RecipeResultsProps) {
+export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, loading }: RecipeResultsProps) {
   const [activeFilters, setActiveFilters] = useState<DietaryTag[]>([]);
   const [activeCuisines, setActiveCuisines] = useState<CuisineType[]>([]);
   const [cookTimeFilter, setCookTimeFilter] = useState<string | null>(null);
@@ -250,6 +252,14 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       </div>
     );
   };
+
+  if (loading) {
+    return (
+      <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2">
+        <RecipeCardSkeletonGrid count={6} />
+      </div>
+    );
+  }
 
   if (recipes.length === 0) {
     return (

@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Wine, GlassWater, BlendIcon, Sparkles, Snowflake, X, Zap, Shield, Beef, Heart, Leaf, Flame, Fish, Citrus, Droplets, Apple } from "lucide-react";
 import { DrinkCard } from "./DrinkCard";
+import { DrinkCardSkeletonGrid } from "./DrinkCardSkeleton";
 import type { Drink, HealthTag } from "@/data/drinks";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +11,7 @@ interface DrinkResultsProps {
   drinks: Drink[];
   savedDrinks: string[];
   onSave: (drinkId: string) => void;
+  loading?: boolean;
 }
 
 const healthTagConfig: Record<HealthTag, { icon: React.ElementType; color: string }> = {
@@ -28,7 +30,7 @@ const healthTagConfig: Record<HealthTag, { icon: React.ElementType; color: strin
   "High Fiber": { icon: Leaf, color: "bg-lime-100 text-lime-800 dark:bg-lime-900/30 dark:text-lime-300 border-lime-200 dark:border-lime-800" },
 };
 
-export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps) {
+export function DrinkResults({ drinks, savedDrinks, onSave, loading }: DrinkResultsProps) {
   const [showHolidayOnly, setShowHolidayOnly] = useState(false);
   const [selectedHealthTags, setSelectedHealthTags] = useState<HealthTag[]>([]);
 
@@ -69,6 +71,14 @@ export function DrinkResults({ drinks, savedDrinks, onSave }: DrinkResultsProps)
   const wellness = filteredDrinks.filter((d) => d.drinkType === "wellness");
 
   const holidayCount = drinks.filter(d => d.isHoliday).length;
+
+  if (loading) {
+    return (
+      <div className="grid gap-3 md:grid-cols-2">
+        <DrinkCardSkeletonGrid count={6} />
+      </div>
+    );
+  }
 
   if (drinks.length === 0) {
     return (
