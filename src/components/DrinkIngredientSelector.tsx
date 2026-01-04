@@ -109,6 +109,7 @@ export function DrinkIngredientSelector({
         <TabsTrigger 
           value="mixers" 
           className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
+          aria-label="Mixers and citrus ingredients"
         >
           <CupSoda className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
           <span className="hidden xs:inline sm:inline">Mixers</span>
@@ -116,6 +117,7 @@ export function DrinkIngredientSelector({
         <TabsTrigger 
           value="spirits" 
           className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
+          aria-label="Spirits and liquors"
         >
           <Wine className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
           <span className="hidden xs:inline sm:inline">Spirits</span>
@@ -123,6 +125,7 @@ export function DrinkIngredientSelector({
         <TabsTrigger 
           value="extras" 
           className="rounded-md sm:rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm flex items-center justify-center gap-1 sm:gap-2 font-medium text-xs sm:text-sm"
+          aria-label="Syrups and garnishes"
         >
           <Leaf className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
           <span className="hidden xs:inline sm:inline">Extras</span>
