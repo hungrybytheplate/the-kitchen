@@ -6,6 +6,7 @@ import { RecipeResults } from "@/components/RecipeResults";
 
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
+import { GarnishSuggestions } from "@/components/GarnishSuggestions";
 import { MealCalendar } from "@/components/MealCalendar";
 import { SavedRecipes } from "@/components/SavedRecipes";
 
@@ -864,6 +865,13 @@ const Index = () => {
                       selectedIngredients={selectedDrinkIngredients}
                       onToggle={handleToggleDrinkIngredient}
                     />
+
+                    {/* Garnish Suggestions */}
+                    {selectedDrinkIngredients.length > 0 && (
+                      <div className="mt-4">
+                        <GarnishSuggestions selectedIngredients={selectedDrinkIngredients} />
+                      </div>
+                    )}
                     
                     <div className="mt-6 pt-6 border-t border-border/50">
                       <Button
