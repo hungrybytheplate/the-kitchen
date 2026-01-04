@@ -55,7 +55,6 @@ export interface Recipe {
   proteinTips?: string[];
   isOnePan?: boolean;
   season?: "summer" | "fall" | "winter" | "spring";
-  drinkPairing?: string;
 }
 
 export const sampleRecipes: Recipe[] = [
@@ -1183,7 +1182,6 @@ export const sampleRecipes: Recipe[] = [
       "Top with Greek yogurt instead of sour cream for 3x the protein",
       "Add a fried egg on top for an extra 6g protein per taco",
     ],
-    drinkPairing: "Pair with a crisp Mexican lager, margarita, or agua fresca",
   },
   {
     id: "coconut-shrimp-curry",
@@ -1214,7 +1212,6 @@ export const sampleRecipes: Recipe[] = [
       "Serve over quinoa instead of rice for complete protein",
       "Double the shrimp for a high-protein meal prep option",
     ],
-    drinkPairing: "Pair with a Riesling, Thai iced tea, or coconut water",
   },
   {
     id: "baked-ziti",
@@ -1242,7 +1239,6 @@ export const sampleRecipes: Recipe[] = [
       "Include a layer of shredded chicken",
       "Serve with a side of meatballs for a complete protein meal",
     ],
-    drinkPairing: "Pair with a medium-bodied Chianti or sparkling water with lemon",
   },
   {
     id: "honey-garlic-chicken",
@@ -1270,7 +1266,6 @@ export const sampleRecipes: Recipe[] = [
       "Add cashews for extra protein and crunch",
       "Double portion the chicken for meal prep",
     ],
-    drinkPairing: "Pair with a buttery Chardonnay or ginger beer",
   },
   {
     id: "vegetable-lasagna",
@@ -1316,7 +1311,6 @@ export const sampleRecipes: Recipe[] = [
       "Serve with edamame on the side",
       "Include a soft-boiled egg for extra protein",
     ],
-    drinkPairing: "Pair with a light Pinot Noir, Tsingtao beer, or hot green tea",
     season: "fall",
   },
   {
@@ -1345,7 +1339,6 @@ export const sampleRecipes: Recipe[] = [
       "Add edamame or cashews for extra plant protein",
       "Serve over quinoa for complete amino acids",
     ],
-    drinkPairing: "Pair with sake, jasmine tea, or a light lager",
   },
   // ============ ITALIAN CLASSICS ============
   {
@@ -1386,7 +1379,6 @@ export const sampleRecipes: Recipe[] = [
       "Add capers for a tangy protein-rich garnish",
       "Serve with a side of white beans for extra protein",
     ],
-    drinkPairing: "Pair with a crisp Pinot Grigio or Sauvignon Blanc",
   },
   {
     id: "chicken-marsala",
@@ -1424,7 +1416,6 @@ export const sampleRecipes: Recipe[] = [
       "Serve with quinoa instead of pasta for complete protein",
       "Include a side salad with chickpeas",
     ],
-    drinkPairing: "Pair with Marsala wine, Chianti, or sparkling water",
     season: "fall",
   },
   {
@@ -1463,7 +1454,6 @@ export const sampleRecipes: Recipe[] = [
       "Serve over protein pasta for an extra boost",
       "Include a side of Italian sausage links",
     ],
-    drinkPairing: "Pair with a full-bodied Chianti or Italian red blend",
   },
   {
     id: "eggplant-parmesan",
@@ -5897,7 +5887,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 380, protein: 42, carbs: 12, fat: 16 },
     season: "summer",
-    drinkPairing: "Pair with a cold lager, lemonade, or iced tea",
     proteinTips: [
       "Use bone-in pieces for juicier, more flavorful meat",
       "Grill extra for meal prep throughout the week",
@@ -5925,7 +5914,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 520, protein: 48, carbs: 2, fat: 36 },
     season: "summer",
-    drinkPairing: "Pair with a bold Malbec or Cabernet Sauvignon",
     proteinTips: [
       "Choose ribeye or NY strip for best flavor and protein",
       "Slice thin for easier eating and portion control",
@@ -5953,7 +5941,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 280, protein: 32, carbs: 4, fat: 14 },
     season: "summer",
-    drinkPairing: "Pair with a crisp white wine, rosé, or sparkling water with lime",
     proteinTips: [
       "Use jumbo or colossal shrimp for more protein",
       "Double the skewers for a high-protein main course",
@@ -5981,7 +5968,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 120, protein: 4, carbs: 12, fat: 8 },
     season: "summer",
-    drinkPairing: "Pair with a light rosé or sparkling water",
     proteinTips: [
       "Top with grilled halloumi for vegetarian protein",
       "Add burrata or fresh mozzarella",
@@ -6012,7 +5998,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 420, protein: 38, carbs: 28, fat: 18 },
     season: "fall",
-    drinkPairing: "Pair with a hearty red wine like Burgundy or a dark beer",
     proteinTips: [
       "Use beef chuck for tender, protein-rich meat",
       "Add white beans for extra fiber and protein",
@@ -6040,7 +6025,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 180, protein: 4, carbs: 28, fat: 8 },
     season: "fall",
-    drinkPairing: "Pair with a buttery Chardonnay or warm apple cider",
     proteinTips: [
       "Top with toasted pumpkin seeds for crunch and protein",
       "Add cooked chicken or turkey for a complete meal",
@@ -6068,7 +6052,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 380, protein: 32, carbs: 18, fat: 20 },
     season: "fall",
-    drinkPairing: "Pair with a Riesling, hard cider, or warm apple cider",
     proteinTips: [
       "Use bone-in chops for more flavor and protein",
       "Double the pork for meal prep",
@@ -6096,7 +6079,6 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 320, protein: 28, carbs: 32, fat: 10 },
     season: "fall",
-    drinkPairing: "Pair with a Mexican lager, amber ale, or hot cocoa",
     proteinTips: [
       "Use 93% lean turkey for maximum protein",
       "Add extra beans for plant-based protein",
