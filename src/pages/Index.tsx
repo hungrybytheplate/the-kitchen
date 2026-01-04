@@ -259,7 +259,9 @@ const Index = () => {
     toggleShoppingItem,
     removeFromShoppingList,
     clearShoppingList,
-    updateRecipeNotes
+    updateRecipeNotes,
+    ratings,
+    setItemRating
   } = useUserData();
   
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
@@ -958,6 +960,10 @@ const Index = () => {
               recipeNotes={recipeNotes}
               onSaveNote={async (recipeId, note) => {
                 await updateRecipeNotes(recipeId, note);
+              }}
+              ratings={ratings}
+              onRate={async (itemId, itemType, rating) => {
+                await setItemRating(itemId, itemType, rating);
               }}
             />
           </TabsContent>

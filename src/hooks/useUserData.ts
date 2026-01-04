@@ -19,6 +19,16 @@ export interface RecipeNotes {
   [recipeId: string]: string;
 }
 
+export interface ItemRating {
+  itemId: string;
+  itemType: 'recipe' | 'drink';
+  rating: number;
+}
+
+export interface Ratings {
+  [key: string]: number; // key format: `${itemType}-${itemId}`
+}
+
 export function useUserData() {
   const { user } = useAuth();
   const [savedRecipes, setSavedRecipes] = useState<string[]>([]);
@@ -26,6 +36,7 @@ export function useUserData() {
   const [mealPlan, setMealPlan] = useState<MealPlanEntry[]>([]);
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
   const [recipeNotes, setRecipeNotes] = useState<RecipeNotes>({});
+  const [ratings, setRatings] = useState<Ratings>({});
   const [loading, setLoading] = useState(true);
 
   // Load user data from database
@@ -36,6 +47,7 @@ export function useUserData() {
       setMealPlan([]);
       setShoppingList([]);
       setRecipeNotes({});
+      setRatings({});
       setLoading(false);
       return;
     }
@@ -89,6 +101,17 @@ export function useUserData() {
         notes[n.recipe_id] = n.notes;
       });
       setRecipeNotes(notes);
+
+      // Load ratings
+      const { data: ratingsData } = await supabase
+        .from('ratings')
+        .select('item_id, item_type, rating')
+        .eq('user_id', user.id);
+      const ratingsMap: Ratings = {};
+      ratingsData?.forEach(r => {
+        ratingsMap[`${r.item_type}-${r.item_id}`] = r.rating;
+      });
+      setRatings(ratingsMap);
     } catch (error) {
       console.error('Error loading user data:', error);
     }
@@ -286,12 +309,67 @@ export function useUserData() {
     setRecipeNotes(prev => ({ ...prev, [recipeId]: notes }));
   };
 
+  // Set rating for recipe or drink
+  const setItemRating = async (itemId: string, itemType: 'recipe' | 'drink', rating: number) => {
+    if (!user) return;
+
+    const key = `${itemType}-${itemId}`;
+    const existing = ratings[key];
+
+    if (existing !== undefined) {
+      // Update existing rating
+      await supabase
+        .from('ratings')
+        .update({ rating, updated_at: new Date().toISOString() })
+        .eq('user_id', user.id)
+        .eq('item_id', itemId)
+        .eq('item_type', itemType);
+    } else {
+      // Insert new rating
+      await supabase
+        .from('ratings')
+        .insert({
+          user_id: user.id,
+          item_id: itemId,
+          item_type: itemType,
+          rating
+        });
+    }
+
+    setRatings(prev => ({ ...prev, [key]: rating }));
+  };
+
+  // Get rating for an item
+  const getItemRating = (itemId: string, itemType: 'recipe' | 'drink'): number | undefined => {
+    return ratings[`${itemType}-${itemId}`];
+  };
+
+  // Remove rating
+  const removeItemRating = async (itemId: string, itemType: 'recipe' | 'drink') => {
+    if (!user) return;
+
+    await supabase
+      .from('ratings')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('item_id', itemId)
+      .eq('item_type', itemType);
+
+    const key = `${itemType}-${itemId}`;
+    setRatings(prev => {
+      const newRatings = { ...prev };
+      delete newRatings[key];
+      return newRatings;
+    });
+  };
+
   return {
     savedRecipes,
     savedDrinks,
     mealPlan,
     shoppingList,
     recipeNotes,
+    ratings,
     loading,
     saveRecipe,
     saveDrink,
@@ -302,6 +380,9 @@ export function useUserData() {
     toggleShoppingItem,
     removeFromShoppingList,
     clearShoppingList,
-    updateRecipeNotes
+    updateRecipeNotes,
+    setItemRating,
+    getItemRating,
+    removeItemRating
   };
 }
