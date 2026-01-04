@@ -5232,6 +5232,20 @@ const keyIngredients: Record<string, string[]> = {
   "sugar-cookies-cutout": ["flour", "butter"],
   "mulled-cider-pork": ["pork", "apple-cider"],
   "cranberry-orange-scones": ["dried-cranberries", "orange"],
+  // Protein variation recipes
+  "chicken-scampi": ["chicken", "pasta", "garlic"],
+  "veal-scampi": ["veal", "pasta", "garlic"],
+  "chicken-saltimbocca": ["chicken", "prosciutto", "sage"],
+  "veal-saltimbocca": ["veal", "prosciutto", "sage"],
+  "pork-saltimbocca": ["pork", "prosciutto", "sage"],
+  // Fancy desserts
+  "chocolate-ganache-tart": ["chocolate-dark", "cream"],
+  "creme-brulee": ["cream", "eggs", "vanilla"],
+  "panna-cotta": ["cream", "vanilla", "gelatin"],
+  "chocolate-lava-cake": ["chocolate-dark", "butter", "eggs"],
+  "macarons": ["almond-flour", "egg-whites"],
+  "profiteroles": ["butter", "flour", "eggs", "cream", "chocolate-dark"],
+  "opera-cake": ["almond-flour", "eggs", "chocolate-dark", "espresso"],
 };
 
 // Helper function to check if a selected ingredient matches a recipe ingredient
