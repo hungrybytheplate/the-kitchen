@@ -7,6 +7,7 @@ import { RecipeResults } from "@/components/RecipeResults";
 import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
 import { DrinkResults } from "@/components/DrinkResults";
 import { GarnishSuggestions } from "@/components/GarnishSuggestions";
+import { GlasswareGuide } from "@/components/GlasswareGuide";
 import { MealCalendar } from "@/components/MealCalendar";
 import { SavedRecipes } from "@/components/SavedRecipes";
 
@@ -889,7 +890,8 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                
+                {/* Glassware Guide */}
+                <GlasswareGuide />
 
                 <div className="space-y-4">
                   {showDrinks ? (
