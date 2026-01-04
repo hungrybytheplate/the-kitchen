@@ -23,7 +23,9 @@ import {
   Leaf,
   Gauge,
   Wheat,
-  Repeat
+  Repeat,
+  Dumbbell,
+  Lightbulb
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
@@ -443,10 +445,28 @@ export function RecipeDetailDialog({
                           </div>
                           {sub.notes && (
                             <p className="text-xs text-muted-foreground mt-1.5">{sub.notes}</p>
-                          )}
+                      )}
                         </div>
                       ))}
                     </div>
+                  </Card>
+                )}
+
+                {/* Protein Tips */}
+                {recipe.proteinTips && recipe.proteinTips.length > 0 && (
+                  <Card className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-200/50 dark:border-blue-800/50">
+                    <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                      <Dumbbell className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                      <span className="text-blue-700 dark:text-blue-300">Boost Your Protein</span>
+                    </h3>
+                    <ul className="space-y-2">
+                      {recipe.proteinTips.map((tip, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm">
+                          <Lightbulb className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
+                          <span className="text-muted-foreground">{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </Card>
                 )}
 
