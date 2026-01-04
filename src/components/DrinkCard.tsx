@@ -11,6 +11,7 @@ interface DrinkCardProps {
   drink: Drink;
   isSaved: boolean;
   onSave: () => void;
+  onAddToShopping?: (ingredients: string[]) => void;
 }
 
 const drinkTypeConfig = {
@@ -60,7 +61,7 @@ const healthTagConfig: Record<HealthTag, { icon: typeof Zap; color: string }> = 
   "High Fiber": { icon: Leaf, color: "bg-teal-100 text-teal-700 border-teal-300 dark:bg-teal-900/30 dark:text-teal-400 dark:border-teal-700" },
 };
 
-export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
+export function DrinkCard({ drink, isSaved, onSave, onAddToShopping }: DrinkCardProps) {
   const [showDetail, setShowDetail] = useState(false);
 
   const config = drinkTypeConfig[drink.drinkType];
@@ -260,6 +261,7 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
         onOpenChange={setShowDetail}
         isSaved={isSaved}
         onSave={onSave}
+        onAddToShopping={onAddToShopping}
       />
     </>
   );

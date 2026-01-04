@@ -19,6 +19,7 @@ import {
   GlassWater,
   Leaf,
   Repeat,
+  ShoppingCart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Drink } from "@/data/drinks";
@@ -29,6 +30,7 @@ interface DrinkDetailDialogProps {
   onOpenChange: (open: boolean) => void;
   isSaved: boolean;
   onSave: () => void;
+  onAddToShopping?: (ingredients: string[]) => void;
 }
 
 const drinkTypeConfig = {
@@ -68,6 +70,7 @@ export function DrinkDetailDialog({
   onOpenChange,
   isSaved,
   onSave,
+  onAddToShopping,
 }: DrinkDetailDialogProps) {
   const [cookingMode, setCookingMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -251,6 +254,16 @@ export function DrinkDetailDialog({
             )}
 
             <div className="flex gap-3 pt-4">
+              {missingIngredients.length > 0 && onAddToShopping && (
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => onAddToShopping(missingIngredients)}
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Add {missingIngredients.length} Missing
+                </Button>
+              )}
               <Button
                 variant="warm"
                 className="flex-1"

@@ -13,6 +13,7 @@ interface DrinkResultsProps {
   drinks: Drink[];
   savedDrinks: string[];
   onSave: (drinkId: string) => void;
+  onAddToShopping?: (ingredients: string[]) => void;
   loading?: boolean;
 }
 
@@ -48,7 +49,7 @@ const seasonConfig: Record<DrinkSeason, { icon: React.ElementType; label: string
   "all-season": { icon: Sparkles, label: "All Season", color: "bg-gray-500 hover:bg-gray-600" },
 };
 
-export function DrinkResults({ drinks, savedDrinks, onSave, loading }: DrinkResultsProps) {
+export function DrinkResults({ drinks, savedDrinks, onSave, onAddToShopping, loading }: DrinkResultsProps) {
   const [showHolidayOnly, setShowHolidayOnly] = useState(false);
   const [selectedHealthTags, setSelectedHealthTags] = useState<HealthTag[]>([]);
   const [selectedOccasion, setSelectedOccasion] = useState<DrinkOccasion | null>(null);
@@ -144,6 +145,7 @@ export function DrinkResults({ drinks, savedDrinks, onSave, loading }: DrinkResu
             drink={drink}
             isSaved={savedDrinks.includes(drink.id)}
             onSave={() => onSave(drink.id)}
+            onAddToShopping={onAddToShopping}
           />
         ))
       ) : (

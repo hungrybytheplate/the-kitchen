@@ -162,6 +162,7 @@ export function DrinkLookup({ onAddToShopping, savedDrinks = [], onSave }: Drink
           onOpenChange={(open) => !open && setSelectedDrink(null)}
           isSaved={savedDrinks.includes(selectedDrink.id)}
           onSave={() => onSave?.(selectedDrink.id)}
+          onAddToShopping={onAddToShopping}
         />
       )}
     </>

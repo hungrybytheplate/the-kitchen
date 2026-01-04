@@ -279,6 +279,7 @@ export function HolidayMealPlanTemplate({
           onOpenChange={(open) => !open && setSelectedDrink(null)}
           isSaved={savedDrinks.includes(selectedDrink.id)}
           onSave={() => onSaveDrink(selectedDrink.id)}
+          onAddToShopping={(ings) => ings.forEach(ing => onAddToShopping(ing))}
         />
       )}
     </div>

@@ -232,6 +232,7 @@ function DrinkLookupResults({ search, onAddToShopping, onClear, savedDrinks, onS
           onOpenChange={(open) => !open && setSelectedDrink(null)}
           isSaved={savedDrinks.includes(selectedDrink.id)}
           onSave={() => onSave(selectedDrink.id)}
+          onAddToShopping={onAddToShopping}
         />
       )}
     </>
@@ -896,6 +897,7 @@ const Index = () => {
                       drinks={drinks}
                       savedDrinks={savedDrinks}
                       onSave={handleSaveDrink}
+                      onAddToShopping={handleBulkAddToShopping}
                       loading={dataLoading}
                     />
                   ) : (
