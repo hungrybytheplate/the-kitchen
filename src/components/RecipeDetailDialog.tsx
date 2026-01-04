@@ -26,7 +26,6 @@ import {
   Repeat,
   Dumbbell,
   Lightbulb,
-  Wine,
   Sun,
   CloudSun
 } from "lucide-react";
@@ -470,17 +469,6 @@ export function RecipeDetailDialog({
                         </li>
                       ))}
                     </ul>
-                  </Card>
-                )}
-
-                {/* Drink Pairing */}
-                {recipe.drinkPairing && (
-                  <Card className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 border-purple-200/50 dark:border-purple-800/50">
-                    <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
-                      <Wine className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                      <span className="text-purple-700 dark:text-purple-300">Drink Pairing</span>
-                    </h3>
-                    <p className="text-sm text-muted-foreground">{recipe.drinkPairing}</p>
                   </Card>
                 )}
 
