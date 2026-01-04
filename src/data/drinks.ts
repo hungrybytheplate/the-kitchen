@@ -2278,6 +2278,188 @@ export const sampleDrinks: Drink[] = [
     healthTags: ["Energy Boost", "Antioxidant", "Heart Healthy"],
   },
 
+  // ============ NEW WELLNESS DRINKS ============
+  {
+    id: "gut-health-elixir",
+    title: "Gut Health Elixir",
+    drinkType: "wellness",
+    description: "Probiotic-rich drink with ginger and apple cider vinegar",
+    prepTime: "3 min",
+    ingredients: ["apple-cider-vinegar", "ginger-fresh", "lemon", "honey", "water"],
+    instructions: [
+      "Mix 1-2 tbsp apple cider vinegar with warm water",
+      "Add fresh ginger juice and lemon juice",
+      "Sweeten with raw honey to taste",
+      "Stir well and drink first thing in the morning"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Digestive", "Detox", "Anti-Inflammatory"],
+  },
+  {
+    id: "sleep-support-tea",
+    title: "Sleep Support Tea",
+    drinkType: "wellness",
+    description: "Calming herbal blend for better rest",
+    prepTime: "5 min",
+    ingredients: ["chamomile", "lavender", "honey", "vanilla-syrup", "oat-milk"],
+    instructions: [
+      "Steep chamomile and lavender in hot water for 5 minutes",
+      "Strain and add a splash of warm oat milk",
+      "Sweeten with honey and vanilla",
+      "Sip slowly before bedtime"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    isAlcoholic: false,
+    healthTags: ["Anti-Inflammatory"],
+  },
+  {
+    id: "electrolyte-refresher",
+    title: "Natural Electrolyte Refresher",
+    drinkType: "wellness",
+    description: "Hydrating sports drink alternative with coconut water",
+    prepTime: "3 min",
+    ingredients: ["coconut-water", "lemon", "lime", "honey", "salt"],
+    instructions: [
+      "Combine coconut water with fresh lemon and lime juice",
+      "Add a small pinch of sea salt for minerals",
+      "Sweeten lightly with honey",
+      "Serve ice cold for maximum refreshment"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Hydrating", "Energy Boost"],
+  },
+  {
+    id: "anti-inflammatory-tonic",
+    title: "Anti-Inflammatory Golden Tonic",
+    drinkType: "wellness",
+    description: "Powerful turmeric and black pepper wellness shot",
+    prepTime: "3 min",
+    ingredients: ["turmeric", "ginger-fresh", "lemon", "honey", "black-pepper"],
+    instructions: [
+      "Mix turmeric powder with fresh ginger juice",
+      "Add fresh lemon juice and honey",
+      "Add a pinch of black pepper for absorption",
+      "Take as a quick wellness shot"
+    ],
+    matchedIngredients: [],
+    glassType: "Shot glass",
+    isAlcoholic: false,
+    healthTags: ["Anti-Inflammatory", "Immune Support", "Digestive"],
+  },
+  {
+    id: "metabolism-boost-tea",
+    title: "Metabolism Boost Green Tea",
+    drinkType: "wellness",
+    description: "Thermogenic green tea with metabolism-boosting ingredients",
+    prepTime: "4 min",
+    ingredients: ["matcha", "ginger-fresh", "lemon", "cayenne", "honey"],
+    instructions: [
+      "Whisk matcha powder with hot (not boiling) water",
+      "Add fresh ginger juice and lemon",
+      "Add a tiny pinch of cayenne for metabolism boost",
+      "Sweeten with honey and serve warm or iced"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost", "Detox", "Low Calorie"],
+  },
+  {
+    id: "brain-fog-buster",
+    title: "Brain Fog Buster",
+    drinkType: "wellness",
+    description: "Lion's mane mushroom cognitive support drink",
+    prepTime: "5 min",
+    ingredients: ["coffee", "mct-oil", "almond-milk", "cinnamon", "honey"],
+    instructions: [
+      "Brew strong coffee or espresso",
+      "Blend with MCT oil and warm almond milk until frothy",
+      "Add cinnamon and honey to taste",
+      "Drink mid-morning for sustained focus"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost", "High Fiber"],
+  },
+  {
+    id: "bone-broth-sip",
+    title: "Warming Bone Broth Sip",
+    drinkType: "wellness",
+    description: "Protein-rich collagen-boosting savory drink",
+    prepTime: "5 min",
+    ingredients: ["chicken-broth", "ginger-fresh", "turmeric", "garlic", "salt"],
+    instructions: [
+      "Heat bone broth until steaming",
+      "Add freshly grated ginger and turmeric",
+      "Season with garlic and sea salt",
+      "Sip warm for gut healing and joint support"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    isAlcoholic: false,
+    healthTags: ["Protein Rich", "Anti-Inflammatory", "Digestive"],
+  },
+  {
+    id: "vitamin-c-bomb",
+    title: "Vitamin C Immune Bomb",
+    drinkType: "wellness",
+    description: "Citrus powerhouse packed with immune-boosting vitamin C",
+    prepTime: "4 min",
+    ingredients: ["orange", "grapefruit", "lemon", "ginger-fresh", "turmeric"],
+    instructions: [
+      "Juice fresh orange, grapefruit, and lemon",
+      "Add freshly grated ginger and turmeric",
+      "Strain if desired and serve immediately",
+      "Best consumed first thing in the morning"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Immune Support", "Vitamin C", "Antioxidant"],
+  },
+  {
+    id: "stress-relief-smoothie",
+    title: "Stress Relief Smoothie",
+    drinkType: "wellness",
+    description: "Adaptogen-rich smoothie for daily stress management",
+    prepTime: "5 min",
+    ingredients: ["banana", "blueberries", "spinach", "almond-milk", "honey"],
+    instructions: [
+      "Blend frozen banana and blueberries with almond milk",
+      "Add fresh spinach and blend until smooth",
+      "Sweeten with honey and add adaptogens if available",
+      "Drink daily for cumulative stress-reducing benefits"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Antioxidant", "Anti-Inflammatory", "Energy Boost"],
+  },
+  {
+    id: "alkaline-water-boost",
+    title: "Alkaline Cucumber Mint Water",
+    drinkType: "wellness",
+    description: "pH-balancing infused water for daily hydration",
+    prepTime: "5 min",
+    ingredients: ["cucumber", "mint", "lemon", "water"],
+    instructions: [
+      "Slice cucumber and add to a large pitcher of water",
+      "Add fresh mint leaves and lemon slices",
+      "Let infuse in refrigerator for at least 2 hours",
+      "Drink throughout the day for gentle detox"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    isAlcoholic: false,
+    healthTags: ["Hydrating", "Detox", "Low Calorie"],
+  },
+
   // ============ SPICY COCKTAILS ============
   {
     id: "spicy-margarita",
@@ -6719,6 +6901,17 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "pineapple-ginger-wellness": ["pineapple", "ginger-fresh"],
   "flax-berry-omega": ["flax-seeds", "blueberries"],
   "watermelon-hydration": ["watermelon", "coconut-water"],
+  // New wellness drinks
+  "gut-health-elixir": ["apple-cider-vinegar", "ginger-fresh", "lemon"],
+  "sleep-support-tea": ["chamomile", "lavender"],
+  "electrolyte-refresher": ["coconut-water", "lemon", "lime"],
+  "anti-inflammatory-tonic": ["turmeric", "ginger-fresh", "lemon"],
+  "metabolism-boost-tea": ["matcha", "ginger-fresh"],
+  "brain-fog-buster": ["coffee", "almond-milk"],
+  "bone-broth-sip": ["chicken-broth", "ginger-fresh", "turmeric"],
+  "vitamin-c-bomb": ["orange", "grapefruit", "lemon"],
+  "stress-relief-smoothie": ["banana", "blueberries", "spinach"],
+  "alkaline-water-boost": ["cucumber", "mint", "lemon"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
