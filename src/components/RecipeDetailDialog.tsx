@@ -25,7 +25,10 @@ import {
   Wheat,
   Repeat,
   Dumbbell,
-  Lightbulb
+  Lightbulb,
+  Wine,
+  Sun,
+  CloudSun
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
@@ -468,6 +471,36 @@ export function RecipeDetailDialog({
                       ))}
                     </ul>
                   </Card>
+                )}
+
+                {/* Drink Pairing */}
+                {recipe.drinkPairing && (
+                  <Card className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 border-purple-200/50 dark:border-purple-800/50">
+                    <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <Wine className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                      <span className="text-purple-700 dark:text-purple-300">Drink Pairing</span>
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{recipe.drinkPairing}</p>
+                  </Card>
+                )}
+
+                {/* Seasonal Badge */}
+                {recipe.season && (
+                  <div className="flex items-center gap-2">
+                    <Badge className={cn(
+                      "text-xs px-3 py-1 rounded-full",
+                      recipe.season === "summer" && "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+                      recipe.season === "fall" && "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+                      recipe.season === "winter" && "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+                      recipe.season === "spring" && "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                    )}>
+                      {recipe.season === "summer" && <Sun className="h-3 w-3 mr-1" />}
+                      {recipe.season === "fall" && <CloudSun className="h-3 w-3 mr-1" />}
+                      {recipe.season === "winter" && "❄️ "}
+                      {recipe.season === "spring" && "🌸 "}
+                      {recipe.season.charAt(0).toUpperCase() + recipe.season.slice(1)} Favorite
+                    </Badge>
+                  </div>
                 )}
 
                 {/* Instructions Preview */}
