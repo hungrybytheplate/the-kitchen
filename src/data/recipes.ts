@@ -86,6 +86,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 320, protein: 18, carbs: 22, fat: 18, sodium: 580, cholesterol: 370 },
+    proteinTips: [
+      "Add an extra egg for 6 more grams of protein",
+      "Top with smoked salmon for a protein-packed breakfast",
+      "Sprinkle cottage cheese alongside for extra protein and creaminess",
+    ],
   },
   {
     id: "oatmeal-berries",
@@ -113,6 +118,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 280, protein: 8, carbs: 52, fat: 6, sodium: 120, cholesterol: 10 },
+    proteinTips: [
+      "Stir in 2 tablespoons of protein powder while cooking",
+      "Top with Greek yogurt instead of extra milk for 15g+ protein",
+      "Add a tablespoon of nut butter for healthy fats and protein",
+      "Sprinkle hemp seeds or chia seeds for plant-based protein boost",
+    ],
   },
   {
     id: "avocado-toast",
@@ -142,6 +153,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "dairy-free"],
     difficulty: "easy",
     nutrition: { calories: 380, protein: 14, carbs: 28, fat: 26, sodium: 320, cholesterol: 185 },
+    proteinTips: [
+      "Add a second egg for an extra 6g of protein",
+      "Top with smoked salmon or lox for 10g+ protein boost",
+      "Sprinkle hemp hearts or pumpkin seeds on top",
+      "Add crumbled feta or goat cheese for extra protein",
+    ],
   },
   {
     id: "banana-pancakes",
@@ -172,6 +189,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 380, protein: 10, carbs: 62, fat: 12, sodium: 450, cholesterol: 95 },
+    proteinTips: [
+      "Add a scoop of protein powder to the batter",
+      "Use cottage cheese blended into the batter for extra protein",
+      "Top with Greek yogurt and nuts instead of just syrup",
+      "Serve with a side of turkey bacon or sausage",
+    ],
   },
   {
     id: "greek-yogurt-bowl",
@@ -200,6 +223,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 320, protein: 18, carbs: 52, fat: 6, sodium: 85, cholesterol: 15 },
+    proteinTips: [
+      "Use high-protein Greek yogurt for 15-20g protein per cup",
+      "Add a scoop of unflavored protein powder",
+      "Sprinkle with hemp seeds, chia seeds, or chopped almonds",
+      "Top with cottage cheese for an extra protein boost",
+    ],
   },
   {
     id: "french-toast",
@@ -230,6 +259,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 420, protein: 14, carbs: 48, fat: 20, sodium: 520, cholesterol: 215 },
+    proteinTips: [
+      "Blend cottage cheese into the egg mixture for extra protein",
+      "Serve with Greek yogurt on the side instead of syrup",
+      "Top with sliced almonds or walnuts for protein and crunch",
+      "Add a side of bacon or sausage for a complete protein breakfast",
+    ],
   },
   {
     id: "veggie-omelette",
@@ -347,6 +382,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "keto"],
     difficulty: "medium",
     nutrition: { calories: 420, protein: 38, carbs: 12, fat: 26 },
+    proteinTips: [
+      "Double the chicken portion for 50g+ protein per serving",
+      "Add chickpeas or white beans for extra plant protein",
+      "Include a hard-boiled egg for an additional 6g protein",
+      "Swap feta for cottage cheese for more protein per ounce",
+    ],
   },
   {
     id: "pasta-primavera",
@@ -368,6 +409,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14, sodium: 420, cholesterol: 15 },
+    proteinTips: [
+      "Use protein-enriched pasta for 10-15g extra protein per serving",
+      "Add grilled chicken, shrimp, or Italian sausage",
+      "Toss in white beans or chickpeas for plant-based protein",
+      "Top with extra Parmesan and add a fried egg on top",
+    ],
   },
   {
     id: "tuna-sandwich",
@@ -409,6 +456,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
     nutrition: { calories: 450, protein: 18, carbs: 28, fat: 32, sodium: 720, cholesterol: 85 },
+    proteinTips: [
+      "Add grilled chicken for a classic Caesar with 35g+ protein",
+      "Top with grilled shrimp or salmon for seafood Caesar",
+      "Add a soft-boiled egg for extra protein and richness",
+      "Include anchovies in the dressing for authentic flavor and protein",
+    ],
   },
   {
     id: "grilled-cheese",
@@ -458,6 +511,12 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     difficulty: "medium",
     nutrition: { calories: 480, protein: 36, carbs: 38, fat: 22, sodium: 890, cholesterol: 85 },
+    proteinTips: [
+      "Use chicken thighs for juicier meat and more protein",
+      "Add sliced hard-boiled eggs for extra protein",
+      "Include white beans for plant protein variety",
+      "Use a high-protein tortilla wrap for added grams",
+    ],
   },
   {
     id: "quinoa-bowl",
@@ -489,6 +548,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 380, protein: 14, carbs: 42, fat: 18, sodium: 560, cholesterol: 25 },
+    proteinTips: [
+      "Add grilled chicken, lamb, or shrimp for a complete meal",
+      "Include chickpeas for extra plant-based protein",
+      "Top with a poached egg for added protein and richness",
+      "Use extra feta or add cottage cheese for dairy protein",
+    ],
   },
   {
     id: "soup-lentil",
@@ -846,6 +911,12 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     difficulty: "hard",
     nutrition: { calories: 580, protein: 24, carbs: 62, fat: 28 },
+    proteinTips: [
+      "Use extra egg yolks for more protein and richness",
+      "Add extra pancetta or guanciale for more meat protein",
+      "Serve with a side of grilled chicken breast",
+      "Use protein-enriched pasta for 10g+ extra protein",
+    ],
   },
   {
     id: "teriyaki-chicken",
@@ -891,6 +962,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "hard",
     nutrition: { calories: 420, protein: 12, carbs: 52, fat: 20 },
+    proteinTips: [
+      "Add seared chicken, shrimp, or scallops on top",
+      "Stir in white beans for plant-based protein",
+      "Top with a poached egg for extra protein and richness",
+      "Add crispy pancetta or prosciutto for meat protein",
+    ],
   },
   {
     id: "beef-tacos",
