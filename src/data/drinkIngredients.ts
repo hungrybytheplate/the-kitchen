@@ -124,6 +124,12 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "hibiscus-syrup", name: "Hibiscus Syrup" },
       { id: "rose-syrup", name: "Rose Syrup" },
       { id: "coconut-syrup", name: "Coconut Syrup" },
+      { id: "caramel-syrup", name: "Caramel Syrup" },
+      { id: "pumpkin-spice-syrup", name: "Pumpkin Spice Syrup" },
+      { id: "hazelnut-syrup", name: "Hazelnut Syrup" },
+      { id: "peppermint-syrup", name: "Peppermint Syrup" },
+      { id: "chocolate-syrup", name: "Chocolate Syrup" },
+      { id: "white-chocolate-syrup", name: "White Chocolate Syrup" },
     ],
   },
   {

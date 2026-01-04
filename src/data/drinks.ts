@@ -13,6 +13,9 @@ export type HealthTag =
   | "Hydrating"
   | "High Fiber";
 
+export type DrinkOccasion = "brunch" | "party" | "date-night" | "nightcap" | "everyday";
+export type DrinkSeason = "summer" | "fall" | "winter" | "spring" | "all-season";
+
 export interface DrinkNutrition {
   calories: number;
   sugar: number;
@@ -25,10 +28,15 @@ export interface AlcoholSubstitution {
   notes?: string;
 }
 
+export interface VirginVersion {
+  replaces: { original: string; substitute: string; }[];
+  notes?: string;
+}
+
 export interface Drink {
   id: string;
   title: string;
-  drinkType: "cocktail" | "mocktail" | "smoothie" | "wellness";
+  drinkType: "cocktail" | "mocktail" | "smoothie" | "wellness" | "hot";
   description: string;
   prepTime: string;
   ingredients: string[];
@@ -43,6 +51,9 @@ export interface Drink {
   nutrition?: DrinkNutrition;
   isHoliday?: boolean;
   alcoholSubstitutions?: AlcoholSubstitution[];
+  occasion?: DrinkOccasion;
+  season?: DrinkSeason;
+  virginVersion?: VirginVersion;
 }
 
 export const sampleDrinks: Drink[] = [
@@ -6559,6 +6570,639 @@ export const sampleDrinks: Drink[] = [
     healthTags: ["Hydrating", "Low Calorie"],
     nutrition: { calories: 75, sugar: 16, carbs: 18 },
   },
+  // ============ HOT BEVERAGES ============
+  {
+    id: "classic-latte",
+    title: "Classic Café Latte",
+    drinkType: "hot",
+    description: "Smooth espresso with steamed milk, a coffeehouse staple",
+    prepTime: "5 min",
+    ingredients: ["espresso", "milk"],
+    instructions: [
+      "Pull a double shot of espresso",
+      "Steam milk until creamy with microfoam",
+      "Pour steamed milk over espresso",
+      "Top with a thin layer of foam"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost"],
+    nutrition: { calories: 120, sugar: 9, carbs: 10 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "vanilla-latte",
+    title: "Vanilla Latte",
+    drinkType: "hot",
+    description: "Sweet vanilla-infused espresso with steamed milk",
+    prepTime: "5 min",
+    ingredients: ["espresso", "milk", "vanilla-syrup"],
+    instructions: [
+      "Add vanilla syrup to cup",
+      "Pull a double shot of espresso",
+      "Steam milk until creamy",
+      "Pour over espresso and stir gently"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost"],
+    nutrition: { calories: 180, sugar: 24, carbs: 26 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "caramel-latte",
+    title: "Caramel Latte",
+    drinkType: "hot",
+    description: "Rich caramel meets smooth espresso and steamed milk",
+    prepTime: "5 min",
+    ingredients: ["espresso", "milk", "caramel-syrup"],
+    instructions: [
+      "Add caramel syrup to cup",
+      "Pull a double shot of espresso",
+      "Steam milk until velvety",
+      "Pour milk over espresso, drizzle extra caramel on top"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    garnish: "Caramel drizzle",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost"],
+    nutrition: { calories: 210, sugar: 32, carbs: 34 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "pumpkin-spice-latte",
+    title: "Pumpkin Spice Latte",
+    drinkType: "hot",
+    description: "The iconic fall drink with pumpkin, spices, and espresso",
+    prepTime: "6 min",
+    ingredients: ["espresso", "milk", "pumpkin-spice-syrup", "cinnamon"],
+    instructions: [
+      "Add pumpkin spice syrup to cup",
+      "Pull a double shot of espresso",
+      "Steam milk with a pinch of cinnamon",
+      "Pour over espresso, top with whipped cream and cinnamon"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    garnish: "Whipped cream, cinnamon",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost"],
+    nutrition: { calories: 250, sugar: 38, carbs: 42 },
+    occasion: "everyday",
+    season: "fall",
+  },
+  {
+    id: "classic-hot-chocolate",
+    title: "Classic Hot Chocolate",
+    drinkType: "hot",
+    description: "Rich, creamy hot chocolate topped with marshmallows",
+    prepTime: "8 min",
+    ingredients: ["milk", "chocolate", "sugar"],
+    instructions: [
+      "Heat milk in saucepan until steaming",
+      "Whisk in chocolate and sugar until melted",
+      "Continue whisking until smooth and creamy",
+      "Pour into mug and top with marshmallows or whipped cream"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Marshmallows or whipped cream",
+    isAlcoholic: false,
+    healthTags: ["Antioxidant"],
+    nutrition: { calories: 280, sugar: 35, carbs: 40 },
+    occasion: "everyday",
+    season: "winter",
+  },
+  {
+    id: "peppermint-hot-chocolate",
+    title: "Peppermint Hot Chocolate",
+    drinkType: "hot",
+    description: "Festive hot chocolate with cool peppermint twist",
+    prepTime: "8 min",
+    ingredients: ["milk", "chocolate", "peppermint-syrup"],
+    instructions: [
+      "Heat milk until steaming",
+      "Whisk in chocolate until melted",
+      "Add peppermint syrup and stir well",
+      "Top with whipped cream and crushed candy cane"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Whipped cream, crushed candy cane",
+    isAlcoholic: false,
+    isHoliday: true,
+    healthTags: ["Antioxidant"],
+    nutrition: { calories: 300, sugar: 42, carbs: 48 },
+    occasion: "party",
+    season: "winter",
+  },
+  {
+    id: "white-hot-chocolate",
+    title: "White Hot Chocolate",
+    drinkType: "hot",
+    description: "Creamy white chocolate beverage, smooth and sweet",
+    prepTime: "8 min",
+    ingredients: ["milk", "white-chocolate-syrup", "vanilla-syrup"],
+    instructions: [
+      "Heat milk until steaming",
+      "Whisk in white chocolate syrup",
+      "Add vanilla syrup for extra flavor",
+      "Top with whipped cream"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Whipped cream",
+    isAlcoholic: false,
+    healthTags: [],
+    nutrition: { calories: 320, sugar: 48, carbs: 52 },
+    occasion: "everyday",
+    season: "winter",
+  },
+  {
+    id: "chai-tea-latte",
+    title: "Chai Tea Latte",
+    drinkType: "hot",
+    description: "Spiced chai tea with steamed milk, warm and aromatic",
+    prepTime: "6 min",
+    ingredients: ["chai", "milk", "honey"],
+    instructions: [
+      "Brew strong chai tea",
+      "Heat and froth milk",
+      "Combine chai with steamed milk",
+      "Add honey to taste and sprinkle with cinnamon"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    garnish: "Cinnamon sprinkle",
+    isAlcoholic: false,
+    healthTags: ["Anti-Inflammatory", "Digestive"],
+    nutrition: { calories: 160, sugar: 22, carbs: 28 },
+    occasion: "everyday",
+    season: "fall",
+  },
+  {
+    id: "dirty-chai-latte",
+    title: "Dirty Chai Latte",
+    drinkType: "hot",
+    description: "Chai tea latte with a shot of espresso for extra kick",
+    prepTime: "6 min",
+    ingredients: ["chai", "espresso", "milk"],
+    instructions: [
+      "Brew strong chai tea",
+      "Pull a shot of espresso",
+      "Steam milk until frothy",
+      "Combine all ingredients and stir"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost", "Anti-Inflammatory"],
+    nutrition: { calories: 180, sugar: 18, carbs: 24 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "matcha-latte-hot",
+    title: "Hot Matcha Latte",
+    drinkType: "hot",
+    description: "Earthy matcha green tea with steamed milk",
+    prepTime: "5 min",
+    ingredients: ["matcha", "milk", "honey"],
+    instructions: [
+      "Sift matcha powder into cup",
+      "Add a splash of hot water and whisk until smooth",
+      "Steam milk and pour over matcha",
+      "Add honey if desired"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    isAlcoholic: false,
+    healthTags: ["Energy Boost", "Antioxidant", "Detox"],
+    nutrition: { calories: 140, sugar: 14, carbs: 18 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "london-fog",
+    title: "London Fog",
+    drinkType: "hot",
+    description: "Earl Grey tea with vanilla and steamed milk",
+    prepTime: "5 min",
+    ingredients: ["green-tea", "milk", "vanilla-syrup", "lavender"],
+    instructions: [
+      "Steep Earl Grey tea (using green-tea base)",
+      "Add vanilla syrup and dried lavender",
+      "Steam milk until frothy",
+      "Pour steamed milk over tea"
+    ],
+    matchedIngredients: [],
+    glassType: "Latte mug",
+    garnish: "Dried lavender",
+    isAlcoholic: false,
+    healthTags: ["Antioxidant"],
+    nutrition: { calories: 130, sugar: 18, carbs: 22 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "mulled-apple-cider",
+    title: "Mulled Apple Cider",
+    drinkType: "hot",
+    description: "Warm spiced apple cider, perfect for fall and winter",
+    prepTime: "15 min",
+    ingredients: ["apple-juice", "cinnamon", "nutmeg", "orange"],
+    instructions: [
+      "Heat apple cider in saucepan",
+      "Add cinnamon sticks, nutmeg, and orange slices",
+      "Simmer for 10-15 minutes",
+      "Strain and serve warm"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Cinnamon stick, orange slice",
+    isAlcoholic: false,
+    healthTags: ["Vitamin C", "Immune Support"],
+    nutrition: { calories: 120, sugar: 28, carbs: 30 },
+    occasion: "party",
+    season: "fall",
+  },
+  {
+    id: "spiked-apple-cider",
+    title: "Spiked Apple Cider",
+    drinkType: "hot",
+    description: "Warm mulled cider with bourbon for adults",
+    prepTime: "15 min",
+    ingredients: ["apple-juice", "bourbon", "cinnamon", "honey"],
+    instructions: [
+      "Heat apple cider with cinnamon",
+      "Simmer for 10 minutes",
+      "Remove from heat and add bourbon",
+      "Drizzle with honey and serve"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Cinnamon stick",
+    isAlcoholic: true,
+    healthTags: [],
+    nutrition: { calories: 220, sugar: 28, carbs: 32 },
+    occasion: "party",
+    season: "fall",
+    virginVersion: {
+      replaces: [{ original: "bourbon", substitute: "apple-juice" }],
+      notes: "Skip the bourbon for a family-friendly version"
+    },
+  },
+  {
+    id: "hot-toddy",
+    title: "Classic Hot Toddy",
+    drinkType: "hot",
+    description: "Warming whiskey drink with honey, lemon, and spices",
+    prepTime: "5 min",
+    ingredients: ["whiskey", "honey", "lemon", "cinnamon"],
+    instructions: [
+      "Heat water until hot but not boiling",
+      "Add whiskey, honey, and lemon juice",
+      "Stir well and add cinnamon stick",
+      "Serve immediately while warm"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Lemon wheel, cinnamon stick",
+    isAlcoholic: true,
+    healthTags: ["Immune Support"],
+    nutrition: { calories: 180, sugar: 12, carbs: 14 },
+    occasion: "nightcap",
+    season: "winter",
+    virginVersion: {
+      replaces: [{ original: "whiskey", substitute: "green-tea" }],
+      notes: "Replace whiskey with hot tea for a soothing non-alcoholic version"
+    },
+  },
+  {
+    id: "irish-coffee",
+    title: "Irish Coffee",
+    drinkType: "hot",
+    description: "Coffee with Irish whiskey and cream, a classic warmer",
+    prepTime: "5 min",
+    ingredients: ["coffee", "whiskey", "sugar", "cream"],
+    instructions: [
+      "Brew hot coffee",
+      "Add whiskey and sugar, stir well",
+      "Float cream on top by pouring over a spoon",
+      "Serve immediately"
+    ],
+    matchedIngredients: [],
+    glassType: "Irish coffee glass",
+    garnish: "Whipped cream",
+    isAlcoholic: true,
+    healthTags: ["Energy Boost"],
+    nutrition: { calories: 210, sugar: 8, carbs: 10 },
+    occasion: "nightcap",
+    season: "winter",
+    virginVersion: {
+      replaces: [{ original: "whiskey", substitute: "vanilla-syrup" }],
+      notes: "Use vanilla syrup instead of whiskey"
+    },
+  },
+  // ============ SUMMER REFRESHERS ============
+  {
+    id: "frozen-strawberry-lemonade",
+    title: "Frozen Strawberry Lemonade",
+    drinkType: "smoothie",
+    description: "Icy blend of fresh strawberries and tangy lemonade",
+    prepTime: "5 min",
+    ingredients: ["strawberries", "lemon", "simple-syrup", "ice"],
+    instructions: [
+      "Blend strawberries with lemon juice",
+      "Add simple syrup and ice",
+      "Blend until slushy",
+      "Serve immediately"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    garnish: "Strawberry, lemon wheel",
+    isAlcoholic: false,
+    healthTags: ["Vitamin C", "Hydrating"],
+    nutrition: { calories: 120, sugar: 28, carbs: 32 },
+    occasion: "party",
+    season: "summer",
+  },
+  {
+    id: "coconut-lime-cooler",
+    title: "Coconut Lime Cooler",
+    drinkType: "mocktail",
+    description: "Tropical refresher with coconut water and zesty lime",
+    prepTime: "3 min",
+    ingredients: ["coconut-water", "lime", "mint", "simple-syrup", "ice"],
+    instructions: [
+      "Muddle mint with lime juice",
+      "Add coconut water and simple syrup",
+      "Pour over ice and stir",
+      "Garnish with lime and mint"
+    ],
+    matchedIngredients: [],
+    glassType: "Highball",
+    garnish: "Lime wheel, mint sprig",
+    isAlcoholic: false,
+    healthTags: ["Hydrating", "Low Calorie"],
+    nutrition: { calories: 60, sugar: 12, carbs: 14 },
+    occasion: "everyday",
+    season: "summer",
+  },
+  {
+    id: "watermelon-mint-agua-fresca",
+    title: "Watermelon Mint Agua Fresca",
+    drinkType: "mocktail",
+    description: "Light and refreshing Mexican-style watermelon drink",
+    prepTime: "5 min",
+    ingredients: ["watermelon", "lime", "mint", "water", "ice"],
+    instructions: [
+      "Blend watermelon until smooth",
+      "Strain if desired for smoother texture",
+      "Add lime juice and fresh mint",
+      "Serve over ice"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    garnish: "Watermelon wedge, mint",
+    isAlcoholic: false,
+    healthTags: ["Hydrating", "Low Calorie", "Vitamin C"],
+    nutrition: { calories: 50, sugar: 10, carbs: 12 },
+    occasion: "party",
+    season: "summer",
+  },
+  // ============ FALL DRINKS ============
+  {
+    id: "apple-cinnamon-smoothie",
+    title: "Apple Cinnamon Smoothie",
+    drinkType: "smoothie",
+    description: "Tastes like apple pie in a glass",
+    prepTime: "5 min",
+    ingredients: ["apple", "banana", "cinnamon", "oat-milk", "honey"],
+    instructions: [
+      "Add apple chunks and banana to blender",
+      "Pour in oat milk",
+      "Add cinnamon and honey",
+      "Blend until smooth"
+    ],
+    matchedIngredients: [],
+    glassType: "Tall glass",
+    garnish: "Cinnamon sprinkle, apple slice",
+    isAlcoholic: false,
+    healthTags: ["High Fiber", "Energy Boost"],
+    nutrition: { calories: 180, sugar: 28, carbs: 38 },
+    occasion: "everyday",
+    season: "fall",
+  },
+  {
+    id: "spiced-pear-mocktail",
+    title: "Spiced Pear Mocktail",
+    drinkType: "mocktail",
+    description: "Elegant fall mocktail with pear and warming spices",
+    prepTime: "5 min",
+    ingredients: ["apple-juice", "cinnamon", "ginger-fresh", "club-soda", "lemon"],
+    instructions: [
+      "Muddle fresh ginger in glass",
+      "Add apple juice (as pear substitute) and cinnamon",
+      "Top with club soda",
+      "Garnish with lemon twist"
+    ],
+    matchedIngredients: [],
+    glassType: "Wine glass",
+    garnish: "Cinnamon stick, lemon twist",
+    isAlcoholic: false,
+    healthTags: ["Digestive", "Anti-Inflammatory"],
+    nutrition: { calories: 80, sugar: 18, carbs: 20 },
+    occasion: "date-night",
+    season: "fall",
+  },
+  // ============ PARTY DRINKS ============
+  {
+    id: "tropical-party-punch",
+    title: "Tropical Party Punch",
+    drinkType: "mocktail",
+    description: "Fruity crowd-pleaser perfect for gatherings",
+    prepTime: "5 min",
+    ingredients: ["pineapple-juice", "orange-juice", "coconut-cream", "grenadine", "ice"],
+    instructions: [
+      "Combine pineapple and orange juice",
+      "Add coconut cream and stir well",
+      "Pour over ice in punch bowl or glasses",
+      "Drizzle grenadine for sunset effect"
+    ],
+    matchedIngredients: [],
+    glassType: "Punch glass",
+    garnish: "Pineapple wedge, cherry",
+    isAlcoholic: false,
+    healthTags: ["Vitamin C"],
+    nutrition: { calories: 150, sugar: 32, carbs: 36 },
+    occasion: "party",
+    season: "all-season",
+  },
+  {
+    id: "sparkling-pomegranate-punch",
+    title: "Sparkling Pomegranate Punch",
+    drinkType: "mocktail",
+    description: "Festive fizzy punch with pomegranate and citrus",
+    prepTime: "5 min",
+    ingredients: ["pomegranate", "orange-juice", "club-soda", "lime", "rosemary"],
+    instructions: [
+      "Combine pomegranate juice and orange juice",
+      "Add fresh lime juice",
+      "Top with club soda",
+      "Garnish with rosemary sprig and pomegranate seeds"
+    ],
+    matchedIngredients: [],
+    glassType: "Wine glass",
+    garnish: "Rosemary sprig, pomegranate seeds",
+    isAlcoholic: false,
+    healthTags: ["Antioxidant", "Vitamin C"],
+    nutrition: { calories: 90, sugar: 20, carbs: 24 },
+    occasion: "party",
+    season: "winter",
+    isHoliday: true,
+  },
+  // ============ DATE NIGHT DRINKS ============
+  {
+    id: "rose-lychee-spritz",
+    title: "Rose Lychee Spritz",
+    drinkType: "mocktail",
+    description: "Elegant floral drink for romantic occasions",
+    prepTime: "3 min",
+    ingredients: ["rose-syrup", "lemon", "club-soda", "ice"],
+    instructions: [
+      "Add rose syrup to glass",
+      "Squeeze fresh lemon juice",
+      "Top with club soda and ice",
+      "Stir gently and garnish"
+    ],
+    matchedIngredients: [],
+    glassType: "Coupe",
+    garnish: "Rose petals, lemon twist",
+    isAlcoholic: false,
+    healthTags: ["Low Calorie"],
+    nutrition: { calories: 70, sugar: 16, carbs: 18 },
+    occasion: "date-night",
+    season: "spring",
+  },
+  {
+    id: "lavender-honey-spritz",
+    title: "Lavender Honey Spritz",
+    drinkType: "mocktail",
+    description: "Calming and sophisticated lavender cocktail",
+    prepTime: "3 min",
+    ingredients: ["lavender-syrup", "honey", "lemon", "club-soda", "ice"],
+    instructions: [
+      "Combine lavender syrup and honey in glass",
+      "Add fresh lemon juice",
+      "Top with club soda",
+      "Garnish with dried lavender"
+    ],
+    matchedIngredients: [],
+    glassType: "Wine glass",
+    garnish: "Dried lavender sprig",
+    isAlcoholic: false,
+    healthTags: ["Low Calorie"],
+    nutrition: { calories: 80, sugar: 18, carbs: 20 },
+    occasion: "date-night",
+    season: "spring",
+  },
+  // ============ BRUNCH DRINKS ============
+  {
+    id: "virgin-mimosa",
+    title: "Virgin Mimosa",
+    drinkType: "mocktail",
+    description: "Classic brunch drink without the alcohol",
+    prepTime: "2 min",
+    ingredients: ["orange-juice", "club-soda", "ice"],
+    instructions: [
+      "Fill flute halfway with fresh orange juice",
+      "Top with chilled club soda",
+      "Stir gently",
+      "Garnish with orange twist"
+    ],
+    matchedIngredients: [],
+    glassType: "Champagne flute",
+    garnish: "Orange twist",
+    isAlcoholic: false,
+    healthTags: ["Vitamin C"],
+    nutrition: { calories: 60, sugar: 12, carbs: 14 },
+    occasion: "brunch",
+    season: "all-season",
+  },
+  {
+    id: "peach-bellini-mocktail",
+    title: "Peach Bellini Mocktail",
+    drinkType: "mocktail",
+    description: "Elegant peach sparkling drink for brunch",
+    prepTime: "3 min",
+    ingredients: ["peach", "club-soda", "simple-syrup"],
+    instructions: [
+      "Blend fresh peach until smooth",
+      "Add simple syrup and mix",
+      "Pour into flute",
+      "Top with club soda"
+    ],
+    matchedIngredients: [],
+    glassType: "Champagne flute",
+    garnish: "Peach slice",
+    isAlcoholic: false,
+    healthTags: ["Vitamin C"],
+    nutrition: { calories: 80, sugar: 18, carbs: 20 },
+    occasion: "brunch",
+    season: "summer",
+  },
+  // ============ NIGHTCAP DRINKS ============
+  {
+    id: "sleepy-time-latte",
+    title: "Sleepy Time Latte",
+    drinkType: "hot",
+    description: "Warm, calming drink to wind down the evening",
+    prepTime: "5 min",
+    ingredients: ["milk", "honey", "lavender", "vanilla-syrup"],
+    instructions: [
+      "Heat milk until steaming",
+      "Add honey and vanilla syrup",
+      "Steep dried lavender briefly",
+      "Strain and serve in warm mug"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Dried lavender",
+    isAlcoholic: false,
+    healthTags: ["Digestive"],
+    nutrition: { calories: 140, sugar: 22, carbs: 26 },
+    occasion: "nightcap",
+    season: "all-season",
+  },
+  {
+    id: "golden-milk-latte",
+    title: "Golden Milk Latte",
+    drinkType: "hot",
+    description: "Anti-inflammatory turmeric latte for relaxation",
+    prepTime: "6 min",
+    ingredients: ["milk", "turmeric", "ginger-fresh", "honey", "cinnamon"],
+    instructions: [
+      "Heat milk in saucepan",
+      "Whisk in turmeric, ginger, and cinnamon",
+      "Simmer for 5 minutes",
+      "Strain, add honey, and serve"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Cinnamon sprinkle",
+    isAlcoholic: false,
+    healthTags: ["Anti-Inflammatory", "Immune Support", "Digestive"],
+    nutrition: { calories: 150, sugar: 18, carbs: 22 },
+    occasion: "nightcap",
+    season: "all-season",
+  },
 ];
 
 
@@ -6912,6 +7556,35 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "vitamin-c-bomb": ["orange", "grapefruit", "lemon"],
   "stress-relief-smoothie": ["banana", "blueberries", "spinach"],
   "alkaline-water-boost": ["cucumber", "mint", "lemon"],
+  // Hot beverages
+  "classic-latte": ["espresso", "milk"],
+  "vanilla-latte": ["espresso", "milk", "vanilla-syrup"],
+  "caramel-latte": ["espresso", "milk", "caramel-syrup"],
+  "pumpkin-spice-latte": ["espresso", "pumpkin-spice-syrup"],
+  "classic-hot-chocolate": ["milk", "chocolate"],
+  "peppermint-hot-chocolate": ["chocolate", "peppermint-syrup"],
+  "white-hot-chocolate": ["milk", "white-chocolate-syrup"],
+  "chai-tea-latte": ["chai", "milk"],
+  "dirty-chai-latte": ["chai", "espresso"],
+  "matcha-latte-hot": ["matcha", "milk"],
+  "london-fog": ["green-tea", "vanilla-syrup"],
+  "mulled-apple-cider": ["apple-juice", "cinnamon"],
+  "spiked-apple-cider": ["apple-juice", "bourbon"],
+  "hot-toddy": ["whiskey", "honey", "lemon"],
+  // Seasonal & occasion drinks
+  "frozen-strawberry-lemonade": ["strawberries", "lemon"],
+  "coconut-lime-cooler": ["coconut-water", "lime"],
+  "watermelon-mint-agua-fresca": ["watermelon", "mint"],
+  "apple-cinnamon-smoothie": ["apple", "cinnamon"],
+  "spiced-pear-mocktail": ["apple-juice", "cinnamon"],
+  "tropical-party-punch": ["pineapple-juice", "orange-juice"],
+  "sparkling-pomegranate-punch": ["pomegranate", "orange-juice"],
+  "rose-lychee-spritz": ["rose-syrup", "lemon"],
+  "lavender-honey-spritz": ["lavender-syrup", "honey"],
+  "virgin-mimosa": ["orange-juice", "club-soda"],
+  "peach-bellini-mocktail": ["peach", "club-soda"],
+  "sleepy-time-latte": ["milk", "lavender"],
+  "golden-milk-latte": ["milk", "turmeric", "ginger-fresh"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
