@@ -1085,6 +1085,490 @@ export const ingredientVariants: Record<string, IngredientWithVariants> = {
       { id: "no-sugar-ketchup", name: "No Sugar Added Ketchup", emoji: "🍅" },
     ],
   },
+  // ==================== BEVERAGES (DRINK INGREDIENTS) ====================
+  vodka: {
+    category: "Beverages",
+    defaultName: "Vodka",
+    emoji: "🍸",
+    variants: [
+      { id: "regular-vodka", name: "Vodka", emoji: "🍸" },
+      { id: "premium-vodka", name: "Premium Vodka", emoji: "🍸" },
+      { id: "flavored-vodka", name: "Flavored Vodka", emoji: "🍸" },
+    ],
+  },
+  gin: {
+    category: "Beverages",
+    defaultName: "Gin",
+    emoji: "🍸",
+    variants: [
+      { id: "london-dry-gin", name: "London Dry Gin", emoji: "🍸" },
+      { id: "plymouth-gin", name: "Plymouth Gin", emoji: "🍸" },
+    ],
+  },
+  "rum-white": {
+    category: "Beverages",
+    defaultName: "White Rum",
+    emoji: "🍹",
+    variants: [
+      { id: "white-rum", name: "White Rum", emoji: "🍹" },
+      { id: "silver-rum", name: "Silver Rum", emoji: "🍹" },
+    ],
+  },
+  "rum-dark": {
+    category: "Beverages",
+    defaultName: "Dark Rum",
+    emoji: "🍹",
+    variants: [
+      { id: "dark-rum", name: "Dark Rum", emoji: "🍹" },
+      { id: "spiced-rum", name: "Spiced Rum", emoji: "🍹" },
+    ],
+  },
+  tequila: {
+    category: "Beverages",
+    defaultName: "Tequila",
+    emoji: "🥃",
+    variants: [
+      { id: "blanco-tequila", name: "Blanco Tequila", emoji: "🥃" },
+      { id: "reposado-tequila", name: "Reposado Tequila", emoji: "🥃" },
+      { id: "anejo-tequila", name: "Añejo Tequila", emoji: "🥃" },
+    ],
+  },
+  whiskey: {
+    category: "Beverages",
+    defaultName: "Whiskey",
+    emoji: "🥃",
+    variants: [
+      { id: "bourbon-whiskey", name: "Bourbon Whiskey", emoji: "🥃" },
+      { id: "rye-whiskey", name: "Rye Whiskey", emoji: "🥃" },
+      { id: "irish-whiskey", name: "Irish Whiskey", emoji: "🥃" },
+    ],
+  },
+  bourbon: {
+    category: "Beverages",
+    defaultName: "Bourbon",
+    emoji: "🥃",
+    variants: [
+      { id: "kentucky-bourbon", name: "Kentucky Bourbon", emoji: "🥃" },
+    ],
+  },
+  scotch: {
+    category: "Beverages",
+    defaultName: "Scotch",
+    emoji: "🥃",
+    variants: [
+      { id: "single-malt-scotch", name: "Single Malt Scotch", emoji: "🥃" },
+      { id: "blended-scotch", name: "Blended Scotch", emoji: "🥃" },
+    ],
+  },
+  brandy: {
+    category: "Beverages",
+    defaultName: "Brandy",
+    emoji: "🥃",
+    variants: [
+      { id: "cognac", name: "Cognac", emoji: "🥃" },
+      { id: "vs-brandy", name: "VS Brandy", emoji: "🥃" },
+    ],
+  },
+  "triple-sec": {
+    category: "Beverages",
+    defaultName: "Triple Sec",
+    emoji: "🍊",
+    variants: [
+      { id: "triple-sec", name: "Triple Sec", emoji: "🍊" },
+      { id: "cointreau", name: "Cointreau", emoji: "🍊" },
+      { id: "grand-marnier", name: "Grand Marnier", emoji: "🍊" },
+    ],
+  },
+  kahlua: {
+    category: "Beverages",
+    defaultName: "Kahlúa",
+    emoji: "☕",
+    variants: [
+      { id: "kahlua", name: "Kahlúa", emoji: "☕" },
+      { id: "coffee-liqueur", name: "Coffee Liqueur", emoji: "☕" },
+    ],
+  },
+  baileys: {
+    category: "Beverages",
+    defaultName: "Baileys",
+    emoji: "🍫",
+    variants: [
+      { id: "baileys-original", name: "Baileys Original", emoji: "🍫" },
+      { id: "irish-cream", name: "Irish Cream", emoji: "🍫" },
+    ],
+  },
+  amaretto: {
+    category: "Beverages",
+    defaultName: "Amaretto",
+    emoji: "🍸",
+    variants: [
+      { id: "amaretto", name: "Amaretto", emoji: "🍸" },
+      { id: "disaronno", name: "Disaronno", emoji: "🍸" },
+    ],
+  },
+  campari: {
+    category: "Beverages",
+    defaultName: "Campari",
+    emoji: "🍹",
+    variants: [
+      { id: "campari", name: "Campari", emoji: "🍹" },
+      { id: "aperol", name: "Aperol", emoji: "🍹" },
+    ],
+  },
+  "vermouth-sweet": {
+    category: "Beverages",
+    defaultName: "Sweet Vermouth",
+    emoji: "🍷",
+    variants: [
+      { id: "sweet-vermouth", name: "Sweet Vermouth", emoji: "🍷" },
+    ],
+  },
+  "vermouth-dry": {
+    category: "Beverages",
+    defaultName: "Dry Vermouth",
+    emoji: "🍷",
+    variants: [
+      { id: "dry-vermouth", name: "Dry Vermouth", emoji: "🍷" },
+    ],
+  },
+  "club-soda": {
+    category: "Beverages",
+    defaultName: "Club Soda",
+    emoji: "🥤",
+    variants: [
+      { id: "club-soda", name: "Club Soda", emoji: "🥤" },
+      { id: "sparkling-water", name: "Sparkling Water", emoji: "🥤" },
+    ],
+  },
+  "tonic-water": {
+    category: "Beverages",
+    defaultName: "Tonic Water",
+    emoji: "🥤",
+    variants: [
+      { id: "regular-tonic", name: "Tonic Water", emoji: "🥤" },
+      { id: "diet-tonic", name: "Diet Tonic Water", emoji: "🥤" },
+    ],
+  },
+  "ginger-beer": {
+    category: "Beverages",
+    defaultName: "Ginger Beer",
+    emoji: "🍺",
+    variants: [
+      { id: "ginger-beer", name: "Ginger Beer", emoji: "🍺" },
+      { id: "spicy-ginger-beer", name: "Spicy Ginger Beer", emoji: "🍺" },
+    ],
+  },
+  "ginger-ale": {
+    category: "Beverages",
+    defaultName: "Ginger Ale",
+    emoji: "🥤",
+    variants: [
+      { id: "ginger-ale", name: "Ginger Ale", emoji: "🥤" },
+    ],
+  },
+  cola: {
+    category: "Beverages",
+    defaultName: "Cola",
+    emoji: "🥤",
+    variants: [
+      { id: "cola", name: "Cola", emoji: "🥤" },
+      { id: "diet-cola", name: "Diet Cola", emoji: "🥤" },
+    ],
+  },
+  "lemon-lime-soda": {
+    category: "Beverages",
+    defaultName: "Lemon-Lime Soda",
+    emoji: "🥤",
+    variants: [
+      { id: "sprite", name: "Sprite", emoji: "🥤" },
+      { id: "7up", name: "7UP", emoji: "🥤" },
+    ],
+  },
+  "cranberry-juice": {
+    category: "Beverages",
+    defaultName: "Cranberry Juice",
+    emoji: "🧃",
+    variants: [
+      { id: "cranberry-juice", name: "Cranberry Juice", emoji: "🧃" },
+      { id: "cranberry-cocktail", name: "Cranberry Juice Cocktail", emoji: "🧃" },
+    ],
+  },
+  "orange-juice": {
+    category: "Beverages",
+    defaultName: "Orange Juice",
+    emoji: "🍊",
+    variants: [
+      { id: "fresh-orange-juice", name: "Fresh Orange Juice", emoji: "🍊" },
+      { id: "store-orange-juice", name: "Orange Juice", emoji: "🍊" },
+    ],
+  },
+  "pineapple-juice": {
+    category: "Beverages",
+    defaultName: "Pineapple Juice",
+    emoji: "🍍",
+    variants: [
+      { id: "pineapple-juice", name: "Pineapple Juice", emoji: "🍍" },
+    ],
+  },
+  "grapefruit-juice": {
+    category: "Beverages",
+    defaultName: "Grapefruit Juice",
+    emoji: "🍊",
+    variants: [
+      { id: "grapefruit-juice", name: "Grapefruit Juice", emoji: "🍊" },
+      { id: "ruby-red-grapefruit", name: "Ruby Red Grapefruit Juice", emoji: "🍊" },
+    ],
+  },
+  "tomato-juice": {
+    category: "Beverages",
+    defaultName: "Tomato Juice",
+    emoji: "🍅",
+    variants: [
+      { id: "tomato-juice", name: "Tomato Juice", emoji: "🍅" },
+    ],
+  },
+  "apple-juice": {
+    category: "Beverages",
+    defaultName: "Apple Juice",
+    emoji: "🍎",
+    variants: [
+      { id: "apple-juice", name: "Apple Juice", emoji: "🍎" },
+      { id: "apple-cider", name: "Apple Cider", emoji: "🍎" },
+    ],
+  },
+  "coconut-cream": {
+    category: "Beverages",
+    defaultName: "Coconut Cream",
+    emoji: "🥥",
+    variants: [
+      { id: "coconut-cream", name: "Coconut Cream", emoji: "🥥" },
+      { id: "cream-of-coconut", name: "Cream of Coconut", emoji: "🥥" },
+    ],
+  },
+  "coconut-water": {
+    category: "Beverages",
+    defaultName: "Coconut Water",
+    emoji: "🥥",
+    variants: [
+      { id: "coconut-water", name: "Coconut Water", emoji: "🥥" },
+    ],
+  },
+  coffee: {
+    category: "Beverages",
+    defaultName: "Coffee",
+    emoji: "☕",
+    variants: [
+      { id: "brewed-coffee", name: "Brewed Coffee", emoji: "☕" },
+      { id: "cold-brew", name: "Cold Brew Coffee", emoji: "☕" },
+    ],
+  },
+  espresso: {
+    category: "Beverages",
+    defaultName: "Espresso",
+    emoji: "☕",
+    variants: [
+      { id: "espresso-shot", name: "Espresso", emoji: "☕" },
+    ],
+  },
+  "green-tea": {
+    category: "Beverages",
+    defaultName: "Green Tea",
+    emoji: "🍵",
+    variants: [
+      { id: "brewed-green-tea", name: "Brewed Green Tea", emoji: "🍵" },
+    ],
+  },
+  matcha: {
+    category: "Beverages",
+    defaultName: "Matcha Powder",
+    emoji: "🍵",
+    variants: [
+      { id: "matcha-powder", name: "Matcha Powder", emoji: "🍵" },
+      { id: "culinary-matcha", name: "Culinary Matcha", emoji: "🍵" },
+    ],
+  },
+  chai: {
+    category: "Beverages",
+    defaultName: "Chai",
+    emoji: "🍵",
+    variants: [
+      { id: "chai-concentrate", name: "Chai Concentrate", emoji: "🍵" },
+      { id: "chai-tea-bags", name: "Chai Tea Bags", emoji: "🍵" },
+    ],
+  },
+  "simple-syrup": {
+    category: "Beverages",
+    defaultName: "Simple Syrup",
+    emoji: "🍯",
+    variants: [
+      { id: "simple-syrup", name: "Simple Syrup", emoji: "🍯" },
+      { id: "rich-simple-syrup", name: "Rich Simple Syrup (2:1)", emoji: "🍯" },
+    ],
+  },
+  grenadine: {
+    category: "Beverages",
+    defaultName: "Grenadine",
+    emoji: "🍒",
+    variants: [
+      { id: "grenadine-syrup", name: "Grenadine Syrup", emoji: "🍒" },
+    ],
+  },
+  agave: {
+    category: "Beverages",
+    defaultName: "Agave Nectar",
+    emoji: "🌵",
+    variants: [
+      { id: "agave-nectar", name: "Agave Nectar", emoji: "🌵" },
+      { id: "light-agave", name: "Light Agave", emoji: "🌵" },
+    ],
+  },
+  orgeat: {
+    category: "Beverages",
+    defaultName: "Orgeat Syrup",
+    emoji: "🥜",
+    variants: [
+      { id: "orgeat-syrup", name: "Orgeat Syrup", emoji: "🥜" },
+    ],
+  },
+  elderflower: {
+    category: "Beverages",
+    defaultName: "Elderflower Syrup",
+    emoji: "🌸",
+    variants: [
+      { id: "elderflower-syrup", name: "Elderflower Syrup", emoji: "🌸" },
+      { id: "st-germain", name: "St-Germain Liqueur", emoji: "🌸" },
+    ],
+  },
+  "lavender-syrup": {
+    category: "Beverages",
+    defaultName: "Lavender Syrup",
+    emoji: "💜",
+    variants: [
+      { id: "lavender-syrup", name: "Lavender Syrup", emoji: "💜" },
+    ],
+  },
+  "vanilla-syrup": {
+    category: "Beverages",
+    defaultName: "Vanilla Syrup",
+    emoji: "🍦",
+    variants: [
+      { id: "vanilla-syrup", name: "Vanilla Syrup", emoji: "🍦" },
+    ],
+  },
+  "ginger-syrup": {
+    category: "Beverages",
+    defaultName: "Ginger Syrup",
+    emoji: "🫚",
+    variants: [
+      { id: "ginger-syrup", name: "Ginger Syrup", emoji: "🫚" },
+    ],
+  },
+  "hibiscus-syrup": {
+    category: "Beverages",
+    defaultName: "Hibiscus Syrup",
+    emoji: "🌺",
+    variants: [
+      { id: "hibiscus-syrup", name: "Hibiscus Syrup", emoji: "🌺" },
+    ],
+  },
+  "rose-syrup": {
+    category: "Beverages",
+    defaultName: "Rose Syrup",
+    emoji: "🌹",
+    variants: [
+      { id: "rose-syrup", name: "Rose Syrup", emoji: "🌹" },
+    ],
+  },
+  "coconut-syrup": {
+    category: "Beverages",
+    defaultName: "Coconut Syrup",
+    emoji: "🥥",
+    variants: [
+      { id: "coconut-syrup", name: "Coconut Syrup", emoji: "🥥" },
+    ],
+  },
+  "caramel-syrup": {
+    category: "Beverages",
+    defaultName: "Caramel Syrup",
+    emoji: "🍮",
+    variants: [
+      { id: "caramel-syrup", name: "Caramel Syrup", emoji: "🍮" },
+    ],
+  },
+  "pumpkin-spice-syrup": {
+    category: "Beverages",
+    defaultName: "Pumpkin Spice Syrup",
+    emoji: "🎃",
+    variants: [
+      { id: "pumpkin-spice-syrup", name: "Pumpkin Spice Syrup", emoji: "🎃" },
+    ],
+  },
+  "hazelnut-syrup": {
+    category: "Beverages",
+    defaultName: "Hazelnut Syrup",
+    emoji: "🌰",
+    variants: [
+      { id: "hazelnut-syrup", name: "Hazelnut Syrup", emoji: "🌰" },
+    ],
+  },
+  "peppermint-syrup": {
+    category: "Beverages",
+    defaultName: "Peppermint Syrup",
+    emoji: "🌿",
+    variants: [
+      { id: "peppermint-syrup", name: "Peppermint Syrup", emoji: "🌿" },
+    ],
+  },
+  "chocolate-syrup": {
+    category: "Beverages",
+    defaultName: "Chocolate Syrup",
+    emoji: "🍫",
+    variants: [
+      { id: "chocolate-syrup", name: "Chocolate Syrup", emoji: "🍫" },
+    ],
+  },
+  "white-chocolate-syrup": {
+    category: "Beverages",
+    defaultName: "White Chocolate Syrup",
+    emoji: "🤍",
+    variants: [
+      { id: "white-chocolate-syrup", name: "White Chocolate Syrup", emoji: "🤍" },
+    ],
+  },
+  angostura: {
+    category: "Beverages",
+    defaultName: "Angostura Bitters",
+    emoji: "🍶",
+    variants: [
+      { id: "angostura-bitters", name: "Angostura Bitters", emoji: "🍶" },
+    ],
+  },
+  "orange-bitters": {
+    category: "Beverages",
+    defaultName: "Orange Bitters",
+    emoji: "🍊",
+    variants: [
+      { id: "orange-bitters", name: "Orange Bitters", emoji: "🍊" },
+    ],
+  },
+  "cocktail-cherries": {
+    category: "Beverages",
+    defaultName: "Cocktail Cherries",
+    emoji: "🍒",
+    variants: [
+      { id: "maraschino-cherries", name: "Maraschino Cherries", emoji: "🍒" },
+      { id: "luxardo-cherries", name: "Luxardo Cherries", emoji: "🍒" },
+    ],
+  },
+  "cocktail-olives": {
+    category: "Beverages",
+    defaultName: "Cocktail Olives",
+    emoji: "🫒",
+    variants: [
+      { id: "cocktail-olives", name: "Cocktail Olives", emoji: "🫒" },
+      { id: "stuffed-olives", name: "Stuffed Olives", emoji: "🫒" },
+    ],
+  },
 };
 
 // Helper to get display name for an ingredient
