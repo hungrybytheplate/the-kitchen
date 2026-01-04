@@ -26,6 +26,10 @@ const snackRecipeIds = [
   "peanut-butter-cookie-dough",
   // Appetizers
   "crab-rangoon",
+  "classic-deviled-eggs",
+  "stuffed-mushrooms",
+  "classic-bruschetta",
+  "cheese-balls",
 ];
 
 interface RecipeResultsProps {
