@@ -798,6 +798,7 @@ const Index = () => {
                       onAddToCalendar={handleAddToCalendar}
                       onAddToShopping={handleAddToShopping}
                       onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
+                      loading={dataLoading}
                     />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
@@ -887,6 +888,7 @@ const Index = () => {
                       drinks={drinks}
                       savedDrinks={savedDrinks}
                       onSave={handleSaveDrink}
+                      loading={dataLoading}
                     />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">
