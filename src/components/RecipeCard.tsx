@@ -126,6 +126,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
                   ? "text-primary bg-primary/10 hover:bg-primary/20" 
                   : "hover:bg-accent/60"
               )}
+              aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
             >
               <Heart className={cn(
                 "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",

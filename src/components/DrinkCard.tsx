@@ -146,6 +146,7 @@ export function DrinkCard({ drink, isSaved, onSave }: DrinkCardProps) {
                   ? "text-primary bg-primary/10 hover:bg-primary/20"
                   : "hover:bg-accent/60"
               )}
+              aria-label={isSaved ? `Remove ${drink.title} from saved drinks` : `Save ${drink.title}`}
             >
               <Heart
                 className={cn(
