@@ -93,5 +93,6 @@ export function usePantry() {
     loading,
     togglePantryItem,
     isInPantry,
+    refetch: loadPantry,
   };
 }
