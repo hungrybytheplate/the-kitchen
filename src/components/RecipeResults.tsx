@@ -44,6 +44,7 @@ interface RecipeResultsProps {
   onViewRecipe?: (recipe: Recipe) => void;
   loading?: boolean;
   saveCounts?: { [recipeId: string]: number };
+  ratings?: { [key: string]: number };
 }
 
 const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
@@ -84,7 +85,7 @@ const calorieFilters = [
   { value: "high", label: "High Cal (500+)", min: 500 },
 ];
 
-export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, loading, saveCounts = {} }: RecipeResultsProps) {
+export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, loading, saveCounts = {}, ratings = {} }: RecipeResultsProps) {
   const [activeFilters, setActiveFilters] = useState<DietaryTag[]>([]);
   const [activeCuisines, setActiveCuisines] = useState<CuisineType[]>([]);
   const [cookTimeFilter, setCookTimeFilter] = useState<string | null>(null);
@@ -253,6 +254,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                   onAddToShopping={onAddToShopping}
                   onViewRecipe={() => onViewRecipe?.(recipe)}
                   saveCount={saveCounts[recipe.id] || 0}
+                  userRating={ratings[`recipe-${recipe.id}`]}
                 />
               ))}
             </div>
@@ -279,6 +281,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                   onAddToShopping={onAddToShopping}
                   onViewRecipe={() => onViewRecipe?.(recipe)}
                   saveCount={saveCounts[recipe.id] || 0}
+                  userRating={ratings[`recipe-${recipe.id}`]}
                 />
               ))}
             </div>

@@ -1,7 +1,8 @@
-import { UtensilsCrossed, Wine, HelpCircle, LogIn, LogOut, User } from "lucide-react";
+import { UtensilsCrossed, Wine, HelpCircle, LogIn, LogOut, User, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { UserPreferencesDialog } from "@/components/UserPreferencesDialog";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
@@ -44,6 +45,21 @@ export function Header({ onShowTour }: HeaderProps) {
         
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <ThemeToggle />
+          
+          {user && (
+            <UserPreferencesDialog
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9"
+                  aria-label="Preferences"
+                >
+                  <Settings2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
+              }
+            />
+          )}
           
           {onShowTour && (
             <QuickTooltip content="Take a tour" side="bottom">

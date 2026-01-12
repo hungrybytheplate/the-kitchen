@@ -788,6 +788,7 @@ const Index = () => {
                       onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
                       loading={dataLoading}
                       saveCounts={saveCounts}
+                      ratings={ratings}
                     />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">

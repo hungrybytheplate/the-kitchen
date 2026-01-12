@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key, Snowflake } from "lucide-react";
+import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key, Snowflake, Star, Gauge } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
@@ -15,7 +15,26 @@ interface RecipeCardProps {
   onAddToShopping?: (ingredientId: string) => void;
   onViewRecipe?: () => void;
   saveCount?: number;
+  userRating?: number;
 }
+
+const difficultyConfig = {
+  easy: {
+    label: "Easy",
+    color: "bg-emerald-500/15 border-emerald-500/30 text-emerald-600 dark:text-emerald-400",
+    icon: "🌱",
+  },
+  medium: {
+    label: "Medium",
+    color: "bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400",
+    icon: "🔥",
+  },
+  hard: {
+    label: "Hard",
+    color: "bg-red-500/15 border-red-500/30 text-red-600 dark:text-red-400",
+    icon: "⚡",
+  },
+};
 
 const mealTypeConfig = {
   breakfast: {
@@ -55,7 +74,7 @@ const mealTypeConfig = {
   },
 };
 
-export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, saveCount = 0 }: RecipeCardProps) {
+export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, saveCount = 0, userRating }: RecipeCardProps) {
   const [showDetail, setShowDetail] = useState(false);
   
   const handleViewRecipe = () => {
@@ -104,6 +123,21 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
                   <span className="mr-0.5 sm:mr-1">{config.emoji}</span>
                   {config.label}
                 </Badge>
+                {recipe.difficulty && difficultyConfig[recipe.difficulty] && (
+                  <Badge className={cn(
+                    "text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 border",
+                    difficultyConfig[recipe.difficulty].color
+                  )}>
+                    <Gauge className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    {difficultyConfig[recipe.difficulty].label}
+                  </Badge>
+                )}
+                {userRating && userRating > 0 && (
+                  <Badge className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-yellow-500/15 border border-yellow-500/30 text-yellow-600 dark:text-yellow-400">
+                    <Star className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1 fill-current" />
+                    {userRating}
+                  </Badge>
+                )}
                 {recipe.isHoliday && (
                   <Badge className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
                     <Snowflake className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
