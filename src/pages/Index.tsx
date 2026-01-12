@@ -37,6 +37,7 @@ import { useUserData, type ShoppingItem, type MealPlanEntry, type RecipeNotes } 
 import { useUndo } from "@/hooks/useUndo";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useRecipeSaveCounts } from "@/hooks/useRecipeSaveCounts";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
@@ -267,6 +268,7 @@ const Index = () => {
   
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
   const { recentlyViewed, addRecentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
+  const { saveCounts } = useRecipeSaveCounts();
   const [recentViewedRecipe, setRecentViewedRecipe] = useState<Recipe | null>(null);
   const [recentViewedDrink, setRecentViewedDrink] = useState<Drink | null>(null);
   const [sharedRecipeDialog, setSharedRecipeDialog] = useState<Recipe | null>(null);
@@ -785,6 +787,7 @@ const Index = () => {
                       onAddToShopping={handleAddToShopping}
                       onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
                       loading={dataLoading}
+                      saveCounts={saveCounts}
                     />
                   ) : (
                     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm">

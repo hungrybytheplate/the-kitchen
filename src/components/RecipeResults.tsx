@@ -43,6 +43,7 @@ interface RecipeResultsProps {
   onAddToShopping: (ingredientId: string) => void;
   onViewRecipe?: (recipe: Recipe) => void;
   loading?: boolean;
+  saveCounts?: { [recipeId: string]: number };
 }
 
 const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
@@ -83,7 +84,7 @@ const calorieFilters = [
   { value: "high", label: "High Cal (500+)", min: 500 },
 ];
 
-export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, loading }: RecipeResultsProps) {
+export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, loading, saveCounts = {} }: RecipeResultsProps) {
   const [activeFilters, setActiveFilters] = useState<DietaryTag[]>([]);
   const [activeCuisines, setActiveCuisines] = useState<CuisineType[]>([]);
   const [cookTimeFilter, setCookTimeFilter] = useState<string | null>(null);
@@ -251,6 +252,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                   onAddToCalendar={() => onAddToCalendar(recipe)}
                   onAddToShopping={onAddToShopping}
                   onViewRecipe={() => onViewRecipe?.(recipe)}
+                  saveCount={saveCounts[recipe.id] || 0}
                 />
               ))}
             </div>
@@ -267,7 +269,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               </div>
             )}
             <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2">
-              {closeMatches.map((recipe) => (
+            {closeMatches.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
                   recipe={recipe}
@@ -276,6 +278,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                   onAddToCalendar={() => onAddToCalendar(recipe)}
                   onAddToShopping={onAddToShopping}
                   onViewRecipe={() => onViewRecipe?.(recipe)}
+                  saveCount={saveCounts[recipe.id] || 0}
                 />
               ))}
             </div>
