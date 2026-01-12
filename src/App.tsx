@@ -8,6 +8,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Install from "./pages/Install";
+import Pantry from "./pages/Pantry";
 import NotFound from "./pages/NotFound";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -30,6 +31,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/install" element={<Install />} />
+          <Route path="/pantry" element={<Pantry />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
