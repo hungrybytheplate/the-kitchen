@@ -6,6 +6,7 @@ import { UserPreferencesDialog } from "@/components/UserPreferencesDialog";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
 
 interface HeaderProps {
   onShowTour?: () => void;
@@ -24,14 +25,27 @@ export function Header({ onShowTour }: HeaderProps) {
   };
 
   return (
-    <header className="py-3 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50">
+    <motion.header 
+      className="py-3 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+        <motion.div 
+          className="flex items-center gap-2 sm:gap-4 min-w-0"
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        >
           <div className="relative shrink-0">
             <div className="absolute inset-0 gradient-warm blur-xl opacity-30 animate-pulse-soft" />
-            <div className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl gradient-warm shadow-warm">
+            <motion.div 
+              className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl gradient-warm shadow-warm"
+              whileHover={{ rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.5 }}
+            >
               <UtensilsCrossed className="h-5 w-5 sm:h-7 sm:w-7 text-primary-foreground" />
-            </div>
+            </motion.div>
           </div>
           <div className="min-w-0">
             <h1 className="font-serif text-lg sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight truncate">
@@ -41,7 +55,7 @@ export function Header({ onShowTour }: HeaderProps) {
               Fresh recipes from your ingredients
             </p>
           </div>
-        </div>
+        </motion.div>
         
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <ThemeToggle />
@@ -111,6 +125,6 @@ export function Header({ onShowTour }: HeaderProps) {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

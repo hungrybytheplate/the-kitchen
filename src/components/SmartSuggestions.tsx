@@ -7,6 +7,8 @@ import { sampleRecipes, type Recipe } from "@/data/recipes";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
+import { motion } from "framer-motion";
+import { staggerContainer, staggerItem } from "@/components/ui/animated";
 
 interface SmartSuggestionsProps {
   savedRecipeIds: string[];
@@ -51,13 +53,21 @@ export function SmartSuggestions({
           </p>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
             {suggestions.map(({ recipe, reason }) => {
               const isSaved = savedRecipeIds.includes(recipe.id);
               return (
-                <div
+                <motion.div
                   key={recipe.id}
-                  className="group relative bg-muted/30 rounded-xl p-4 hover:bg-muted/50 transition-all cursor-pointer hover:shadow-md"
+                  variants={staggerItem}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group relative bg-muted/30 rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
                   {/* Meal type badge */}
@@ -119,10 +129,10 @@ export function SmartSuggestions({
                   
                   {/* View arrow */}
                   <ChevronRight className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </CardContent>
       </Card>
 
