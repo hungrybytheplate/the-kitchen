@@ -14,6 +14,7 @@ interface RecipeCardProps {
   onAddToCalendar: () => void;
   onAddToShopping?: (ingredientId: string) => void;
   onViewRecipe?: () => void;
+  saveCount?: number;
 }
 
 const mealTypeConfig = {
@@ -54,7 +55,7 @@ const mealTypeConfig = {
   },
 };
 
-export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping, onViewRecipe }: RecipeCardProps) {
+export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToShopping, onViewRecipe, saveCount = 0 }: RecipeCardProps) {
   const [showDetail, setShowDetail] = useState(false);
   
   const handleViewRecipe = () => {
@@ -68,6 +69,14 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
 
   const config = mealTypeConfig[recipe.mealType];
   const matchPercentage = Math.round((recipe.matchedIngredients.length / recipe.ingredients.length) * 100);
+
+  // Format save count for display
+  const formatSaveCount = (count: number): string => {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k`;
+    }
+    return count.toString();
+  };
 
   return (
     <>
@@ -116,23 +125,30 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
                 {recipe.description}
               </p>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={(e) => { e.stopPropagation(); onSave(); }}
-              className={cn(
-                "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
-                isSaved 
-                  ? "text-primary bg-primary/10 hover:bg-primary/20" 
-                  : "hover:bg-accent/60"
+            <div className="flex flex-col items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={(e) => { e.stopPropagation(); onSave(); }}
+                className={cn(
+                  "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
+                  isSaved 
+                    ? "text-primary bg-primary/10 hover:bg-primary/20" 
+                    : "hover:bg-accent/60"
+                )}
+                aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
+              >
+                <Heart className={cn(
+                  "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
+                  isSaved && "fill-current scale-110"
+                )} />
+              </Button>
+              {saveCount > 0 && (
+                <span className="text-[10px] sm:text-xs text-muted-foreground font-medium">
+                  {formatSaveCount(saveCount)}
+                </span>
               )}
-              aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
-            >
-              <Heart className={cn(
-                "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
-                isSaved && "fill-current scale-110"
-              )} />
-            </Button>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4 mt-2.5 sm:mt-4 text-xs sm:text-sm">

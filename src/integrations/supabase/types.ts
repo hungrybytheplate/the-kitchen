@@ -229,7 +229,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_recipe_save_counts: {
+        Args: never
+        Returns: {
+          recipe_id: string
+          save_count: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
