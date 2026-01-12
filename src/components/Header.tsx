@@ -1,4 +1,4 @@
-import { UtensilsCrossed, Wine, HelpCircle, LogIn, LogOut, User, Settings2 } from "lucide-react";
+import { UtensilsCrossed, Wine, HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -61,18 +61,31 @@ export function Header({ onShowTour }: HeaderProps) {
           <ThemeToggle />
           
           {user && (
-            <UserPreferencesDialog
-              trigger={
+            <>
+              <QuickTooltip content="My Pantry" side="bottom">
                 <Button
                   variant="ghost"
                   size="icon"
+                  onClick={() => navigate('/pantry')}
                   className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9"
-                  aria-label="Preferences"
+                  aria-label="My Pantry"
                 >
-                  <Settings2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <Package className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
-              }
-            />
+              </QuickTooltip>
+              <UserPreferencesDialog
+                trigger={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9"
+                    aria-label="Preferences"
+                  >
+                    <Settings2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </Button>
+                }
+              />
+            </>
           )}
           
           {onShowTour && (
