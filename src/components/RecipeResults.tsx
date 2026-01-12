@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Recipe IDs that are snacks and appetizers
@@ -74,6 +74,7 @@ const cookTimeFilters = [
   { value: "quick", label: "Under 15 min", maxMinutes: 15 },
   { value: "medium", label: "15-30 min", maxMinutes: 30, minMinutes: 15 },
   { value: "long", label: "30-60 min", maxMinutes: 60, minMinutes: 30 },
+  { value: "over60", label: "Over 1 hour", minMinutes: 60 },
 ];
 
 const calorieFilters = [
@@ -91,10 +92,20 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [showHolidayOnly, setShowHolidayOnly] = useState(false);
   const [showSnacksOnly, setShowSnacksOnly] = useState(false);
   const [showOnePanOnly, setShowOnePanOnly] = useState(false);
+  const [showQuickEasyOnly, setShowQuickEasyOnly] = useState(false);
+
+  const parseCookTime = (cookTime: string): number => {
+    const match = cookTime.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  };
 
   const holidayCount = recipes.filter(r => r.isHoliday).length;
   const snacksCount = recipes.filter(r => snackRecipeIds.includes(r.id)).length;
   const onePanCount = recipes.filter(r => r.isOnePan).length;
+  const quickEasyCount = recipes.filter(r => {
+    const minutes = parseCookTime(r.cookTime);
+    return minutes <= 20 && r.difficulty === "easy";
+  }).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -116,14 +127,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setShowHolidayOnly(false);
     setShowSnacksOnly(false);
     setShowOnePanOnly(false);
+    setShowQuickEasyOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showOnePanOnly;
-
-  const parseCookTime = (cookTime: string): number => {
-    const match = cookTime.match(/(\d+)/);
-    return match ? parseInt(match[1]) : 0;
-  };
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly;
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
@@ -163,6 +170,13 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     // One-Pan filter
     if (showOnePanOnly && !recipe.isOnePan) {
       return false;
+    }
+    // Quick & Easy filter
+    if (showQuickEasyOnly) {
+      const minutes = parseCookTime(recipe.cookTime);
+      if (minutes > 20 || recipe.difficulty !== "easy") {
+        return false;
+      }
     }
     return true;
   });
@@ -315,6 +329,24 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
           <span>Quick Filters</span>
         </div>
         <div className="flex flex-wrap gap-2">
+          {/* Quick & Easy Filter */}
+          {quickEasyCount > 0 && (
+            <Badge
+              variant={showQuickEasyOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showQuickEasyOnly 
+                  ? "bg-sky-500 hover:bg-sky-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowQuickEasyOnly(!showQuickEasyOnly)}
+            >
+              <Zap className="h-3.5 w-3.5 mr-1.5" />
+              Quick & Easy
+              <span className="ml-1.5 text-xs opacity-80">({quickEasyCount})</span>
+            </Badge>
+          )}
+
           {/* Holiday Filter */}
           {holidayCount > 0 && (
             <Badge
@@ -369,8 +401,9 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
             </Badge>
           )}
         </div>
-        {(showHolidayOnly || showSnacksOnly || showOnePanOnly) && (
+        {(showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
+            {showQuickEasyOnly && "Showing recipes under 20 minutes with easy difficulty"}
             {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
             {showSnacksOnly && "Showing dips, muffins, and finger foods"}
             {showOnePanOnly && "Showing easy one-pan and sheet pan dinners"}
