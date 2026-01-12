@@ -23,6 +23,7 @@ import { UndoToast } from "@/components/UndoToast";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { SmartSuggestions } from "@/components/SmartSuggestions";
+import { RecipeSearchAutocomplete } from "@/components/RecipeSearchAutocomplete";
 import { WeeklyNutritionSummary } from "@/components/WeeklyNutritionSummary";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -267,6 +268,7 @@ const Index = () => {
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
   const { recentlyViewed, addRecentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
   const [recentViewedRecipe, setRecentViewedRecipe] = useState<Recipe | null>(null);
+  const [recentViewedDrink, setRecentViewedDrink] = useState<Drink | null>(null);
   const [sharedRecipeDialog, setSharedRecipeDialog] = useState<Recipe | null>(null);
 
   // Handle shared recipe URL
@@ -630,48 +632,27 @@ const Index = () => {
             </button>
           </div>
           
-          {/* Recipe/Drink Lookup */}
+          {/* Recipe/Drink Search with Autocomplete */}
           <div className="w-full max-w-lg">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={appMode === "cook" 
-                  ? "Look up a recipe (e.g., chicken cutlet)..." 
-                  : "Look up a drink (e.g., margarita)..."}
-                value={appMode === "cook" ? recipeSearch : drinkSearch}
-                onChange={(e) => appMode === "cook" ? setRecipeSearch(e.target.value) : setDrinkSearch(e.target.value)}
-                className="pl-9 pr-9 bg-card/90 border-border/50 rounded-xl"
-              />
-              {((appMode === "cook" && recipeSearch) || (appMode === "drink" && drinkSearch)) && (
-                <button
-                  onClick={() => appMode === "cook" ? setRecipeSearch("") : setDrinkSearch("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-            
-            {/* Lookup Results Dropdown */}
-            {appMode === "cook" && recipeSearch.trim().length >= 2 && (
-              <LookupResults 
-                search={recipeSearch} 
-                onAddToShopping={handleBulkAddToShopping}
-                onClear={() => setRecipeSearch("")}
-                savedRecipes={savedRecipes}
-                onSave={handleSaveRecipe}
-                onAddToCalendar={handleAddToCalendar}
-              />
-            )}
-            {appMode === "drink" && drinkSearch.trim().length >= 2 && (
-              <DrinkLookupResults 
-                search={drinkSearch} 
-                onAddToShopping={handleBulkAddToShopping}
-                onClear={() => setDrinkSearch("")}
-                savedDrinks={savedDrinks}
-                onSave={handleSaveDrink}
-              />
-            )}
+            <RecipeSearchAutocomplete
+              mode={appMode}
+              onSelectRecipe={(recipe) => {
+                setRecentViewedRecipe(recipe);
+                addRecentlyViewed(recipe.id);
+              }}
+              onSelectDrink={(drink) => {
+                // For drinks, we can show a detail dialog or handle similarly
+                // For now, we'll set up state for viewing drink details
+                const drinkWithMatched = {
+                  ...drink,
+                  matchedIngredients: [],
+                  matchedKeyIngredients: [],
+                };
+                setRecentViewedDrink(drinkWithMatched);
+              }}
+              savedRecipes={savedRecipes}
+              savedDrinks={savedDrinks}
+            />
           </div>
         </div>
 
@@ -1022,6 +1003,22 @@ const Index = () => {
           onSave={() => handleSaveRecipe(recentViewedRecipe.id)}
           onAddToCalendar={() => handleAddToCalendar(recentViewedRecipe)}
           onAddToShopping={handleAddToShopping}
+        />
+      )}
+
+      {/* Dialog for viewing drinks from search */}
+      {recentViewedDrink && (
+        <DrinkDetailDialog
+          drink={{
+            ...recentViewedDrink,
+            matchedIngredients: [],
+            matchedKeyIngredients: []
+          }}
+          open={!!recentViewedDrink}
+          onOpenChange={(open) => !open && setRecentViewedDrink(null)}
+          isSaved={savedDrinks.includes(recentViewedDrink.id)}
+          onSave={() => handleSaveDrink(recentViewedDrink.id)}
+          onAddToShopping={(ingredients) => handleBulkAddToShopping(ingredients)}
         />
       )}
 
