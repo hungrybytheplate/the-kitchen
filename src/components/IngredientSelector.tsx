@@ -2,14 +2,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IngredientCategory } from "./IngredientCategory";
 import { pantryItems, fridgeItems, spiceItems } from "@/data/ingredients";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ShoppingBasket, Refrigerator, Flame } from "lucide-react";
+import { ShoppingBasket, Refrigerator, Flame, Package } from "lucide-react";
 
 interface IngredientSelectorProps {
   selectedIngredients: string[];
   onToggle: (id: string) => void;
+  userPantryItems?: string[];
+  onTogglePantry?: (id: string) => void;
 }
 
-export function IngredientSelector({ selectedIngredients, onToggle }: IngredientSelectorProps) {
+export function IngredientSelector({ 
+  selectedIngredients, 
+  onToggle,
+  userPantryItems = [],
+  onTogglePantry
+}: IngredientSelectorProps) {
   return (
     <Tabs defaultValue="fridge" className="w-full">
       <TabsList className="w-full grid grid-cols-3 h-11 sm:h-14 bg-muted/50 p-1 rounded-lg sm:rounded-xl">
@@ -39,6 +46,14 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
         </TabsTrigger>
       </TabsList>
 
+      {userPantryItems.length > 0 && (
+        <div className="mt-3 px-1 flex items-center gap-2 text-xs text-muted-foreground">
+          <Package className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+          <span>{userPantryItems.length} pantry staples auto-selected</span>
+          <span className="text-muted-foreground/60">• Right-click to manage</span>
+        </div>
+      )}
+
       <ScrollArea className="h-[400px] mt-4 pr-4">
         <TabsContent value="fridge" className="space-y-6 mt-0">
           {fridgeItems.map((category) => (
@@ -47,6 +62,8 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
               category={category}
               selectedIngredients={selectedIngredients}
               onToggle={onToggle}
+              pantryItems={userPantryItems}
+              onTogglePantry={onTogglePantry}
             />
           ))}
         </TabsContent>
@@ -58,6 +75,8 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
               category={category}
               selectedIngredients={selectedIngredients}
               onToggle={onToggle}
+              pantryItems={userPantryItems}
+              onTogglePantry={onTogglePantry}
             />
           ))}
         </TabsContent>
@@ -69,6 +88,8 @@ export function IngredientSelector({ selectedIngredients, onToggle }: Ingredient
               category={category}
               selectedIngredients={selectedIngredients}
               onToggle={onToggle}
+              pantryItems={userPantryItems}
+              onTogglePantry={onTogglePantry}
             />
           ))}
         </TabsContent>
