@@ -6,7 +6,8 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
-
+import { motion } from "framer-motion";
+import { staggerItem, heartBeat } from "@/components/ui/animated";
 interface RecipeCardProps {
   recipe: Recipe;
   isSaved: boolean;
@@ -99,14 +100,23 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
 
   return (
     <>
-      <Card 
-        className={cn(
-          "group overflow-hidden transition-all duration-500 hover-lift border-border/50",
-          "bg-card/80 backdrop-blur-sm",
-          "animate-scale-in cursor-pointer"
-        )}
-        onClick={handleViewRecipe}
+      <motion.div
+        variants={staggerItem}
+        whileHover={{ 
+          y: -6, 
+          scale: 1.02,
+        }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
       >
+        <Card 
+          className={cn(
+            "group overflow-hidden transition-all duration-300 border-border/50",
+            "bg-card/80 backdrop-blur-sm cursor-pointer",
+            "hover:shadow-lg hover:shadow-primary/10"
+          )}
+          onClick={handleViewRecipe}
+        >
         <CardHeader className="p-3 sm:pb-3 sm:p-6 relative">
           {/* Decorative gradient */}
           <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 opacity-30 pointer-events-none">
@@ -160,23 +170,30 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
               </p>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={(e) => { e.stopPropagation(); onSave(); }}
-                className={cn(
-                  "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
-                  isSaved 
-                    ? "text-primary bg-primary/10 hover:bg-primary/20" 
-                    : "hover:bg-accent/60"
-                )}
-                aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
-              >
-                <Heart className={cn(
-                  "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
-                  isSaved && "fill-current scale-110"
-                )} />
-              </Button>
+              <motion.div whileTap={heartBeat}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={(e) => { e.stopPropagation(); onSave(); }}
+                  className={cn(
+                    "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
+                    isSaved 
+                      ? "text-primary bg-primary/10 hover:bg-primary/20" 
+                      : "hover:bg-accent/60"
+                  )}
+                  aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
+                >
+                  <motion.div
+                    animate={isSaved ? { scale: [1, 1.3, 1] } : { scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Heart className={cn(
+                      "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
+                      isSaved && "fill-current"
+                    )} />
+                  </motion.div>
+                </Button>
+              </motion.div>
               {saveCount > 0 && (
                 <span className="text-[10px] sm:text-xs text-muted-foreground font-medium">
                   {formatSaveCount(saveCount)}
@@ -291,6 +308,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
           </Button>
         </CardContent>
       </Card>
+      </motion.div>
 
       <RecipeDetailDialog
         recipe={recipe}

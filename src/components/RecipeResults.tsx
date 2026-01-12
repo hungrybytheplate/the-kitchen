@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
 import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { staggerContainer } from "@/components/ui/animated";
 
 // Recipe IDs that are snacks and appetizers
 const snackRecipeIds = [
@@ -243,7 +245,12 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               </Badge>
               <span className="text-xs text-muted-foreground">You have all ingredients</span>
             </div>
-            <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2">
+            <motion.div 
+              className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
               {perfectMatches.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
@@ -257,7 +264,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                   userRating={ratings[`recipe-${recipe.id}`]}
                 />
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
         {closeMatches.length > 0 && (
@@ -270,7 +277,12 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                 <span className="text-xs text-muted-foreground">Missing a few ingredients</span>
               </div>
             )}
-            <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2">
+            <motion.div 
+              className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
             {closeMatches.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
@@ -284,7 +296,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
                   userRating={ratings[`recipe-${recipe.id}`]}
                 />
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
       </div>
