@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
@@ -119,14 +119,46 @@ export function SavedRecipes({
             </div>
           </div>
           <h3 className="font-serif text-2xl font-semibold mb-3">
-            Your Collection
+            Your Recipe Collection
           </h3>
           <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
-            Save your favorite recipes and drinks by clicking the heart icon.
+            Build your personal cookbook! Save recipes and drinks you love by clicking the heart icon on any recipe card.
           </p>
+          
+          {/* Helpful tips */}
+          <div className="grid gap-3 max-w-md w-full mb-6">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 text-left">
+              <div className="p-1.5 rounded-md bg-primary/10">
+                <Sparkles className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">Find recipes in the Cook tab</p>
+                <p className="text-xs text-muted-foreground">Select ingredients to discover matching recipes</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 text-left">
+              <div className="p-1.5 rounded-md bg-primary/10">
+                <BookOpen className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">Add notes to saved recipes</p>
+                <p className="text-xs text-muted-foreground">Track your modifications and favorites</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 text-left">
+              <div className="p-1.5 rounded-md bg-primary/10">
+                <Star className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">Rate your favorites</p>
+                <p className="text-xs text-muted-foreground">4+ star recipes appear in your favorites</p>
+              </div>
+            </div>
+          </div>
+          
           <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
             <ChefHat className="h-4 w-4" />
-            <span>Find recipes in Cook tab</span>
+            <span>Head to the Cook tab to get started</span>
             <ArrowRight className="h-4 w-4" />
           </div>
         </CardContent>
