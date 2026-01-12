@@ -38,6 +38,7 @@ import { useUndo } from "@/hooks/useUndo";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useRecipeSaveCounts } from "@/hooks/useRecipeSaveCounts";
+import { usePantry } from "@/hooks/usePantry";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
@@ -269,9 +270,11 @@ const Index = () => {
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
   const { recentlyViewed, addRecentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
   const { saveCounts } = useRecipeSaveCounts();
+  const { pantryItems: userPantryItems, togglePantryItem } = usePantry();
   const [recentViewedRecipe, setRecentViewedRecipe] = useState<Recipe | null>(null);
   const [recentViewedDrink, setRecentViewedDrink] = useState<Drink | null>(null);
   const [sharedRecipeDialog, setSharedRecipeDialog] = useState<Recipe | null>(null);
+  const [pantryAutoApplied, setPantryAutoApplied] = useState(false);
 
   // Handle shared recipe URL
   useEffect(() => {
@@ -286,6 +289,22 @@ const Index = () => {
       }
     }
   }, [searchParams, setSearchParams, addRecentlyViewed]);
+
+  // Auto-select pantry items when user is logged in and pantry loads
+  useEffect(() => {
+    if (userPantryItems.length > 0 && !pantryAutoApplied && user) {
+      setSelectedIngredients(prev => {
+        const newSelection = [...prev];
+        userPantryItems.forEach(item => {
+          if (!newSelection.includes(item)) {
+            newSelection.push(item);
+          }
+        });
+        return newSelection;
+      });
+      setPantryAutoApplied(true);
+    }
+  }, [userPantryItems, pantryAutoApplied, user]);
 
   // Mode switching (Cook vs Drink)
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
@@ -760,6 +779,8 @@ const Index = () => {
                     <IngredientSelector
                       selectedIngredients={selectedIngredients}
                       onToggle={handleToggleIngredient}
+                      userPantryItems={userPantryItems}
+                      onTogglePantry={togglePantryItem}
                     />
                     
                     <div className="mt-6 pt-6 border-t border-border/50">

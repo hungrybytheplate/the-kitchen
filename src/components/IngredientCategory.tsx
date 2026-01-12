@@ -21,6 +21,8 @@ interface IngredientCategoryProps {
   category: CategoryType;
   selectedIngredients: string[];
   onToggle: (id: string) => void;
+  pantryItems?: string[];
+  onTogglePantry?: (id: string) => void;
 }
 
 // Color and icon mapping for different category types
@@ -43,8 +45,15 @@ const categoryConfig: Record<string, { bg: string; border: string; badge: string
 
 const defaultConfig = { bg: "bg-muted/30", border: "border-border/50", badge: "bg-secondary text-secondary-foreground", icon: ChefHat };
 
-export function IngredientCategory({ category, selectedIngredients, onToggle }: IngredientCategoryProps) {
+export function IngredientCategory({ 
+  category, 
+  selectedIngredients, 
+  onToggle,
+  pantryItems = [],
+  onTogglePantry
+}: IngredientCategoryProps) {
   const selectedCount = category.items.filter(item => selectedIngredients.includes(item.id)).length;
+  const pantryCount = category.items.filter(item => pantryItems.includes(item.id)).length;
   const config = categoryConfig[category.id] || defaultConfig;
   const Icon = config.icon;
   
@@ -61,11 +70,18 @@ export function IngredientCategory({ category, selectedIngredients, onToggle }: 
             {category.name}
           </h3>
         </div>
-        {selectedCount > 0 && (
-          <Badge className={cn("text-[10px] px-1.5 py-0 border-0", config.badge)}>
-            {selectedCount} selected
-          </Badge>
-        )}
+        <div className="flex items-center gap-1.5">
+          {pantryCount > 0 && (
+            <Badge className="text-[10px] px-1.5 py-0 border-0 bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200">
+              {pantryCount} in pantry
+            </Badge>
+          )}
+          {selectedCount > 0 && (
+            <Badge className={cn("text-[10px] px-1.5 py-0 border-0", config.badge)}>
+              {selectedCount} selected
+            </Badge>
+          )}
+        </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
         {category.items.map((item) => (
@@ -74,6 +90,8 @@ export function IngredientCategory({ category, selectedIngredients, onToggle }: 
             ingredient={item}
             isChecked={selectedIngredients.includes(item.id)}
             onToggle={onToggle}
+            isInPantry={pantryItems.includes(item.id)}
+            onTogglePantry={onTogglePantry}
           />
         ))}
       </div>
