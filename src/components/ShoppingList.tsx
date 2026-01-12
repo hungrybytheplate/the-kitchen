@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ShoppingCart, Trash2, Check, Printer } from "lucide-react";
+import { ShoppingCart, Trash2, Check, Printer, Lightbulb, ChefHat, ArrowRight, ListChecks } from "lucide-react";
 import { ingredientVariants } from "@/data/ingredientVariants";
 
 export interface ShoppingItem {
@@ -43,14 +43,37 @@ export function ShoppingList({
             </div>
           </div>
           <h3 className="font-serif text-2xl font-semibold mb-3">
-            Shopping List
+            Your Shopping List
           </h3>
           <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
-            Missing ingredients for a recipe? Add them here to build your shopping list. Check items off as you shop!
+            Keep track of ingredients you need to buy. Add missing items from any recipe to build your grocery list.
           </p>
+          
+          {/* How to add items */}
+          <div className="grid gap-3 max-w-md w-full mb-6">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 text-left">
+              <div className="p-1.5 rounded-md bg-primary/10">
+                <ChefHat className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">From recipe cards</p>
+                <p className="text-xs text-muted-foreground">Click "Add missing ingredients" on any recipe</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 text-left">
+              <div className="p-1.5 rounded-md bg-primary/10">
+                <ListChecks className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">From recipe details</p>
+                <p className="text-xs text-muted-foreground">Open any recipe and add individual ingredients</p>
+              </div>
+            </div>
+          </div>
+          
           <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full">
-            <Check className="h-4 w-4" />
-            <span>Items appear when you add missing ingredients</span>
+            <Lightbulb className="h-4 w-4" />
+            <span>Check off items as you shop</span>
           </div>
         </CardContent>
       </Card>

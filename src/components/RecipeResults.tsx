@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { RecipeCard } from "./RecipeCard";
 import { RecipeCardSkeletonGrid } from "./RecipeCardSkeleton";
+import { MealTypeEmptyState } from "./EmptyState";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Recipe IDs that are snacks and appetizers
@@ -179,14 +181,30 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const sidesRecipes = sortedRecipes.filter(r => r.mealType === "sides");
 
   // Helper to render recipes grouped by match quality
-  const renderRecipeList = (recipeList: Recipe[], emptyMessage: string) => {
+  const renderRecipeList = (recipeList: Recipe[], mealType: "breakfast" | "lunch" | "dinner" | "dessert" | "sides") => {
     if (recipeList.length === 0) {
-      return (
-        <p className="text-muted-foreground col-span-2 text-center py-8">
-          {hasActiveFilters 
-            ? `No recipes match your filters. Try removing some filters!`
-            : emptyMessage}
-        </p>
+      return hasActiveFilters ? (
+        <Card className="col-span-2 border-dashed">
+          <CardContent className="py-8 text-center">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-muted mb-4">
+              <Filter className="h-6 w-6 text-muted-foreground" />
+            </div>
+            <h4 className="font-medium text-lg mb-2">Filters too restrictive</h4>
+            <p className="text-muted-foreground text-sm max-w-sm mx-auto mb-4">
+              No {mealType} recipes match your current filters. Try removing some filters to see more results.
+            </p>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={clearFilters}
+              className="gap-2"
+            >
+              Clear all filters
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <MealTypeEmptyState mealType={mealType} />
       );
     }
 
@@ -263,9 +281,28 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   if (recipes.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-muted-foreground">Select some ingredients to see recipe suggestions!</p>
-      </div>
+      <Card className="border-dashed">
+        <CardContent className="py-12 text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-muted mb-4">
+            <Search className="h-7 w-7 text-muted-foreground" />
+          </div>
+          <h3 className="font-serif text-xl font-semibold mb-2">Select Ingredients First</h3>
+          <p className="text-muted-foreground max-w-md mx-auto mb-6">
+            Choose ingredients from your kitchen to discover recipes you can make. We'll show you perfect matches and what's missing.
+          </p>
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mb-3">
+            <Lightbulb className="h-3.5 w-3.5" />
+            <span className="font-medium">Popular starting ingredients</span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="outline" className="px-3 py-1.5 text-xs">🥚 Eggs</Badge>
+            <Badge variant="outline" className="px-3 py-1.5 text-xs">🍗 Chicken</Badge>
+            <Badge variant="outline" className="px-3 py-1.5 text-xs">🧀 Cheese</Badge>
+            <Badge variant="outline" className="px-3 py-1.5 text-xs">🍝 Pasta</Badge>
+            <Badge variant="outline" className="px-3 py-1.5 text-xs">🧄 Garlic</Badge>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -545,23 +582,23 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
         </TabsList>
 
         <TabsContent value="breakfast" className="mt-0">
-          {renderRecipeList(breakfastRecipes, "No breakfast recipes match your ingredients. Try adding eggs, oats, or bread!")}
+          {renderRecipeList(breakfastRecipes, "breakfast")}
         </TabsContent>
 
         <TabsContent value="lunch" className="mt-0">
-          {renderRecipeList(lunchRecipes, "No lunch recipes match your ingredients. Try adding chicken, lettuce, or pasta!")}
+          {renderRecipeList(lunchRecipes, "lunch")}
         </TabsContent>
 
         <TabsContent value="dinner" className="mt-0">
-          {renderRecipeList(dinnerRecipes, "No dinner recipes match your ingredients. Try adding chicken, beef, or pasta!")}
+          {renderRecipeList(dinnerRecipes, "dinner")}
         </TabsContent>
 
         <TabsContent value="dessert" className="mt-0">
-          {renderRecipeList(dessertRecipes, "No dessert recipes match your ingredients. Try adding flour, sugar, or chocolate!")}
+          {renderRecipeList(dessertRecipes, "dessert")}
         </TabsContent>
 
         <TabsContent value="sides" className="mt-0">
-          {renderRecipeList(sidesRecipes, "No sides recipes match your ingredients. Try adding flour, yeast, or butter!")}
+          {renderRecipeList(sidesRecipes, "sides")}
         </TabsContent>
       </Tabs>
     </div>
