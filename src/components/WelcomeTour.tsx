@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -116,184 +116,81 @@ const steps: TourStep[] = [
   },
 ];
 
-interface SpotlightPosition {
+interface SpotlightRect {
   top: number;
   left: number;
   width: number;
   height: number;
 }
 
-function Spotlight({ targetSelector, children, position = "bottom" }: { 
-  targetSelector?: string; 
-  children: React.ReactNode;
-  position?: "top" | "bottom" | "left" | "right" | "center";
-}) {
-  const [spotlightPos, setSpotlightPos] = useState<SpotlightPosition | null>(null);
-  const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
-
-  const updatePosition = useCallback(() => {
-    if (!targetSelector) {
-      setSpotlightPos(null);
-      return;
-    }
-
-    const element = document.querySelector(targetSelector);
-    if (element) {
-      const rect = element.getBoundingClientRect();
-      const padding = 8;
-      
-      setSpotlightPos({
-        top: rect.top - padding,
-        left: rect.left - padding,
-        width: rect.width + padding * 2,
-        height: rect.height + padding * 2,
-      });
-
-      // Calculate tooltip position
-      const tooltipWidth = Math.min(380, window.innerWidth - 32);
-      const tooltipHeight = 280;
-      
-      let style: React.CSSProperties = {};
-      
-      switch (position) {
-        case "top":
-          style = {
-            bottom: window.innerHeight - rect.top + 16,
-            left: Math.max(16, Math.min(rect.left + rect.width / 2 - tooltipWidth / 2, window.innerWidth - tooltipWidth - 16)),
-          };
-          break;
-        case "bottom":
-          style = {
-            top: rect.bottom + 16,
-            left: Math.max(16, Math.min(rect.left + rect.width / 2 - tooltipWidth / 2, window.innerWidth - tooltipWidth - 16)),
-          };
-          break;
-        case "left":
-          style = {
-            top: Math.max(16, Math.min(rect.top + rect.height / 2 - tooltipHeight / 2, window.innerHeight - tooltipHeight - 16)),
-            right: window.innerWidth - rect.left + 16,
-          };
-          break;
-        case "right":
-          style = {
-            top: Math.max(16, Math.min(rect.top + rect.height / 2 - tooltipHeight / 2, window.innerHeight - tooltipHeight - 16)),
-            left: rect.right + 16,
-          };
-          break;
-        default:
-          style = {};
-      }
-      
-      setTooltipStyle(style);
-    } else {
-      setSpotlightPos(null);
-    }
-  }, [targetSelector, position]);
-
-  useEffect(() => {
-    updatePosition();
-    window.addEventListener("resize", updatePosition);
-    window.addEventListener("scroll", updatePosition, true);
-    
-    // Re-check position after a short delay for dynamic content
-    const timeout = setTimeout(updatePosition, 100);
-    
-    return () => {
-      window.removeEventListener("resize", updatePosition);
-      window.removeEventListener("scroll", updatePosition, true);
-      clearTimeout(timeout);
-    };
-  }, [updatePosition]);
-
-  const isCenter = !targetSelector || !spotlightPos;
-
-  return createPortal(
-    <div className="fixed inset-0 z-[100]">
-      {/* Overlay with spotlight cutout */}
-      {spotlightPos ? (
-        <>
-          {/* Dark overlay with hole */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <defs>
-              <mask id="spotlight-mask">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect
-                  x={spotlightPos.left}
-                  y={spotlightPos.top}
-                  width={spotlightPos.width}
-                  height={spotlightPos.height}
-                  rx="12"
-                  fill="black"
-                />
-              </mask>
-            </defs>
-            <rect
-              x="0"
-              y="0"
-              width="100%"
-              height="100%"
-              fill="rgba(0, 0, 0, 0.75)"
-              mask="url(#spotlight-mask)"
-            />
-          </svg>
-          
-          {/* Glowing border around target */}
-          <div
-            className="absolute rounded-xl pointer-events-none animate-pulse"
-            style={{
-              top: spotlightPos.top,
-              left: spotlightPos.left,
-              width: spotlightPos.width,
-              height: spotlightPos.height,
-              boxShadow: "0 0 0 3px hsl(var(--primary)), 0 0 20px 4px hsl(var(--primary) / 0.4)",
-            }}
-          />
-          
-          {/* Tooltip card positioned relative to target */}
-          <div 
-            className="absolute animate-fade-in"
-            style={{ ...tooltipStyle, width: Math.min(380, window.innerWidth - 32) }}
-          >
-            {children}
-          </div>
-        </>
-      ) : (
-        <>
-          {/* Center overlay for intro/non-targeted steps */}
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-          <div className="absolute inset-0 flex items-center justify-center p-4">
-            <div className="w-full max-w-md animate-fade-in">
-              {children}
-            </div>
-          </div>
-        </>
-      )}
-    </div>,
-    document.body
-  );
-}
-
 export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [spotlightRect, setSpotlightRect] = useState<SpotlightRect | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  
   const step = steps[currentStep];
   const Icon = step.icon;
   const isLastStep = currentStep === steps.length - 1;
+  const isCenter = !step.targetSelector || step.position === "center";
 
-  const handleNext = () => {
+  // Wait for mount before rendering portal
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Update spotlight position when step changes
+  useEffect(() => {
+    const updatePosition = () => {
+      if (!step.targetSelector) {
+        setSpotlightRect(null);
+        return;
+      }
+
+      const element = document.querySelector(step.targetSelector);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const padding = 8;
+        setSpotlightRect({
+          top: rect.top - padding,
+          left: rect.left - padding,
+          width: rect.width + padding * 2,
+          height: rect.height + padding * 2,
+        });
+      } else {
+        setSpotlightRect(null);
+      }
+    };
+
+    // Initial update + delayed update for dynamic content
+    updatePosition();
+    const timer = setTimeout(updatePosition, 150);
+    
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [step.targetSelector, currentStep]);
+
+  const handleNext = useCallback(() => {
     if (isLastStep) {
       onComplete();
     } else {
       setCurrentStep(prev => prev + 1);
     }
-  };
+  }, [isLastStep, onComplete]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep(prev => prev - 1);
     }
-  };
+  }, [currentStep]);
 
-  // Handle escape key
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -307,107 +204,218 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
     
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentStep, isLastStep]);
+  }, [handleNext, handlePrev, onSkip]);
 
-  const cardContent = (
-    <Card className="shadow-elevated border-border/50 overflow-hidden bg-card">
-      <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
-      
-      {/* Skip button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-3 right-3 h-8 w-8 text-muted-foreground hover:text-foreground z-10"
-        onClick={onSkip}
-        aria-label="Skip tour"
+  // Calculate card position based on spotlight
+  const getCardStyle = (): React.CSSProperties => {
+    if (!spotlightRect || isCenter) {
+      return {};
+    }
+
+    const cardWidth = 360;
+    const cardHeight = 320;
+    const gap = 16;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let top: number | undefined;
+    let left: number | undefined;
+    let bottom: number | undefined;
+    let right: number | undefined;
+
+    switch (step.position) {
+      case "bottom":
+        top = spotlightRect.top + spotlightRect.height + gap;
+        left = Math.max(16, Math.min(
+          spotlightRect.left + spotlightRect.width / 2 - cardWidth / 2,
+          viewportWidth - cardWidth - 16
+        ));
+        break;
+      case "top":
+        bottom = viewportHeight - spotlightRect.top + gap;
+        left = Math.max(16, Math.min(
+          spotlightRect.left + spotlightRect.width / 2 - cardWidth / 2,
+          viewportWidth - cardWidth - 16
+        ));
+        break;
+      case "right":
+        top = Math.max(16, Math.min(
+          spotlightRect.top + spotlightRect.height / 2 - cardHeight / 2,
+          viewportHeight - cardHeight - 16
+        ));
+        left = spotlightRect.left + spotlightRect.width + gap;
+        break;
+      case "left":
+        top = Math.max(16, Math.min(
+          spotlightRect.top + spotlightRect.height / 2 - cardHeight / 2,
+          viewportHeight - cardHeight - 16
+        ));
+        right = viewportWidth - spotlightRect.left + gap;
+        break;
+    }
+
+    return { top, left, bottom, right, width: cardWidth };
+  };
+
+  if (!mounted) return null;
+
+  const content = (
+    <div className="fixed inset-0 z-[100]" onClick={(e) => e.target === e.currentTarget && onSkip()}>
+      {/* Overlay */}
+      {isCenter || !spotlightRect ? (
+        // Center mode: simple overlay
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      ) : (
+        // Spotlight mode: four boxes around the target
+        <>
+          {/* Top overlay */}
+          <div 
+            className="absolute left-0 right-0 top-0 bg-black/70"
+            style={{ height: spotlightRect.top }}
+          />
+          {/* Bottom overlay */}
+          <div 
+            className="absolute left-0 right-0 bottom-0 bg-black/70"
+            style={{ top: spotlightRect.top + spotlightRect.height }}
+          />
+          {/* Left overlay */}
+          <div 
+            className="absolute left-0 bg-black/70"
+            style={{ 
+              top: spotlightRect.top,
+              width: spotlightRect.left,
+              height: spotlightRect.height
+            }}
+          />
+          {/* Right overlay */}
+          <div 
+            className="absolute right-0 bg-black/70"
+            style={{ 
+              top: spotlightRect.top,
+              left: spotlightRect.left + spotlightRect.width,
+              height: spotlightRect.height
+            }}
+          />
+          {/* Spotlight ring */}
+          <div
+            className="absolute rounded-xl pointer-events-none ring-4 ring-primary ring-offset-2 ring-offset-transparent"
+            style={{
+              top: spotlightRect.top,
+              left: spotlightRect.left,
+              width: spotlightRect.width,
+              height: spotlightRect.height,
+              boxShadow: "0 0 30px 8px hsl(var(--primary) / 0.3)",
+              animation: "pulse 2s ease-in-out infinite",
+            }}
+          />
+        </>
+      )}
+
+      {/* Card */}
+      <div
+        ref={cardRef}
+        className={cn(
+          "absolute",
+          isCenter || !spotlightRect ? "inset-0 flex items-center justify-center p-4" : ""
+        )}
+        style={!isCenter && spotlightRect ? getCardStyle() : undefined}
       >
-        <X className="h-4 w-4" />
-      </Button>
-
-      <CardContent className="p-4 sm:p-6 pt-8 sm:pt-10">
-        {/* Progress dots */}
-        <div className="flex justify-center gap-1.5 mb-4 sm:mb-6 flex-wrap" role="tablist" aria-label="Tour progress">
-          {steps.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentStep(index)}
-              aria-label={`Go to step ${index + 1} of ${steps.length}`}
-              role="tab"
-              aria-selected={index === currentStep}
-              className={cn(
-                "relative p-1.5 -m-1.5 rounded-full transition-all duration-300",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              )}
-            >
-              <span
-                className={cn(
-                  "block w-2 h-2 rounded-full transition-all duration-300",
-                  index === currentStep 
-                    ? "w-4 gradient-warm" 
-                    : index < currentStep 
-                      ? "bg-primary/60" 
-                      : "bg-muted-foreground/30"
-                )}
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Icon */}
-        <div className="flex justify-center mb-4">
-          <div className="relative">
-            <div className="absolute inset-0 gradient-warm blur-xl opacity-40 animate-pulse" />
-            <div className="relative p-3 rounded-xl gradient-warm shadow-warm">
-              <Icon className="h-6 w-6 text-primary-foreground" />
-            </div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="text-center mb-4" key={currentStep}>
-          <h2 className="font-serif text-lg sm:text-xl font-semibold mb-2">{step.title}</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-3">{step.description}</p>
-          <Badge variant="secondary" className="px-2 py-0.5 text-xs">
-            {step.highlight}
-          </Badge>
-        </div>
-
-        {/* Navigation */}
-        <div className="flex items-center justify-between gap-2">
+        <Card className={cn(
+          "shadow-2xl border-border/50 overflow-hidden bg-card relative",
+          isCenter || !spotlightRect ? "w-full max-w-md" : ""
+        )}>
+          <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
+          
+          {/* Skip button */}
           <Button
             variant="ghost"
-            size="sm"
-            onClick={handlePrev}
-            disabled={currentStep === 0}
-            className="text-muted-foreground"
+            size="icon"
+            className="absolute top-3 right-3 h-8 w-8 text-muted-foreground hover:text-foreground z-10"
+            onClick={onSkip}
+            aria-label="Skip tour"
           >
-            Back
+            <X className="h-4 w-4" />
           </Button>
-          
-          <span className="text-xs text-muted-foreground">
-            {currentStep + 1} of {steps.length}
-          </span>
 
-          <Button
-            variant="warm"
-            size="sm"
-            onClick={handleNext}
-            className="min-w-[80px]"
-          >
-            {isLastStep ? "Start" : "Next"}
-            <ArrowRight className="h-3 w-3 ml-1" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          <CardContent className="p-5 pt-10">
+            {/* Progress dots */}
+            <div className="flex justify-center gap-1.5 mb-5 flex-wrap" role="tablist" aria-label="Tour progress">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentStep(index)}
+                  aria-label={`Go to step ${index + 1} of ${steps.length}`}
+                  role="tab"
+                  aria-selected={index === currentStep}
+                  className={cn(
+                    "relative p-1.5 -m-1.5 rounded-full transition-all duration-300",
+                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "block h-2 rounded-full transition-all duration-300",
+                      index === currentStep 
+                        ? "w-5 gradient-warm" 
+                        : index < currentStep 
+                          ? "w-2 bg-primary/60" 
+                          : "w-2 bg-muted-foreground/30"
+                    )}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Icon */}
+            <div className="flex justify-center mb-4">
+              <div className="relative">
+                <div className="absolute inset-0 gradient-warm blur-xl opacity-40" />
+                <div className="relative p-3 rounded-xl gradient-warm shadow-warm">
+                  <Icon className="h-6 w-6 text-primary-foreground" />
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="text-center mb-5" key={currentStep}>
+              <h2 className="font-serif text-xl font-semibold mb-2">{step.title}</h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3">{step.description}</p>
+              <Badge variant="secondary" className="px-3 py-1 text-xs">
+                {step.highlight}
+              </Badge>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handlePrev}
+                disabled={currentStep === 0}
+                className="text-muted-foreground"
+              >
+                Back
+              </Button>
+              
+              <span className="text-xs text-muted-foreground">
+                {currentStep + 1} of {steps.length}
+              </span>
+
+              <Button
+                variant="warm"
+                size="sm"
+                onClick={handleNext}
+                className="min-w-[80px]"
+              >
+                {isLastStep ? "Get Started" : "Next"}
+                <ArrowRight className="h-3 w-3 ml-1" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 
-  return (
-    <Spotlight 
-      targetSelector={step.targetSelector} 
-      position={step.position}
-    >
-      {cardContent}
-    </Spotlight>
-  );
+  return createPortal(content, document.body);
 }
