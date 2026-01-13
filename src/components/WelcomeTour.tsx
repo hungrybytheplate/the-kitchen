@@ -260,41 +260,48 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
   if (!mounted) return null;
 
   const content = (
-    <div className="fixed inset-0 z-[100]" onClick={(e) => e.target === e.currentTarget && onSkip()}>
-      {/* Overlay */}
+    <div className="fixed inset-0 z-[100]">
+      {/* Overlay - clicking dismisses */}
       {isCenter || !spotlightRect ? (
         // Center mode: simple overlay
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+        <div 
+          className="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-pointer" 
+          onClick={onSkip}
+        />
       ) : (
         // Spotlight mode: four boxes around the target
         <>
           {/* Top overlay */}
           <div 
-            className="absolute left-0 right-0 top-0 bg-black/70"
-            style={{ height: spotlightRect.top }}
+            className="absolute left-0 right-0 top-0 bg-black/70 cursor-pointer"
+            style={{ height: Math.max(0, spotlightRect.top) }}
+            onClick={onSkip}
           />
           {/* Bottom overlay */}
           <div 
-            className="absolute left-0 right-0 bottom-0 bg-black/70"
+            className="absolute left-0 right-0 bottom-0 bg-black/70 cursor-pointer"
             style={{ top: spotlightRect.top + spotlightRect.height }}
+            onClick={onSkip}
           />
           {/* Left overlay */}
           <div 
-            className="absolute left-0 bg-black/70"
+            className="absolute left-0 bg-black/70 cursor-pointer"
             style={{ 
               top: spotlightRect.top,
-              width: spotlightRect.left,
+              width: Math.max(0, spotlightRect.left),
               height: spotlightRect.height
             }}
+            onClick={onSkip}
           />
           {/* Right overlay */}
           <div 
-            className="absolute right-0 bg-black/70"
+            className="absolute right-0 bg-black/70 cursor-pointer"
             style={{ 
               top: spotlightRect.top,
               left: spotlightRect.left + spotlightRect.width,
               height: spotlightRect.height
             }}
+            onClick={onSkip}
           />
           {/* Spotlight ring */}
           <div
@@ -311,19 +318,22 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
         </>
       )}
 
-      {/* Card */}
+      {/* Card container - does NOT dismiss on click */}
       <div
         ref={cardRef}
         className={cn(
-          "absolute",
+          "absolute pointer-events-none",
           isCenter || !spotlightRect ? "inset-0 flex items-center justify-center p-4" : ""
         )}
         style={!isCenter && spotlightRect ? getCardStyle() : undefined}
       >
-        <Card className={cn(
-          "shadow-2xl border-border/50 overflow-hidden bg-card relative",
-          isCenter || !spotlightRect ? "w-full max-w-md" : ""
-        )}>
+        <Card 
+          className={cn(
+            "shadow-2xl border-border/50 overflow-hidden bg-card relative pointer-events-auto",
+            isCenter || !spotlightRect ? "w-full max-w-md" : ""
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
           
           {/* Skip button */}
@@ -331,7 +341,10 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
             variant="ghost"
             size="icon"
             className="absolute top-3 right-3 h-8 w-8 text-muted-foreground hover:text-foreground z-10"
-            onClick={onSkip}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSkip();
+            }}
             aria-label="Skip tour"
           >
             <X className="h-4 w-4" />
@@ -343,7 +356,10 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
               {steps.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentStep(index)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentStep(index);
+                  }}
                   aria-label={`Go to step ${index + 1} of ${steps.length}`}
                   role="tab"
                   aria-selected={index === currentStep}
@@ -390,7 +406,10 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={handlePrev}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
                 disabled={currentStep === 0}
                 className="text-muted-foreground"
               >
@@ -404,7 +423,10 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
               <Button
                 variant="warm"
                 size="sm"
-                onClick={handleNext}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
                 className="min-w-[80px]"
               >
                 {isLastStep ? "Get Started" : "Next"}
