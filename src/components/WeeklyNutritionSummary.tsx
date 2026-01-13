@@ -125,9 +125,7 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
     },
   ];
 
-  if (weekMeals.length === 0) {
-    return null;
-  }
+  const isEmpty = weekMeals.length === 0;
 
   return (
     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
@@ -146,77 +144,91 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-          {nutritionItems.map((item) => (
-            <div
-              key={item.label}
-              className={`rounded-xl p-3 ${item.bgColor} transition-all hover:scale-[1.02]`}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <item.icon className={`h-4 w-4 ${item.color}`} />
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  {item.label}
-                </span>
-              </div>
-              <div className="space-y-1">
-                <div className={`text-2xl font-bold ${item.color}`}>
-                  {item.total.toLocaleString()}
-                  <span className="text-xs font-normal text-muted-foreground ml-1">
-                    {item.unit}
+        {isEmpty ? (
+          <div className="flex flex-col items-center justify-center py-8 text-center">
+            <div className="p-4 rounded-full bg-muted/50 mb-4">
+              <Flame className="h-8 w-8 text-muted-foreground/50" />
+            </div>
+            <h3 className="font-medium text-muted-foreground mb-1">No meals planned yet</h3>
+            <p className="text-sm text-muted-foreground/70 max-w-xs">
+              Add meals to your calendar to see your weekly nutrition breakdown and macro distribution.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+              {nutritionItems.map((item) => (
+                <div
+                  key={item.label}
+                  className={`rounded-xl p-3 ${item.bgColor} transition-all hover:scale-[1.02]`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <item.icon className={`h-4 w-4 ${item.color}`} />
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                      {item.label}
+                    </span>
+                  </div>
+                  <div className="space-y-1">
+                    <div className={`text-2xl font-bold ${item.color}`}>
+                      {item.total.toLocaleString()}
+                      <span className="text-xs font-normal text-muted-foreground ml-1">
+                        {item.unit}
+                      </span>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      ~{item.daily} {item.unit}/day avg
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Macro breakdown bar */}
+            {totals.protein + totals.carbs + totals.fat > 0 && (
+              <div className="mt-4 pt-4 border-t border-border/50">
+                <div className="text-xs text-muted-foreground mb-2 font-medium">Macro Distribution</div>
+                <div className="h-3 rounded-full overflow-hidden flex bg-muted/50">
+                  {(() => {
+                    const total = totals.protein + totals.carbs + totals.fat;
+                    const proteinPct = (totals.protein / total) * 100;
+                    const carbsPct = (totals.carbs / total) * 100;
+                    const fatPct = (totals.fat / total) * 100;
+                    
+                    return (
+                      <>
+                        <div 
+                          className="bg-red-400 transition-all" 
+                          style={{ width: `${proteinPct}%` }}
+                          title={`Protein: ${Math.round(proteinPct)}%`}
+                        />
+                        <div 
+                          className="bg-sky-400 transition-all" 
+                          style={{ width: `${carbsPct}%` }}
+                          title={`Carbs: ${Math.round(carbsPct)}%`}
+                        />
+                        <div 
+                          className="bg-violet-400 transition-all" 
+                          style={{ width: `${fatPct}%` }}
+                          title={`Fat: ${Math.round(fatPct)}%`}
+                        />
+                      </>
+                    );
+                  })()}
+                </div>
+                <div className="flex justify-between mt-1.5 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-red-400" /> Protein
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-sky-400" /> Carbs
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-violet-400" /> Fat
                   </span>
                 </div>
-                <div className="text-xs text-muted-foreground">
-                  ~{item.daily} {item.unit}/day avg
-                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Macro breakdown bar */}
-        {totals.protein + totals.carbs + totals.fat > 0 && (
-          <div className="mt-4 pt-4 border-t border-border/50">
-            <div className="text-xs text-muted-foreground mb-2 font-medium">Macro Distribution</div>
-            <div className="h-3 rounded-full overflow-hidden flex bg-muted/50">
-              {(() => {
-                const total = totals.protein + totals.carbs + totals.fat;
-                const proteinPct = (totals.protein / total) * 100;
-                const carbsPct = (totals.carbs / total) * 100;
-                const fatPct = (totals.fat / total) * 100;
-                
-                return (
-                  <>
-                    <div 
-                      className="bg-red-400 transition-all" 
-                      style={{ width: `${proteinPct}%` }}
-                      title={`Protein: ${Math.round(proteinPct)}%`}
-                    />
-                    <div 
-                      className="bg-sky-400 transition-all" 
-                      style={{ width: `${carbsPct}%` }}
-                      title={`Carbs: ${Math.round(carbsPct)}%`}
-                    />
-                    <div 
-                      className="bg-violet-400 transition-all" 
-                      style={{ width: `${fatPct}%` }}
-                      title={`Fat: ${Math.round(fatPct)}%`}
-                    />
-                  </>
-                );
-              })()}
-            </div>
-            <div className="flex justify-between mt-1.5 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-red-400" /> Protein
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-sky-400" /> Carbs
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-violet-400" /> Fat
-              </span>
-            </div>
-          </div>
+            )}
+          </>
         )}
       </CardContent>
     </Card>
