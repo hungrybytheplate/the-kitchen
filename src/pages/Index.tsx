@@ -626,7 +626,7 @@ const Index = () => {
       <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
         {/* Top-level Cook/Drink toggle */}
         <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <div className="inline-flex p-1 sm:p-1.5 rounded-xl sm:rounded-2xl glass shadow-soft">
+          <div className="inline-flex p-1 sm:p-1.5 rounded-xl sm:rounded-2xl glass shadow-soft" data-tour="mode-switch">
             <button
               onClick={() => setAppMode("cook")}
               className={cn(
@@ -686,7 +686,7 @@ const Index = () => {
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Plan your weekly meals" side="bottom">
-              <TabsTrigger value="calendar" aria-label="Plan - Plan your weekly meals" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+              <TabsTrigger data-tour="calendar-tab" value="calendar" aria-label="Plan - Plan your weekly meals" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
                 <Calendar className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Plan</span>
                 {mealPlan.length > 0 && (
@@ -697,7 +697,7 @@ const Index = () => {
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Your favorite recipes" side="bottom">
-              <TabsTrigger value="saved" aria-label="Saved - Your favorite recipes" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+              <TabsTrigger data-tour="saved-tab" value="saved" aria-label="Saved - Your favorite recipes" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
                 <Heart className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Saved</span>
                 {(savedRecipes.length + savedDrinks.length) > 0 && (
@@ -708,7 +708,7 @@ const Index = () => {
               </TabsTrigger>
             </QuickTooltip>
             <QuickTooltip content="Your shopping list" side="bottom">
-              <TabsTrigger value="shopping" aria-label="Shop - Your shopping list" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
+              <TabsTrigger data-tour="shopping-tab" value="shopping" aria-label="Shop - Your shopping list" className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3 relative">
                 <ShoppingCart className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">Shop</span>
                 {shoppingList.length > 0 && (
@@ -739,7 +739,7 @@ const Index = () => {
             {appMode === "cook" ? (
               // COOK MODE
             <div className="grid gap-4 lg:grid-cols-2">
-                <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
+                <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden" data-tour="ingredients">
                   <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
@@ -783,7 +783,7 @@ const Index = () => {
                       onTogglePantry={togglePantryItem}
                     />
                     
-                    <div className="mt-6 pt-6 border-t border-border/50">
+                    <div className="mt-6 pt-6 border-t border-border/50" data-tour="find-recipes">
                       <Button
                         variant="warm"
                         size="xl"
