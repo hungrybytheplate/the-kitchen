@@ -10,7 +10,11 @@ import {
   Heart, 
   ShoppingCart,
   ArrowRight,
-  X
+  X,
+  Wine,
+  Activity,
+  Package,
+  Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,21 +43,45 @@ const steps = [
     highlight: "Missing an ingredient? Add it to your shopping list!",
   },
   {
+    icon: Wine,
+    title: "Mix Drinks Too!",
+    description: "Switch to Drink mode to discover cocktails, mocktails, smoothies and wellness drinks based on what you have.",
+    highlight: "From margaritas to matcha lattes",
+  },
+  {
     icon: Calendar,
     title: "Plan Your Week",
-    description: "Add recipes to your meal calendar to plan ahead. Stay organized and never wonder 'what's for dinner?' again.",
+    description: "Add recipes to your meal calendar to plan ahead. Drag and drop to rearrange, and sync with Google, Apple, or Outlook.",
     highlight: "Meal prep made simple",
   },
   {
+    icon: Activity,
+    title: "Track Your Nutrition",
+    description: "See your weekly nutrition summary with calories, protein, carbs, fat, and more. Watch your macro distribution at a glance.",
+    highlight: "Stay on top of your health goals",
+  },
+  {
+    icon: Package,
+    title: "Manage Your Pantry",
+    description: "Visit My Pantry to manage your ingredients. Bulk select and remove items, or clear entire categories at once.",
+    highlight: "Keep your kitchen organized",
+  },
+  {
     icon: Heart,
-    title: "Save Your Favorites",
-    description: "Love a recipe? Save it for later! Build your personal cookbook of go-to meals.",
-    highlight: "Your recipes, always at hand",
+    title: "Save & Rate Favorites",
+    description: "Save recipes and drinks you love. Rate them with stars and add personal notes to remember your tweaks.",
+    highlight: "Build your personal cookbook",
+  },
+  {
+    icon: Star,
+    title: "Smart Suggestions",
+    description: "Get personalized recipe recommendations based on your saved favorites and preferences.",
+    highlight: "Discover new dishes you'll love",
   },
   {
     icon: ShoppingCart,
     title: "Build Your Shopping List",
-    description: "Missing ingredients get added to your shopping list automatically. Check them off as you shop!",
+    description: "Missing ingredients get added automatically. Choose specific variants and check them off as you shop!",
     highlight: "You're all set to start cooking!",
   },
 ];
