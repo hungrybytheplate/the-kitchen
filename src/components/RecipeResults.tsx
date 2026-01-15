@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { staggerContainer } from "@/components/ui/animated";
@@ -97,6 +97,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [showSnacksOnly, setShowSnacksOnly] = useState(false);
   const [showOnePanOnly, setShowOnePanOnly] = useState(false);
   const [showQuickEasyOnly, setShowQuickEasyOnly] = useState(false);
+  const [showSlowCookerOnly, setShowSlowCookerOnly] = useState(false);
+  const [showInstantPotOnly, setShowInstantPotOnly] = useState(false);
 
   const parseCookTime = (cookTime: string): number => {
     const match = cookTime.match(/(\d+)/);
@@ -110,6 +112,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     const minutes = parseCookTime(r.cookTime);
     return minutes <= 20 && r.difficulty === "easy";
   }).length;
+  const slowCookerCount = recipes.filter(r => r.isSlowCooker).length;
+  const instantPotCount = recipes.filter(r => r.isInstantPot).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -132,9 +136,11 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setShowSnacksOnly(false);
     setShowOnePanOnly(false);
     setShowQuickEasyOnly(false);
+    setShowSlowCookerOnly(false);
+    setShowInstantPotOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly;
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
@@ -181,6 +187,14 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       if (minutes > 20 || recipe.difficulty !== "easy") {
         return false;
       }
+    }
+    // Slow Cooker filter
+    if (showSlowCookerOnly && !recipe.isSlowCooker) {
+      return false;
+    }
+    // Instant Pot filter
+    if (showInstantPotOnly && !recipe.isInstantPot) {
+      return false;
     }
     return true;
   });
@@ -418,13 +432,51 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               <span className="ml-1.5 text-xs opacity-80">({onePanCount})</span>
             </Badge>
           )}
+
+          {/* Slow Cooker Filter */}
+          {slowCookerCount > 0 && (
+            <Badge
+              variant={showSlowCookerOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showSlowCookerOnly 
+                  ? "bg-orange-500 hover:bg-orange-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowSlowCookerOnly(!showSlowCookerOnly)}
+            >
+              <Timer className="h-3.5 w-3.5 mr-1.5" />
+              Slow Cooker
+              <span className="ml-1.5 text-xs opacity-80">({slowCookerCount})</span>
+            </Badge>
+          )}
+
+          {/* Instant Pot Filter */}
+          {instantPotCount > 0 && (
+            <Badge
+              variant={showInstantPotOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showInstantPotOnly 
+                  ? "bg-violet-500 hover:bg-violet-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowInstantPotOnly(!showInstantPotOnly)}
+            >
+              <Gauge className="h-3.5 w-3.5 mr-1.5" />
+              Instant Pot
+              <span className="ml-1.5 text-xs opacity-80">({instantPotCount})</span>
+            </Badge>
+          )}
         </div>
-        {(showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly) && (
+        {(showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
             {showQuickEasyOnly && "Showing recipes under 20 minutes with easy difficulty"}
             {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
             {showSnacksOnly && "Showing dips, muffins, and finger foods"}
             {showOnePanOnly && "Showing easy one-pan and sheet pan dinners"}
+            {showSlowCookerOnly && "Showing slow cooker and crockpot recipes"}
+            {showInstantPotOnly && "Showing Instant Pot and pressure cooker recipes"}
           </p>
         )}
       </div>
