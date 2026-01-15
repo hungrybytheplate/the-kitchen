@@ -64,6 +64,10 @@ export const pantryItems: IngredientCategory[] = [
       { id: "olives-green", name: "Green Olives", emoji: "🫒" },
       { id: "pickles-dill", name: "Dill Pickles", emoji: "🥒" },
       { id: "pickles-bread-butter", name: "Bread & Butter Pickles", emoji: "🥒" },
+      { id: "pickles-kosher", name: "Kosher Dill Pickles", emoji: "🥒" },
+      { id: "pickles-spicy", name: "Spicy Pickles", emoji: "🥒" },
+      { id: "pickle-juice", name: "Pickle Juice/Brine", emoji: "🥒" },
+      { id: "pickles-cornichons", name: "Cornichons", emoji: "🥒" },
     ],
   },
   {

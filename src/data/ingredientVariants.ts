@@ -745,6 +745,28 @@ export const ingredientVariants: Record<string, IngredientWithVariants> = {
       { id: "stuffed-olives", name: "Stuffed Olives", emoji: "🫒" },
     ],
   },
+  pickles: {
+    category: "Canned & Jarred",
+    defaultName: "Pickles",
+    emoji: "🥒",
+    variants: [
+      { id: "pickles-dill", name: "Dill Pickles", emoji: "🥒" },
+      { id: "pickles-kosher", name: "Kosher Dill Pickles", emoji: "🥒" },
+      { id: "pickles-bread-butter", name: "Bread & Butter Pickles", emoji: "🥒" },
+      { id: "pickles-spicy", name: "Spicy Pickles", emoji: "🥒" },
+      { id: "pickles-cornichons", name: "Cornichons", emoji: "🥒" },
+      { id: "pickles-sweet", name: "Sweet Pickles", emoji: "🥒" },
+    ],
+  },
+  "pickle-juice": {
+    category: "Canned & Jarred",
+    defaultName: "Pickle Juice",
+    emoji: "🥒",
+    variants: [
+      { id: "pickle-juice", name: "Pickle Juice/Brine", emoji: "🥒" },
+      { id: "dill-pickle-brine", name: "Dill Pickle Brine", emoji: "🥒" },
+    ],
+  },
 
   // ==================== OILS & VINEGARS ====================
   "olive-oil": {
