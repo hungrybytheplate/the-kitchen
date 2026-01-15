@@ -151,6 +151,8 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "celery", name: "Celery" },
       { id: "pickles", name: "Pickles" },
       { id: "dill", name: "Fresh Dill" },
+      { id: "pepperoncini", name: "Pepperoncini" },
+      { id: "banana-peppers", name: "Banana Peppers" },
       { id: "olives", name: "Olives" },
       { id: "cherries", name: "Maraschino Cherries" },
       { id: "angostura", name: "Angostura Bitters" },
