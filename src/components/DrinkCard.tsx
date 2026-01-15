@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Heart, Check, Key, Wine, GlassWater, Leaf, Sparkles, Zap, Shield, Dumbbell, HeartPulse, Droplets, Snowflake } from "lucide-react";
+import { Clock, Heart, Check, Key, Wine, GlassWater, Leaf, Sparkles, Zap, Shield, Dumbbell, HeartPulse, Droplets, Snowflake, Shuffle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Drink, HealthTag } from "@/data/drinks";
@@ -68,6 +68,8 @@ export function DrinkCard({ drink, isSaved, onSave, onAddToShopping }: DrinkCard
   const matchPercentage = Math.round(
     (drink.matchedIngredients.length / drink.ingredients.length) * 100
   );
+  
+  const hasSubstitutions = !!(drink.alcoholSubstitutions?.length || drink.virginVersion);
 
   return (
     <>
@@ -127,6 +129,16 @@ export function DrinkCard({ drink, isSaved, onSave, onAddToShopping }: DrinkCard
                     <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                     <span className="hidden sm:inline">Great Match</span>
                     <span className="sm:hidden">Match</span>
+                  </Badge>
+                )}
+                {hasSubstitutions && (
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 bg-indigo-100 border-indigo-300 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-700 dark:text-indigo-400"
+                  >
+                    <Shuffle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden sm:inline">Substitutions</span>
+                    <span className="sm:hidden">Subs</span>
                   </Badge>
                 )}
               </div>
