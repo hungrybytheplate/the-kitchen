@@ -767,6 +767,74 @@ export const ingredientVariants: Record<string, IngredientWithVariants> = {
       { id: "dill-pickle-brine", name: "Dill Pickle Brine", emoji: "🥒" },
     ],
   },
+  relish: {
+    category: "Canned & Jarred",
+    defaultName: "Relish",
+    emoji: "🥒",
+    variants: [
+      { id: "relish-sweet", name: "Sweet Relish", emoji: "🥒" },
+      { id: "relish-dill", name: "Dill Relish", emoji: "🥒" },
+      { id: "relish-hot-dog", name: "Hot Dog Relish", emoji: "🥒" },
+    ],
+  },
+  capers: {
+    category: "Canned & Jarred",
+    defaultName: "Capers",
+    emoji: "🫒",
+    variants: [
+      { id: "capers", name: "Capers in Brine", emoji: "🫒" },
+      { id: "capers-salt-packed", name: "Salt-Packed Capers", emoji: "🫒" },
+      { id: "caper-berries", name: "Caper Berries", emoji: "🫒" },
+    ],
+  },
+  pepperoncini: {
+    category: "Canned & Jarred",
+    defaultName: "Pepperoncini",
+    emoji: "🌶️",
+    variants: [
+      { id: "pepperoncini", name: "Pepperoncini", emoji: "🌶️" },
+      { id: "banana-peppers", name: "Banana Peppers", emoji: "🌶️" },
+      { id: "sport-peppers", name: "Sport Peppers", emoji: "🌶️" },
+    ],
+  },
+  "pickled-peppers": {
+    category: "Canned & Jarred",
+    defaultName: "Pickled Peppers",
+    emoji: "🌶️",
+    variants: [
+      { id: "jalapenos-pickled", name: "Pickled Jalapeños", emoji: "🌶️" },
+      { id: "cherry-peppers", name: "Cherry Peppers", emoji: "🌶️" },
+      { id: "pickled-serranos", name: "Pickled Serranos", emoji: "🌶️" },
+    ],
+  },
+  giardiniera: {
+    category: "Canned & Jarred",
+    defaultName: "Giardiniera",
+    emoji: "🥗",
+    variants: [
+      { id: "giardiniera", name: "Giardiniera (Mild)", emoji: "🥗" },
+      { id: "giardiniera-hot", name: "Hot Giardiniera", emoji: "🥗" },
+    ],
+  },
+  "artichoke-hearts": {
+    category: "Canned & Jarred",
+    defaultName: "Artichoke Hearts",
+    emoji: "🥗",
+    variants: [
+      { id: "artichoke-hearts", name: "Artichoke Hearts in Water", emoji: "🥗" },
+      { id: "artichoke-hearts-marinated", name: "Marinated Artichoke Hearts", emoji: "🥗" },
+    ],
+  },
+  "roasted-peppers": {
+    category: "Canned & Jarred",
+    defaultName: "Roasted Peppers",
+    emoji: "🌶️",
+    variants: [
+      { id: "roasted-red-peppers", name: "Roasted Red Peppers", emoji: "🌶️" },
+      { id: "fire-roasted-peppers", name: "Fire-Roasted Peppers", emoji: "🌶️" },
+      { id: "piquillo-peppers", name: "Piquillo Peppers", emoji: "🌶️" },
+    ],
+  },
 
   // ==================== OILS & VINEGARS ====================
   "olive-oil": {
