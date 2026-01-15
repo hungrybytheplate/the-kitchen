@@ -9070,6 +9070,8 @@ function ingredientMatches(selectedId: string, recipeIngredient: string): boolea
     tuna: ['tuna-white', 'tuna-chunk'],
     'coconut-milk': ['coconut-milk-full', 'coconut-milk-light'],
     olives: ['olives-black', 'olives-kalamata', 'olives-green'],
+    pickles: ['pickles-dill', 'pickles-kosher', 'pickles-bread-butter', 'pickles-spicy', 'pickles-cornichons', 'pickles-sweet'],
+    'pickle-juice': ['pickle-juice', 'dill-pickle-brine'],
     'olive-oil': ['olive-oil-evoo', 'olive-oil-light'],
     'vegetable-oil': ['vegetable-oil', 'canola-oil'],
     salt: ['salt-kosher', 'salt-sea', 'salt-table'],
