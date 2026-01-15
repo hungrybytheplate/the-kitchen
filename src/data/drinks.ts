@@ -9590,6 +9590,619 @@ export const sampleDrinks: Drink[] = [
     healthTags: ["Antioxidant", "Low Calorie"],
     nutrition: { calories: 110, sugar: 12, carbs: 14 },
   },
+  // ============ DRINKS WITH SUBSTITUTIONS ============
+  {
+    id: "versatile-sour",
+    title: "Versatile Citrus Sour",
+    drinkType: "cocktail",
+    description: "Classic sour template that works with multiple base spirits",
+    prepTime: "5 min",
+    ingredients: ["bourbon", "lemon", "simple-syrup", "egg-white"],
+    instructions: [
+      "Add all ingredients to shaker without ice",
+      "Dry shake vigorously for 30 seconds",
+      "Add ice and shake again until cold",
+      "Strain into coupe glass",
+      "Add optional bitters on top"
+    ],
+    matchedIngredients: [],
+    glassType: "Coupe",
+    garnish: "Lemon wheel",
+    isAlcoholic: true,
+    nutrition: { calories: 180, sugar: 10, carbs: 12 },
+    occasion: "date-night",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "bourbon", alternatives: ["whiskey", "rum-dark", "brandy", "amaretto", "mezcal"], notes: "Whiskey adds spice, rum adds sweetness, brandy makes it elegant, amaretto creates an Amaretto Sour, mezcal adds smokiness" }
+    ],
+    virginVersion: { replaces: [{ original: "bourbon", substitute: "apple-cider" }], notes: "Apple cider with lemon creates a complex non-alcoholic base" },
+  },
+  {
+    id: "universal-mule",
+    title: "Universal Mule",
+    drinkType: "cocktail",
+    description: "The classic mule template - swap spirits for endless variations",
+    prepTime: "3 min",
+    ingredients: ["vodka", "ginger-beer", "lime"],
+    instructions: [
+      "Fill copper mug with ice",
+      "Add spirit of choice",
+      "Squeeze in fresh lime juice",
+      "Top with ginger beer",
+      "Stir gently and garnish"
+    ],
+    matchedIngredients: [],
+    glassType: "Copper mug",
+    garnish: "Lime wheel, mint sprig",
+    isAlcoholic: true,
+    nutrition: { calories: 182, sugar: 14, carbs: 16 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["bourbon", "rum-dark", "tequila", "mezcal", "gin"], notes: "Bourbon = Kentucky Mule, Dark rum = Dark & Stormy, Tequila = Mexican Mule, Mezcal = Oaxacan Mule, Gin = Gin-Gin Mule" }
+    ],
+    virginVersion: { replaces: [{ original: "vodka", substitute: "club-soda" }], notes: "Double ginger beer for extra kick" },
+  },
+  {
+    id: "any-spirit-martini",
+    title: "Spirit-Forward Martini",
+    drinkType: "cocktail",
+    description: "Classic martini template adaptable to any base spirit",
+    prepTime: "3 min",
+    ingredients: ["gin", "vermouth-dry", "olives"],
+    instructions: [
+      "Chill martini glass with ice",
+      "Add spirit and vermouth to mixing glass with ice",
+      "Stir for 30 seconds until well chilled",
+      "Strain into chilled glass",
+      "Garnish with olives or twist"
+    ],
+    matchedIngredients: [],
+    glassType: "Martini glass",
+    garnish: "Olives or lemon twist",
+    isAlcoholic: true,
+    nutrition: { calories: 176, sugar: 0, carbs: 1 },
+    occasion: "date-night",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "gin", alternatives: ["vodka", "mezcal", "rum-white"], notes: "Vodka for classic vodka martini, mezcal for smoky variation, white rum for a tropical twist" }
+    ],
+  },
+  {
+    id: "flex-collins",
+    title: "Flexible Collins",
+    drinkType: "cocktail",
+    description: "The refreshing Collins works beautifully with various spirits",
+    prepTime: "4 min",
+    ingredients: ["gin", "lemon", "simple-syrup", "club-soda"],
+    instructions: [
+      "Add spirit, lemon juice, and simple syrup to shaker with ice",
+      "Shake until cold",
+      "Strain into collins glass over fresh ice",
+      "Top with club soda",
+      "Garnish with lemon and cherry"
+    ],
+    matchedIngredients: [],
+    glassType: "Collins glass",
+    garnish: "Lemon wheel, maraschino cherry",
+    isAlcoholic: true,
+    nutrition: { calories: 160, sugar: 12, carbs: 14 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "gin", alternatives: ["vodka", "whiskey", "rum-white", "tequila"], notes: "Vodka = Vodka Collins, Whiskey = John Collins, Rum = Rum Collins, Tequila = Juan Collins" }
+    ],
+    virginVersion: { replaces: [{ original: "gin", substitute: "club-soda" }], notes: "Extra lemon and a splash of elderflower adds complexity" },
+  },
+  {
+    id: "adaptable-spritz",
+    title: "Adaptable Spritz",
+    drinkType: "cocktail",
+    description: "The iconic spritz format with swappable aperitifs",
+    prepTime: "2 min",
+    ingredients: ["aperol", "prosecco", "club-soda", "orange"],
+    instructions: [
+      "Fill wine glass with ice",
+      "Add aperitif",
+      "Top with prosecco",
+      "Add splash of club soda",
+      "Garnish with orange slice"
+    ],
+    matchedIngredients: [],
+    glassType: "Wine glass",
+    garnish: "Orange slice",
+    isAlcoholic: true,
+    nutrition: { calories: 200, sugar: 15, carbs: 18 },
+    occasion: "brunch",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "aperol", alternatives: ["campari", "triple-sec", "elderflower-liqueur", "limoncello"], notes: "Campari for bitter Negroni Sbagliato, St-Germain for floral notes, Limoncello for lemon spritz" }
+    ],
+    virginVersion: { replaces: [{ original: "aperol", substitute: "grapefruit-juice" }, { original: "prosecco", substitute: "club-soda" }], notes: "Grapefruit provides the bitter notes" },
+  },
+  {
+    id: "multi-spirit-highball",
+    title: "Classic Highball",
+    drinkType: "cocktail",
+    description: "Simple two-ingredient format that showcases any spirit",
+    prepTime: "2 min",
+    ingredients: ["whiskey", "club-soda"],
+    instructions: [
+      "Fill highball glass with ice",
+      "Add spirit",
+      "Top with mixer of choice",
+      "Stir gently once",
+      "Garnish as desired"
+    ],
+    matchedIngredients: [],
+    glassType: "Highball",
+    garnish: "Lemon twist or lime wheel",
+    isAlcoholic: true,
+    nutrition: { calories: 120, sugar: 0, carbs: 0 },
+    occasion: "everyday",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "whiskey", alternatives: ["gin", "vodka", "rum-white", "tequila", "bourbon"], notes: "Gin & Tonic, Vodka Soda, Rum & Coke, Tequila Soda, Bourbon & Ginger" }
+    ],
+  },
+  {
+    id: "swap-daiquiri",
+    title: "Swappable Daiquiri",
+    drinkType: "cocktail",
+    description: "The perfect balance of spirit, citrus, and sweet - works with many bases",
+    prepTime: "4 min",
+    ingredients: ["rum-white", "lime", "simple-syrup"],
+    instructions: [
+      "Add all ingredients to shaker with ice",
+      "Shake vigorously until cold",
+      "Strain into chilled coupe",
+      "Garnish with lime wheel"
+    ],
+    matchedIngredients: [],
+    glassType: "Coupe",
+    garnish: "Lime wheel",
+    isAlcoholic: true,
+    nutrition: { calories: 190, sugar: 11, carbs: 13 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "rum-white", alternatives: ["tequila", "mezcal", "vodka", "gin", "pisco"], notes: "Tequila = Margarita format, Mezcal adds smoke, Pisco = Pisco Sour base, Gin = Gimlet style" }
+    ],
+    virginVersion: { replaces: [{ original: "rum-white", substitute: "coconut-water" }], notes: "Coconut water adds tropical notes without alcohol" },
+  },
+  {
+    id: "flexible-fizz",
+    title: "Flexible Fizz",
+    drinkType: "cocktail",
+    description: "Elegant fizz template with egg white - adaptable to any spirit",
+    prepTime: "6 min",
+    ingredients: ["gin", "lemon", "simple-syrup", "egg-white", "club-soda"],
+    instructions: [
+      "Add spirit, lemon, syrup, and egg white to shaker",
+      "Dry shake for 30 seconds",
+      "Add ice and shake again",
+      "Strain into fizz glass",
+      "Top with club soda"
+    ],
+    matchedIngredients: [],
+    glassType: "Fizz glass",
+    garnish: "None - let the foam shine",
+    isAlcoholic: true,
+    nutrition: { calories: 170, sugar: 10, carbs: 12 },
+    occasion: "brunch",
+    season: "spring",
+    alcoholSubstitutions: [
+      { original: "gin", alternatives: ["vodka", "rum-white", "whiskey", "brandy"], notes: "All create beautiful foam drinks - brandy for a richer flavor" }
+    ],
+    virginVersion: { replaces: [{ original: "gin", substitute: "apple-juice" }], notes: "Apple juice with lemon creates lovely non-alcoholic fizz" },
+  },
+  {
+    id: "tropical-swap-punch",
+    title: "Tropical Punch Base",
+    drinkType: "cocktail",
+    description: "Fruity tropical cocktail that works with multiple rum styles or other spirits",
+    prepTime: "5 min",
+    ingredients: ["rum-white", "pineapple-juice", "orange-juice", "lime", "grenadine"],
+    instructions: [
+      "Combine all ingredients in shaker with ice",
+      "Shake well",
+      "Strain into hurricane glass over ice",
+      "Float dark rum on top if desired",
+      "Garnish with fruit"
+    ],
+    matchedIngredients: [],
+    glassType: "Hurricane glass",
+    garnish: "Pineapple wedge, cherry",
+    isAlcoholic: true,
+    nutrition: { calories: 240, sugar: 28, carbs: 32 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "rum-white", alternatives: ["rum-dark", "vodka", "tequila", "coconut-rum"], notes: "Dark rum for richer flavor, vodka for lighter punch, tequila for Mexican twist, coconut rum for piña colada vibes" }
+    ],
+    virginVersion: { replaces: [{ original: "rum-white", substitute: "coconut-water" }], notes: "All the tropical flavor without alcohol" },
+  },
+  {
+    id: "negroni-variations",
+    title: "Negroni Family",
+    drinkType: "cocktail",
+    description: "The bitter-sweet classic that spawned many variations",
+    prepTime: "3 min",
+    ingredients: ["gin", "campari", "vermouth-sweet", "orange"],
+    instructions: [
+      "Add all ingredients to mixing glass with ice",
+      "Stir for 30 seconds",
+      "Strain into rocks glass over large ice cube",
+      "Express orange peel over drink",
+      "Garnish with orange peel"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Orange peel",
+    isAlcoholic: true,
+    nutrition: { calories: 195, sugar: 12, carbs: 14 },
+    occasion: "date-night",
+    season: "fall",
+    alcoholSubstitutions: [
+      { original: "gin", alternatives: ["bourbon", "mezcal", "rum-dark", "tequila"], notes: "Bourbon = Boulevardier, Mezcal = Mezcal Negroni, Rum = Kingston Negroni, Tequila = Rosita" }
+    ],
+  },
+  {
+    id: "espresso-cocktail-base",
+    title: "Espresso Cocktail Base",
+    drinkType: "cocktail",
+    description: "Coffee-forward cocktail that works with multiple spirits",
+    prepTime: "4 min",
+    ingredients: ["vodka", "kahlua", "espresso", "simple-syrup"],
+    instructions: [
+      "Add all ingredients to shaker with ice",
+      "Shake vigorously for 15 seconds",
+      "Strain into chilled coupe or martini glass",
+      "Garnish with coffee beans"
+    ],
+    matchedIngredients: [],
+    glassType: "Martini glass",
+    garnish: "3 coffee beans",
+    isAlcoholic: true,
+    nutrition: { calories: 230, sugar: 16, carbs: 18 },
+    occasion: "nightcap",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["bourbon", "rum-dark", "mezcal", "whiskey"], notes: "Bourbon adds warmth, dark rum adds molasses notes, mezcal adds smokiness, whiskey makes it more robust" }
+    ],
+    virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate-syrup" }], notes: "Double espresso with chocolate syrup creates rich mocktail" },
+  },
+  {
+    id: "ginger-spice-cocktail",
+    title: "Ginger Spice Cocktail",
+    drinkType: "cocktail",
+    description: "Warming ginger drink that pairs with various spirits",
+    prepTime: "4 min",
+    ingredients: ["bourbon", "ginger-fresh", "honey", "lemon"],
+    instructions: [
+      "Muddle fresh ginger in shaker",
+      "Add spirit, honey, and lemon juice",
+      "Add ice and shake vigorously",
+      "Double strain into rocks glass",
+      "Garnish with candied ginger"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Candied ginger",
+    isAlcoholic: true,
+    nutrition: { calories: 185, sugar: 14, carbs: 16 },
+    occasion: "date-night",
+    season: "fall",
+    alcoholSubstitutions: [
+      { original: "bourbon", alternatives: ["scotch", "rum-dark", "brandy", "rye-whiskey", "mezcal"], notes: "Scotch = Penicillin style, rum adds sweetness, brandy for elegance, rye for spice, mezcal for smoke" }
+    ],
+    virginVersion: { replaces: [{ original: "bourbon", substitute: "apple-cider" }], notes: "Apple cider and ginger is a classic pairing" },
+  },
+  {
+    id: "berry-smash-cocktail",
+    title: "Berry Smash",
+    drinkType: "cocktail",
+    description: "Fresh berry cocktail adaptable to any base spirit",
+    prepTime: "5 min",
+    ingredients: ["gin", "strawberries", "mint", "lime", "simple-syrup"],
+    instructions: [
+      "Muddle berries and mint in shaker",
+      "Add spirit, lime juice, and simple syrup",
+      "Add ice and shake well",
+      "Strain into rocks glass over crushed ice",
+      "Garnish with fresh berries and mint"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Fresh berries, mint sprig",
+    isAlcoholic: true,
+    nutrition: { calories: 175, sugar: 16, carbs: 18 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "gin", alternatives: ["vodka", "bourbon", "rum-white", "tequila"], notes: "All spirits work beautifully with fresh berries" }
+    ],
+    virginVersion: { replaces: [{ original: "gin", substitute: "club-soda" }], notes: "Extra berries and sparkling water for refreshing mocktail" },
+  },
+  {
+    id: "cucumber-cool-cocktail",
+    title: "Cucumber Cool",
+    drinkType: "cocktail",
+    description: "Refreshing cucumber drink with flexible spirit options",
+    prepTime: "4 min",
+    ingredients: ["gin", "cucumber", "lime", "elderflower-syrup"],
+    instructions: [
+      "Muddle cucumber in shaker",
+      "Add spirit, lime juice, and elderflower",
+      "Shake with ice",
+      "Double strain into coupe",
+      "Garnish with cucumber ribbon"
+    ],
+    matchedIngredients: [],
+    glassType: "Coupe",
+    garnish: "Cucumber ribbon",
+    isAlcoholic: true,
+    nutrition: { calories: 160, sugar: 12, carbs: 14 },
+    occasion: "brunch",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "gin", alternatives: ["vodka", "tequila", "sake"], notes: "Vodka for cleaner taste, tequila for earthiness, sake for Asian-inspired variation" }
+    ],
+    virginVersion: { replaces: [{ original: "gin", substitute: "tonic-water" }], notes: "Cucumber and elderflower tonic is incredibly refreshing" },
+  },
+  {
+    id: "citrus-herb-cocktail",
+    title: "Citrus Herb Sipper",
+    drinkType: "cocktail",
+    description: "Herbal cocktail with citrus that works with multiple spirits",
+    prepTime: "5 min",
+    ingredients: ["vodka", "lemon", "rosemary", "honey", "club-soda"],
+    instructions: [
+      "Muddle rosemary with honey",
+      "Add spirit and lemon juice",
+      "Shake with ice",
+      "Strain into glass over ice",
+      "Top with club soda and garnish"
+    ],
+    matchedIngredients: [],
+    glassType: "Highball",
+    garnish: "Fresh rosemary sprig",
+    isAlcoholic: true,
+    nutrition: { calories: 155, sugar: 10, carbs: 12 },
+    occasion: "brunch",
+    season: "spring",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["gin", "bourbon", "tequila", "rum-white"], notes: "Gin enhances herbal notes, bourbon adds warmth, tequila for earthy flavor" }
+    ],
+    virginVersion: { replaces: [{ original: "vodka", substitute: "sparkling-water" }], notes: "Honey-rosemary lemonade is delightful" },
+  },
+  {
+    id: "creamy-dessert-cocktail",
+    title: "Creamy Dessert Cocktail",
+    drinkType: "cocktail",
+    description: "Rich, dessert-style drink with spirit flexibility",
+    prepTime: "4 min",
+    ingredients: ["vodka", "baileys", "cream", "chocolate-syrup"],
+    instructions: [
+      "Add all ingredients to shaker with ice",
+      "Shake until well combined",
+      "Strain into martini glass",
+      "Drizzle chocolate syrup on top"
+    ],
+    matchedIngredients: [],
+    glassType: "Martini glass",
+    garnish: "Chocolate drizzle",
+    isAlcoholic: true,
+    nutrition: { calories: 320, sugar: 24, carbs: 28 },
+    occasion: "nightcap",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["bourbon", "rum-dark", "brandy", "whiskey"], notes: "Bourbon adds warmth, rum for tropical, brandy for sophistication" }
+    ],
+  },
+  {
+    id: "spicy-citrus-cocktail",
+    title: "Spicy Citrus Kick",
+    drinkType: "cocktail",
+    description: "Heat-forward cocktail with citrus balance - works with various spirits",
+    prepTime: "5 min",
+    ingredients: ["tequila", "lime", "jalapeno", "agave", "cilantro"],
+    instructions: [
+      "Muddle jalapeno slices (remove seeds for less heat)",
+      "Add spirit, lime juice, agave, and cilantro",
+      "Shake with ice",
+      "Strain into rocks glass",
+      "Garnish with jalapeno slice"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Jalapeño slice",
+    isAlcoholic: true,
+    nutrition: { calories: 165, sugar: 8, carbs: 10 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "tequila", alternatives: ["mezcal", "vodka", "gin", "rum-white"], notes: "Mezcal doubles the smoke, vodka for clean heat, gin for herbaceous spice" }
+    ],
+    virginVersion: { replaces: [{ original: "tequila", substitute: "pineapple-juice" }], notes: "Pineapple and jalapeño is a classic flavor pairing" },
+  },
+  {
+    id: "tea-based-cocktail",
+    title: "Tea-Infused Cocktail",
+    drinkType: "cocktail",
+    description: "Elegant tea cocktail with multiple spirit options",
+    prepTime: "5 min",
+    ingredients: ["vodka", "earl-grey", "lemon", "honey", "lavender-syrup"],
+    instructions: [
+      "Brew strong tea and let cool",
+      "Combine spirit, cooled tea, lemon, and honey",
+      "Shake with ice",
+      "Strain into coupe",
+      "Add lavender syrup"
+    ],
+    matchedIngredients: [],
+    glassType: "Coupe",
+    garnish: "Lavender sprig",
+    isAlcoholic: true,
+    nutrition: { calories: 145, sugar: 12, carbs: 14 },
+    occasion: "date-night",
+    season: "spring",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["gin", "bourbon", "rum-white", "brandy"], notes: "Gin = Earl Grey Martini, bourbon for warmth, rum for tropical tea, brandy for sophistication" }
+    ],
+    virginVersion: { replaces: [{ original: "vodka", substitute: "sparkling-water" }], notes: "Earl Grey lemonade with lavender is beautiful" },
+  },
+  {
+    id: "stone-fruit-cocktail",
+    title: "Stone Fruit Sipper",
+    drinkType: "cocktail",
+    description: "Seasonal stone fruit cocktail adaptable to any spirit",
+    prepTime: "5 min",
+    ingredients: ["bourbon", "peach", "lemon", "simple-syrup", "basil"],
+    instructions: [
+      "Muddle fresh peach with basil",
+      "Add spirit, lemon juice, and simple syrup",
+      "Shake with ice",
+      "Strain into glass over ice",
+      "Garnish with peach slice and basil"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Peach slice, basil leaf",
+    isAlcoholic: true,
+    nutrition: { calories: 185, sugar: 16, carbs: 18 },
+    occasion: "brunch",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "bourbon", alternatives: ["vodka", "rum-white", "gin", "brandy"], notes: "All pair beautifully with stone fruits - brandy for a Bellini-style drink" }
+    ],
+    virginVersion: { replaces: [{ original: "bourbon", substitute: "sparkling-water" }], notes: "Peach basil lemonade is summer perfection" },
+  },
+  {
+    id: "maple-autumn-cocktail",
+    title: "Maple Autumn Cocktail",
+    drinkType: "cocktail",
+    description: "Warm maple-flavored drink with fall spices - multiple spirit options",
+    prepTime: "4 min",
+    ingredients: ["bourbon", "maple-syrup", "lemon", "cinnamon", "angostura"],
+    instructions: [
+      "Combine spirit, maple syrup, lemon juice, and bitters",
+      "Shake with ice",
+      "Strain into rocks glass",
+      "Garnish with cinnamon stick"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Cinnamon stick",
+    isAlcoholic: true,
+    nutrition: { calories: 195, sugar: 14, carbs: 16 },
+    occasion: "date-night",
+    season: "fall",
+    alcoholSubstitutions: [
+      { original: "bourbon", alternatives: ["rye-whiskey", "rum-dark", "brandy", "apple-brandy"], notes: "Rye adds spice, dark rum adds molasses, apple brandy for ultimate fall flavor" }
+    ],
+    virginVersion: { replaces: [{ original: "bourbon", substitute: "apple-cider" }], notes: "Apple cider with maple and cinnamon is fall in a glass" },
+  },
+  {
+    id: "coconut-tropical-cocktail",
+    title: "Coconut Tropical Base",
+    drinkType: "cocktail",
+    description: "Creamy coconut drink that works with various tropical spirits",
+    prepTime: "5 min",
+    ingredients: ["rum-white", "coconut-cream", "pineapple-juice", "lime"],
+    instructions: [
+      "Add all ingredients to blender with ice",
+      "Blend until smooth",
+      "Pour into hurricane glass",
+      "Garnish with pineapple and cherry"
+    ],
+    matchedIngredients: [],
+    glassType: "Hurricane glass",
+    garnish: "Pineapple wedge, maraschino cherry",
+    isAlcoholic: true,
+    nutrition: { calories: 280, sugar: 26, carbs: 30 },
+    occasion: "party",
+    season: "summer",
+    alcoholSubstitutions: [
+      { original: "rum-white", alternatives: ["rum-dark", "vodka", "tequila", "coconut-rum"], notes: "Dark rum for richer flavor, coconut rum to amplify coconut, tequila for unexpected twist" }
+    ],
+    virginVersion: { replaces: [{ original: "rum-white", substitute: "coconut-water" }], notes: "Virgin piña colada is always a crowd pleaser" },
+  },
+  {
+    id: "smoky-mezcal-base",
+    title: "Smoky Base Cocktail",
+    drinkType: "cocktail",
+    description: "Smoky cocktail template that works with different smoky spirits",
+    prepTime: "4 min",
+    ingredients: ["mezcal", "lime", "agave", "grapefruit-juice"],
+    instructions: [
+      "Add all ingredients to shaker with ice",
+      "Shake well",
+      "Strain into rocks glass with salt rim",
+      "Garnish with grapefruit wedge"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Grapefruit wedge, salt rim",
+    isAlcoholic: true,
+    nutrition: { calories: 170, sugar: 10, carbs: 12 },
+    occasion: "date-night",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "mezcal", alternatives: ["scotch", "tequila", "bourbon"], notes: "Scotch for peaty smoke, tequila for cleaner agave, bourbon for different char smoke" }
+    ],
+  },
+  {
+    id: "bitter-digestif-cocktail",
+    title: "Bitter Digestif",
+    drinkType: "cocktail",
+    description: "After-dinner bitter cocktail with spirit flexibility",
+    prepTime: "3 min",
+    ingredients: ["campari", "vermouth-sweet", "club-soda", "orange"],
+    instructions: [
+      "Fill glass with ice",
+      "Add Campari and vermouth",
+      "Top with splash of soda",
+      "Stir gently",
+      "Garnish with orange slice"
+    ],
+    matchedIngredients: [],
+    glassType: "Rocks glass",
+    garnish: "Orange slice",
+    isAlcoholic: true,
+    nutrition: { calories: 165, sugar: 14, carbs: 16 },
+    occasion: "nightcap",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "campari", alternatives: ["aperol", "cynar", "fernet"], notes: "Aperol for lighter bitter, Cynar for artichoke notes, Fernet for intense menthol" }
+    ],
+    virginVersion: { replaces: [{ original: "campari", substitute: "grapefruit-juice" }, { original: "vermouth-sweet", substitute: "pomegranate" }], notes: "Grapefruit and pomegranate create bitter-sweet balance" },
+  },
+  {
+    id: "chocolate-coffee-cocktail",
+    title: "Mocha Cocktail",
+    drinkType: "cocktail",
+    description: "Rich chocolate-coffee cocktail with various spirit options",
+    prepTime: "4 min",
+    ingredients: ["vodka", "kahlua", "chocolate-syrup", "cream", "espresso"],
+    instructions: [
+      "Add all ingredients to shaker with ice",
+      "Shake vigorously",
+      "Strain into martini glass",
+      "Dust with cocoa powder"
+    ],
+    matchedIngredients: [],
+    glassType: "Martini glass",
+    garnish: "Cocoa powder dusting",
+    isAlcoholic: true,
+    nutrition: { calories: 290, sugar: 22, carbs: 26 },
+    occasion: "nightcap",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["bourbon", "rum-dark", "brandy", "tequila"], notes: "Bourbon for warmth, dark rum for molasses, brandy for elegance, tequila for unexpected twist" }
+    ],
+    virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate-syrup" }], notes: "Double espresso with chocolate makes rich mocktail" },
+  },
 ];
 
 
@@ -10067,6 +10680,31 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "chamomile-honey-latte": ["chamomile", "honey"],
   "jasmine-milk-tea": ["jasmine-tea", "milk"],
   "hojicha-latte": ["hojicha", "milk"],
+  // Drinks with substitutions
+  "versatile-sour": ["bourbon", "lemon"],
+  "universal-mule": ["vodka", "ginger-beer"],
+  "any-spirit-martini": ["gin", "vermouth-dry"],
+  "flex-collins": ["gin", "lemon"],
+  "adaptable-spritz": ["aperol", "prosecco"],
+  "multi-spirit-highball": ["whiskey"],
+  "swap-daiquiri": ["rum-white", "lime"],
+  "flexible-fizz": ["gin", "lemon"],
+  "tropical-swap-punch": ["rum-white", "pineapple-juice"],
+  "negroni-variations": ["gin", "campari"],
+  "espresso-cocktail-base": ["vodka", "espresso"],
+  "ginger-spice-cocktail": ["bourbon", "ginger-fresh"],
+  "berry-smash-cocktail": ["gin", "strawberries"],
+  "cucumber-cool-cocktail": ["gin", "cucumber"],
+  "citrus-herb-cocktail": ["vodka", "rosemary"],
+  "creamy-dessert-cocktail": ["vodka", "baileys"],
+  "spicy-citrus-cocktail": ["tequila", "jalapeno"],
+  "tea-based-cocktail": ["vodka", "earl-grey"],
+  "stone-fruit-cocktail": ["bourbon", "peach"],
+  "maple-autumn-cocktail": ["bourbon", "maple-syrup"],
+  "coconut-tropical-cocktail": ["rum-white", "coconut-cream"],
+  "smoky-mezcal-base": ["mezcal", "grapefruit-juice"],
+  "bitter-digestif-cocktail": ["campari", "vermouth-sweet"],
+  "chocolate-coffee-cocktail": ["vodka", "espresso", "chocolate-syrup"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
