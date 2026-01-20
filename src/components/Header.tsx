@@ -1,4 +1,5 @@
-import { UtensilsCrossed, Wine, HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
+import { Wine, HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -37,16 +38,17 @@ export function Header({ onShowTour }: HeaderProps) {
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         >
-          <div className="relative shrink-0">
-            <div className="absolute inset-0 gradient-warm blur-xl opacity-30 animate-pulse-soft" />
-            <motion.div 
-              className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl gradient-warm shadow-warm"
-              whileHover={{ rotate: [0, -10, 10, 0] }}
-              transition={{ duration: 0.5 }}
-            >
-              <UtensilsCrossed className="h-5 w-5 sm:h-7 sm:w-7 text-primary-foreground" />
-            </motion.div>
-          </div>
+          <motion.div 
+            className="relative shrink-0"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img 
+              src={logo} 
+              alt="The Kitchen Logo" 
+              className="h-10 w-10 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl object-cover shadow-warm"
+            />
+          </motion.div>
           <div className="min-w-0">
             <h1 className="font-serif text-lg sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight truncate">
               The Kitchen
