@@ -1,5 +1,6 @@
-import { Wine, HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
+import { HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
 import logo from "@/assets/logo.png";
+import taglineIcon from "@/assets/tagline-icon.png";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -136,7 +137,7 @@ export function Header({ onShowTour }: HeaderProps) {
           )}
           
           <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-accent/50 border border-accent-foreground/10">
-            <Wine className="h-4 w-4 text-accent-foreground" />
+            <img src={taglineIcon} alt="" className="h-5 w-5 object-contain" />
             <span className="text-sm font-medium text-accent-foreground">Fresh & Simple</span>
           </div>
         </div>
