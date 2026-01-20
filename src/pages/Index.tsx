@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
 
@@ -1063,6 +1064,8 @@ const Index = () => {
           onAddToShopping={handleAddToShopping}
         />
       )}
+
+      <Footer />
     </div>
   );
 };
