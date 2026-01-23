@@ -47,14 +47,14 @@ export function Header({ onShowTour }: HeaderProps) {
             <img 
               src={logo} 
               alt="The Kitchen Logo" 
-              className="h-10 w-10 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl object-cover shadow-warm"
+              className="h-14 w-14 sm:h-20 sm:w-20 rounded-2xl sm:rounded-3xl object-cover shadow-lg ring-2 ring-primary/20"
             />
           </motion.div>
-          <div className="min-w-0">
-            <h1 className="font-serif text-lg sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight truncate">
+          <div className="min-w-0 hidden sm:block">
+            <h1 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight truncate">
               The Kitchen
             </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium hidden sm:block">
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
               Fresh recipes from your ingredients
             </p>
           </div>
