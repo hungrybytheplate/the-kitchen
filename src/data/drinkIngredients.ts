@@ -135,6 +135,14 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "peppermint-syrup", name: "Peppermint Syrup" },
       { id: "chocolate-syrup", name: "Chocolate Syrup" },
       { id: "white-chocolate-syrup", name: "White Chocolate Syrup" },
+      // Natural & Sugar-Free Sweeteners
+      { id: "monk-fruit", name: "Monk Fruit Sweetener" },
+      { id: "stevia", name: "Stevia" },
+      { id: "erythritol", name: "Erythritol" },
+      { id: "date-syrup", name: "Date Syrup" },
+      { id: "coconut-sugar", name: "Coconut Sugar" },
+      { id: "allulose", name: "Allulose" },
+      { id: "yacon-syrup", name: "Yacon Syrup" },
     ],
   },
   {
