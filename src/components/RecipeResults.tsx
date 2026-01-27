@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge, Droplets } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { staggerContainer } from "@/components/ui/animated";
@@ -35,6 +35,30 @@ const snackRecipeIds = [
   "stuffed-mushrooms",
   "classic-bruschetta",
   "cheese-balls",
+];
+
+// Recipe IDs that are sauces and condiments
+const sauceRecipeIds = [
+  // Nutritious sauces
+  "pink-beet-feta-sauce",
+  "spinach-power-sauce",
+  "golden-carrot-ginger-sauce",
+  "roasted-red-pepper-cashew-sauce",
+  "creamy-avocado-herb-sauce",
+  "cauliflower-alfredo-sauce",
+  "sweet-potato-tahini-sauce",
+  // International sauces
+  "korean-gochujang-cream-sauce",
+  "thai-peanut-sauce",
+  "indian-tikka-masala-sauce",
+  "japanese-teriyaki-sauce",
+  "argentinian-chimichurri",
+  "quick-mexican-mole",
+  "yemeni-zhug",
+  // Dips that are also sauces
+  "gochujang-mayo",
+  "classic-raita",
+  "olive-tapenade",
 ];
 
 interface RecipeResultsProps {
@@ -95,6 +119,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [showHolidayOnly, setShowHolidayOnly] = useState(false);
   const [showSnacksOnly, setShowSnacksOnly] = useState(false);
+  const [showSaucesOnly, setShowSaucesOnly] = useState(false);
   const [showOnePanOnly, setShowOnePanOnly] = useState(false);
   const [showQuickEasyOnly, setShowQuickEasyOnly] = useState(false);
   const [showSlowCookerOnly, setShowSlowCookerOnly] = useState(false);
@@ -107,6 +132,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
 
   const holidayCount = recipes.filter(r => r.isHoliday).length;
   const snacksCount = recipes.filter(r => snackRecipeIds.includes(r.id)).length;
+  const saucesCount = recipes.filter(r => sauceRecipeIds.includes(r.id)).length;
   const onePanCount = recipes.filter(r => r.isOnePan).length;
   const quickEasyCount = recipes.filter(r => {
     const minutes = parseCookTime(r.cookTime);
@@ -134,13 +160,14 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setCalorieFilter(null);
     setShowHolidayOnly(false);
     setShowSnacksOnly(false);
+    setShowSaucesOnly(false);
     setShowOnePanOnly(false);
     setShowQuickEasyOnly(false);
     setShowSlowCookerOnly(false);
     setShowInstantPotOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly;
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
@@ -175,6 +202,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     }
     // Snacks & Appetizers filter
     if (showSnacksOnly && !snackRecipeIds.includes(recipe.id)) {
+      return false;
+    }
+    // Sauces & Condiments filter
+    if (showSaucesOnly && !sauceRecipeIds.includes(recipe.id)) {
       return false;
     }
     // One-Pan filter
@@ -468,12 +499,31 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               <span className="ml-1.5 text-xs opacity-80">({instantPotCount})</span>
             </Badge>
           )}
+
+          {/* Sauces & Condiments Filter */}
+          {saucesCount > 0 && (
+            <Badge
+              variant={showSaucesOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showSaucesOnly 
+                  ? "bg-rose-500 hover:bg-rose-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowSaucesOnly(!showSaucesOnly)}
+            >
+              <Droplets className="h-3.5 w-3.5 mr-1.5" />
+              Sauces & Condiments
+              <span className="ml-1.5 text-xs opacity-80">({saucesCount})</span>
+            </Badge>
+          )}
         </div>
-        {(showHolidayOnly || showSnacksOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly) && (
+        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
             {showQuickEasyOnly && "Showing recipes under 20 minutes with easy difficulty"}
             {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
             {showSnacksOnly && "Showing dips, muffins, and finger foods"}
+            {showSaucesOnly && "Showing homemade sauces, dips, and condiments"}
             {showOnePanOnly && "Showing easy one-pan and sheet pan dinners"}
             {showSlowCookerOnly && "Showing slow cooker and crockpot recipes"}
             {showInstantPotOnly && "Showing Instant Pot and pressure cooker recipes"}
