@@ -115,6 +115,22 @@ const mealPrepRecipeIds = [
   "dump-and-bake-meatball-subs",
   "dump-and-bake-pizza-pasta",
   "dump-and-bake-crack-chicken",
+  // New meal prep recipes
+  "freezer-breakfast-burritos",
+  "mason-jar-greek-salad",
+  "mason-jar-asian-noodle-salad",
+  "chicken-burrito-bowl-prep",
+  "teriyaki-chicken-protein-bowl",
+  "mediterranean-quinoa-power-bowl",
+  "beef-and-broccoli-meal-prep",
+  "turkey-taco-lettuce-cups",
+  "sheet-pan-sausage-vegetables",
+  "honey-garlic-salmon-meal-prep",
+  "egg-muffin-cups",
+  "chicken-fried-rice-meal-prep",
+  "overnight-chia-pudding",
+  "greek-chicken-meal-prep",
+  "black-bean-sweet-potato-bowls",
 ];
 
 interface RecipeResultsProps {
