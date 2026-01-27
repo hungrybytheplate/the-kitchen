@@ -12493,7 +12493,7 @@ export const sampleRecipes: Recipe[] = [
     instructions: [
       "Wash and chop beets. Boil or roast until fork-tender, about 25-30 minutes.",
       "Add cooked beets, feta (reserve some for topping), shallots, garlic, olive oil, and nutritional yeast to blender.",
-      "Blend until completely smooth and creamy.",
+      "Blend until completely smooth and creamy. For added protein, substitute feta with cottage cheese or plain Greek yogurt.",
       "Boil pasta according to package directions. Reserve 1 cup pasta water before draining.",
       "Return pasta to pot, pour in pink sauce. Add pasta water gradually, stirring to combine.",
       "Cook on low heat until sauce thickens to desired consistency, about 3-5 minutes.",
