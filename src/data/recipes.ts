@@ -12482,13 +12482,15 @@ export const sampleRecipes: Recipe[] = [
     description: "Vibrant pink pasta sauce loaded with beets, feta, and nutritional yeast",
     cookTime: "35 min",
     servings: 4,
-    ingredients: ["beets", "feta", "shallots", "garlic", "olive-oil", "nutritional-yeast", "green-onions", "salt", "pepper", "pasta"],
+    ingredients: ["beets", "feta", "shallots", "garlic", "olive-oil", "nutritional-yeast", "green-onions", "salt", "pepper", "pasta", "cottage-cheese", "greek-yogurt"],
     ingredientAmounts: [
       { id: "beets", amount: "2-4", unit: "medium" },
-      { id: "feta", amount: "1", unit: "cup" },
+      { id: "feta", amount: "1", unit: "cup (or sub cottage cheese/Greek yogurt)" },
       { id: "shallots", amount: "1", unit: "medium" },
       { id: "garlic", amount: "3", unit: "cloves" },
       { id: "nutritional-yeast", amount: "2", unit: "tbsp" },
+      { id: "cottage-cheese", amount: "1", unit: "cup (optional sub for feta)" },
+      { id: "greek-yogurt", amount: "1", unit: "cup (optional sub for feta)" },
     ],
     instructions: [
       "Wash and chop beets. Boil or roast until fork-tender, about 25-30 minutes.",
