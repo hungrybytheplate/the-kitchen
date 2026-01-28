@@ -9,13 +9,13 @@ export function Footer() {
             Questions or concerns? Reach out to us!
           </p>
           <a
-            href="https://www.instagram.com/thekitchen__app"
+            href="https://www.instagram.com/thekitchen.hq"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             <Instagram className="h-5 w-5" />
-            <span>@thekitchen__app</span>
+            <span>@thekitchen.hq</span>
           </a>
         </div>
       </div>
