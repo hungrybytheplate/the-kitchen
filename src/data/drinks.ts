@@ -327,6 +327,34 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "rum-dark", substitute: "molasses" }], notes: "Tiny bit of molasses with extra ginger beer" },
   },
+  {
+    id: "porn-star-martini",
+    title: "Porn Star Martini",
+    drinkType: "cocktail",
+    description: "Glamorous passion fruit martini served with a shot of prosecco",
+    prepTime: "5 min",
+    ingredients: ["vodka", "passion-fruit", "vanilla-syrup", "lime"],
+    instructions: [
+      "Cut a passion fruit in half and scoop the flesh into a shaker",
+      "Add vodka, vanilla syrup, and lime juice",
+      "Fill with ice and shake vigorously until cold",
+      "Double strain into a chilled coupe or martini glass",
+      "Float a passion fruit half on top as garnish",
+      "Serve with a shot of prosecco on the side"
+    ],
+    matchedIngredients: [],
+    keyIngredients: ["vodka", "passion-fruit"],
+    glassType: "Coupe glass",
+    garnish: "Passion fruit half",
+    isAlcoholic: true,
+    nutrition: { calories: 220, sugar: 18, carbs: 20 },
+    occasion: "date-night",
+    season: "all-season",
+    alcoholSubstitutions: [
+      { original: "vodka", alternatives: ["vanilla-vodka", "gin"], notes: "Vanilla vodka enhances sweetness, gin adds botanical notes" },
+    ],
+    virginVersion: { replaces: [{ original: "vodka", substitute: "passion-fruit-juice" }], notes: "Use sparkling water instead of prosecco" },
+  },
 
   // ============ MOCKTAILS ============
   {
