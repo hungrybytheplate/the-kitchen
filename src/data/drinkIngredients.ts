@@ -168,6 +168,8 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "pepperoncini", name: "Pepperoncini" },
       { id: "banana-peppers", name: "Banana Peppers" },
       { id: "olives", name: "Olives" },
+      { id: "cocktail-onions", name: "Cocktail Onions" },
+      { id: "olive-brine", name: "Olive Brine" },
       { id: "cherries", name: "Maraschino Cherries" },
       { id: "angostura", name: "Angostura Bitters" },
       { id: "orange-bitters", name: "Orange Bitters" },
