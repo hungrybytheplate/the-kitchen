@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>The Kitchen - Marketing Tracking URLs</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; padding: 2rem; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2d5a3d; margin-bottom: 0.5rem; }
+    .subtitle { color: #666; margin-bottom: 2rem; }
+    .section { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    h2 { color: #4a7c59; margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .url-group { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+    .url-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .label { font-weight: 600; color: #333; margin-bottom: 0.25rem; }
+    .description { font-size: 0.875rem; color: #666; margin-bottom: 0.5rem; }
+    .url-box { display: flex; gap: 0.5rem; align-items: stretch; }
+    .url { flex: 1; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; padding: 0.75rem; font-family: monospace; font-size: 0.8rem; word-break: break-all; color: #333; }
+    .copy-btn { background: #4a7c59; color: white; border: none; border-radius: 6px; padding: 0.75rem 1rem; cursor: pointer; font-weight: 500; white-space: nowrap; }
+    .copy-btn:hover { background: #3d6a4a; }
+    .copy-btn.copied { background: #2d5a3d; }
+    .params { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; margin-top: 0.5rem; }
+    .param { font-size: 0.75rem; background: #e8f5e9; padding: 0.25rem 0.5rem; border-radius: 4px; color: #2d5a3d; }
+    .legend { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .legend h3 { color: #856404; margin-bottom: 0.5rem; }
+    .legend ul { margin-left: 1.5rem; color: #856404; }
+    .qr-note { background: #e3f2fd; border: 1px solid #2196f3; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; }
+    .qr-note h3 { color: #1565c0; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔗 The Kitchen - Tracking URLs</h1>
+    <p class="subtitle">Use these UTM-tagged URLs to track which marketing channels drive traffic. View results in Google Analytics → Acquisition → Campaigns.</p>
+    
+    <div class="legend">
+      <h3>📊 UTM Parameter Guide</h3>
+      <ul>
+        <li><strong>utm_source</strong> - Where the traffic comes from (instagram, google, email)</li>
+        <li><strong>utm_medium</strong> - Marketing medium (social, cpc, email, referral)</li>
+        <li><strong>utm_campaign</strong> - Campaign name for grouping</li>
+        <li><strong>utm_content</strong> - Specific ad/link variant (optional)</li>
+      </ul>
+    </div>
+
+    <!-- Social Media -->
+    <div class="section">
+      <h2>📱 Social Media</h2>
+      
+      <div class="url-group">
+        <div class="label">Instagram Bio Link</div>
+        <div class="description">Use this in your Instagram bio</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=instagram&utm_medium=social&utm_campaign=bio_link</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+        <div class="params">
+          <span class="param">source: instagram</span>
+          <span class="param">medium: social</span>
+          <span class="param">campaign: bio_link</span>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Instagram Stories</div>
+        <div class="description">Swipe-up links in Instagram stories</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=instagram&utm_medium=social&utm_campaign=stories</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Instagram Posts</div>
+        <div class="description">Links shared in post captions or comments</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=instagram&utm_medium=social&utm_campaign=post</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Facebook Page</div>
+        <div class="description">Links from Facebook page or posts</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=facebook&utm_medium=social&utm_campaign=page</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">TikTok Bio</div>
+        <div class="description">Link in TikTok profile bio</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=tiktok&utm_medium=social&utm_campaign=bio_link</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Pinterest Pins</div>
+        <div class="description">Links on Pinterest recipe pins</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=pinterest&utm_medium=social&utm_campaign=recipe_pins</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Twitter/X Posts</div>
+        <div class="description">Links shared on Twitter/X</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=twitter&utm_medium=social&utm_campaign=tweet</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">YouTube Description</div>
+        <div class="description">Links in YouTube video descriptions</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=youtube&utm_medium=social&utm_campaign=video_description</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Marketing -->
+    <div class="section">
+      <h2>📧 Email Marketing</h2>
+      
+      <div class="url-group">
+        <div class="label">Newsletter - Weekly Recipes</div>
+        <div class="description">Weekly recipe newsletter emails</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly_recipes</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Welcome Email</div>
+        <div class="description">New subscriber welcome emails</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=newsletter&utm_medium=email&utm_campaign=welcome_series</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Promotional Email</div>
+        <div class="description">Special promotions or feature announcements</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=newsletter&utm_medium=email&utm_campaign=promo</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paid Advertising -->
+    <div class="section">
+      <h2>💰 Paid Advertising</h2>
+      
+      <div class="url-group">
+        <div class="label">Google Ads - Search</div>
+        <div class="description">Google search advertising campaigns</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=google&utm_medium=cpc&utm_campaign=search_recipes</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Google Ads - Display</div>
+        <div class="description">Google display network ads</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=google&utm_medium=display&utm_campaign=recipe_finder</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Facebook/Instagram Ads</div>
+        <div class="description">Paid social media advertising</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=facebook&utm_medium=paid_social&utm_campaign=meal_planner</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">TikTok Ads</div>
+        <div class="description">TikTok paid advertising</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=tiktok&utm_medium=paid_social&utm_campaign=quick_recipes</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referral & Partnerships -->
+    <div class="section">
+      <h2>🤝 Referrals & Partnerships</h2>
+      
+      <div class="url-group">
+        <div class="label">Food Blogger Partnership</div>
+        <div class="description">Links from partner food blogs</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=partner_blog&utm_medium=referral&utm_campaign=food_blogger</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Influencer Collaboration</div>
+        <div class="description">Links shared by influencers</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=influencer&utm_medium=referral&utm_campaign=collab</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">Reddit Posts</div>
+        <div class="description">Links shared on Reddit communities</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=reddit&utm_medium=social&utm_campaign=community</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offline / Print -->
+    <div class="section">
+      <h2>📄 Offline / QR Codes</h2>
+      
+      <div class="url-group">
+        <div class="label">QR Code - Business Card</div>
+        <div class="description">Generate QR code for business cards</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=qr_code&utm_medium=offline&utm_campaign=business_card</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">QR Code - Flyer/Poster</div>
+        <div class="description">Generate QR code for printed materials</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=qr_code&utm_medium=offline&utm_campaign=print_flyer</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="url-group">
+        <div class="label">QR Code - Event</div>
+        <div class="description">For food events, farmers markets, etc.</div>
+        <div class="url-box">
+          <div class="url">https://the-kitchen.org/?utm_source=qr_code&utm_medium=offline&utm_campaign=event</div>
+          <button class="copy-btn" onclick="copyUrl(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direct / Organic -->
+    <div class="section">
+      <h2>🌱 Organic Search Keywords</h2>
+      <p style="color: #666; margin-bottom: 1rem;">These are the keywords optimized in your SEO. Track organic traffic in Google Search Console.</p>
+      
+      <div class="params" style="gap: 0.75rem;">
+        <span class="param">what can I make with ingredients I have</span>
+        <span class="param">recipes by ingredient</span>
+        <span class="param">what to cook tonight</span>
+        <span class="param">easy dinner ideas</span>
+        <span class="param">meal planning app</span>
+        <span class="param">recipe finder</span>
+        <span class="param">what's for dinner</span>
+        <span class="param">cooking with what I have</span>
+        <span class="param">pantry recipes</span>
+        <span class="param">fridge recipes</span>
+        <span class="param">weekly meal planner</span>
+        <span class="param">copycat recipes</span>
+        <span class="param">McDonald's recipes at home</span>
+      </div>
+    </div>
+
+    <div class="qr-note">
+      <h3>💡 Pro Tip: Generate QR Codes</h3>
+      <p>Copy any URL above and paste it into a free QR code generator like <a href="https://www.qr-code-generator.com/" target="_blank">qr-code-generator.com</a> to create scannable codes for print materials.</p>
+    </div>
+
+  </div>
+
+  <script>
+    function copyUrl(btn) {
+      const url = btn.previousElementSibling.textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
