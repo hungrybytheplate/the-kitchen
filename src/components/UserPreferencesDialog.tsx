@@ -2,9 +2,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Settings2, Leaf, Wheat, Milk, Nut, Flame, Apple, Heart, Dumbbell, Salad, Carrot } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Settings2, Leaf, Wheat, Milk, Nut, Flame, Apple, Heart, Dumbbell, Salad, Carrot, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useUserPreferences } from "@/hooks/useUserPreferences";
+import { useUserPreferences, type MealTimes } from "@/hooks/useUserPreferences";
 import type { DietaryTag } from "@/data/recipes";
 
 const dietaryOptions: { tag: DietaryTag; label: string; icon: React.ElementType; color: string }[] = [
@@ -26,12 +27,32 @@ const skillLevels = [
   { value: 'advanced' as const, label: 'Advanced', description: 'All difficulty levels' },
 ];
 
+const mealTypeLabels: { key: keyof MealTimes; label: string; icon: string }[] = [
+  { key: 'breakfast', label: 'Breakfast', icon: '🌅' },
+  { key: 'lunch', label: 'Lunch', icon: '☀️' },
+  { key: 'dinner', label: 'Dinner', icon: '🌙' },
+  { key: 'dessert', label: 'Dessert', icon: '🍰' },
+  { key: 'sides', label: 'Sides', icon: '🥗' },
+];
+
+// Generate time options from 5am to 11pm in 30min increments
+const timeOptions = Array.from({ length: 37 }, (_, i) => {
+  const totalMinutes = (5 * 60) + (i * 30);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const time24 = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+  const period = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+  const time12 = `${hours12}:${String(minutes).padStart(2, '0')} ${period}`;
+  return { value: time24, label: time12 };
+});
+
 interface UserPreferencesDialogProps {
   trigger?: React.ReactNode;
 }
 
 export function UserPreferencesDialog({ trigger }: UserPreferencesDialogProps) {
-  const { preferences, toggleDietaryPreference, setSkillLevel, loading } = useUserPreferences();
+  const { preferences, toggleDietaryPreference, setSkillLevel, setMealTime, loading } = useUserPreferences();
 
   return (
     <Dialog>
@@ -105,6 +126,42 @@ export function UserPreferencesDialog({ trigger }: UserPreferencesDialogProps) {
                     <div className="h-2 w-2 rounded-full bg-primary" />
                   )}
                 </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Meal Times */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              Default Meal Times
+            </Label>
+            <p className="text-xs text-muted-foreground">
+              Set when each meal type starts in your calendar.
+            </p>
+            <div className="grid gap-2">
+              {mealTypeLabels.map(({ key, label, icon }) => (
+                <div key={key} className="flex items-center justify-between p-2 rounded-lg border border-border/50 bg-muted/20">
+                  <span className="text-sm font-medium flex items-center gap-2">
+                    <span>{icon}</span>
+                    {label}
+                  </span>
+                  <Select
+                    value={preferences.mealTimes[key]}
+                    onValueChange={(value) => setMealTime(key, value)}
+                  >
+                    <SelectTrigger className="w-[120px] h-8">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               ))}
             </div>
           </div>
