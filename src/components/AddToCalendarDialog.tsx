@@ -29,27 +29,106 @@ const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent);
 const isAndroid = () => /Android/i.test(navigator.userAgent);
 const isSamsung = () => /Samsung/i.test(navigator.userAgent);
 
+function getMealTypeTime(mealType: string): { time: string; hour: number } {
+  switch (mealType) {
+    case 'breakfast':
+      return { time: '8:00 AM', hour: 8 };
+    case 'lunch':
+      return { time: '12:00 PM', hour: 12 };
+    case 'dinner':
+      return { time: '6:00 PM', hour: 18 };
+    case 'dessert':
+      return { time: '7:30 PM', hour: 19 };
+    case 'sides':
+      return { time: '6:00 PM', hour: 18 };
+    default:
+      return { time: '6:00 PM', hour: 18 };
+  }
+}
+
+function formatMealType(mealType: string): string {
+  return mealType.charAt(0).toUpperCase() + mealType.slice(1);
+}
+
+function formatNutrition(recipe: Recipe): string {
+  if (!recipe.nutrition) return '';
+  const n = recipe.nutrition;
+  const parts = [
+    `Calories: ${n.calories}`,
+    `Protein: ${n.protein}g`,
+    `Carbs: ${n.carbs}g`,
+    `Fat: ${n.fat}g`,
+  ];
+  if (n.fiber) parts.push(`Fiber: ${n.fiber}g`);
+  if (n.sodium) parts.push(`Sodium: ${n.sodium}mg`);
+  if (n.cholesterol) parts.push(`Cholesterol: ${n.cholesterol}mg`);
+  return parts.join(' | ');
+}
+
+function formatIngredientsList(recipe: Recipe): string {
+  if (recipe.ingredientAmounts && recipe.ingredientAmounts.length > 0) {
+    return recipe.ingredientAmounts
+      .map(ing => `• ${ing.amount} ${ing.unit} ${ing.id.replace(/-/g, ' ')}`)
+      .join('\n');
+  }
+  return recipe.ingredients.map(ing => `• ${ing.replace(/-/g, ' ')}`).join('\n');
+}
+
 function generateCalendarLinks(recipe: Recipe, date: Date) {
-  const title = encodeURIComponent(recipe.title);
-  const description = encodeURIComponent(`Meal prep: ${recipe.title}\nCook time: ${recipe.cookTime}\nIngredients: ${recipe.ingredients.join(", ")}`);
+  const mealInfo = getMealTypeTime(recipe.mealType);
+  const mealTypeLabel = formatMealType(recipe.mealType);
+  const nutritionInfo = formatNutrition(recipe);
+  const ingredientsList = formatIngredientsList(recipe);
+  
+  // Build comprehensive description
+  const descriptionParts = [
+    `🍽️ ${mealTypeLabel} at ${mealInfo.time}`,
+    `⏱️ Cook Time: ${recipe.cookTime}`,
+    `👥 Servings: ${recipe.servings}`,
+    '',
+    '📝 INGREDIENTS:',
+    ingredientsList,
+  ];
+  
+  if (nutritionInfo) {
+    descriptionParts.push('', '📊 NUTRITION (per serving):', nutritionInfo);
+  }
+  
+  if (recipe.difficulty) {
+    descriptionParts.push('', `📈 Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}`);
+  }
+  
+  descriptionParts.push('', '🔗 Made with The Kitchen - the-kitchen.org');
+  
+  const fullDescription = descriptionParts.join('\n');
+  
+  const title = encodeURIComponent(`${recipe.title} (${mealTypeLabel})`);
+  const description = encodeURIComponent(fullDescription);
   const startDate = format(date, "yyyyMMdd");
   const uid = `${recipe.id}-${startDate}@thekitchen.app`;
   const now = format(new Date(), "yyyyMMdd'T'HHmmss");
+  
+  // Format time for timed events (Google/Outlook)
+  const startDateTime = `${startDate}T${String(mealInfo.hour).padStart(2, '0')}0000`;
+  const endHour = mealInfo.hour + 1;
+  const endDateTime = `${startDate}T${String(endHour).padStart(2, '0')}0000`;
 
-  // Google Calendar
-  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${startDate}&details=${description}`;
+  // Google Calendar - with specific time
+  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDateTime}/${endDateTime}&details=${description}`;
 
-  // Outlook Calendar
-  const outlookUrl = `https://outlook.live.com/calendar/0/action/compose?subject=${title}&startdt=${format(date, "yyyy-MM-dd")}&enddt=${format(date, "yyyy-MM-dd")}&body=${description}&allday=true`;
+  // Outlook Calendar - with specific time
+  const outlookStartTime = `${format(date, "yyyy-MM-dd")}T${String(mealInfo.hour).padStart(2, '0')}:00:00`;
+  const outlookEndTime = `${format(date, "yyyy-MM-dd")}T${String(endHour).padStart(2, '0')}:00:00`;
+  const outlookUrl = `https://outlook.live.com/calendar/0/action/compose?subject=${title}&startdt=${outlookStartTime}&enddt=${outlookEndTime}&body=${description}`;
 
   // Yahoo Calendar
-  const yahooUrl = `https://calendar.yahoo.com/?v=60&title=${title}&st=${startDate}&dur=allday&desc=${description}`;
+  const yahooUrl = `https://calendar.yahoo.com/?v=60&title=${title}&st=${startDateTime}&dur=0100&desc=${description}`;
 
   // Samsung Calendar (uses Google Calendar on Android)
   const samsungUrl = googleUrl;
 
-  // Enhanced ICS for Apple Calendar with alarm
-  const escapedDesc = `Meal prep: ${recipe.title}. Cook time: ${recipe.cookTime}.`.replace(/,/g, '\\,');
+  // Enhanced ICS for Apple Calendar with alarm and full details
+  const escapedDesc = fullDescription.replace(/,/g, '\\,').replace(/\n/g, '\\n');
   const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//The Kitchen//Meal Planner//EN
@@ -58,16 +137,16 @@ METHOD:PUBLISH
 BEGIN:VEVENT
 UID:${uid}
 DTSTAMP:${now}
-DTSTART;VALUE=DATE:${startDate}
-DTEND;VALUE=DATE:${startDate}
-SUMMARY:${recipe.title}
+DTSTART:${startDateTime}
+DTEND:${endDateTime}
+SUMMARY:${recipe.title} (${mealTypeLabel})
 DESCRIPTION:${escapedDesc}
-CATEGORIES:Meal Prep,Cooking
+CATEGORIES:Meal Prep,Cooking,${mealTypeLabel}
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:-PT1H
 ACTION:DISPLAY
-DESCRIPTION:Time to prep ${recipe.title}!
+DESCRIPTION:Time to start cooking ${recipe.title}! Cook time: ${recipe.cookTime}
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;
