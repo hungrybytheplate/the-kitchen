@@ -251,6 +251,7 @@ export type Database = {
           default_servings: number | null
           dietary_preferences: Json | null
           id: string
+          meal_times: Json | null
           skill_level: string | null
           updated_at: string
           user_id: string
@@ -260,6 +261,7 @@ export type Database = {
           default_servings?: number | null
           dietary_preferences?: Json | null
           id?: string
+          meal_times?: Json | null
           skill_level?: string | null
           updated_at?: string
           user_id: string
@@ -269,6 +271,7 @@ export type Database = {
           default_servings?: number | null
           dietary_preferences?: Json | null
           id?: string
+          meal_times?: Json | null
           skill_level?: string | null
           updated_at?: string
           user_id?: string

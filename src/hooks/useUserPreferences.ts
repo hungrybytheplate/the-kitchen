@@ -2,17 +2,36 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import type { DietaryTag, DifficultyLevel } from '@/data/recipes';
+import type { Json } from '@/integrations/supabase/types';
+
+export interface MealTimes {
+  breakfast: string;
+  lunch: string;
+  dinner: string;
+  dessert: string;
+  sides: string;
+}
 
 export interface UserPreferences {
   dietaryPreferences: DietaryTag[];
   defaultServings: number;
   skillLevel: 'beginner' | 'intermediate' | 'advanced';
+  mealTimes: MealTimes;
 }
+
+const defaultMealTimes: MealTimes = {
+  breakfast: '08:00',
+  lunch: '12:00',
+  dinner: '18:00',
+  dessert: '19:00',
+  sides: '18:00',
+};
 
 const defaultPreferences: UserPreferences = {
   dietaryPreferences: [],
   defaultServings: 4,
   skillLevel: 'beginner',
+  mealTimes: defaultMealTimes,
 };
 
 export function useUserPreferences() {
@@ -40,6 +59,7 @@ export function useUserPreferences() {
           dietaryPreferences: (data.dietary_preferences as DietaryTag[]) || [],
           defaultServings: data.default_servings || 4,
           skillLevel: (data.skill_level as UserPreferences['skillLevel']) || 'beginner',
+          mealTimes: (data.meal_times as unknown as MealTimes) || defaultMealTimes,
         });
       } else if (error?.code === 'PGRST116') {
         // No preferences found, use defaults
@@ -63,9 +83,10 @@ export function useUserPreferences() {
 
     const dbData = {
       user_id: user.id,
-      dietary_preferences: newPreferences.dietaryPreferences,
+      dietary_preferences: newPreferences.dietaryPreferences as Json,
       default_servings: newPreferences.defaultServings,
       skill_level: newPreferences.skillLevel,
+      meal_times: newPreferences.mealTimes as unknown as Json,
     };
 
     // Try to update first, if no rows affected, insert
@@ -76,7 +97,7 @@ export function useUserPreferences() {
 
     if (updateError) {
       // If update failed (no existing row), insert
-      await supabase.from('user_preferences').insert(dbData);
+      await supabase.from('user_preferences').insert([dbData]);
     }
   };
 
@@ -94,6 +115,12 @@ export function useUserPreferences() {
 
   const setDefaultServings = async (servings: number) => {
     await updatePreferences({ defaultServings: servings });
+  };
+
+  const setMealTime = async (mealType: keyof MealTimes, time: string) => {
+    await updatePreferences({ 
+      mealTimes: { ...preferences.mealTimes, [mealType]: time } 
+    });
   };
 
   // Get matching difficulty based on skill level
@@ -117,6 +144,7 @@ export function useUserPreferences() {
     toggleDietaryPreference,
     setSkillLevel,
     setDefaultServings,
+    setMealTime,
     getMatchingDifficulties,
   };
 }

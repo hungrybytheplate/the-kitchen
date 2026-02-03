@@ -8,6 +8,7 @@ import type { Recipe } from "@/data/recipes";
 import { Calendar as CalendarIcon, ExternalLink, Sparkles, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { useUserPreferences, type MealTimes } from "@/hooks/useUserPreferences";
 interface AddToCalendarDialogProps {
   recipe: Recipe | null;
   open: boolean;
@@ -29,21 +30,17 @@ const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent);
 const isAndroid = () => /Android/i.test(navigator.userAgent);
 const isSamsung = () => /Samsung/i.test(navigator.userAgent);
 
-function getMealTypeTime(mealType: string): { time: string; hour: number } {
-  switch (mealType) {
-    case 'breakfast':
-      return { time: '8:00 AM', hour: 8 };
-    case 'lunch':
-      return { time: '12:00 PM', hour: 12 };
-    case 'dinner':
-      return { time: '6:00 PM', hour: 18 };
-    case 'dessert':
-      return { time: '7:30 PM', hour: 19 };
-    case 'sides':
-      return { time: '6:00 PM', hour: 18 };
-    default:
-      return { time: '6:00 PM', hour: 18 };
-  }
+function formatTimeFrom24(time24: string): { time: string; hour: number; minute: number } {
+  const [hours, minutes] = time24.split(':').map(Number);
+  const period = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+  const time = `${hours12}:${String(minutes).padStart(2, '0')} ${period}`;
+  return { time, hour: hours, minute: minutes };
+}
+
+function getMealTypeTime(mealType: string, mealTimes: MealTimes): { time: string; hour: number; minute: number } {
+  const time24 = mealTimes[mealType as keyof MealTimes] || '18:00';
+  return formatTimeFrom24(time24);
 }
 
 function formatMealType(mealType: string): string {
@@ -74,8 +71,8 @@ function formatIngredientsList(recipe: Recipe): string {
   return recipe.ingredients.map(ing => `• ${ing.replace(/-/g, ' ')}`).join('\n');
 }
 
-function generateCalendarLinks(recipe: Recipe, date: Date) {
-  const mealInfo = getMealTypeTime(recipe.mealType);
+function generateCalendarLinks(recipe: Recipe, date: Date, mealTimes: MealTimes) {
+  const mealInfo = getMealTypeTime(recipe.mealType, mealTimes);
   const mealTypeLabel = formatMealType(recipe.mealType);
   const nutritionInfo = formatNutrition(recipe);
   const ingredientsList = formatIngredientsList(recipe);
@@ -109,9 +106,10 @@ function generateCalendarLinks(recipe: Recipe, date: Date) {
   const now = format(new Date(), "yyyyMMdd'T'HHmmss");
   
   // Format time for timed events (Google/Outlook)
-  const startDateTime = `${startDate}T${String(mealInfo.hour).padStart(2, '0')}0000`;
+  const startDateTime = `${startDate}T${String(mealInfo.hour).padStart(2, '0')}${String(mealInfo.minute).padStart(2, '0')}00`;
   const endHour = mealInfo.hour + 1;
-  const endDateTime = `${startDate}T${String(endHour).padStart(2, '0')}0000`;
+  const endMinute = mealInfo.minute;
+  const endDateTime = `${startDate}T${String(endHour).padStart(2, '0')}${String(endMinute).padStart(2, '0')}00`;
 
   // Google Calendar - with specific time
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDateTime}/${endDateTime}&details=${description}`;
@@ -201,6 +199,7 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
   const [savedPreference, setSavedPreference] = useState<CalendarProvider | null>(null);
   const [autoSyncEnabled, setAutoSyncEnabled] = useState(false);
   const { toast } = useToast();
+  const { preferences } = useUserPreferences();
 
   useEffect(() => {
     const saved = localStorage.getItem(CALENDAR_PREFERENCE_KEY) as CalendarProvider | null;
@@ -225,7 +224,7 @@ export function AddToCalendarDialog({ recipe, open, onOpenChange, onConfirm }: A
     }
   };
 
-  const calendarLinks = selectedDate ? generateCalendarLinks(recipe, selectedDate) : null;
+  const calendarLinks = selectedDate ? generateCalendarLinks(recipe, selectedDate, preferences.mealTimes) : null;
 
   // Get recommended providers based on device
   const getRecommendedProviders = () => {
