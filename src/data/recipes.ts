@@ -1447,6 +1447,51 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 280, protein: 12, carbs: 32, fat: 14, sodium: 380, cholesterol: 0 },
   },
+  {
+    id: "mcdonalds-copycat-chicken-nuggets",
+    title: "McDonald's Copycat Chicken Nuggets",
+    mealType: "lunch",
+    description: "Crispy, golden homemade chicken nuggets that taste just like the famous fast food version with a perfectly seasoned breading",
+    cookTime: "35 min",
+    servings: 4,
+    ingredients: ["chicken-breast", "flour", "eggs", "bread-crumbs", "garlic-powder", "onion-powder", "paprika", "salt", "pepper", "vegetable-oil"],
+    ingredientAmounts: [
+      { id: "chicken-breast", amount: "1.5", unit: "lbs" },
+      { id: "flour", amount: "1", unit: "cup" },
+      { id: "eggs", amount: "2", unit: "large" },
+      { id: "bread-crumbs", amount: "1.5", unit: "cups" },
+      { id: "garlic-powder", amount: "1", unit: "tsp" },
+      { id: "onion-powder", amount: "1", unit: "tsp" },
+      { id: "paprika", amount: "0.5", unit: "tsp" },
+      { id: "salt", amount: "1", unit: "tsp" },
+      { id: "pepper", amount: "0.5", unit: "tsp" },
+      { id: "vegetable-oil", amount: "2", unit: "cups for frying" },
+    ],
+    keyIngredients: ["chicken-breast", "bread-crumbs"],
+    instructions: [
+      "Cut 1.5 lbs of chicken breast into bite-sized nugget shapes, roughly 1.5-inch pieces. Pat them completely dry with paper towels—this is crucial for crispy coating.",
+      "Set up your breading station with 3 shallow bowls: First bowl: 1 cup flour mixed with ½ tsp salt and ¼ tsp pepper. Second bowl: 2 eggs beaten with 2 tbsp water. Third bowl: 1.5 cups bread crumbs (panko works great) mixed with 1 tsp garlic powder, 1 tsp onion powder, ½ tsp paprika, and ½ tsp salt.",
+      "Working in batches, dredge each chicken piece in flour (shake off excess), then dip in egg wash (let excess drip off), and finally coat thoroughly in the seasoned bread crumbs. Press the crumbs firmly to adhere. Place coated pieces on a wire rack.",
+      "Heat 2 cups of vegetable oil in a deep heavy-bottomed pan or Dutch oven to 350°F (175°C). Use a thermometer for accuracy—this temperature is key for crispy, not greasy nuggets.",
+      "Fry nuggets in batches of 6-8, being careful not to overcrowd the pan. Cook for 4-5 minutes, flipping halfway through, until deep golden brown and the internal temperature reaches 165°F (74°C).",
+      "Transfer cooked nuggets to a wire rack set over a baking sheet to drain. Season with a light sprinkle of salt immediately. Serve hot with your favorite dipping sauces—honey mustard, BBQ, or sweet and sour."
+    ],
+    matchedIngredients: [],
+    dietaryTags: ["high-protein"],
+    difficulty: "medium",
+    cuisine: "american",
+    nutrition: { calories: 320, protein: 28, carbs: 24, fat: 12, sodium: 580, cholesterol: 95 },
+    suggestedSides: [
+      { name: "French Fries", description: "Classic crispy fries to complete the fast food experience" },
+      { name: "Coleslaw", description: "Creamy coleslaw for a refreshing contrast" },
+      { name: "Apple Slices", description: "Fresh apple slices for a healthier side option" }
+    ],
+    proteinTips: [
+      "Use chicken thighs for juicier nuggets with more flavor",
+      "Double-bread the nuggets for extra crispy coating",
+      "Bake at 400°F for 20 minutes for a lighter version"
+    ],
+  },
 
   // ============ DINNER ============
   {
