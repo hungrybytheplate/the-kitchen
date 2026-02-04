@@ -15218,6 +15218,28 @@ const keyIngredients: Record<string, string[]> = {
   "kfc-copycat-coleslaw": ["cabbage", "mayonnaise"],
   "cinnabon-copycat-rolls": ["flour", "cinnamon", "cream-cheese"],
   "cheesecake-factory-copycat-bang-bang-chicken": ["chicken-breast", "hot-sauce", "mayonnaise"],
+  // Kid-friendly recipes
+  "kid-friendly-mac-cheese": ["pasta", "cheese"],
+  "kid-friendly-chicken-nuggets": ["chicken-breast"],
+  "kid-friendly-pizza-bagels": ["cheese"],
+  "kid-friendly-pbj-rollups": ["peanut-butter"],
+  "kid-friendly-quesadilla": ["cheese"],
+  "kid-friendly-grilled-cheese": ["bread", "cheese"],
+  "kid-friendly-hot-dogs": ["sausage-breakfast"],
+  "kid-friendly-fish-sticks": ["cod"],
+  "kid-friendly-tater-tots": ["russet-potato"],
+  "kid-friendly-chicken-tenders": ["chicken-tenders"],
+  // Budget meals
+  "budget-rice-beans": ["rice-white", "beans-black"],
+  "budget-egg-fried-rice": ["rice-white", "eggs"],
+  "budget-pasta-aglio-olio": ["pasta-spaghetti", "garlic"],
+  "budget-lentil-soup": ["lentils"],
+  "budget-potato-soup": ["russet-potato"],
+  "budget-bean-burritos": ["beans-refried"],
+  "budget-spaghetti-marinara": ["pasta-spaghetti", "tomatoes-crushed"],
+  "budget-chicken-thighs": ["chicken-thighs"],
+  "budget-tuna-pasta": ["tuna-white", "pasta-penne"],
+  "budget-ramen-upgrade": ["eggs"],
 };
 
 // Helper function to check if a selected ingredient matches a recipe ingredient
