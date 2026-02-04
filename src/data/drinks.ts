@@ -12628,6 +12628,29 @@ export const sampleDrinks: Drink[] = [
     occasion: "everyday",
     season: "summer",
   },
+  {
+    id: "wendys-copycat-frosty",
+    title: "Wendy's Copycat Frosty",
+    drinkType: "smoothie",
+    description: "The iconic thick chocolate frozen treat that's perfect for dipping fries",
+    prepTime: "10 min",
+    ingredients: ["milk", "cream", "chocolate-syrup", "vanilla-syrup", "sugar"],
+    instructions: [
+      "Combine milk, heavy cream, chocolate syrup, vanilla, and sugar in a blender.",
+      "Blend on high until completely smooth and sugar is dissolved, about 1 minute.",
+      "Pour into a freezer-safe container. Freeze for 2 hours, stirring every 30 minutes to prevent ice crystals.",
+      "Alternatively, if you have an ice cream maker, churn according to manufacturer directions for perfect texture.",
+      "The consistency should be thicker than a milkshake but softer than ice cream—spoonable but not drippy.",
+      "Serve immediately in a cup with a spoon. Perfect for dipping fries!"
+    ],
+    matchedIngredients: [],
+    glassType: "Cup",
+    garnish: "Whipped cream",
+    isAlcoholic: false,
+    nutrition: { calories: 280, sugar: 38, carbs: 40 },
+    occasion: "everyday",
+    season: "all-season",
+  },
   // Starbucks Seasonal Copycats
   {
     id: "copycat-starbucks-iced-apple-crisp-oatmilk-shaken-espresso",
