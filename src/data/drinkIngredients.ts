@@ -213,6 +213,8 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "cacao", name: "Raw Cacao" },
       { id: "hemp-seeds", name: "Hemp Seeds" },
       { id: "collagen", name: "Collagen Powder" },
+      { id: "tapioca-pearls", name: "Tapioca Pearls/Boba" },
+      { id: "taro-powder", name: "Taro Powder" },
     ],
   },
 ];
