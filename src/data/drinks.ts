@@ -14941,6 +14941,22 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "copycat-detox-island-green": ["spinach", "kale", "mango"],
   "copycat-panera-green-passion-smoothie": ["spinach", "mango", "passion-fruit"],
   "copycat-panera-mango-smoothie": ["mango", "orange-juice"],
+  // Sonic copycats
+  "copycat-sonic-ocean-water": ["lemon-lime-soda", "coconut-syrup"],
+  "copycat-sonic-cherry-limeade": ["lemon-lime-soda", "lime", "cherries"],
+  "copycat-sonic-strawberry-slush": ["strawberries", "lemon-lime-soda"],
+  // Starbucks seasonal copycats
+  "copycat-starbucks-iced-apple-crisp-oatmilk-shaken-espresso": ["espresso", "oat-milk", "apple-juice"],
+  "copycat-starbucks-peppermint-mocha": ["espresso", "chocolate-syrup", "peppermint-syrup"],
+  "copycat-starbucks-iced-lavender-oatmilk-latte": ["espresso", "oat-milk", "lavender-syrup"],
+  "copycat-starbucks-white-chocolate-mocha": ["espresso", "white-chocolate-syrup"],
+  // Restaurant cocktail copycats
+  "copycat-applebees-bahama-mama": ["tequila", "triple-sec", "lime"],
+  "copycat-tgif-long-island-iced-tea": ["vodka", "gin", "rum-white"],
+  "copycat-cheesecake-factory-bellini": ["peach", "club-soda"],
+  "copycat-red-lobster-ultimate-margarita": ["tequila", "triple-sec", "lime"],
+  "copycat-texas-roadhouse-kickin-margarita": ["orange-juice", "pineapple-juice", "grenadine"],
+  "copycat-olive-garden-italian-margarita": ["tequila", "amaretto"],
   // Healthy wellness drinks (new additions only - avoiding duplicates)
   "immune-booster-shot": ["ginger-fresh", "lemon", "turmeric"],
   "beetroot-power-juice": ["beetroot", "apple", "ginger-fresh"],
