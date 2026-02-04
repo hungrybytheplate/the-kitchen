@@ -141,6 +141,8 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "peppermint-syrup", name: "Peppermint Syrup" },
       { id: "chocolate-syrup", name: "Chocolate Syrup" },
       { id: "white-chocolate-syrup", name: "White Chocolate Syrup" },
+      { id: "brown-sugar-syrup", name: "Brown Sugar Syrup" },
+      { id: "strawberry-syrup", name: "Strawberry Syrup" },
       // Natural & Sugar-Free Sweeteners
       { id: "monk-fruit", name: "Monk Fruit Sweetener" },
       { id: "stevia", name: "Stevia" },
