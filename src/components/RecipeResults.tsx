@@ -254,6 +254,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   }).length;
   const slowCookerCount = recipes.filter(r => r.isSlowCooker).length;
   const instantPotCount = recipes.filter(r => r.isInstantPot).length;
+  const kidFriendlyCount = recipes.filter(r => kidFriendlyRecipeIds.includes(r.id)).length;
+  const budgetCount = recipes.filter(r => budgetRecipeIds.includes(r.id)).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
