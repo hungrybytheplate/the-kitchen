@@ -15030,6 +15030,8 @@ const keyDrinkIngredients: Record<string, string[]> = {
   // New classic cocktails
   "rum-runner": ["rum-white", "rum-dark"],
   "planters-punch": ["rum-dark", "orange-juice"],
+  // Copycat drinks
+  "wendys-copycat-frosty": ["milk", "chocolate-syrup", "cream"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {

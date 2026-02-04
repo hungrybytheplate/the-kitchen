@@ -14633,7 +14633,6 @@ const keyIngredients: Record<string, string[]> = {
   "panda-express-copycat-orange-chicken": ["chicken-breast", "orange"],
   "olive-garden-copycat-breadsticks": ["flour", "butter"],
   "kfc-copycat-coleslaw": ["cabbage", "mayonnaise"],
-  "wendys-copycat-frosty": ["milk", "chocolate-syrup"],
   "cinnabon-copycat-rolls": ["flour", "cinnamon", "cream-cheese"],
   "cheesecake-factory-copycat-bang-bang-chicken": ["chicken-breast", "hot-sauce", "mayonnaise"],
 };

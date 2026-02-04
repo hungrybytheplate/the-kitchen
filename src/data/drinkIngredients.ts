@@ -55,6 +55,7 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "ginger-ale", name: "Ginger Ale" },
       { id: "cola", name: "Cola" },
       { id: "lemon-lime-soda", name: "Lemon-Lime Soda" },
+      { id: "grape-juice", name: "Grape Juice" },
       { id: "cranberry-juice", name: "Cranberry Juice" },
       { id: "orange-juice", name: "Orange Juice" },
       { id: "pineapple-juice", name: "Pineapple Juice" },
