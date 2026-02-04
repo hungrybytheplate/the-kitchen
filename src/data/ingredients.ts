@@ -168,6 +168,10 @@ export const pantryItems: IngredientCategory[] = [
       { id: "espresso-powder", name: "Espresso Powder", emoji: "☕" },
       { id: "almond-flour", name: "Almond Flour", emoji: "🌾" },
       { id: "coconut-flour", name: "Coconut Flour", emoji: "🥥" },
+      { id: "peanut-butter", name: "Peanut Butter", emoji: "🥜" },
+      { id: "almond-butter", name: "Almond Butter", emoji: "🥜" },
+      { id: "tapioca-pearls", name: "Tapioca Pearls/Boba", emoji: "🧋" },
+      { id: "taro-powder", name: "Taro Powder", emoji: "🟣" },
     ],
   },
   {
