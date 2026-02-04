@@ -130,6 +130,7 @@ export function RecipeDetailDialog({
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [isCooking, setIsCooking] = useState(false);
+  const [isFullCookingMode, setIsFullCookingMode] = useState(false);
   const [servingMultiplier, setServingMultiplier] = useState(1);
   const [selectedSides, setSelectedSides] = useState<string[]>([]);
 
