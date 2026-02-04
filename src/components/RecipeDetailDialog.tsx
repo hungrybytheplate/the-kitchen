@@ -27,11 +27,13 @@ import {
   Dumbbell,
   Lightbulb,
   Sun,
-  CloudSun
+  CloudSun,
+  Smartphone
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
 import { ShareRecipeButton } from "./ShareRecipeButton";
+import { CookingMode } from "./CookingMode";
 
 interface SideDish {
   id: string;
@@ -128,6 +130,7 @@ export function RecipeDetailDialog({
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [isCooking, setIsCooking] = useState(false);
+  const [isFullCookingMode, setIsFullCookingMode] = useState(false);
   const [servingMultiplier, setServingMultiplier] = useState(1);
   const [selectedSides, setSelectedSides] = useState<string[]>([]);
 
@@ -645,25 +648,38 @@ export function RecipeDetailDialog({
         </ScrollArea>
 
         {/* Footer actions */}
-        <div className="px-6 py-4 border-t bg-muted/30 flex gap-3">
+        <div className="px-6 py-4 border-t bg-muted/30 flex flex-col gap-3">
           {!isCooking ? (
             <>
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => onAddToCalendar(selectedSides)}
-              >
-                <CalendarIcon className="h-4 w-4 mr-2" />
-                Add to Meal Plan{selectedSides.length > 0 ? ` + ${selectedSides.length} side${selectedSides.length > 1 ? 's' : ''}` : ''}
-              </Button>
+              {/* Mobile-optimized Cooking Mode button */}
               <Button
                 variant="warm"
-                className="flex-1"
-                onClick={handleStartCooking}
+                className="w-full h-12 sm:hidden"
+                onClick={() => setIsFullCookingMode(true)}
               >
-                <ChefHat className="h-4 w-4 mr-2" />
-                Start Cooking
+                <Smartphone className="h-4 w-4 mr-2" />
+                Start Cooking Mode
               </Button>
+              
+              <div className="flex gap-3">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => onAddToCalendar(selectedSides)}
+                >
+                  <CalendarIcon className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline">Add to Meal Plan{selectedSides.length > 0 ? ` + ${selectedSides.length} side${selectedSides.length > 1 ? 's' : ''}` : ''}</span>
+                  <span className="sm:hidden">Meal Plan</span>
+                </Button>
+                <Button
+                  variant="warm"
+                  className="flex-1 hidden sm:flex"
+                  onClick={handleStartCooking}
+                >
+                  <ChefHat className="h-4 w-4 mr-2" />
+                  Start Cooking
+                </Button>
+              </div>
             </>
           ) : (
             <Button
@@ -677,6 +693,14 @@ export function RecipeDetailDialog({
           )}
         </div>
       </DialogContent>
+
+      {/* Full-screen Cooking Mode for Mobile */}
+      <CookingMode
+        recipe={recipe}
+        open={isFullCookingMode}
+        onClose={() => setIsFullCookingMode(false)}
+        servingMultiplier={servingMultiplier}
+      />
     </Dialog>
   );
 }
