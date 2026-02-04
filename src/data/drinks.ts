@@ -15502,6 +15502,28 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "planters-punch": ["rum-dark", "orange-juice"],
   // Copycat drinks
   "wendys-copycat-frosty": ["milk", "chocolate-syrup", "cream"],
+  // Energy drinks/pre-workout
+  "energy-citrus-boost": ["green-tea", "orange", "lemon"],
+  "energy-coffee-protein-shake": ["espresso", "protein-powder"],
+  "energy-beetroot-pre-workout": ["beetroot", "apple"],
+  "energy-matcha-pre-workout": ["matcha", "coconut-water"],
+  "energy-banana-oat-fuel": ["banana", "oats", "peanut-butter"],
+  "energy-electrolyte-drink": ["coconut-water", "orange-juice"],
+  "energy-green-power-shot": ["spinach", "ginger-fresh", "lemon"],
+  "energy-chocolate-recovery": ["protein-powder", "chocolate-syrup"],
+  // Iced tea collection
+  "iced-tea-arnold-palmer": ["black-tea", "lemon"],
+  "iced-tea-sweet-southern": ["black-tea", "sugar"],
+  "iced-tea-peach": ["black-tea", "peach"],
+  "iced-tea-raspberry": ["black-tea", "raspberries"],
+  "iced-tea-thai": ["black-tea", "condensed-milk"],
+  "iced-tea-green-mint": ["green-tea", "mint"],
+  "iced-tea-passion-fruit": ["black-tea", "passion-fruit"],
+  "iced-tea-bubble-classic": ["black-tea", "milk"],
+  "iced-tea-taro-bubble": ["milk", "vanilla-syrup"],
+  "iced-tea-mango-green": ["green-tea", "mango"],
+  "iced-tea-hibiscus": ["hibiscus", "honey"],
+  "iced-tea-jasmine": ["green-tea", "honey"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
