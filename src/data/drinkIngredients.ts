@@ -73,6 +73,7 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "coffee", name: "Coffee" },
       { id: "espresso", name: "Espresso" },
       { id: "green-tea", name: "Green Tea" },
+      { id: "black-tea", name: "Black Tea" },
       { id: "matcha", name: "Matcha Powder" },
       { id: "chai", name: "Chai" },
       { id: "pickle-juice", name: "Pickle Juice/Brine" },
