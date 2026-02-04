@@ -237,6 +237,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [showQuickEasyOnly, setShowQuickEasyOnly] = useState(false);
   const [showSlowCookerOnly, setShowSlowCookerOnly] = useState(false);
   const [showInstantPotOnly, setShowInstantPotOnly] = useState(false);
+  const [showKidFriendlyOnly, setShowKidFriendlyOnly] = useState(false);
+  const [showBudgetOnly, setShowBudgetOnly] = useState(false);
 
   const parseCookTime = (cookTime: string): number => {
     const match = cookTime.match(/(\d+)/);
