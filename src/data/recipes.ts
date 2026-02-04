@@ -14189,6 +14189,8 @@ const keyIngredients: Record<string, string[]> = {
   "jalapeno-lime-butter": ["butter", "jalapeno", "lime"],
   "maple-bacon-butter": ["butter", "bacon", "maple-syrup"],
   "truffle-butter": ["butter", "truffle-oil"],
+  // Copycat recipes
+  "mcdonalds-copycat-chicken-nuggets": ["chicken-breast", "bread-crumbs"],
 };
 
 // Helper function to check if a selected ingredient matches a recipe ingredient
