@@ -61,6 +61,46 @@ const sauceRecipeIds = [
   "olive-tapenade",
 ];
 
+// Recipe IDs that are kid-friendly
+const kidFriendlyRecipeIds = [
+  "kid-friendly-mac-cheese",
+  "kid-friendly-chicken-nuggets",
+  "kid-friendly-pizza-bagels",
+  "kid-friendly-pbj-rollups",
+  "kid-friendly-mini-corn-dogs",
+  "kid-friendly-cheesy-quesadillas",
+  "kid-friendly-spaghetti-meatballs",
+  "kid-friendly-grilled-cheese",
+  "kid-friendly-banana-pancakes",
+  "kid-friendly-fish-sticks",
+  // Other family-friendly recipes
+  "banana-pancakes",
+  "french-toast",
+  "grilled-cheese",
+  "cheese-pizza",
+  "spaghetti-meatballs",
+];
+
+// Recipe IDs that are budget-friendly (under $10)
+const budgetRecipeIds = [
+  "budget-rice-beans",
+  "budget-egg-fried-rice",
+  "budget-pasta-aglio-olio",
+  "budget-lentil-soup",
+  "budget-ramen-upgrade",
+  "budget-bean-tacos",
+  "budget-chickpea-curry",
+  "budget-tuna-pasta",
+  "budget-potato-hash",
+  "budget-veggie-stir-fry",
+  // Other budget-friendly staples
+  "overnight-oats",
+  "egg-muffins",
+  "lentil-soup",
+  "chili-con-carne",
+  "fried-rice",
+];
+
 // Recipe IDs that are good for meal prep (store well, make in bulk)
 const mealPrepRecipeIds = [
   // Proteins that reheat well
