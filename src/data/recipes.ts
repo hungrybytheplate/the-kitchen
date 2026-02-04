@@ -14656,6 +14656,17 @@ const keyIngredients: Record<string, string[]> = {
   "truffle-butter": ["butter", "truffle-oil"],
   // Copycat recipes
   "mcdonalds-copycat-chicken-nuggets": ["chicken-breast", "bread-crumbs"],
+  "chick-fil-a-copycat-sandwich": ["chicken-breast", "pickles"],
+  "taco-bell-copycat-crunchwrap": ["ground-beef", "flour"],
+  "popeyes-copycat-chicken-sandwich": ["chicken-breast", "hot-sauce"],
+  "in-n-out-copycat-burger": ["ground-beef", "cheese"],
+  "chipotle-copycat-bowl": ["chicken-breast", "rice"],
+  "panda-express-copycat-orange-chicken": ["chicken-breast", "orange"],
+  "olive-garden-copycat-breadsticks": ["flour", "butter"],
+  "kfc-copycat-coleslaw": ["cabbage", "mayonnaise"],
+  "wendys-copycat-frosty": ["milk", "chocolate-syrup"],
+  "cinnabon-copycat-rolls": ["flour", "cinnamon", "cream-cheese"],
+  "cheesecake-factory-copycat-bang-bang-chicken": ["chicken-breast", "hot-sauce", "mayonnaise"],
 };
 
 // Helper function to check if a selected ingredient matches a recipe ingredient
