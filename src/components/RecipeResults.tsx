@@ -668,6 +668,42 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               <span className="ml-1.5 text-xs opacity-80">({mealPrepCount})</span>
             </Badge>
           )}
+
+          {/* Kid-Friendly Filter */}
+          {kidFriendlyCount > 0 && (
+            <Badge
+              variant={showKidFriendlyOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showKidFriendlyOnly 
+                  ? "bg-pink-500 hover:bg-pink-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowKidFriendlyOnly(!showKidFriendlyOnly)}
+            >
+              <Baby className="h-3.5 w-3.5 mr-1.5" />
+              Kid-Friendly
+              <span className="ml-1.5 text-xs opacity-80">({kidFriendlyCount})</span>
+            </Badge>
+          )}
+
+          {/* Budget-Friendly Filter */}
+          {budgetCount > 0 && (
+            <Badge
+              variant={showBudgetOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showBudgetOnly 
+                  ? "bg-lime-500 hover:bg-lime-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowBudgetOnly(!showBudgetOnly)}
+            >
+              <PiggyBank className="h-3.5 w-3.5 mr-1.5" />
+              Budget Meals
+              <span className="ml-1.5 text-xs opacity-80">({budgetCount})</span>
+            </Badge>
+          )}
         </div>
         {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
