@@ -350,6 +350,14 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     if (showInstantPotOnly && !recipe.isInstantPot) {
       return false;
     }
+    // Kid-Friendly filter
+    if (showKidFriendlyOnly && !kidFriendlyRecipeIds.includes(recipe.id)) {
+      return false;
+    }
+    // Budget filter
+    if (showBudgetOnly && !budgetRecipeIds.includes(recipe.id)) {
+      return false;
+    }
     return true;
   });
 
