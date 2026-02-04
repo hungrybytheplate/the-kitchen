@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge, Droplets, Package } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge, Droplets, Package, Baby, PiggyBank } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { staggerContainer } from "@/components/ui/animated";
@@ -59,6 +59,46 @@ const sauceRecipeIds = [
   "gochujang-mayo",
   "classic-raita",
   "olive-tapenade",
+];
+
+// Recipe IDs that are kid-friendly
+const kidFriendlyRecipeIds = [
+  "kid-friendly-mac-cheese",
+  "kid-friendly-chicken-nuggets",
+  "kid-friendly-pizza-bagels",
+  "kid-friendly-pbj-rollups",
+  "kid-friendly-mini-corn-dogs",
+  "kid-friendly-cheesy-quesadillas",
+  "kid-friendly-spaghetti-meatballs",
+  "kid-friendly-grilled-cheese",
+  "kid-friendly-banana-pancakes",
+  "kid-friendly-fish-sticks",
+  // Other family-friendly recipes
+  "banana-pancakes",
+  "french-toast",
+  "grilled-cheese",
+  "cheese-pizza",
+  "spaghetti-meatballs",
+];
+
+// Recipe IDs that are budget-friendly (under $10)
+const budgetRecipeIds = [
+  "budget-rice-beans",
+  "budget-egg-fried-rice",
+  "budget-pasta-aglio-olio",
+  "budget-lentil-soup",
+  "budget-ramen-upgrade",
+  "budget-bean-tacos",
+  "budget-chickpea-curry",
+  "budget-tuna-pasta",
+  "budget-potato-hash",
+  "budget-veggie-stir-fry",
+  // Other budget-friendly staples
+  "overnight-oats",
+  "egg-muffins",
+  "lentil-soup",
+  "chili-con-carne",
+  "fried-rice",
 ];
 
 // Recipe IDs that are good for meal prep (store well, make in bulk)
@@ -197,6 +237,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [showQuickEasyOnly, setShowQuickEasyOnly] = useState(false);
   const [showSlowCookerOnly, setShowSlowCookerOnly] = useState(false);
   const [showInstantPotOnly, setShowInstantPotOnly] = useState(false);
+  const [showKidFriendlyOnly, setShowKidFriendlyOnly] = useState(false);
+  const [showBudgetOnly, setShowBudgetOnly] = useState(false);
 
   const parseCookTime = (cookTime: string): number => {
     const match = cookTime.match(/(\d+)/);
@@ -214,6 +256,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   }).length;
   const slowCookerCount = recipes.filter(r => r.isSlowCooker).length;
   const instantPotCount = recipes.filter(r => r.isInstantPot).length;
+  const kidFriendlyCount = recipes.filter(r => kidFriendlyRecipeIds.includes(r.id)).length;
+  const budgetCount = recipes.filter(r => budgetRecipeIds.includes(r.id)).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -240,9 +284,11 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setShowQuickEasyOnly(false);
     setShowSlowCookerOnly(false);
     setShowInstantPotOnly(false);
+    setShowKidFriendlyOnly(false);
+    setShowBudgetOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly;
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
@@ -304,6 +350,14 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     }
     // Instant Pot filter
     if (showInstantPotOnly && !recipe.isInstantPot) {
+      return false;
+    }
+    // Kid-Friendly filter
+    if (showKidFriendlyOnly && !kidFriendlyRecipeIds.includes(recipe.id)) {
+      return false;
+    }
+    // Budget filter
+    if (showBudgetOnly && !budgetRecipeIds.includes(recipe.id)) {
       return false;
     }
     return true;
@@ -614,8 +668,44 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               <span className="ml-1.5 text-xs opacity-80">({mealPrepCount})</span>
             </Badge>
           )}
+
+          {/* Kid-Friendly Filter */}
+          {kidFriendlyCount > 0 && (
+            <Badge
+              variant={showKidFriendlyOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showKidFriendlyOnly 
+                  ? "bg-pink-500 hover:bg-pink-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowKidFriendlyOnly(!showKidFriendlyOnly)}
+            >
+              <Baby className="h-3.5 w-3.5 mr-1.5" />
+              Kid-Friendly
+              <span className="ml-1.5 text-xs opacity-80">({kidFriendlyCount})</span>
+            </Badge>
+          )}
+
+          {/* Budget-Friendly Filter */}
+          {budgetCount > 0 && (
+            <Badge
+              variant={showBudgetOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showBudgetOnly 
+                  ? "bg-lime-500 hover:bg-lime-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowBudgetOnly(!showBudgetOnly)}
+            >
+              <PiggyBank className="h-3.5 w-3.5 mr-1.5" />
+              Budget Meals
+              <span className="ml-1.5 text-xs opacity-80">({budgetCount})</span>
+            </Badge>
+          )}
         </div>
-        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly) && (
+        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
             {showQuickEasyOnly && "Showing recipes under 20 minutes with easy difficulty"}
             {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
@@ -625,6 +715,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
             {showOnePanOnly && "Showing easy one-pan and sheet pan dinners"}
             {showSlowCookerOnly && "Showing slow cooker and crockpot recipes"}
             {showInstantPotOnly && "Showing Instant Pot and pressure cooker recipes"}
+            {showKidFriendlyOnly && "Showing picky-eater approved kid favorites"}
+            {showBudgetOnly && "Showing affordable meals under $10"}
           </p>
         )}
       </div>
