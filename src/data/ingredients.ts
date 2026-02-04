@@ -50,6 +50,8 @@ export const pantryItems: IngredientCategory[] = [
       { id: "beans-kidney", name: "Kidney Beans", emoji: "🫘" },
       { id: "beans-cannellini", name: "Cannellini Beans", emoji: "🫘" },
       { id: "beans-refried", name: "Refried Beans", emoji: "🫘" },
+      { id: "lentils", name: "Lentils", emoji: "🫘" },
+      { id: "peas-frozen", name: "Frozen Peas", emoji: "🟢" },
       { id: "tomatoes-diced", name: "Diced Tomatoes", emoji: "🥫" },
       { id: "tomatoes-crushed", name: "Crushed Tomatoes", emoji: "🥫" },
       { id: "tomatoes-sauce", name: "Tomato Sauce", emoji: "🥫" },
