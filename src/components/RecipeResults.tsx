@@ -286,7 +286,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setShowBudgetOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly;
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
