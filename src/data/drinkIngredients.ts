@@ -68,6 +68,7 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "almond-milk", name: "Almond Milk" },
       { id: "oat-milk", name: "Oat Milk" },
       { id: "coconut-milk", name: "Coconut Milk" },
+      { id: "condensed-milk", name: "Condensed Milk" },
       { id: "coffee", name: "Coffee" },
       { id: "espresso", name: "Espresso" },
       { id: "green-tea", name: "Green Tea" },
