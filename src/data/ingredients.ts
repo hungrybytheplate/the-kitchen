@@ -221,6 +221,7 @@ export const fridgeItems: IngredientCategory[] = [
       { id: "pork-tenderloin", name: "Pork Tenderloin", emoji: "🥓" },
       { id: "ham", name: "Ham", emoji: "🥓" },
       { id: "ham-sliced", name: "Sliced Deli Ham", emoji: "🥓" },
+      { id: "pepperoni", name: "Pepperoni", emoji: "🍕" },
       { id: "sausage-italian", name: "Italian Sausage", emoji: "🌭" },
       { id: "sausage-breakfast", name: "Breakfast Sausage", emoji: "🌭" },
       { id: "chorizo", name: "Chorizo", emoji: "🌭" },
