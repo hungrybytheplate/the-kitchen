@@ -27,11 +27,13 @@ import {
   Dumbbell,
   Lightbulb,
   Sun,
-  CloudSun
+  CloudSun,
+  Smartphone
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
 import { ShareRecipeButton } from "./ShareRecipeButton";
+import { CookingMode } from "./CookingMode";
 
 interface SideDish {
   id: string;
