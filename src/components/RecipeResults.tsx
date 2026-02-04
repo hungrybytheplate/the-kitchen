@@ -705,7 +705,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
             </Badge>
           )}
         </div>
-        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly) && (
+        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
             {showQuickEasyOnly && "Showing recipes under 20 minutes with easy difficulty"}
             {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
@@ -715,6 +715,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
             {showOnePanOnly && "Showing easy one-pan and sheet pan dinners"}
             {showSlowCookerOnly && "Showing slow cooker and crockpot recipes"}
             {showInstantPotOnly && "Showing Instant Pot and pressure cooker recipes"}
+            {showKidFriendlyOnly && "Showing picky-eater approved kid favorites"}
+            {showBudgetOnly && "Showing affordable meals under $10"}
           </p>
         )}
       </div>
