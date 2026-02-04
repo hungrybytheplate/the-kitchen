@@ -282,6 +282,8 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setShowQuickEasyOnly(false);
     setShowSlowCookerOnly(false);
     setShowInstantPotOnly(false);
+    setShowKidFriendlyOnly(false);
+    setShowBudgetOnly(false);
   };
 
   const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly;
