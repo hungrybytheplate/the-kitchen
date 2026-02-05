@@ -1081,11 +1081,11 @@ const Index = () => {
         />
       )}
 
-        {/* SEO Content Section */}
-        <SEOContent />
-      </main>
 
       <Footer />
+    </div>
+  );
+};
     </div>
   );
 };
