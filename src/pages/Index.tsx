@@ -1079,8 +1079,11 @@ const Index = () => {
         />
       )}
 
+      {/* SEO Content Section */}
+      <SEOContent />
+
       <Footer />
-    </div>
+    </main>
   );
 };
 
