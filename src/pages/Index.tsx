@@ -1081,8 +1081,8 @@ const Index = () => {
         />
       )}
 
-      {/* SEO Content Section */}
-      <SEOContent />
+        {/* SEO Content Section */}
+        <SEOContent />
       </main>
 
       <Footer />
