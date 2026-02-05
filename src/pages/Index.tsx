@@ -629,7 +629,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-glow">
+    <main className="min-h-screen gradient-glow" role="main">
       {showTour && (
         <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
       )}
