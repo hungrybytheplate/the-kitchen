@@ -213,10 +213,27 @@
       ]
     }
     </script>
+    <!-- Speakable specification for voice search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", "h2", ".recipe-title", ".recipe-description"]
+    }
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Noscript fallback for SEO -->
+    <noscript>
+      <div style="padding: 20px; text-align: center; font-family: system-ui, sans-serif;">
+        <h1>The Kitchen - Recipe Finder</h1>
+        <p>Find recipes based on ingredients you already have at home. JavaScript is required to use this app.</p>
+        <p>Enable JavaScript to discover easy dinner ideas, plan your weekly meals, and create smart shopping lists.</p>
+      </div>
+    </noscript>
   </body>
 </html>
