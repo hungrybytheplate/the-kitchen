@@ -1002,6 +1002,9 @@ const Index = () => {
             />
           </TabsContent>
         </Tabs>
+        
+        {/* SEO Content Section - crawlable content for search engines */}
+        <SEOContent />
       </main>
 
       <AddToCalendarDialog
