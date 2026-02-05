@@ -152,5 +152,6 @@ export function Header({ onShowTour }: HeaderProps) {
         </div>
       </div>
     </motion.header>
+    </>
   );
 }
