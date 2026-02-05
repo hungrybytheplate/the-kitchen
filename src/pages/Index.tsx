@@ -2,6 +2,8 @@ import { useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SEOHead, generateRecipeCollectionSchema, generateMealPlanningGuideSchema, injectStructuredData } from "@/components/SEOHead";
+import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
 
@@ -276,6 +278,18 @@ const Index = () => {
   const [recentViewedDrink, setRecentViewedDrink] = useState<Drink | null>(null);
   const [sharedRecipeDialog, setSharedRecipeDialog] = useState<Recipe | null>(null);
   const [pantryAutoApplied, setPantryAutoApplied] = useState(false);
+
+  // Inject structured data on mount
+  useEffect(() => {
+    injectStructuredData(generateRecipeCollectionSchema(), "recipe-collection-schema");
+    injectStructuredData(generateMealPlanningGuideSchema(), "meal-planning-guide-schema");
+    
+    return () => {
+      // Cleanup on unmount
+      document.getElementById("recipe-collection-schema")?.remove();
+      document.getElementById("meal-planning-guide-schema")?.remove();
+    };
+  }, []);
 
   // Handle shared recipe URL
   useEffect(() => {
@@ -616,6 +630,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen gradient-glow">
+      <SEOHead />
+      
       {showTour && (
         <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
       )}
@@ -624,7 +640,7 @@ const Index = () => {
       
       <Header onShowTour={() => setShowTour(true)} />
 
-      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8" role="main" id="main-content">
         {/* Top-level Cook/Drink toggle */}
         <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
           <div className="inline-flex p-1 sm:p-1.5 rounded-xl sm:rounded-2xl glass shadow-soft" data-tour="mode-switch">
@@ -986,6 +1002,9 @@ const Index = () => {
             />
           </TabsContent>
         </Tabs>
+        
+        {/* SEO Content Section - crawlable content for search engines */}
+        <SEOContent />
       </main>
 
       <AddToCalendarDialog
@@ -1064,6 +1083,7 @@ const Index = () => {
           onAddToShopping={handleAddToShopping}
         />
       )}
+
 
       <Footer />
     </div>

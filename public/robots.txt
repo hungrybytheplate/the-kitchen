@@ -1,13 +1,30 @@
 # Robots.txt for The Kitchen - https://the-kitchen.org
 
+# Main search engine crawlers
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /
 
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Social media crawlers
 User-agent: Twitterbot
 Allow: /
 
@@ -17,18 +34,18 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-User-agent: Slurp
+User-agent: Pinterest
 Allow: /
 
-User-agent: DuckDuckBot
-Allow: /
-
+# Default for all other bots
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*.json$
 
 # Sitemap location
 Sitemap: https://the-kitchen.org/sitemap.xml
 
-# Block unnecessary paths
-Disallow: /api/
-Disallow: /*.json$
+# Host directive for Yandex
+Host: https://the-kitchen.org

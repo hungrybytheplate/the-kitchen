@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
   <!-- Homepage - Recipe Finder -->
   <url>
     <loc>https://the-kitchen.org/</loc>
-    <lastmod>2025-02-03</lastmod>
+    <lastmod>2026-02-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://the-kitchen.org/og-image.png</image:loc>
+      <image:title>The Kitchen - Recipe Finder and Meal Planner</image:title>
+      <image:caption>Find recipes based on ingredients you already have at home</image:caption>
+    </image:image>
   </url>
   
   <!-- Authentication Page -->
   <url>
     <loc>https://the-kitchen.org/auth</loc>
-    <lastmod>2025-02-03</lastmod>
+    <lastmod>2026-02-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -23,7 +29,7 @@
   <!-- Install/PWA Page -->
   <url>
     <loc>https://the-kitchen.org/install</loc>
-    <lastmod>2025-02-03</lastmod>
+    <lastmod>2026-02-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -31,7 +37,7 @@
   <!-- Pantry Management -->
   <url>
     <loc>https://the-kitchen.org/pantry</loc>
-    <lastmod>2025-02-03</lastmod>
+    <lastmod>2026-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

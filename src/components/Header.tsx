@@ -27,12 +27,21 @@ export function Header({ onShowTour }: HeaderProps) {
   };
 
   return (
-    <motion.header 
-      className="py-3 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-    >
+    <>
+      {/* Skip navigation link for accessibility */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none"
+      >
+        Skip to main content
+      </a>
+      <motion.header 
+        className="py-3 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        role="banner"
+      >
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
         <motion.div 
           className="flex items-center gap-2 sm:gap-4 min-w-0"
@@ -143,5 +152,6 @@ export function Header({ onShowTour }: HeaderProps) {
         </div>
       </div>
     </motion.header>
+    </>
   );
 }
