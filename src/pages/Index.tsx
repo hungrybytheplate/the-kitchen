@@ -2,6 +2,8 @@ import { useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SEOHead, generateRecipeCollectionSchema, generateMealPlanningGuideSchema, injectStructuredData } from "@/components/SEOHead";
+import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
 
