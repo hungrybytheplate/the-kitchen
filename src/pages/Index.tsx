@@ -279,6 +279,18 @@ const Index = () => {
   const [sharedRecipeDialog, setSharedRecipeDialog] = useState<Recipe | null>(null);
   const [pantryAutoApplied, setPantryAutoApplied] = useState(false);
 
+  // Inject structured data on mount
+  useEffect(() => {
+    injectStructuredData(generateRecipeCollectionSchema(), "recipe-collection-schema");
+    injectStructuredData(generateMealPlanningGuideSchema(), "meal-planning-guide-schema");
+    
+    return () => {
+      // Cleanup on unmount
+      document.getElementById("recipe-collection-schema")?.remove();
+      document.getElementById("meal-planning-guide-schema")?.remove();
+    };
+  }, []);
+
   // Handle shared recipe URL
   useEffect(() => {
     const recipeId = searchParams.get('recipe');
