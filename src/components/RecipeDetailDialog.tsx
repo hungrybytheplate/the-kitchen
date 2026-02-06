@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import { 
   Clock, 
   Users, 
@@ -199,12 +200,16 @@ export function RecipeDetailDialog({
   return (
     <>
       {/* Full-screen Cooking Mode - rendered outside Dialog for proper z-index */}
-      <CookingMode
-        recipe={recipe}
-        open={isFullCookingMode}
-        onClose={() => setIsFullCookingMode(false)}
-        servingMultiplier={servingMultiplier}
-      />
+      <AnimatePresence>
+        {isFullCookingMode && (
+          <CookingMode
+            recipe={recipe}
+            open={isFullCookingMode}
+            onClose={() => setIsFullCookingMode(false)}
+            servingMultiplier={servingMultiplier}
+          />
+        )}
+      </AnimatePresence>
       
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden">
