@@ -197,13 +197,22 @@ export function RecipeDetailDialog({
   const allStepsComplete = completedSteps.length === recipe.instructions.length;
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden">
-        {/* Header with gradient */}
-        <div className={cn("relative px-6 pt-6 pb-4", config.bg)}>
-          <DialogHeader>
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
+    <>
+      {/* Full-screen Cooking Mode - rendered outside Dialog for proper z-index */}
+      <CookingMode
+        recipe={recipe}
+        open={isFullCookingMode}
+        onClose={() => setIsFullCookingMode(false)}
+        servingMultiplier={servingMultiplier}
+      />
+      
+      <Dialog open={open} onOpenChange={handleClose}>
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden">
+          {/* Header with gradient */}
+          <div className={cn("relative px-6 pt-6 pb-4", config.bg)}>
+            <DialogHeader>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
                 <Badge className={cn(
                   "text-xs font-semibold px-3 py-1 rounded-full border mb-2",
                   config.bg, config.border, config.text
@@ -693,14 +702,7 @@ export function RecipeDetailDialog({
           )}
         </div>
       </DialogContent>
-
-      {/* Full-screen Cooking Mode for Mobile */}
-      <CookingMode
-        recipe={recipe}
-        open={isFullCookingMode}
-        onClose={() => setIsFullCookingMode(false)}
-        servingMultiplier={servingMultiplier}
-      />
     </Dialog>
+    </>
   );
 }
