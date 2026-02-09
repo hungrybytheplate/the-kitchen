@@ -15359,6 +15359,11 @@ const keyIngredients: Record<string, string[]> = {
   "kfc-copycat-coleslaw": ["cabbage", "mayonnaise"],
   "cinnabon-copycat-rolls": ["flour", "cinnamon", "cream-cheese"],
   "cheesecake-factory-copycat-bang-bang-chicken": ["chicken-breast", "hot-sauce", "mayonnaise"],
+  // McDonald's copycat breakfast sandwiches
+  "copycat-egg-mcmuffin": ["eggs", "cheese", "bread"],
+  "copycat-sausage-egg-biscuit": ["sausage-breakfast", "eggs"],
+  "copycat-bacon-egg-cheese-griddle": ["bacon", "eggs", "maple-syrup"],
+  "copycat-breakfast-burrito": ["eggs", "sausage-breakfast", "cheese"],
   // Kid-friendly recipes
   "kid-friendly-mac-cheese": ["pasta", "cheese"],
   "kid-friendly-chicken-nuggets": ["chicken-breast"],
