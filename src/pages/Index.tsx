@@ -857,7 +857,7 @@ const Index = () => {
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="font-serif text-2xl">What's in your bar?</CardTitle>
+                        <CardTitle className="font-serif text-xl sm:text-2xl">What's in your bar?</CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">Select spirits, mixers & garnishes</p>
                       </div>
                       {selectedDrinkIngredients.length > 0 && (
