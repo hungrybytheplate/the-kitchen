@@ -48,6 +48,7 @@ import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BottomNav } from "@/components/BottomNav";
 
 // Inline Lookup Results Component
 interface LookupResultsProps {
