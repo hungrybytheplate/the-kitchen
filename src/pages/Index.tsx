@@ -1086,6 +1086,15 @@ const Index = () => {
       )}
 
 
+      <BottomNav
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        appMode={appMode}
+        mealPlanCount={mealPlan.length}
+        savedCount={savedRecipes.length + savedDrinks.length}
+        shoppingCount={shoppingList.length}
+      />
+
       <Footer />
     </div>
   );
