@@ -630,7 +630,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-glow">
+    <div className="min-h-screen gradient-glow pb-20 sm:pb-0">
       <SEOHead />
       
       {showTour && (
