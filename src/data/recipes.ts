@@ -1926,6 +1926,147 @@ export const sampleRecipes: Recipe[] = [
       { original: "chicken-breast", alternatives: ["shrimp", "tofu-firm", "cauliflower"], notes: "Cauliflower makes it vegetarian; shrimp cooks faster" }
     ],
   },
+  {
+    id: "copycat-egg-mcmuffin",
+    title: "Classic Egg & Cheese Breakfast Muffin",
+    mealType: "breakfast",
+    description: "The iconic round egg, melted cheese, and Canadian bacon on a toasted English muffin — a perfect grab-and-go breakfast",
+    cookTime: "10 min",
+    servings: 2,
+    ingredients: ["eggs", "cheese", "ham", "bread", "butter", "salt", "pepper"],
+    ingredientAmounts: [
+      { id: "eggs", amount: "2", unit: "large" },
+      { id: "cheese", amount: "2", unit: "slices American" },
+      { id: "ham", amount: "2", unit: "slices Canadian bacon" },
+      { id: "bread", amount: "2", unit: "English muffins" },
+      { id: "butter", amount: "1", unit: "tbsp" },
+      { id: "salt", amount: "0.25", unit: "tsp" },
+      { id: "pepper", amount: "0.125", unit: "tsp" },
+    ],
+    keyIngredients: ["eggs", "cheese", "bread"],
+    instructions: [
+      "Split 2 English muffins and toast them in a toaster or buttered skillet until golden brown. Set aside.",
+      "Grease a round egg ring or mason jar lid (ring removed) with butter. Place in a nonstick skillet over medium-low heat. Crack one egg into each ring, break the yolk gently with a fork, and season with salt and pepper. Add 1 tablespoon of water to the pan and cover with a lid. Steam for 2-3 minutes until the egg white is set but the yolk is still slightly soft.",
+      "While eggs cook, warm Canadian bacon slices in a separate skillet over medium heat for about 1 minute per side until lightly browned.",
+      "Remove egg rings. Place a slice of American cheese on each egg immediately so it starts melting from the residual heat.",
+      "Assemble: Place Canadian bacon on the bottom muffin half, top with the egg and cheese, then close with the muffin top. Wrap in foil or parchment for 1 minute to let everything meld together. Serve immediately."
+    ],
+    matchedIngredients: [],
+    dietaryTags: ["high-protein"],
+    difficulty: "easy",
+    cuisine: "american",
+    nutrition: { calories: 290, protein: 17, carbs: 26, fat: 13, sodium: 730, cholesterol: 215 },
+    proteinSubstitutions: [
+      { original: "ham", alternatives: ["bacon", "sausage-breakfast", "turkey-bacon"], notes: "Breakfast sausage patty makes it a sausage McMuffin style" }
+    ],
+  },
+  {
+    id: "copycat-sausage-egg-biscuit",
+    title: "Sausage, Egg & Cheese Breakfast Biscuit",
+    mealType: "breakfast",
+    description: "A flaky buttermilk biscuit loaded with a seasoned sausage patty, fluffy folded egg, and melted American cheese",
+    cookTime: "25 min",
+    servings: 4,
+    ingredients: ["sausage-breakfast", "eggs", "cheese", "flour", "butter", "milk", "baking-powder", "salt"],
+    ingredientAmounts: [
+      { id: "sausage-breakfast", amount: "1", unit: "lb" },
+      { id: "eggs", amount: "4", unit: "large" },
+      { id: "cheese", amount: "4", unit: "slices American" },
+      { id: "flour", amount: "2", unit: "cups" },
+      { id: "butter", amount: "0.5", unit: "cup cold, cubed" },
+      { id: "milk", amount: "0.75", unit: "cup buttermilk" },
+      { id: "baking-powder", amount: "1", unit: "tbsp" },
+      { id: "salt", amount: "1", unit: "tsp" },
+    ],
+    keyIngredients: ["sausage-breakfast", "eggs"],
+    instructions: [
+      "Make biscuits: Preheat oven to 425°F. Whisk 2 cups flour, 1 tbsp baking powder, and 1 tsp salt. Cut in ½ cup cold cubed butter using a pastry cutter or two forks until pea-sized crumbs form. Pour in ¾ cup buttermilk and stir until just combined — don't overmix.",
+      "Pat dough to ¾-inch thickness on a floured surface. Fold in thirds like a letter, pat out again, and repeat once more for flaky layers. Cut into 4 large rounds with a biscuit cutter or glass. Bake 12-15 minutes until tall and golden.",
+      "While biscuits bake, divide 1 lb breakfast sausage into 4 equal portions. Shape into thin patties slightly larger than the biscuits (they'll shrink). Cook in a skillet over medium heat for 3-4 minutes per side until cooked through and nicely browned. Set aside.",
+      "Whisk 4 eggs with 2 tbsp milk, salt, and pepper. Pour into a buttered nonstick skillet over medium-low heat. Let set slightly, then fold gently with a spatula into a soft, pillowy square. Cut into 4 portions.",
+      "Assemble: Split warm biscuits in half. Layer sausage patty, folded egg portion, and a slice of American cheese. Close the biscuit and serve immediately while hot."
+    ],
+    matchedIngredients: [],
+    dietaryTags: ["high-protein"],
+    difficulty: "medium",
+    cuisine: "american",
+    nutrition: { calories: 520, protein: 24, carbs: 34, fat: 32, sodium: 980, cholesterol: 245 },
+    proteinSubstitutions: [
+      { original: "sausage-breakfast", alternatives: ["bacon", "ham", "turkey-bacon"], notes: "Turkey sausage works for a lighter version" }
+    ],
+  },
+  {
+    id: "copycat-bacon-egg-cheese-griddle",
+    title: "Bacon, Egg & Cheese Griddle Stack",
+    mealType: "breakfast",
+    description: "Sweet maple-flavored griddle cakes sandwiching crispy bacon, fluffy egg, and melted cheese — inspired by the famous golden arches griddle combo",
+    cookTime: "20 min",
+    servings: 2,
+    ingredients: ["bacon", "eggs", "cheese", "flour", "maple-syrup", "butter", "milk", "baking-powder", "salt"],
+    ingredientAmounts: [
+      { id: "bacon", amount: "6", unit: "slices" },
+      { id: "eggs", amount: "2", unit: "large" },
+      { id: "cheese", amount: "2", unit: "slices American" },
+      { id: "flour", amount: "1", unit: "cup" },
+      { id: "maple-syrup", amount: "3", unit: "tbsp" },
+      { id: "butter", amount: "2", unit: "tbsp" },
+      { id: "milk", amount: "0.75", unit: "cup" },
+      { id: "baking-powder", amount: "1.5", unit: "tsp" },
+      { id: "salt", amount: "0.25", unit: "tsp" },
+    ],
+    keyIngredients: ["bacon", "eggs", "maple-syrup"],
+    instructions: [
+      "Make griddle cakes: Whisk 1 cup flour, 1½ tsp baking powder, and ¼ tsp salt. In another bowl, mix ¾ cup milk, 2 tbsp melted butter, and 2 tbsp maple syrup. Combine wet and dry ingredients until just mixed — small lumps are fine.",
+      "Heat a nonstick skillet or griddle over medium heat. Pour about 3 tablespoons of batter per cake to make 4 small round cakes (about 3½ inches each). Cook until bubbles form on top, about 2 minutes, then flip and cook 1-2 minutes more. They should be golden and slightly sweet.",
+      "Cook 6 slices of bacon in a skillet until crispy, about 4-5 minutes per side. Drain on paper towels.",
+      "In the bacon grease, cook 2 eggs folded-omelet style: crack each egg, break the yolk, fold in half once set. Season with salt and pepper.",
+      "Assemble each stack: bottom griddle cake, folded egg, 3 strips of bacon, slice of American cheese, top griddle cake. Drizzle remaining 1 tbsp maple syrup over the top if desired. Serve warm."
+    ],
+    matchedIngredients: [],
+    dietaryTags: ["high-protein"],
+    difficulty: "medium",
+    cuisine: "american",
+    nutrition: { calories: 480, protein: 20, carbs: 42, fat: 26, sodium: 860, cholesterol: 230 },
+    proteinSubstitutions: [
+      { original: "bacon", alternatives: ["turkey-bacon", "ham", "sausage-breakfast"], notes: "Sausage patty works great as an alternative" }
+    ],
+  },
+  {
+    id: "copycat-breakfast-burrito",
+    title: "Drive-Thru Style Breakfast Burrito",
+    mealType: "breakfast",
+    description: "A warm flour tortilla wrapped around fluffy scrambled eggs, savory sausage, melted cheese, and crispy hash browns",
+    cookTime: "20 min",
+    servings: 2,
+    ingredients: ["eggs", "sausage-breakfast", "cheese", "flour", "potatoes", "onion", "salt", "pepper", "vegetable-oil"],
+    ingredientAmounts: [
+      { id: "eggs", amount: "4", unit: "large" },
+      { id: "sausage-breakfast", amount: "0.5", unit: "lb" },
+      { id: "cheese", amount: "0.5", unit: "cup shredded cheddar" },
+      { id: "flour", amount: "2", unit: "large flour tortillas" },
+      { id: "potatoes", amount: "1", unit: "medium, shredded" },
+      { id: "onion", amount: "0.25", unit: "cup diced" },
+      { id: "salt", amount: "0.5", unit: "tsp" },
+      { id: "pepper", amount: "0.25", unit: "tsp" },
+      { id: "vegetable-oil", amount: "2", unit: "tbsp" },
+    ],
+    keyIngredients: ["eggs", "sausage-breakfast", "cheese"],
+    instructions: [
+      "Make hash browns: Shred 1 medium potato on a box grater, squeeze out excess moisture with a clean towel. Heat 2 tbsp oil in a skillet over medium-high heat. Spread potato in a thin layer, season with salt. Cook 3-4 minutes per side until golden and crispy. Set aside.",
+      "In the same skillet, cook ½ lb breakfast sausage over medium heat, breaking it into crumbles, until browned and cooked through, about 5-6 minutes. Remove and set aside.",
+      "Whisk 4 eggs with salt and pepper. Scramble in a buttered nonstick pan over medium-low heat, stirring gently until soft curds form. Remove while still slightly underdone — they'll continue cooking in the burrito.",
+      "Warm flour tortillas in a dry skillet or microwave for 15 seconds to make them pliable.",
+      "Assemble: Lay out each tortilla, add scrambled eggs down the center, top with sausage crumbles, hash browns, and shredded cheese. Fold in the sides, then roll tightly from the bottom. Place seam-side down in a hot skillet for 30 seconds per side to seal and toast. Cut in half and serve."
+    ],
+    matchedIngredients: [],
+    dietaryTags: ["high-protein"],
+    difficulty: "easy",
+    cuisine: "american",
+    nutrition: { calories: 510, protein: 26, carbs: 38, fat: 28, sodium: 820, cholesterol: 260 },
+    proteinSubstitutions: [
+      { original: "sausage-breakfast", alternatives: ["bacon", "ham", "chorizo"], notes: "Chorizo adds a spicy twist" }
+    ],
+  },
 
   // ============ DINNER ============
   {
