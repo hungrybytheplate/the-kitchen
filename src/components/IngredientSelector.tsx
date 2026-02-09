@@ -54,7 +54,7 @@ export function IngredientSelector({
         </div>
       )}
 
-      <ScrollArea className="h-[400px] mt-4 pr-4">
+      <ScrollArea className="h-[300px] sm:h-[400px] mt-4 pr-4">
         <TabsContent value="fridge" className="space-y-6 mt-0">
           {fridgeItems.map((category) => (
             <IngredientCategory

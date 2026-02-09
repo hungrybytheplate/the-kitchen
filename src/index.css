@@ -244,6 +244,15 @@
     @apply -translate-y-1 shadow-elevated;
   }
 
+  /* Safe area insets for notched devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
   /* Animations */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;

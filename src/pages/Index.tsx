@@ -48,6 +48,7 @@ import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BottomNav } from "@/components/BottomNav";
 
 // Inline Lookup Results Component
 interface LookupResultsProps {
@@ -629,7 +630,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-glow">
+    <div className="min-h-screen gradient-glow pb-20 sm:pb-0">
       <SEOHead />
       
       {showTour && (
@@ -695,7 +696,7 @@ const Index = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 sm:space-y-8">
-          <TabsList className="w-full max-w-2xl mx-auto grid grid-cols-4 h-12 sm:h-14 glass p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-soft">
+          <TabsList className="hidden sm:grid w-full max-w-2xl mx-auto grid-cols-4 h-12 sm:h-14 glass p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-soft">
             <QuickTooltip content={appMode === "cook" ? "Select ingredients & find recipes" : "Select ingredients & find drinks"} side="bottom">
               <TabsTrigger value="ingredients" aria-label={appMode === "cook" ? "Cook - Select ingredients and find recipes" : "Mix - Select ingredients and find drinks"} className="rounded-lg sm:rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:text-primary flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 text-xs sm:text-sm px-1 sm:px-3">
                 {appMode === "cook" ? <UtensilsCrossed className="h-4 w-4 shrink-0" /> : <GlassWater className="h-4 w-4 shrink-0" />}
@@ -761,7 +762,7 @@ const Index = () => {
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="font-serif text-2xl">What's in your kitchen?</CardTitle>
+                        <CardTitle className="font-serif text-xl sm:text-2xl">What's in your kitchen?</CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">Select ingredients to find matching recipes</p>
                       </div>
                       {selectedIngredients.length > 0 && (
@@ -856,7 +857,7 @@ const Index = () => {
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="font-serif text-2xl">What's in your bar?</CardTitle>
+                        <CardTitle className="font-serif text-xl sm:text-2xl">What's in your bar?</CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">Select spirits, mixers & garnishes</p>
                       </div>
                       {selectedDrinkIngredients.length > 0 && (
@@ -1084,6 +1085,15 @@ const Index = () => {
         />
       )}
 
+
+      <BottomNav
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        appMode={appMode}
+        mealPlanCount={mealPlan.length}
+        savedCount={savedRecipes.length + savedDrinks.length}
+        shoppingCount={shoppingList.length}
+      />
 
       <Footer />
     </div>
