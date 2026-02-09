@@ -1449,7 +1449,7 @@ export const sampleRecipes: Recipe[] = [
   },
   {
     id: "mcdonalds-copycat-chicken-nuggets",
-    title: "McDonald's Copycat Chicken Nuggets",
+    title: "Homemade Chicken Nuggets",
     mealType: "lunch",
     description: "Crispy, golden homemade chicken nuggets that taste just like the famous fast food version with a perfectly seasoned breading",
     cookTime: "35 min",
