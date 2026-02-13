@@ -124,7 +124,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
           </div>
 
           <div className="flex items-start justify-between gap-2 sm:gap-3 relative">
-            <div className="flex-1 space-y-1.5 sm:space-y-2 min-w-0">
+            <div className="flex-1 space-y-1 sm:space-y-2 min-w-0">
               <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                 <Badge className={cn(
                   "text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border",
@@ -165,7 +165,7 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
               <h3 className="font-serif text-base sm:text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors line-clamp-2">
                 {recipe.title}
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-1 sm:line-clamp-2">
                 {recipe.description}
               </p>
             </div>
@@ -202,110 +202,111 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-4 mt-2.5 sm:mt-4 text-xs sm:text-sm">
-            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-muted/50">
+          {/* Cook time & servings - inline on mobile */}
+          <div className="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-4 text-xs sm:text-sm">
+            <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-0.5 sm:py-1.5 rounded-full bg-muted/50">
               <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               <span className="font-medium">{recipe.cookTime}</span>
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-muted/50">
+            <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-0.5 sm:py-1.5 rounded-full bg-muted/50">
               <Users className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               <span className="font-medium">{recipe.servings}<span className="hidden sm:inline"> servings</span></span>
             </div>
           </div>
 
-          {/* Key ingredients matched */}
-          {recipe.matchedKeyIngredients && recipe.matchedKeyIngredients.length > 0 && (
-            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2.5 sm:mt-4">
-              {recipe.matchedKeyIngredients.slice(0, 3).map((ing) => (
-                <Badge key={ing} className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-primary/15 border border-primary/30 text-primary">
-                  <Key className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                  {ing.replace("-", " ")}
-                </Badge>
-              ))}
-              {recipe.matchedKeyIngredients.length > 3 && (
-                <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
-                  +{recipe.matchedKeyIngredients.length - 3}
-                </Badge>
-              )}
-            </div>
-          )}
-
-          {/* Matched ingredients */}
-          <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1.5 sm:mt-2">
-            {recipe.matchedIngredients
-              .filter(ing => !recipe.matchedKeyIngredients?.includes(ing))
-              .slice(0, 3).map((ing) => (
-              <Badge key={ing} variant="outline" className="text-[10px] sm:text-xs font-medium bg-secondary/5 border-secondary/20 text-secondary px-1.5 sm:px-2 py-0.5">
-                <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+          {/* Ingredients summary - condensed on mobile */}
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-3">
+            {/* Key ingredients matched */}
+            {recipe.matchedKeyIngredients?.slice(0, 2).map((ing) => (
+              <Badge key={`key-${ing}`} className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 bg-primary/15 border border-primary/30 text-primary">
+                <Key className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5" />
                 {ing.replace("-", " ")}
               </Badge>
             ))}
-            {recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length > 3 && (
-              <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50">
-                +{recipe.matchedIngredients.filter(ing => !recipe.matchedKeyIngredients?.includes(ing)).length - 3}
+            {/* Regular matched ingredients */}
+            {recipe.matchedIngredients
+              .filter(ing => !recipe.matchedKeyIngredients?.includes(ing))
+              .slice(0, 2).map((ing) => (
+              <Badge key={ing} variant="outline" className="text-[10px] sm:text-xs font-medium bg-secondary/10 border-secondary/30 text-secondary-foreground px-1.5 sm:px-2 py-0.5">
+                <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5" />
+                {ing.replace("-", " ")}
+              </Badge>
+            ))}
+            {/* Missing count */}
+            {missingIngredients.length > 0 && (
+              <Badge
+                variant="outline"
+                className="text-[10px] sm:text-xs font-medium cursor-pointer transition-all duration-200 px-1.5 sm:px-2 py-0.5 bg-accent/50 border-accent-foreground/30 text-accent-foreground hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
+                onClick={(e) => { e.stopPropagation(); missingIngredients.forEach(ing => onAddToShopping?.(ing)); }}
+              >
+                <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5" />
+                {missingIngredients.length} missing
+              </Badge>
+            )}
+            {/* Overflow count */}
+            {(recipe.matchedIngredients.length + missingIngredients.length) > 4 && (
+              <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50 text-muted-foreground px-1.5 py-0.5">
+                +{recipe.matchedIngredients.length + missingIngredients.length - 4}
               </Badge>
             )}
           </div>
-
-          {/* Missing ingredients */}
-          {missingIngredients.length > 0 && (
-            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1.5 sm:mt-2">
-              {missingIngredients.slice(0, 2).map((ing) => (
-                <Badge
-                  key={ing}
-                  variant="outline"
-                  className={cn(
-                    "text-[10px] sm:text-xs font-medium cursor-pointer transition-all duration-200 px-1.5 sm:px-2 py-0.5",
-                    "bg-accent/30 border-accent-foreground/20 text-accent-foreground",
-                    "hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
-                  )}
-                  onClick={(e) => { e.stopPropagation(); onAddToShopping?.(ing); }}
-                >
-                  <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                  {ing.replace("-", " ")}
-                </Badge>
-              ))}
-              {missingIngredients.length > 2 && (
-                <Badge variant="outline" className="text-[10px] sm:text-xs bg-muted/50 text-muted-foreground px-1.5 sm:px-2 py-0.5">
-                  +{missingIngredients.length - 2} more
-                </Badge>
-              )}
-            </div>
-          )}
         </CardHeader>
 
-        <CardContent className="pt-0 px-3 pb-3 sm:px-6 sm:pb-6 space-y-2 sm:space-y-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full justify-center text-muted-foreground hover:text-foreground rounded-lg sm:rounded-xl gap-1.5 sm:gap-2 h-8 sm:h-9 text-xs sm:text-sm"
-            onClick={(e) => { e.stopPropagation(); handleViewRecipe(); }}
-          >
-            <ChefHat className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            <span className="font-medium">View Recipe</span>
-          </Button>
-
-          {missingIngredients.length > 0 && onAddToShopping && (
+        <CardContent className="pt-0 px-3 pb-3 sm:px-6 sm:pb-6 space-y-1.5 sm:space-y-3">
+          <div className="flex gap-1.5 sm:hidden">
             <Button
-              variant="glass"
+              variant="ghost"
               size="sm"
-              className="w-full h-8 sm:h-9 text-xs sm:text-sm"
-              onClick={(e) => { e.stopPropagation(); missingIngredients.forEach(ing => onAddToShopping(ing)); }}
+              className="flex-1 justify-center text-muted-foreground hover:text-foreground rounded-lg gap-1.5 h-8 text-xs"
+              onClick={(e) => { e.stopPropagation(); handleViewRecipe(); }}
             >
-              <ShoppingCart className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
-              Add {missingIngredients.length} missing
+              <ChefHat className="h-3.5 w-3.5" />
+              View
             </Button>
-          )}
-          
-          <Button
-            variant="warm"
-            size="sm"
-            className="w-full h-9 sm:h-10 text-xs sm:text-sm"
-            onClick={(e) => { e.stopPropagation(); onAddToCalendar(); }}
-          >
-            <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
-            Add to Meal Plan
-          </Button>
+            <Button
+              variant="warm"
+              size="sm"
+              className="flex-1 h-8 text-xs"
+              onClick={(e) => { e.stopPropagation(); onAddToCalendar(); }}
+            >
+              <Plus className="h-3.5 w-3.5 mr-1" />
+              Plan
+            </Button>
+          </div>
+
+          <div className="hidden sm:block space-y-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-center text-muted-foreground hover:text-foreground rounded-xl gap-2 h-9 text-sm"
+              onClick={(e) => { e.stopPropagation(); handleViewRecipe(); }}
+            >
+              <ChefHat className="h-4 w-4" />
+              <span className="font-medium">View Recipe</span>
+            </Button>
+
+            {missingIngredients.length > 0 && onAddToShopping && (
+              <Button
+                variant="glass"
+                size="sm"
+                className="w-full h-9 text-sm"
+                onClick={(e) => { e.stopPropagation(); missingIngredients.forEach(ing => onAddToShopping(ing)); }}
+              >
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Add {missingIngredients.length} missing
+              </Button>
+            )}
+            
+            <Button
+              variant="warm"
+              size="sm"
+              className="w-full h-10 text-sm"
+              onClick={(e) => { e.stopPropagation(); onAddToCalendar(); }}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add to Meal Plan
+            </Button>
+          </div>
         </CardContent>
       </Card>
       </motion.div>
