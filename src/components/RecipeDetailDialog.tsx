@@ -111,6 +111,8 @@ const dietaryTagConfig: Record<DietaryTag, { bg: string; text: string; icon: str
   "high-protein": { bg: "bg-blue-100 dark:bg-blue-900/30", text: "text-blue-700 dark:text-blue-400", icon: "💪" },
   "low-carb": { bg: "bg-teal-100 dark:bg-teal-900/30", text: "text-teal-700 dark:text-teal-400", icon: "🥗" },
   "high-fiber": { bg: "bg-lime-100 dark:bg-lime-900/30", text: "text-lime-700 dark:text-lime-400", icon: "🌾" },
+  "no-sodium": { bg: "bg-gray-100 dark:bg-gray-900/30", text: "text-gray-700 dark:text-gray-400", icon: "🚫" },
+  "low-sodium": { bg: "bg-cyan-100 dark:bg-cyan-900/30", text: "text-cyan-700 dark:text-cyan-400", icon: "🧂" },
 };
 
 const difficultyConfig: Record<DifficultyLevel, { bg: string; text: string; label: string }> = {

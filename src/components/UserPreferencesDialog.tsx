@@ -19,6 +19,8 @@ const dietaryOptions: { tag: DietaryTag; label: string; icon: React.ElementType;
   { tag: "high-protein", label: "High Protein", icon: Dumbbell, color: "bg-purple-500/15 border-purple-500/30 text-purple-600 dark:text-purple-400" },
   { tag: "low-carb", label: "Low Carb", icon: Salad, color: "bg-teal-500/15 border-teal-500/30 text-teal-600 dark:text-teal-400" },
   { tag: "high-fiber", label: "High Fiber", icon: Heart, color: "bg-pink-500/15 border-pink-500/30 text-pink-600 dark:text-pink-400" },
+  { tag: "no-sodium", label: "No Sodium", icon: Flame, color: "bg-gray-500/15 border-gray-500/30 text-gray-600 dark:text-gray-400" },
+  { tag: "low-sodium", label: "Low Sodium", icon: Salad, color: "bg-cyan-500/15 border-cyan-500/30 text-cyan-600 dark:text-cyan-400" },
 ];
 
 const skillLevels = [
