@@ -83,7 +83,7 @@ export function IngredientCategory({
           )}
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-1">
         {category.items.map((item) => (
           <IngredientCheckbox
             key={item.id}

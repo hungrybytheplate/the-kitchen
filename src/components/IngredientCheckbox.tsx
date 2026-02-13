@@ -27,8 +27,8 @@ export function IngredientCheckbox({
   const content = (
     <label
       className={cn(
-        "flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-200",
-        "hover:bg-muted/80 border relative group",
+        "flex items-center gap-2 px-2.5 py-2 sm:py-1.5 rounded-lg cursor-pointer transition-all duration-200",
+        "hover:bg-muted/80 border relative group min-h-[40px] sm:min-h-0",
         isChecked 
           ? "bg-primary/10 border-primary shadow-sm" 
           : isInPantry
@@ -39,7 +39,7 @@ export function IngredientCheckbox({
       <Checkbox
         checked={isChecked}
         onCheckedChange={() => onToggle(ingredient.id)}
-        className="h-4 w-4 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+        className="h-5 w-5 sm:h-4 sm:w-4 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
       />
       <span className={cn(
         "text-sm transition-colors leading-tight flex-1",
