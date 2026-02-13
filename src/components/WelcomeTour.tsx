@@ -139,7 +139,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
   if (!mounted) return null;
 
   const content = (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-2 sm:p-4">
       {/* Simple overlay */}
       <div 
         className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
@@ -148,7 +148,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
 
       {/* Centered card */}
       <Card 
-        className="relative w-full max-w-md shadow-2xl border-border/50 overflow-hidden bg-card"
+        className="relative w-full max-w-md shadow-2xl border-border/50 overflow-hidden bg-card mb-safe-area-bottom"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
@@ -157,7 +157,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-3 right-3 h-8 w-8 text-muted-foreground hover:text-foreground z-10"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 h-9 w-9 sm:h-8 sm:w-8 text-muted-foreground hover:text-foreground z-10"
           onClick={(e) => {
             e.stopPropagation();
             onSkip();
@@ -167,9 +167,9 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
           <X className="h-4 w-4" />
         </Button>
 
-        <CardContent className="p-5 pt-10">
+        <CardContent className="p-4 sm:p-5 pt-8 sm:pt-10">
           {/* Progress dots */}
-          <div className="flex justify-center gap-1.5 mb-5 flex-wrap" role="tablist" aria-label="Tour progress">
+          <div className="flex justify-center gap-1 sm:gap-1.5 mb-4 sm:mb-5 flex-wrap" role="tablist" aria-label="Tour progress">
             {steps.map((_, index) => (
               <button
                 key={index}
@@ -200,20 +200,20 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
           </div>
 
           {/* Icon */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-3 sm:mb-4">
             <div className="relative">
               <div className="absolute inset-0 gradient-warm blur-xl opacity-40" />
-              <div className="relative p-3 rounded-xl gradient-warm shadow-warm">
-                <Icon className="h-6 w-6 text-primary-foreground" />
+              <div className="relative p-2.5 sm:p-3 rounded-xl gradient-warm shadow-warm">
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
               </div>
             </div>
           </div>
 
           {/* Content */}
-          <div className="text-center mb-5" key={currentStep}>
-            <h2 className="font-serif text-xl font-semibold mb-2">{step.title}</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-3">{step.description}</p>
-            <Badge variant="secondary" className="px-3 py-1 text-xs">
+          <div className="text-center mb-4 sm:mb-5" key={currentStep}>
+            <h2 className="font-serif text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">{step.title}</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-2 sm:mb-3">{step.description}</p>
+            <Badge variant="secondary" className="px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs">
               {step.highlight}
             </Badge>
           </div>

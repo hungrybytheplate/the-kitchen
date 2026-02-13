@@ -909,21 +909,25 @@ const Index = () => {
                         <GarnishSuggestions selectedIngredients={selectedDrinkIngredients} />
                       </div>
                     )}
-                    
-                    <div className="mt-6 pt-6 border-t border-border/50">
-                      <Button
-                        variant="warm"
-                        size="xl"
-                        className="w-full"
-                        onClick={handleGenerateDrinks}
-                        disabled={selectedDrinkIngredients.length === 0}
-                      >
-                        <Sparkles className="h-5 w-5 mr-2" />
-                        Find Drinks ({selectedDrinkIngredients.length} ingredients)
-                      </Button>
-                    </div>
                   </CardContent>
                 </Card>
+
+                <div className="sticky bottom-20 sm:relative sm:bottom-auto z-50 py-2 sm:py-0 -mt-2">
+                  <Button
+                    variant="warm"
+                    size="xl"
+                    className="w-full shadow-lg"
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleGenerateDrinks();
+                    }}
+                    disabled={selectedDrinkIngredients.length === 0}
+                  >
+                    <Sparkles className="h-5 w-5 mr-2" />
+                    Find Drinks ({selectedDrinkIngredients.length} ingredients)
+                  </Button>
+                </div>
 
                 {/* Glassware Guide */}
                 <GlasswareGuide />

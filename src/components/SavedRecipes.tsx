@@ -186,11 +186,11 @@ export function SavedRecipes({
       <div className="absolute top-0 left-0 w-full h-1 gradient-sunset" />
       <CardHeader>
         <div>
-          <CardTitle className="font-serif text-2xl flex items-center gap-2">
-            <Heart className="h-6 w-6 text-primary fill-primary" />
+        <CardTitle className="font-serif text-lg sm:text-2xl flex items-center gap-2">
+            <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary fill-primary" />
             Saved Collection
           </CardTitle>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
             {allSavedRecipes.length + customRecipes.length} recipe{(allSavedRecipes.length + customRecipes.length) === 1 ? '' : 's'} · {allSavedDrinks.length} drink{allSavedDrinks.length === 1 ? '' : 's'} · {totalFavorites} favorite{totalFavorites === 1 ? '' : 's'}
           </p>
         </div>
@@ -316,15 +316,15 @@ export function SavedRecipes({
                 savedRecipes.map((recipe) => (
                   <div
                     key={recipe.id}
-                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer"
+                     className="flex items-center justify-between p-2 sm:p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group cursor-pointer min-h-[44px]"
                     onClick={() => setSelectedRecipe(recipe)}
                   >
-                    <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <Badge className={cn("text-xs shrink-0", mealTypeColors[recipe.mealType])}>
+                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                      <Badge className={cn("text-[10px] sm:text-xs shrink-0 px-1.5 sm:px-2", mealTypeColors[recipe.mealType])}>
                         {recipe.mealType}
                       </Badge>
                       <div className="flex flex-col min-w-0">
-                        <span className="font-medium truncate">{recipe.title}</span>
+                        <span className="font-medium text-sm truncate">{recipe.title}</span>
                         <div className="flex items-center gap-2">
                           <div onClick={(e) => e.stopPropagation()}>
                             <StarRating
@@ -339,25 +339,23 @@ export function SavedRecipes({
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-                      <QuickTooltip content="Add notes" side="top">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleOpenNotes(recipe.id, recipe.title)}
-                          className={cn(
-                            "transition-opacity text-muted-foreground hover:text-primary",
-                            recipeNotes[recipe.id] ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                          )}
-                        >
-                          <StickyNote className="h-4 w-4" />
-                        </Button>
-                      </QuickTooltip>
+                    <div className="flex items-center gap-0.5 sm:gap-1" onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleOpenNotes(recipe.id, recipe.title)}
+                        className={cn(
+                          "transition-opacity text-muted-foreground hover:text-primary h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100",
+                          recipeNotes[recipe.id] ? "opacity-100" : "sm:opacity-0"
+                        )}
+                      >
+                        <StickyNote className="h-4 w-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => onRemoveRecipe(recipe.id)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                        className="h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

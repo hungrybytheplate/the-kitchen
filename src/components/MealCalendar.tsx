@@ -323,35 +323,35 @@ END:VCALENDAR`;
                 <div
                   key={day.toISOString()}
                   className={cn(
-                    "rounded-xl p-3 transition-all duration-200",
+                    "rounded-xl p-2.5 transition-all duration-200",
                     isToday ? "bg-primary/10 ring-2 ring-primary/20" : "bg-muted/30"
                   )}
                 >
                   <div className={cn(
-                    "flex items-center gap-3 mb-2 pb-2 border-b border-border/50",
+                    "flex items-center gap-2 mb-1.5 pb-1.5 border-b border-border/50",
                     isToday && "text-primary font-semibold"
                   )}>
-                    <div className="text-lg font-medium min-w-[28px]">
+                    <div className="text-base font-medium min-w-[24px]">
                       {format(day, "d")}
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {format(day, "EEEE")}
+                    <div className="text-xs text-muted-foreground">
+                      {format(day, "EEE")}
                     </div>
                     {isToday && (
-                      <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full ml-auto">Today</span>
+                      <span className="text-[10px] bg-primary/20 text-primary px-1.5 py-0.5 rounded-full ml-auto">Today</span>
                     )}
                   </div>
                   {meals.length > 0 ? (
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       {meals.map((entry) => (
                         <div
                           key={entry.recipe.id}
-                          className="group relative bg-card rounded-lg p-2 shadow-sm cursor-pointer hover:bg-accent/50 transition-colors"
+                          className="group relative bg-card rounded-lg p-1.5 shadow-sm cursor-pointer hover:bg-accent/50 transition-colors min-h-[40px]"
                           onClick={() => setSelectedRecipe(entry.recipe)}
                         >
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{mealTypeIcons[entry.recipe.mealType] || "🍽️"}</span>
-                            <span className="font-medium flex-1 text-sm">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-sm">{mealTypeIcons[entry.recipe.mealType] || "🍽️"}</span>
+                            <span className="font-medium flex-1 text-xs truncate">
                               {entry.recipe.title}
                             </span>
                             <Button
