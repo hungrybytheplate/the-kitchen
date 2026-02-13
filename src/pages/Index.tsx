@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -328,6 +328,7 @@ const Index = () => {
   // Cook mode state
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showRecipes, setShowRecipes] = useState(false);
+  const recipeResultsRef = useRef<HTMLDivElement>(null);
   const [recipeSearch, setRecipeSearch] = useState("");
   
   // Drink mode state
@@ -380,7 +381,9 @@ const Index = () => {
     setShowRecipes(false);
   };
 
-  const handleGenerateRecipes = () => {
+  const handleGenerateRecipes = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (selectedIngredients.length === 0) {
       toast({
         title: "No ingredients selected",
@@ -393,6 +396,12 @@ const Index = () => {
     toast({
       title: "Recipes found!",
       description: `Found ${recipes.length} recipes matching your ingredients.`,
+    });
+    // Scroll to results after render settles
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        recipeResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
     });
   };
 
@@ -630,7 +639,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-glow pb-20 sm:pb-0">
+    <div className="min-h-screen gradient-glow pb-24 sm:pb-0 relative z-0">
       <SEOHead />
       
       {showTour && (
@@ -800,23 +809,23 @@ const Index = () => {
                       userPantryItems={userPantryItems}
                       onTogglePantry={togglePantryItem}
                     />
-                    
-                    <div className="mt-6 pt-6 border-t border-border/50" data-tour="find-recipes">
-                      <Button
-                        variant="warm"
-                        size="xl"
-                        className="w-full"
-                        onClick={handleGenerateRecipes}
-                        disabled={selectedIngredients.length === 0}
-                      >
-                        <Sparkles className="h-5 w-5 mr-2" />
-                        Find Recipes ({selectedIngredients.length} ingredients)
-                      </Button>
-                    </div>
                   </CardContent>
                 </Card>
 
-                <div className="space-y-4">
+                <div className="sticky bottom-20 sm:relative sm:bottom-auto z-50 py-2 sm:py-0 -mt-2" data-tour="find-recipes">
+                  <Button
+                    variant="warm"
+                    size="xl"
+                    className="w-full shadow-lg"
+                    onClick={handleGenerateRecipes}
+                    disabled={selectedIngredients.length === 0}
+                  >
+                    <Sparkles className="h-5 w-5 mr-2" />
+                    Find Recipes ({selectedIngredients.length} ingredients)
+                  </Button>
+                </div>
+
+                <div className="space-y-4" ref={recipeResultsRef}>
                   {showRecipes ? (
                     <RecipeResults
                       recipes={recipes}
