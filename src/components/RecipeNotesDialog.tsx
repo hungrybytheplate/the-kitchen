@@ -39,19 +39,19 @@ export function RecipeNotesDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[calc(100vw-1rem)] sm:max-w-md max-h-[85vh]">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 font-serif">
-            <StickyNote className="h-5 w-5 text-primary" />
-            Notes for {recipeTitle}
+          <DialogTitle className="flex items-center gap-2 font-serif text-base sm:text-lg pr-6">
+            <StickyNote className="h-4 w-4 sm:h-5 sm:w-5 text-primary shrink-0" />
+            <span className="truncate">Notes for {recipeTitle}</span>
           </DialogTitle>
         </DialogHeader>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <Textarea
             placeholder="Add your personal notes, modifications, or tips for this recipe..."
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="min-h-[150px] resize-none"
+            className="min-h-[120px] sm:min-h-[150px] resize-none text-sm sm:text-base"
             maxLength={1000}
           />
           <div className="flex items-center justify-between">
