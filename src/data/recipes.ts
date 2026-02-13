@@ -14924,6 +14924,57 @@ export const sampleRecipes: Recipe[] = [
   },
 ];
 
+// Estimate sodium for recipes missing it based on ingredients and meal characteristics
+function estimateSodium(recipe: Recipe): number {
+  const ingredients = recipe.ingredients.join(' ').toLowerCase();
+  const title = recipe.title.toLowerCase();
+  const mealType = recipe.mealType;
+  const calories = recipe.nutrition?.calories || 300;
+
+  // High sodium indicators
+  const highSodiumIngredients = ['soy-sauce', 'bacon', 'sausage', 'ham', 'salami', 'pepperoni', 'prosciutto', 'pancetta',
+    'miso', 'fish-sauce', 'worcestershire', 'hot-sauce', 'bbq-sauce', 'teriyaki', 'oyster-sauce',
+    'pickles', 'capers', 'olives', 'anchovies', 'parmesan', 'feta', 'canned'];
+  const mediumSodiumIngredients = ['cheese', 'bread', 'tortillas', 'broth', 'stock', 'ketchup', 'mustard',
+    'mayo', 'mayonnaise', 'butter', 'salsa', 'cheddar', 'mozzarella', 'cream-cheese'];
+  const lowSodiumIngredients = ['fruit', 'banana', 'berries', 'apple', 'mango', 'avocado', 'honey',
+    'maple-syrup', 'chocolate', 'cocoa', 'vanilla', 'cinnamon', 'oats', 'rice', 'quinoa'];
+
+  let sodiumScore = 0;
+  highSodiumIngredients.forEach(ing => { if (ingredients.includes(ing)) sodiumScore += 2; });
+  mediumSodiumIngredients.forEach(ing => { if (ingredients.includes(ing)) sodiumScore += 1; });
+  lowSodiumIngredients.forEach(ing => { if (ingredients.includes(ing)) sodiumScore -= 0.5; });
+
+  // Soups and stews are generally high sodium
+  if (title.includes('soup') || title.includes('stew') || title.includes('chili') || title.includes('chowder')) sodiumScore += 3;
+  // Salads and smoothies tend to be lower
+  if (title.includes('salad') || title.includes('smoothie') || title.includes('bowl')) sodiumScore -= 1;
+  // Desserts are generally low sodium
+  if (mealType === 'dessert') sodiumScore -= 2;
+  // Baked goods have moderate sodium from baking soda/powder
+  if (title.includes('cake') || title.includes('cookie') || title.includes('muffin') || title.includes('bread')) sodiumScore += 0.5;
+
+  // Base sodium from calorie level (rough correlation)
+  let baseSodium = Math.round(calories * 0.8);
+
+  // Adjust based on score
+  if (sodiumScore >= 4) baseSodium = Math.round(calories * 1.8); // Very high (800-1200mg)
+  else if (sodiumScore >= 2) baseSodium = Math.round(calories * 1.3); // High (500-800mg)
+  else if (sodiumScore >= 0) baseSodium = Math.round(calories * 0.9); // Medium (300-500mg)
+  else if (sodiumScore >= -2) baseSodium = Math.round(calories * 0.5); // Low (100-250mg)
+  else baseSodium = Math.round(calories * 0.2); // Very low (30-100mg)
+
+  // Clamp to reasonable range
+  return Math.max(5, Math.min(baseSodium, 1800));
+}
+
+// Fill in missing sodium values
+sampleRecipes.forEach(recipe => {
+  if (recipe.nutrition && recipe.nutrition.sodium === undefined) {
+    recipe.nutrition.sodium = estimateSodium(recipe);
+  }
+});
+
 // Key ingredients that MUST be present for certain recipes (base ingredient names)
 const keyIngredients: Record<string, string[]> = {
   // Potato sides
