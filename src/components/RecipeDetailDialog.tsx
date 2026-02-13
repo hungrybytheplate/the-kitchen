@@ -214,23 +214,23 @@ export function RecipeDetailDialog({
       </AnimatePresence>
       
       <Dialog open={open} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden w-[calc(100vw-1rem)] sm:w-full rounded-xl">
           {/* Header with gradient */}
-          <div className={cn("relative px-6 pt-6 pb-4", config.bg)}>
+          <div className={cn("relative px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4", config.bg)}>
             <DialogHeader>
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
+              <div className="flex items-start justify-between gap-2 sm:gap-4">
+                <div className="flex-1 min-w-0">
                 <Badge className={cn(
-                  "text-xs font-semibold px-3 py-1 rounded-full border mb-2",
+                  "text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border mb-1.5 sm:mb-2",
                   config.bg, config.border, config.text
                 )}>
-                  <span className="mr-1">{config.emoji}</span>
+                  <span className="mr-0.5 sm:mr-1">{config.emoji}</span>
                   {config.label}
                 </Badge>
-                <DialogTitle className="font-serif text-2xl font-semibold">
+                <DialogTitle className="font-serif text-lg sm:text-2xl font-semibold leading-tight">
                   {recipe.title}
                 </DialogTitle>
-                <p className="text-muted-foreground mt-2">{recipe.description}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2 line-clamp-2">{recipe.description}</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <ShareRecipeButton recipe={recipe} size="icon" className="rounded-full" />
@@ -250,12 +250,12 @@ export function RecipeDetailDialog({
 
             {/* Dietary Tags */}
             {recipe.dietaryTags && recipe.dietaryTags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-3">
+              <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-3">
                 {recipe.dietaryTags.map(tag => {
                   const tagConfig = dietaryTagConfig[tag];
                   return (
-                    <Badge key={tag} className={cn("text-xs px-2 py-0.5", tagConfig.bg, tagConfig.text)}>
-                      <span className="mr-1">{tagConfig.icon}</span>
+                    <Badge key={tag} className={cn("text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5", tagConfig.bg, tagConfig.text)}>
+                      <span className="mr-0.5 sm:mr-1">{tagConfig.icon}</span>
                       {tag}
                     </Badge>
                   );
@@ -263,43 +263,43 @@ export function RecipeDetailDialog({
               </div>
             )}
 
-            <div className="flex flex-wrap items-center gap-2 mt-4 text-sm">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60">
-                <Clock className="h-4 w-4 text-muted-foreground" />
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-2 sm:mt-4 text-xs sm:text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-background/60">
+                <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
                 <span className="font-medium">{recipe.cookTime}</span>
               </div>
               
               {/* Serving Scaler */}
-              <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-background/60">
-                <Users className="h-4 w-4 text-muted-foreground" />
+              <div className="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-background/60">
+                <Users className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   onClick={() => setServingMultiplier(m => Math.max(0.5, m - 0.5))}
                   disabled={servingMultiplier <= 0.5}
                 >
-                  <Minus className="h-3 w-3" />
+                  <Minus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                 </Button>
-                <span className="font-medium min-w-[60px] text-center">{scaledServings} servings</span>
+                <span className="font-medium min-w-[50px] sm:min-w-[60px] text-center text-xs sm:text-sm">{scaledServings}<span className="hidden sm:inline"> servings</span></span>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   onClick={() => setServingMultiplier(m => m + 0.5)}
                 >
-                  <Plus className="h-3 w-3" />
+                  <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                 </Button>
               </div>
 
               {/* Difficulty */}
               {recipe.difficulty && (
                 <div className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 rounded-full",
+                  "flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full",
                   difficultyConfig[recipe.difficulty].bg
                 )}>
-                  <Gauge className={cn("h-4 w-4", difficultyConfig[recipe.difficulty].text)} />
-                  <span className={cn("font-medium", difficultyConfig[recipe.difficulty].text)}>
+                  <Gauge className={cn("h-3 w-3 sm:h-4 sm:w-4", difficultyConfig[recipe.difficulty].text)} />
+                  <span className={cn("font-medium text-xs sm:text-sm", difficultyConfig[recipe.difficulty].text)}>
                     {difficultyConfig[recipe.difficulty].label}
                   </span>
                 </div>
@@ -308,50 +308,50 @@ export function RecipeDetailDialog({
           </DialogHeader>
         </div>
 
-        <ScrollArea className="flex-1 max-h-[50vh]">
-          <div className="px-6 py-4 space-y-6">
+        <ScrollArea className="flex-1 max-h-[55vh] sm:max-h-[50vh]">
+          <div className="px-4 py-3 sm:px-6 sm:py-4 space-y-4 sm:space-y-6">
             {!isCooking ? (
               <>
                 {/* Nutrition Info */}
                 {scaledNutrition && (
-                  <Card className="p-4 bg-muted/30 border-border/50">
-                    <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                      <Flame className="h-4 w-4 text-primary" />
-                      Nutrition (for {scaledServings} servings)
+                  <Card className="p-3 sm:p-4 bg-muted/30 border-border/50">
+                    <h3 className="font-semibold text-xs sm:text-sm mb-2 sm:mb-3 flex items-center gap-2">
+                      <Flame className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+                      Nutrition ({scaledServings} servings)
                     </h3>
-                    <div className="grid grid-cols-4 gap-3">
-                      <div className="text-center p-2 rounded-lg bg-background/60">
-                        <div className="text-lg font-bold text-primary">{scaledNutrition.calories}</div>
-                        <div className="text-xs text-muted-foreground">Calories</div>
+                    <div className="grid grid-cols-4 gap-1.5 sm:gap-3">
+                      <div className="text-center p-1.5 sm:p-2 rounded-lg bg-background/60">
+                        <div className="text-sm sm:text-lg font-bold text-primary">{scaledNutrition.calories}</div>
+                        <div className="text-[10px] sm:text-xs text-muted-foreground">Cal</div>
                       </div>
-                      <div className="text-center p-2 rounded-lg bg-background/60">
-                        <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{scaledNutrition.protein}g</div>
-                        <div className="text-xs text-muted-foreground">Protein</div>
+                      <div className="text-center p-1.5 sm:p-2 rounded-lg bg-background/60">
+                        <div className="text-sm sm:text-lg font-bold text-blue-600 dark:text-blue-400">{scaledNutrition.protein}g</div>
+                        <div className="text-[10px] sm:text-xs text-muted-foreground">Protein</div>
                       </div>
-                      <div className="text-center p-2 rounded-lg bg-background/60">
-                        <div className="text-lg font-bold text-amber-600 dark:text-amber-400">{scaledNutrition.carbs}g</div>
-                        <div className="text-xs text-muted-foreground">Carbs</div>
+                      <div className="text-center p-1.5 sm:p-2 rounded-lg bg-background/60">
+                        <div className="text-sm sm:text-lg font-bold text-amber-600 dark:text-amber-400">{scaledNutrition.carbs}g</div>
+                        <div className="text-[10px] sm:text-xs text-muted-foreground">Carbs</div>
                       </div>
-                      <div className="text-center p-2 rounded-lg bg-background/60">
-                        <div className="text-lg font-bold text-rose-600 dark:text-rose-400">{scaledNutrition.fat}g</div>
-                        <div className="text-xs text-muted-foreground">Fat</div>
+                      <div className="text-center p-1.5 sm:p-2 rounded-lg bg-background/60">
+                        <div className="text-sm sm:text-lg font-bold text-rose-600 dark:text-rose-400">{scaledNutrition.fat}g</div>
+                        <div className="text-[10px] sm:text-xs text-muted-foreground">Fat</div>
                       </div>
                     </div>
                   </Card>
                 )}
 
                 {/* Ingredients Section */}
-                <Card className="p-4 bg-muted/30 border-border/50">
-                  <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
-                    <Utensils className="h-4 w-4 text-primary" />
+                <Card className="p-3 sm:p-4 bg-muted/30 border-border/50">
+                  <h3 className="font-semibold text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
+                    <Utensils className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                     Ingredients ({recipe.ingredients.length})
                     {servingMultiplier !== 1 && (
-                      <Badge variant="outline" className="text-xs ml-auto">
-                        Scaled ×{servingMultiplier}
+                      <Badge variant="outline" className="text-[10px] sm:text-xs ml-auto">
+                        ×{servingMultiplier}
                       </Badge>
                     )}
                   </h3>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
                     {recipe.ingredients.map((ing, i) => {
                       const isMatched = recipe.matchedIngredients.includes(ing);
                       const ingredientAmount = recipe.ingredientAmounts?.find(a => a.id === ing);
@@ -372,13 +372,13 @@ export function RecipeDetailDialog({
                             {isMatched ? <Check className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
                           </span>
                           <span className={cn(
-                            "capitalize text-sm font-medium flex-1",
+                            "capitalize text-xs sm:text-sm font-medium flex-1",
                             !isMatched && "text-muted-foreground"
                           )}>
                             {ing.replace("-", " ")}
                           </span>
                           {ingredientAmount && (
-                            <span className="text-xs text-muted-foreground">
+                            <span className="text-[10px] sm:text-xs text-muted-foreground whitespace-nowrap">
                               {scaleAmount(ingredientAmount.amount)} {ingredientAmount.unit}
                             </span>
                           )}
@@ -511,9 +511,9 @@ export function RecipeDetailDialog({
                 )}
 
                 {/* Instructions Preview */}
-                <Card className="p-4 bg-muted/30 border-border/50">
-                  <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
-                    <ChefHat className="h-4 w-4 text-primary" />
+                <Card className="p-3 sm:p-4 bg-muted/30 border-border/50">
+                  <h3 className="font-semibold text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
+                    <ChefHat className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                     Instructions ({recipe.instructions.length} steps)
                   </h3>
                   <ol className="space-y-3">
@@ -664,13 +664,13 @@ export function RecipeDetailDialog({
         </ScrollArea>
 
         {/* Footer actions */}
-        <div className="px-6 py-4 border-t bg-muted/30 flex flex-col gap-3">
+        <div className="px-4 py-3 sm:px-6 sm:py-4 border-t bg-muted/30 flex flex-col gap-2 sm:gap-3">
           {!isCooking ? (
             <>
               {/* Mobile-optimized Cooking Mode button */}
               <Button
                 variant="warm"
-                className="w-full h-12 sm:hidden"
+                className="w-full h-10 sm:hidden text-sm"
                 onClick={() => setIsFullCookingMode(true)}
               >
                 <Smartphone className="h-4 w-4 mr-2" />
