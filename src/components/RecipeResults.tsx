@@ -195,6 +195,8 @@ const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
   { tag: "high-protein", label: "High Protein", icon: "💪" },
   { tag: "low-carb", label: "Low Carb", icon: "🥗" },
   { tag: "high-fiber", label: "High Fiber", icon: "🌾" },
+  { tag: "no-sodium", label: "No Sodium", icon: "🚫" },
+  { tag: "low-sodium", label: "Low Sodium", icon: "🧂" },
 ];
 
 const cuisineFilters: { cuisine: CuisineType; label: string; icon: string }[] = [
@@ -296,9 +298,29 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     if (showHolidayOnly && !recipe.isHoliday) {
       return false;
     }
-    // Dietary filter
-    if (activeFilters.length > 0 && !activeFilters.every(filter => recipe.dietaryTags?.includes(filter))) {
-      return false;
+    // Dietary filter (with special handling for sodium filters)
+    if (activeFilters.length > 0) {
+      const sodiumFilters: DietaryTag[] = ["no-sodium", "low-sodium"];
+      const standardFilters = activeFilters.filter(f => !sodiumFilters.includes(f));
+      const activeSodiumFilters = activeFilters.filter(f => sodiumFilters.includes(f));
+
+      // Check standard dietary tags
+      if (standardFilters.length > 0 && !standardFilters.every(filter => recipe.dietaryTags?.includes(filter))) {
+        return false;
+      }
+      // Check sodium-based filters via nutrition data
+      if (activeSodiumFilters.length > 0 && recipe.nutrition?.sodium !== undefined) {
+        const sodium = recipe.nutrition.sodium;
+        const passesSodium = activeSodiumFilters.some(f => {
+          if (f === "no-sodium") return sodium === 0;
+          if (f === "low-sodium") return sodium <= 140;
+          return false;
+        });
+        if (!passesSodium) return false;
+      }
+      if (activeSodiumFilters.length > 0 && recipe.nutrition?.sodium === undefined) {
+        return false;
+      }
     }
     // Cuisine filter
     if (activeCuisines.length > 0 && !activeCuisines.includes(recipe.cuisine as CuisineType)) {

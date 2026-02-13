@@ -1,4 +1,4 @@
-export type DietaryTag = "vegetarian" | "vegan" | "gluten-free" | "dairy-free" | "keto" | "paleo" | "nut-free" | "high-protein" | "low-carb" | "high-fiber";
+export type DietaryTag = "vegetarian" | "vegan" | "gluten-free" | "dairy-free" | "keto" | "paleo" | "nut-free" | "high-protein" | "low-carb" | "high-fiber" | "no-sodium" | "low-sodium";
 export type DifficultyLevel = "easy" | "medium" | "hard";
 export type CuisineType = "italian" | "mexican" | "asian" | "mediterranean" | "american" | "french" | "indian" | "middle-eastern" | "comfort" | "healthy";
 export type MealType = "breakfast" | "lunch" | "dinner" | "dessert" | "sides";
