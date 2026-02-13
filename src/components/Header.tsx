@@ -35,8 +35,8 @@ export function Header({ onShowTour }: HeaderProps) {
       >
         Skip to main content
       </a>
-      <motion.header 
-        className="py-3 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50"
+        <motion.header 
+        className="py-2 sm:py-5 px-3 sm:px-4 border-b border-border/30 glass sticky top-0 z-50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -56,7 +56,7 @@ export function Header({ onShowTour }: HeaderProps) {
             <img 
               src={logo} 
               alt="The Kitchen Logo" 
-              className="h-14 w-14 sm:h-20 sm:w-20 rounded-2xl sm:rounded-3xl object-cover shadow-lg ring-2 ring-primary/20"
+              className="h-10 w-10 sm:h-20 sm:w-20 rounded-xl sm:rounded-3xl object-cover shadow-lg ring-2 ring-primary/20"
             />
           </motion.div>
           <div className="min-w-0 hidden sm:block">

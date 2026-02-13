@@ -364,27 +364,27 @@ export function CookingMode({ recipe, open, onClose, servingMultiplier = 1 }: Co
           onDragEnd={handleDragEnd}
           className="flex-1 p-4 overflow-y-auto"
         >
-          <Card 
+            <Card 
             className={cn(
-              "p-6 min-h-[200px] border-2 transition-all",
+              "p-4 sm:p-6 min-h-[160px] sm:min-h-[200px] border-2 transition-all",
               completedSteps.includes(currentStep) 
                 ? "border-secondary/50 bg-secondary/5" 
                 : "border-primary/20 bg-card"
             )}
           >
             {/* Step Number */}
-            <div className="flex items-start gap-4 mb-4">
+            <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
               <button
                 onClick={toggleStepComplete}
                 className={cn(
-                  "flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold transition-all",
+                  "flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center text-xl sm:text-2xl font-bold transition-all",
                   completedSteps.includes(currentStep)
                     ? "bg-secondary text-secondary-foreground"
                     : "bg-primary text-primary-foreground"
                 )}
               >
                 {completedSteps.includes(currentStep) ? (
-                  <CheckCircle2 className="h-7 w-7" />
+                  <CheckCircle2 className="h-5 w-5 sm:h-7 sm:w-7" />
                 ) : (
                   currentStep + 1
                 )}
@@ -413,7 +413,7 @@ export function CookingMode({ recipe, open, onClose, servingMultiplier = 1 }: Co
 
             {/* Instruction Text */}
             <p className={cn(
-              "text-lg leading-relaxed",
+              "text-base sm:text-lg leading-relaxed",
               completedSteps.includes(currentStep) && "text-muted-foreground line-through"
             )}>
               {recipe.instructions[currentStep]}
@@ -514,31 +514,31 @@ export function CookingMode({ recipe, open, onClose, servingMultiplier = 1 }: Co
       </div>
 
       {/* Navigation Footer */}
-      <div className="px-4 py-4 border-t bg-card/95 backdrop-blur-sm safe-area-bottom">
+      <div className="px-3 sm:px-4 py-3 sm:py-4 border-t bg-card/95 backdrop-blur-sm safe-area-bottom">
         {allStepsComplete ? (
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="text-center py-4"
+            className="text-center py-3 sm:py-4"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/20 mb-3">
-              <ChefHat className="h-8 w-8 text-secondary" />
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-secondary/20 mb-2 sm:mb-3">
+              <ChefHat className="h-7 w-7 sm:h-8 sm:w-8 text-secondary" />
             </div>
-            <h3 className="font-serif text-xl font-semibold mb-1">All Done!</h3>
-            <p className="text-muted-foreground text-sm mb-4">
+            <h3 className="font-serif text-lg sm:text-xl font-semibold mb-1">All Done!</h3>
+            <p className="text-muted-foreground text-xs sm:text-sm mb-3 sm:mb-4">
               Enjoy your {recipe.title}!
             </p>
-            <Button variant="warm" onClick={handleClose} className="w-full">
+            <Button variant="warm" onClick={handleClose} className="w-full h-11 sm:h-auto">
               Close Cooking Mode
             </Button>
           </motion.div>
         ) : (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Button
               variant="outline"
               onClick={handlePrevStep}
               disabled={currentStep === 0}
-              className="flex-1 h-12"
+              className="flex-1 h-11 sm:h-12"
             >
               <ChevronLeft className="h-5 w-5 mr-1" />
               Back
@@ -547,7 +547,7 @@ export function CookingMode({ recipe, open, onClose, servingMultiplier = 1 }: Co
             <Button
               variant="warm"
               onClick={handleNextStep}
-              className="flex-1 h-12"
+              className="flex-1 h-11 sm:h-12"
             >
               {currentStep === recipe.instructions.length - 1 ? (
                 <>

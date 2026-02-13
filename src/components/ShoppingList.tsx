@@ -95,58 +95,58 @@ export function ShoppingList({
   return (
     <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden print:shadow-none print:border print:border-border">
       <div className="absolute top-0 left-0 w-full h-1 gradient-warm no-print" />
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="font-serif text-2xl flex items-center gap-2">
-              <ShoppingCart className="h-6 w-6 text-primary" />
+      <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6">
+        <div className="flex items-center justify-between gap-2">
+          <div className="min-w-0">
+            <CardTitle className="font-serif text-lg sm:text-2xl flex items-center gap-1.5 sm:gap-2">
+              <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 text-primary shrink-0" />
               Shopping List
             </CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">
-              {completedCount} of {totalCount} items checked
+            <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
+              {completedCount} of {totalCount} checked
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <Button 
               variant="outline" 
               size="sm" 
               onClick={handlePrint}
-              className="no-print"
+              className="no-print h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
             >
-              <Printer className="h-4 w-4 mr-1" />
-              Print
+              <Printer className="h-4 w-4 sm:mr-1" />
+              <span className="hidden sm:inline">Print</span>
             </Button>
-            <Badge variant="secondary" className="text-sm px-3 py-1 no-print">
-              {totalCount - completedCount} remaining
+            <Badge variant="secondary" className="text-xs sm:text-sm px-2 sm:px-3 py-0.5 sm:py-1 no-print">
+              {totalCount - completedCount}
             </Badge>
           </div>
         </div>
         {completedCount > 0 && (
-          <div className="flex gap-2 mt-4 pt-4 border-t border-border/50 no-print">
-            <Button variant="outline" size="sm" onClick={onClearCompleted} className="flex-1">
-              <Check className="h-4 w-4 mr-1" />
-              Clear completed
+          <div className="flex gap-1.5 sm:gap-2 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-border/50 no-print">
+            <Button variant="outline" size="sm" onClick={onClearCompleted} className="flex-1 h-9 text-xs sm:text-sm">
+              <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1" />
+              Clear done
             </Button>
-            <Button variant="ghost" size="sm" onClick={onClearAll} className="text-muted-foreground hover:text-destructive">
-              <Trash2 className="h-4 w-4 mr-1" />
+            <Button variant="ghost" size="sm" onClick={onClearAll} className="text-muted-foreground hover:text-destructive h-9 text-xs sm:text-sm">
+              <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1" />
               Clear all
             </Button>
           </div>
         )}
       </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-[400px] pr-4">
-          <div className="space-y-4">
+      <CardContent className="px-2 sm:px-6">
+        <ScrollArea className="h-[350px] sm:h-[400px] pr-2 sm:pr-4">
+          <div className="space-y-3 sm:space-y-4">
             {Object.entries(groupedItems).map(([category, categoryItems]) => (
               <div key={category}>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wide">
+                <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-1.5 sm:mb-2 uppercase tracking-wide px-1">
                   {category}
                 </h4>
-                <div className="space-y-2">
+                <div className="space-y-1 sm:space-y-2">
                   {categoryItems.map((item) => (
                     <div
                       key={item.id}
-                      className={`shopping-list-item flex items-center gap-3 p-2 rounded-lg transition-colors print:rounded-none print:border-b print:border-border ${
+                      className={`shopping-list-item flex items-center gap-2 sm:gap-3 p-2.5 sm:p-2 rounded-lg transition-colors print:rounded-none print:border-b print:border-border ${
                         item.checked ? "bg-muted/50" : "bg-card hover:bg-muted/30"
                       }`}
                     >
@@ -154,11 +154,11 @@ export function ShoppingList({
                         id={item.id}
                         checked={item.checked}
                         onCheckedChange={() => onToggleItem(item.id)}
-                        className="print:h-4 print:w-4"
+                        className="h-5 w-5 sm:h-4 sm:w-4 print:h-4 print:w-4"
                       />
                       <label
                         htmlFor={item.id}
-                        className={`flex-1 cursor-pointer capitalize ${
+                        className={`flex-1 cursor-pointer capitalize text-sm sm:text-base ${
                           item.checked ? "line-through text-muted-foreground" : ""
                         }`}
                       >
@@ -167,7 +167,7 @@ export function ShoppingList({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-destructive no-print"
+                        className="h-9 w-9 sm:h-8 sm:w-8 text-muted-foreground hover:text-destructive no-print shrink-0"
                         onClick={() => onRemoveItem(item.id)}
                       >
                         <Trash2 className="h-4 w-4" />
