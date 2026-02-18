@@ -52,7 +52,7 @@ export function useUserPreferences() {
         .from('user_preferences')
         .select('*')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (data) {
         setPreferences({
@@ -61,7 +61,7 @@ export function useUserPreferences() {
           skillLevel: (data.skill_level as UserPreferences['skillLevel']) || 'beginner',
           mealTimes: (data.meal_times as unknown as MealTimes) || defaultMealTimes,
         });
-      } else if (error?.code === 'PGRST116') {
+      } else {
         // No preferences found, use defaults
         setPreferences(defaultPreferences);
       }
