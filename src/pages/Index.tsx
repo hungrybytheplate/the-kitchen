@@ -998,6 +998,7 @@ const Index = () => {
               onSaveNote={async (recipeId, note) => {
                 await updateRecipeNotes(recipeId, note);
               }}
+              onAddToCalendar={handleAddToCalendar}
               ratings={ratings}
               onRate={async (itemId, itemType, rating) => {
                 await setItemRating(itemId, itemType, rating);

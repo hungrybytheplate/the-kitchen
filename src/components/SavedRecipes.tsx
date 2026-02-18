@@ -28,6 +28,7 @@ interface SavedRecipesProps {
   onRemoveDrink: (id: string) => void;
   recipeNotes: RecipeNotes;
   onSaveNote: (recipeId: string, note: string) => void;
+  onAddToCalendar?: (recipe: Recipe) => void;
   ratings?: Ratings;
   onRate?: (itemId: string, itemType: 'recipe' | 'drink', rating: number) => void;
 }
@@ -39,6 +40,7 @@ export function SavedRecipes({
   onRemoveDrink, 
   recipeNotes, 
   onSaveNote,
+  onAddToCalendar,
   ratings = {},
   onRate
 }: SavedRecipesProps) {
@@ -472,7 +474,7 @@ export function SavedRecipes({
             onOpenChange={(open) => !open && setSelectedRecipe(null)}
             isSaved={savedRecipeIds.includes(selectedRecipe.id)}
             onSave={() => onRemoveRecipe(selectedRecipe.id)}
-            onAddToCalendar={() => {}}
+            onAddToCalendar={() => onAddToCalendar?.(selectedRecipe)}
           />
         )}
 
