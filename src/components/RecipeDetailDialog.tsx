@@ -360,8 +360,13 @@ export function RecipeDetailDialog({
                           key={i}
                           className={cn(
                             "flex items-center gap-2 p-2 rounded-lg transition-colors",
-                            isMatched ? "bg-secondary/10" : "bg-accent/20"
+                            isMatched ? "bg-secondary/10" : "bg-accent/20 cursor-pointer hover:bg-primary/10"
                           )}
+                          onClick={() => {
+                            if (!isMatched && onAddToShopping) {
+                              onAddToShopping(ing);
+                            }
+                          }}
                         >
                           <span className={cn(
                             "w-5 h-5 rounded-full flex items-center justify-center text-xs",
