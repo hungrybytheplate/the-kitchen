@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
-import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge, Droplets, Package, Baby, PiggyBank } from "lucide-react";
+import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge, Droplets, Package, Baby, PiggyBank, HeartPulse } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { staggerContainer } from "@/components/ui/animated";
@@ -241,6 +241,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const [showInstantPotOnly, setShowInstantPotOnly] = useState(false);
   const [showKidFriendlyOnly, setShowKidFriendlyOnly] = useState(false);
   const [showBudgetOnly, setShowBudgetOnly] = useState(false);
+  const [showHeartHealthyOnly, setShowHeartHealthyOnly] = useState(false);
 
   const parseCookTime = (cookTime: string): number => {
     const match = cookTime.match(/(\d+)/);
@@ -260,6 +261,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
   const instantPotCount = recipes.filter(r => r.isInstantPot).length;
   const kidFriendlyCount = recipes.filter(r => kidFriendlyRecipeIds.includes(r.id)).length;
   const budgetCount = recipes.filter(r => budgetRecipeIds.includes(r.id)).length;
+  const heartHealthyCount = recipes.filter(r => r.heartHealthy).length;
 
   const toggleFilter = (tag: DietaryTag) => {
     setActiveFilters(prev => 
@@ -288,9 +290,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     setShowInstantPotOnly(false);
     setShowKidFriendlyOnly(false);
     setShowBudgetOnly(false);
+    setShowHeartHealthyOnly(false);
   };
 
-  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly;
+  const hasActiveFilters = activeFilters.length > 0 || activeCuisines.length > 0 || cookTimeFilter || calorieFilter || showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly || showHeartHealthyOnly;
 
   // Filter recipes
   const filteredRecipes = recipes.filter(recipe => {
@@ -380,6 +383,10 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
     }
     // Budget filter
     if (showBudgetOnly && !budgetRecipeIds.includes(recipe.id)) {
+      return false;
+    }
+    // Heart Healthy filter
+    if (showHeartHealthyOnly && !recipe.heartHealthy) {
       return false;
     }
     return true;
@@ -726,8 +733,26 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
               <span className="ml-1.5 text-xs opacity-80">({budgetCount})</span>
             </Badge>
           )}
+
+          {/* Heart Healthy Filter */}
+          {heartHealthyCount > 0 && (
+            <Badge
+              variant={showHeartHealthyOnly ? "default" : "outline"}
+              className={cn(
+                "cursor-pointer transition-all hover:scale-105 px-3 py-1.5",
+                showHeartHealthyOnly 
+                  ? "bg-red-500 hover:bg-red-600 text-white shadow-md" 
+                  : "bg-background hover:bg-muted border-border"
+              )}
+              onClick={() => setShowHeartHealthyOnly(!showHeartHealthyOnly)}
+            >
+              <HeartPulse className="h-3.5 w-3.5 mr-1.5" />
+              Heart Healthy
+              <span className="ml-1.5 text-xs opacity-80">({heartHealthyCount})</span>
+            </Badge>
+          )}
         </div>
-        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly) && (
+        {(showHolidayOnly || showSnacksOnly || showSaucesOnly || showMealPrepOnly || showOnePanOnly || showQuickEasyOnly || showSlowCookerOnly || showInstantPotOnly || showKidFriendlyOnly || showBudgetOnly || showHeartHealthyOnly) && (
           <p className="text-xs text-muted-foreground mt-2">
             {showQuickEasyOnly && "Showing recipes under 20 minutes with easy difficulty"}
             {showHolidayOnly && "Showing seasonal recipes perfect for the holidays"}
@@ -739,6 +764,7 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
             {showInstantPotOnly && "Showing Instant Pot and pressure cooker recipes"}
             {showKidFriendlyOnly && "Showing picky-eater approved kid favorites"}
             {showBudgetOnly && "Showing affordable meals under $10"}
+            {showHeartHealthyOnly && "Showing heart-healthy recipes low in sodium and saturated fat"}
           </p>
         )}
       </div>
