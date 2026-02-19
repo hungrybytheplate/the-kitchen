@@ -136,6 +136,7 @@ export function RecipeDetailDialog({
   const [isFullCookingMode, setIsFullCookingMode] = useState(false);
   const [servingMultiplier, setServingMultiplier] = useState(1);
   const [selectedSides, setSelectedSides] = useState<string[]>([]);
+  const [addedToCart, setAddedToCart] = useState<string[]>([]);
 
   if (!recipe) return null;
 
@@ -359,28 +360,32 @@ export function RecipeDetailDialog({
                         <div
                           key={i}
                           className={cn(
-                            "flex items-center gap-2 p-2 rounded-lg transition-colors",
-                            isMatched ? "bg-secondary/10" : "bg-accent/20 cursor-pointer hover:bg-primary/10"
+                            "flex items-center gap-2 p-2 rounded-lg transition-all duration-300",
+                            isMatched ? "bg-secondary/10" : addedToCart.includes(ing) ? "bg-primary/15 border border-primary/30" : "bg-accent/20 cursor-pointer hover:bg-primary/10"
                           )}
                           onClick={() => {
-                            if (!isMatched && onAddToShopping) {
+                            if (!isMatched && !addedToCart.includes(ing) && onAddToShopping) {
                               onAddToShopping(ing);
+                              setAddedToCart(prev => [...prev, ing]);
                             }
                           }}
                         >
                           <span className={cn(
-                            "w-5 h-5 rounded-full flex items-center justify-center text-xs",
+                            "w-5 h-5 rounded-full flex items-center justify-center text-xs transition-all duration-300",
                             isMatched 
                               ? "bg-secondary/20 text-secondary" 
-                              : "bg-accent/50 text-accent-foreground"
+                              : addedToCart.includes(ing)
+                                ? "bg-primary/20 text-primary animate-scale-in"
+                                : "bg-accent/50 text-accent-foreground"
                           )}>
-                            {isMatched ? <Check className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
+                            {isMatched ? <Check className="h-3 w-3" /> : addedToCart.includes(ing) ? <ShoppingCart className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
                           </span>
                           <span className={cn(
-                            "capitalize text-xs sm:text-sm font-medium flex-1",
-                            !isMatched && "text-muted-foreground"
+                            "capitalize text-xs sm:text-sm font-medium flex-1 transition-colors duration-300",
+                            isMatched ? "" : addedToCart.includes(ing) ? "text-primary" : "text-muted-foreground"
                           )}>
                             {ing.replace("-", " ")}
+                            {addedToCart.includes(ing) && <span className="text-[10px] ml-1 opacity-70">Added ✓</span>}
                           </span>
                           {ingredientAmount && (
                             <span className="text-[10px] sm:text-xs text-muted-foreground whitespace-nowrap">
