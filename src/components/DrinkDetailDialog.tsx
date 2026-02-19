@@ -62,6 +62,13 @@ const drinkTypeConfig = {
     emoji: "🌿",
     label: "Wellness",
   },
+  hot: {
+    bg: "bg-gradient-to-r from-orange-400/20 to-red-400/20",
+    border: "border-orange-400/30",
+    text: "text-orange-700 dark:text-orange-400",
+    emoji: "☕",
+    label: "Hot Drink",
+  },
 };
 
 export function DrinkDetailDialog({
