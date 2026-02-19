@@ -81,6 +81,7 @@ export function DrinkDetailDialog({
 }: DrinkDetailDialogProps) {
   const [cookingMode, setCookingMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [addedToCart, setAddedToCart] = useState<string[]>([]);
 
   const config = drinkTypeConfig[drink.drinkType];
   const missingIngredients = drink.ingredients.filter(
@@ -182,24 +183,30 @@ export function DrinkDetailDialog({
                     <div
                       key={ing}
                       className={cn(
-                        "flex items-center gap-2 p-2 rounded-lg border transition-colors",
+                        "flex items-center gap-2 p-2 rounded-lg border transition-all duration-300",
                         isMatched
                           ? "bg-secondary/10 border-secondary/30"
-                          : "bg-accent/30 border-accent-foreground/20 cursor-pointer hover:bg-primary/10 hover:border-primary/30"
+                          : addedToCart.includes(ing)
+                            ? "bg-primary/15 border-primary/30"
+                            : "bg-accent/30 border-accent-foreground/20 cursor-pointer hover:bg-primary/10 hover:border-primary/30"
                       )}
                       onClick={() => {
-                        if (!isMatched && onAddToShopping) {
+                        if (!isMatched && !addedToCart.includes(ing) && onAddToShopping) {
                           onAddToShopping([ing]);
+                          setAddedToCart(prev => [...prev, ing]);
                         }
                       }}
                     >
                       {isMatched ? (
                         <Check className="h-4 w-4 text-secondary" />
+                      ) : addedToCart.includes(ing) ? (
+                        <ShoppingCart className="h-4 w-4 text-primary animate-scale-in" />
                       ) : (
                         <Plus className="h-4 w-4 text-muted-foreground" />
                       )}
-                      <span className="text-sm capitalize">
+                      <span className={cn("text-sm capitalize transition-colors duration-300", addedToCart.includes(ing) && "text-primary")}>
                         {ing.replace("-", " ")}
+                        {addedToCart.includes(ing) && <span className="text-[10px] ml-1 opacity-70">Added ✓</span>}
                       </span>
                     </div>
                   );
