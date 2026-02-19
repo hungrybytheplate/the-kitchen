@@ -182,11 +182,16 @@ export function DrinkDetailDialog({
                     <div
                       key={ing}
                       className={cn(
-                        "flex items-center gap-2 p-2 rounded-lg border",
+                        "flex items-center gap-2 p-2 rounded-lg border transition-colors",
                         isMatched
                           ? "bg-secondary/10 border-secondary/30"
-                          : "bg-accent/30 border-accent-foreground/20"
+                          : "bg-accent/30 border-accent-foreground/20 cursor-pointer hover:bg-primary/10 hover:border-primary/30"
                       )}
+                      onClick={() => {
+                        if (!isMatched && onAddToShopping) {
+                          onAddToShopping([ing]);
+                        }
+                      }}
                     >
                       {isMatched ? (
                         <Check className="h-4 w-4 text-secondary" />
