@@ -56,6 +56,7 @@ const healthTagConfig: Record<HealthTag, { icon: typeof Zap; color: string }> = 
   "Omega-3": { icon: HeartPulse, color: "bg-cyan-100 text-cyan-700 border-cyan-300 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-700" },
   "Vitamin C": { icon: Zap, color: "bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-700" },
   "Heart Healthy": { icon: HeartPulse, color: "bg-red-100 text-red-700 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700" },
+  "Kidney Healthy": { icon: Droplets, color: "bg-indigo-100 text-indigo-700 border-indigo-300 dark:bg-indigo-900/30 dark:text-indigo-400 dark:border-indigo-700" },
   "Low Calorie": { icon: Leaf, color: "bg-lime-100 text-lime-700 border-lime-300 dark:bg-lime-900/30 dark:text-lime-400 dark:border-lime-700" },
   "Hydrating": { icon: Droplets, color: "bg-sky-100 text-sky-700 border-sky-300 dark:bg-sky-900/30 dark:text-sky-400 dark:border-sky-700" },
   "High Fiber": { icon: Leaf, color: "bg-teal-100 text-teal-700 border-teal-300 dark:bg-teal-900/30 dark:text-teal-400 dark:border-teal-700" },
