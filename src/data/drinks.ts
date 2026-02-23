@@ -12,7 +12,8 @@ export type HealthTag =
   | "Kidney Healthy"
   | "Low Calorie"
   | "Hydrating"
-  | "High Fiber";
+  | "High Fiber"
+  | "Diabetes Friendly";
 
 export type DrinkOccasion = "brunch" | "party" | "date-night" | "nightcap" | "everyday";
 export type DrinkSeason = "summer" | "fall" | "winter" | "spring" | "all-season";
@@ -15484,10 +15485,192 @@ export const sampleDrinks: Drink[] = [
     occasion: "everyday",
     season: "summer",
   },
-  
+
+  // Diabetes Friendly low-glycemic drinks
+  {
+    id: "diabetes-cucumber-mint-cooler",
+    title: "Cucumber Mint Cooler",
+    drinkType: "wellness",
+    description: "A refreshing, virtually sugar-free cooler with cucumber, mint, and a splash of lime. Perfect for blood sugar management.",
+    prepTime: "5 min",
+    ingredients: ["cucumber", "mint", "lime", "sparkling-water"],
+    instructions: [
+      "Muddle cucumber slices and fresh mint leaves in a glass",
+      "Add fresh lime juice",
+      "Top with chilled sparkling water",
+      "Stir gently and serve over ice"
+    ],
+    matchedIngredients: [],
+    glassType: "Highball",
+    garnish: "Cucumber ribbon and mint sprig",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "Hydrating", "Low Calorie"],
+    nutrition: { calories: 15, sugar: 1, carbs: 3 },
+    occasion: "everyday",
+    season: "summer",
+  },
+  {
+    id: "diabetes-green-power-smoothie",
+    title: "Low-Glycemic Green Power Smoothie",
+    drinkType: "smoothie",
+    description: "A fiber-rich green smoothie with spinach, avocado, and chia seeds that won't spike your blood sugar.",
+    prepTime: "5 min",
+    ingredients: ["spinach", "avocado", "chia-seeds", "almond-milk", "lemon"],
+    instructions: [
+      "Add fresh spinach and half an avocado to blender",
+      "Add chia seeds and unsweetened almond milk",
+      "Squeeze in fresh lemon juice",
+      "Blend until creamy and smooth",
+      "Serve immediately"
+    ],
+    matchedIngredients: [],
+    glassType: "Tumbler",
+    garnish: "Chia seed sprinkle",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "High Fiber", "Heart Healthy"],
+    nutrition: { calories: 180, sugar: 3, carbs: 12 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "diabetes-cinnamon-almond-latte",
+    title: "Cinnamon Almond Latte",
+    drinkType: "hot",
+    description: "A warm, sugar-free latte with cinnamon which helps regulate blood sugar levels naturally.",
+    prepTime: "5 min",
+    ingredients: ["espresso", "almond-milk", "cinnamon"],
+    instructions: [
+      "Brew a shot of espresso",
+      "Heat almond milk and whisk until frothy",
+      "Pour espresso into a mug",
+      "Add steamed almond milk",
+      "Dust generously with ground cinnamon"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Cinnamon stick",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "Low Calorie", "Anti-Inflammatory"],
+    nutrition: { calories: 45, sugar: 1, carbs: 3 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "diabetes-berry-flax-smoothie",
+    title: "Berry Flax Blood Sugar Smoothie",
+    drinkType: "smoothie",
+    description: "Packed with fiber from flaxseeds and low-glycemic berries, this smoothie supports stable blood sugar.",
+    prepTime: "5 min",
+    ingredients: ["blueberries", "flax-seeds", "almond-milk", "cinnamon"],
+    instructions: [
+      "Add blueberries and ground flaxseeds to blender",
+      "Pour in unsweetened almond milk",
+      "Add a pinch of cinnamon",
+      "Blend until smooth and creamy",
+      "Serve chilled"
+    ],
+    matchedIngredients: [],
+    glassType: "Tumbler",
+    garnish: "Fresh blueberries",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "Antioxidant", "High Fiber", "Omega-3"],
+    nutrition: { calories: 140, sugar: 8, carbs: 18 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "diabetes-turmeric-ginger-tonic",
+    title: "Turmeric Ginger Sugar Balance Tonic",
+    drinkType: "wellness",
+    description: "An anti-inflammatory wellness tonic with turmeric and ginger, both shown to support healthy blood sugar levels.",
+    prepTime: "5 min",
+    ingredients: ["turmeric", "ginger-fresh", "lemon", "black-pepper"],
+    instructions: [
+      "Grate fresh turmeric and ginger into a glass",
+      "Add fresh lemon juice",
+      "Add a pinch of black pepper to enhance turmeric absorption",
+      "Top with warm water and stir well",
+      "Strain and serve warm or over ice"
+    ],
+    matchedIngredients: [],
+    glassType: "Mug",
+    garnish: "Lemon wheel",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "Anti-Inflammatory", "Immune Support", "Detox"],
+    nutrition: { calories: 20, sugar: 1, carbs: 4 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "diabetes-chia-lemon-agua",
+    title: "Chia Lemon Agua Fresca",
+    drinkType: "wellness",
+    description: "A traditional agua fresca made with chia seeds that slow sugar absorption, keeping blood sugar steady.",
+    prepTime: "10 min",
+    ingredients: ["chia-seeds", "lemon", "honey"],
+    instructions: [
+      "Soak chia seeds in cold water for 10 minutes until gel-like",
+      "Squeeze in fresh lemon juice",
+      "Add just a tiny drizzle of raw honey (optional)",
+      "Stir well and top with cold water",
+      "Let sit 5 minutes before serving over ice"
+    ],
+    matchedIngredients: [],
+    glassType: "Tumbler",
+    garnish: "Lemon slice",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "High Fiber", "Hydrating", "Omega-3"],
+    nutrition: { calories: 70, sugar: 3, carbs: 9 },
+    occasion: "everyday",
+    season: "summer",
+  },
+  {
+    id: "diabetes-avocado-cocoa-smoothie",
+    title: "Avocado Cocoa Protein Smoothie",
+    drinkType: "smoothie",
+    description: "A rich, creamy smoothie with healthy fats from avocado and antioxidants from raw cacao — no sugar spike.",
+    prepTime: "5 min",
+    ingredients: ["avocado", "cocoa-powder", "almond-milk", "banana"],
+    instructions: [
+      "Add half a ripe avocado to blender",
+      "Add raw cocoa powder and unsweetened almond milk",
+      "Add half a small banana for natural sweetness",
+      "Blend until thick and creamy",
+      "Serve immediately"
+    ],
+    matchedIngredients: [],
+    glassType: "Tumbler",
+    garnish: "Cocoa powder dusting",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "Heart Healthy", "Protein Rich", "Antioxidant"],
+    nutrition: { calories: 210, sugar: 7, carbs: 16 },
+    occasion: "everyday",
+    season: "all-season",
+  },
+  {
+    id: "diabetes-green-tea-mint",
+    title: "Iced Green Tea with Fresh Mint",
+    drinkType: "wellness",
+    description: "Green tea naturally supports insulin sensitivity. Combined with fresh mint for a zero-sugar refresher.",
+    prepTime: "10 min",
+    ingredients: ["green-tea", "mint", "lemon"],
+    instructions: [
+      "Brew green tea and let cool to room temperature",
+      "Add fresh mint leaves and muddle gently",
+      "Squeeze in fresh lemon juice",
+      "Pour over ice and serve"
+    ],
+    matchedIngredients: [],
+    glassType: "Highball",
+    garnish: "Mint sprig and lemon wheel",
+    isAlcoholic: false,
+    healthTags: ["Diabetes Friendly", "Antioxidant", "Low Calorie", "Hydrating"],
+    nutrition: { calories: 5, sugar: 0, carbs: 1 },
+    occasion: "everyday",
+    season: "summer",
+  },
+
 ];
-
-
 
 // Key ingredients for drinks
 const keyDrinkIngredients: Record<string, string[]> = {
@@ -16169,6 +16352,15 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "kidney-watermelon-mint-agua": ["watermelon", "lime", "mint"],
   "kidney-blueberry-lemon-water": ["blueberries", "lemon", "honey"],
   "kidney-pineapple-ginger-flush": ["pineapple", "ginger-fresh", "coconut-water"],
+  // Diabetes Friendly drinks
+  "diabetes-cucumber-mint-cooler": ["cucumber", "mint"],
+  "diabetes-green-power-smoothie": ["spinach", "avocado", "chia-seeds"],
+  "diabetes-cinnamon-almond-latte": ["espresso", "almond-milk"],
+  "diabetes-berry-flax-smoothie": ["blueberries", "flax-seeds"],
+  "diabetes-turmeric-ginger-tonic": ["turmeric", "ginger-fresh"],
+  "diabetes-chia-lemon-agua": ["chia-seeds", "lemon"],
+  "diabetes-avocado-cocoa-smoothie": ["avocado", "cocoa-powder"],
+  "diabetes-green-tea-mint": ["green-tea", "mint"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
