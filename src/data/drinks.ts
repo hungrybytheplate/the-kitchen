@@ -14985,29 +14985,7 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "tequila", substitute: "mango" }], notes: "Double the mango and add sparkling water for fizz" },
   },
-  {
-    id: "lavender-lemonade",
-    title: "Lavender Lemonade",
-    drinkType: "mocktail",
-    description: "Floral and refreshing homemade lemonade infused with lavender",
-    prepTime: "5 min",
-    ingredients: ["lemon", "lavender-syrup", "water", "ice"],
-    instructions: [
-      "Squeeze fresh lemons to get about 1/2 cup juice",
-      "Combine lemon juice, lavender syrup, and cold water in a pitcher",
-      "Stir well and taste, adjusting sweetness as desired",
-      "Pour over ice and garnish with fresh lavender sprigs"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["lemon", "lavender-syrup"],
-    glassType: "Highball",
-    garnish: "Lavender sprig, lemon wheel",
-    isAlcoholic: false,
-    nutrition: { calories: 95, sugar: 22, carbs: 24 },
-    occasion: "everyday",
-    season: "spring",
-    healthTags: ["Vitamin C", "Hydrating"],
-  },
+  
   {
     id: "coconut-matcha-latte",
     title: "Iced Coconut Matcha Latte",
