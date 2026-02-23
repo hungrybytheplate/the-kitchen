@@ -28,6 +28,7 @@ const healthTagConfig: Record<HealthTag, { icon: React.ElementType; color: strin
   "Omega-3": { icon: Fish, color: "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border-sky-200 dark:border-sky-800" },
   "Vitamin C": { icon: Citrus, color: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800" },
   "Heart Healthy": { icon: Heart, color: "bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300 border-pink-200 dark:border-pink-800" },
+  "Kidney Healthy": { icon: Droplets, color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800" },
   "Low Calorie": { icon: Droplets, color: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800" },
   "Hydrating": { icon: Droplets, color: "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300 border-teal-200 dark:border-teal-800" },
   "High Fiber": { icon: Leaf, color: "bg-lime-100 text-lime-800 dark:bg-lime-900/30 dark:text-lime-300 border-lime-200 dark:border-lime-800" },

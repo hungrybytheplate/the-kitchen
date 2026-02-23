@@ -9,6 +9,7 @@ export type HealthTag =
   | "Omega-3" 
   | "Vitamin C" 
   | "Heart Healthy"
+  | "Kidney Healthy"
   | "Low Calorie"
   | "Hydrating"
   | "High Fiber";
