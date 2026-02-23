@@ -15799,6 +15799,7 @@ const keyIngredients: Record<string, string[]> = {
   "budget-chicken-thighs": ["chicken-thighs"],
   "budget-tuna-pasta": ["tuna-white", "pasta-penne"],
   "budget-ramen-upgrade": ["eggs"],
+  "pork-dumplings": ["ground-pork", "flour-all-purpose"],
 };
 
 // Helper function to check if a selected ingredient matches a recipe ingredient
