@@ -15113,30 +15113,7 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "spring",
   },
-  {
-    id: "dragon-fruit-lemonade",
-    title: "Dragon Fruit Lemonade",
-    drinkType: "mocktail",
-    description: "Stunning pink lemonade made with real dragon fruit — a visual showstopper",
-    prepTime: "5 min",
-    ingredients: ["dragon-fruit", "lemon", "simple-syrup", "water", "ice"],
-    instructions: [
-      "Blend dragon fruit flesh until smooth",
-      "Squeeze fresh lemons and combine juice with dragon fruit purée",
-      "Add simple syrup and cold water, stir well",
-      "Pour over ice and watch the gorgeous pink color develop",
-      "Garnish with a lemon wheel"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["dragon-fruit", "lemon"],
-    glassType: "Highball",
-    garnish: "Lemon wheel, dragon fruit slice",
-    isAlcoholic: false,
-    nutrition: { calories: 110, sugar: 24, carbs: 28 },
-    healthTags: ["Vitamin C", "Hydrating", "Antioxidant"],
-    occasion: "everyday",
-    season: "summer",
-  },
+  
   {
     id: "caramel-apple-cider",
     title: "Caramel Apple Cider",
