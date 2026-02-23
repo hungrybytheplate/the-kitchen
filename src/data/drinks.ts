@@ -16352,6 +16352,15 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "kidney-watermelon-mint-agua": ["watermelon", "lime", "mint"],
   "kidney-blueberry-lemon-water": ["blueberries", "lemon", "honey"],
   "kidney-pineapple-ginger-flush": ["pineapple", "ginger-fresh", "coconut-water"],
+  // Diabetes Friendly drinks
+  "diabetes-cucumber-mint-cooler": ["cucumber", "mint"],
+  "diabetes-green-power-smoothie": ["spinach", "avocado", "chia-seeds"],
+  "diabetes-cinnamon-almond-latte": ["espresso", "almond-milk"],
+  "diabetes-berry-flax-smoothie": ["blueberries", "flax-seeds"],
+  "diabetes-turmeric-ginger-tonic": ["turmeric", "ginger-fresh"],
+  "diabetes-chia-lemon-agua": ["chia-seeds", "lemon"],
+  "diabetes-avocado-cocoa-smoothie": ["avocado", "cocoa-powder"],
+  "diabetes-green-tea-mint": ["green-tea", "mint"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
