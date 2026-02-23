@@ -15888,6 +15888,19 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "blood-orange-paloma": ["tequila", "blood-orange"],
   "passion-fruit-mojito": ["rum-white", "passion-fruit"],
   "raspberry-rose-lemonade": ["raspberries", "rose-syrup"],
+  // Heart & kidney healthy drinks
+  "heart-beet-berry-smoothie": ["beetroot", "blueberries", "banana"],
+  "heart-pomegranate-green-tea": ["pomegranate", "green-tea"],
+  "heart-oat-banana-smoothie": ["oats", "banana", "almond-milk"],
+  "heart-hibiscus-berry-cooler": ["hibiscus", "blueberries", "honey"],
+  "heart-dark-cherry-smoothie": ["black-cherry", "banana", "almond-milk"],
+  "heart-avocado-spinach-smoothie": ["avocado", "spinach", "banana"],
+  "kidney-cucumber-melon-cooler": ["cucumber", "watermelon", "mint"],
+  "kidney-cranberry-ginger-tonic": ["cranberry-juice", "ginger-fresh", "lemon"],
+  "kidney-apple-celery-detox": ["apple-juice", "celery", "lemon"],
+  "kidney-watermelon-mint-agua": ["watermelon", "lime", "mint"],
+  "kidney-blueberry-lemon-water": ["blueberries", "lemon", "honey"],
+  "kidney-pineapple-ginger-flush": ["pineapple", "ginger-fresh", "coconut-water"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
