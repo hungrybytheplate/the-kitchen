@@ -15139,29 +15139,6 @@ export const sampleDrinks: Drink[] = [
   },
   
   {
-    id: "chocolate-hazelnut-smoothie",
-    title: "Chocolate Hazelnut Smoothie",
-    drinkType: "smoothie",
-    description: "Thick Nutella-inspired smoothie with banana, cacao, and hazelnut",
-    prepTime: "5 min",
-    ingredients: ["banana", "cacao", "hazelnut-syrup", "oat-milk", "ice"],
-    instructions: [
-      "Add frozen banana, raw cacao powder, hazelnut syrup, and oat milk to blender",
-      "Add a handful of ice for thickness",
-      "Blend on high until smooth and creamy",
-      "Pour into a glass and drizzle with chocolate syrup"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["banana", "cacao"],
-    glassType: "Tall glass",
-    garnish: "Chocolate drizzle, chopped hazelnuts",
-    isAlcoholic: false,
-    nutrition: { calories: 295, sugar: 26, carbs: 40 },
-    healthTags: ["Energy Boost", "Antioxidant"],
-    occasion: "everyday",
-    season: "all-season",
-  },
-  {
     id: "blood-orange-paloma",
     title: "Blood Orange Paloma",
     drinkType: "cocktail",
