@@ -15884,12 +15884,9 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "honey-ginger-hot-toddy": ["whiskey", "honey"],
   "strawberry-rose-spritz": ["strawberries", "rose-syrup"],
   "caramel-apple-cider": ["apple-juice", "caramel-syrup"],
-  "chocolate-hazelnut-smoothie": ["banana", "cacao"],
   "blood-orange-paloma": ["tequila", "blood-orange"],
-  "golden-milk-latte": ["turmeric", "oat-milk"],
   "passion-fruit-mojito": ["rum-white", "passion-fruit"],
   "raspberry-rose-lemonade": ["raspberries", "rose-syrup"],
-  "maple-bourbon-smash": ["bourbon", "maple-syrup"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
