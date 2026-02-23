@@ -366,6 +366,7 @@ export const fridgeItems: IngredientCategory[] = [
       { id: "snap-peas", name: "Snap Peas", emoji: "🥬" },
       { id: "cabbage-green", name: "Green Cabbage", emoji: "🥬" },
       { id: "cabbage-red", name: "Red Cabbage", emoji: "🥬" },
+      { id: "cabbage-napa", name: "Napa Cabbage", emoji: "🥬" },
       { id: "kale", name: "Kale", emoji: "🥬" },
       { id: "cauliflower", name: "Cauliflower", emoji: "🥬" },
       { id: "corn-on-cob", name: "Corn on the Cob", emoji: "🌽" },
