@@ -398,6 +398,7 @@ export const ingredientVariants: Record<string, IngredientWithVariants> = {
       { id: "green-cabbage", name: "Green Cabbage", emoji: "🥬" },
       { id: "red-cabbage", name: "Red Cabbage", emoji: "🥬" },
       { id: "napa-cabbage", name: "Napa Cabbage", emoji: "🥬" },
+      { id: "cabbage-napa", name: "Napa Cabbage", emoji: "🥬" },
       { id: "coleslaw-mix", name: "Coleslaw Mix", emoji: "🥬" },
     ],
   },
