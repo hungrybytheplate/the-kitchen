@@ -15215,33 +15215,7 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "spring",
   },
-  {
-    id: "maple-bourbon-smash",
-    title: "Maple Bourbon Smash",
-    drinkType: "cocktail",
-    description: "Autumn-inspired cocktail with bourbon, maple syrup, and fresh thyme",
-    prepTime: "5 min",
-    ingredients: ["bourbon", "maple-syrup", "lemon", "thyme", "ice"],
-    instructions: [
-      "Muddle a few sprigs of thyme in a shaker",
-      "Add bourbon, maple syrup, and fresh lemon juice",
-      "Fill with ice and shake well",
-      "Strain into a rocks glass over a large ice cube",
-      "Garnish with a thyme sprig and lemon wheel"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["bourbon", "maple-syrup"],
-    glassType: "Rocks glass",
-    garnish: "Thyme sprig, lemon wheel",
-    isAlcoholic: true,
-    nutrition: { calories: 195, sugar: 12, carbs: 14 },
-    occasion: "date-night",
-    season: "fall",
-    alcoholSubstitutions: [
-      { original: "bourbon", alternatives: ["rye-whiskey", "scotch", "brandy"], notes: "Rye adds spice, scotch adds smoke, brandy is mellower" },
-    ],
-    virginVersion: { replaces: [{ original: "bourbon", substitute: "apple-juice" }], notes: "Apple juice and maple is a cozy combo" },
-  },
+  
 ];
 
 
