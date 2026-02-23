@@ -14958,28 +14958,6 @@ export const sampleDrinks: Drink[] = [
   },
   // ============ NEW BATCH: More Yummy Drinks ============
   {
-    id: "watermelon-frose",
-    title: "Watermelon Frosé",
-    drinkType: "cocktail",
-    description: "Frozen rosé slushie blended with fresh watermelon and lime",
-    prepTime: "10 min",
-    ingredients: ["watermelon", "lime", "simple-syrup", "ice"],
-    instructions: [
-      "Freeze rosé wine in a shallow pan for at least 6 hours until slushy",
-      "Cube fresh watermelon and freeze for 2 hours",
-      "Blend frozen rosé, frozen watermelon, lime juice, and simple syrup until smooth",
-      "Pour into a wine glass and garnish with a watermelon wedge"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["watermelon"],
-    glassType: "Wine glass",
-    garnish: "Watermelon wedge, mint sprig",
-    isAlcoholic: false,
-    nutrition: { calories: 145, sugar: 18, carbs: 22 },
-    occasion: "party",
-    season: "summer",
-  },
-  {
     id: "spicy-mango-margarita",
     title: "Spicy Mango Margarita",
     drinkType: "cocktail",
