@@ -15137,33 +15137,7 @@ export const sampleDrinks: Drink[] = [
     occasion: "everyday",
     season: "fall",
   },
-  {
-    id: "pomegranate-gin-fizz",
-    title: "Pomegranate Gin Fizz",
-    drinkType: "cocktail",
-    description: "Jewel-toned gin cocktail with pomegranate, lime, and fizz",
-    prepTime: "5 min",
-    ingredients: ["gin", "pomegranate", "lime", "simple-syrup", "club-soda", "egg-white"],
-    instructions: [
-      "Add gin, pomegranate juice, lime juice, simple syrup, and egg white to a shaker",
-      "Dry shake (without ice) for 15 seconds to froth the egg white",
-      "Add ice and shake again until cold",
-      "Strain into a coupe glass",
-      "Top with a splash of club soda and garnish with pomegranate seeds"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["gin", "pomegranate"],
-    glassType: "Coupe glass",
-    garnish: "Pomegranate seeds",
-    isAlcoholic: true,
-    nutrition: { calories: 175, sugar: 12, carbs: 14 },
-    occasion: "date-night",
-    season: "winter",
-    alcoholSubstitutions: [
-      { original: "gin", alternatives: ["vodka", "rum-white"], notes: "Vodka is cleaner, rum adds tropical sweetness" },
-    ],
-    virginVersion: { replaces: [{ original: "gin", substitute: "club-soda" }], notes: "Extra pomegranate juice and lime for a stunning mocktail" },
-  },
+  
   {
     id: "chocolate-hazelnut-smoothie",
     title: "Chocolate Hazelnut Smoothie",
