@@ -12,7 +12,8 @@ export type HealthTag =
   | "Kidney Healthy"
   | "Low Calorie"
   | "Hydrating"
-  | "High Fiber";
+  | "High Fiber"
+  | "Diabetes Friendly";
 
 export type DrinkOccasion = "brunch" | "party" | "date-night" | "nightcap" | "everyday";
 export type DrinkSeason = "summer" | "fall" | "winter" | "spring" | "all-season";

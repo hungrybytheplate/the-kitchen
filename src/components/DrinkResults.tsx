@@ -32,6 +32,7 @@ const healthTagConfig: Record<HealthTag, { icon: React.ElementType; color: strin
   "Low Calorie": { icon: Droplets, color: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800" },
   "Hydrating": { icon: Droplets, color: "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300 border-teal-200 dark:border-teal-800" },
   "High Fiber": { icon: Leaf, color: "bg-lime-100 text-lime-800 dark:bg-lime-900/30 dark:text-lime-300 border-lime-200 dark:border-lime-800" },
+  "Diabetes Friendly": { icon: Shield, color: "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300 border-violet-200 dark:border-violet-800" },
 };
 
 const occasionConfig: Record<DrinkOccasion, { icon: React.ElementType; label: string; color: string }> = {
