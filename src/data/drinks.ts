@@ -15035,31 +15035,7 @@ export const sampleDrinks: Drink[] = [
     occasion: "everyday",
     season: "summer",
   },
-  {
-    id: "dirty-chai-latte",
-    title: "Dirty Chai Latte",
-    drinkType: "hot",
-    description: "Spiced chai latte with a shot of espresso for the perfect pick-me-up",
-    prepTime: "5 min",
-    ingredients: ["chai", "espresso", "oat-milk", "honey"],
-    instructions: [
-      "Brew a strong cup of chai tea or use chai concentrate",
-      "Pull a shot of espresso",
-      "Steam or heat oat milk until frothy",
-      "Combine chai and espresso in a mug",
-      "Top with steamed oat milk and drizzle with honey",
-      "Sprinkle cinnamon on top"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["chai", "espresso"],
-    glassType: "Mug",
-    garnish: "Cinnamon sprinkle",
-    isAlcoholic: false,
-    nutrition: { calories: 160, sugar: 18, carbs: 24 },
-    healthTags: ["Energy Boost"],
-    occasion: "everyday",
-    season: "fall",
-  },
+  
   {
     id: "blueberry-basil-smash",
     title: "Blueberry Basil Smash",
