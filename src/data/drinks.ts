@@ -15164,30 +15164,7 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "tequila", substitute: "grapefruit-juice" }], notes: "Extra grapefruit and blood orange for a vibrant mocktail" },
   },
-  {
-    id: "golden-milk-latte",
-    title: "Golden Milk Latte",
-    drinkType: "hot",
-    description: "Warm turmeric latte with ginger, cinnamon, and a touch of black pepper",
-    prepTime: "8 min",
-    ingredients: ["turmeric", "ginger-fresh", "cinnamon", "black-pepper", "oat-milk", "honey"],
-    instructions: [
-      "Heat oat milk in a saucepan over medium-low heat",
-      "Add 1 tsp turmeric, grated fresh ginger, cinnamon, and a pinch of black pepper",
-      "Whisk continuously until warm and frothy (do not boil)",
-      "Strain into a mug and stir in honey to taste",
-      "Sprinkle extra cinnamon on top"
-    ],
-    matchedIngredients: [],
-    keyIngredients: ["turmeric", "oat-milk"],
-    glassType: "Mug",
-    garnish: "Cinnamon sprinkle",
-    isAlcoholic: false,
-    nutrition: { calories: 130, sugar: 14, carbs: 20 },
-    healthTags: ["Anti-Inflammatory", "Immune Support", "Digestive"],
-    occasion: "everyday",
-    season: "winter",
-  },
+  
   {
     id: "passion-fruit-mojito",
     title: "Passion Fruit Mojito",
