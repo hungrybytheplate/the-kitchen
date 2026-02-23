@@ -16110,6 +16110,27 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "iced-tea-mango-green": ["green-tea", "mango"],
   "iced-tea-hibiscus": ["hibiscus", "honey"],
   "iced-tea-jasmine": ["green-tea", "honey"],
+  // New yummy drinks batch
+  "watermelon-frose": ["watermelon"],
+  "spicy-mango-margarita": ["tequila", "mango"],
+  "lavender-lemonade": ["lemon", "lavender-syrup"],
+  "coconut-matcha-latte": ["matcha", "coconut-milk"],
+  "peanut-butter-banana-smoothie": ["banana", "peanut-butter"],
+  "cucumber-mint-cooler": ["cucumber", "mint"],
+  "tropical-acai-bowl-smoothie": ["acai", "mango"],
+  "dirty-chai-latte": ["chai", "espresso"],
+  "blueberry-basil-smash": ["gin", "blueberries"],
+  "honey-ginger-hot-toddy": ["whiskey", "honey"],
+  "strawberry-rose-spritz": ["strawberries", "rose-syrup"],
+  "dragon-fruit-lemonade": ["dragon-fruit", "lemon"],
+  "caramel-apple-cider": ["apple-juice", "caramel-syrup"],
+  "pomegranate-gin-fizz": ["gin", "pomegranate"],
+  "chocolate-hazelnut-smoothie": ["banana", "cacao"],
+  "blood-orange-paloma": ["tequila", "blood-orange"],
+  "golden-milk-latte": ["turmeric", "oat-milk"],
+  "passion-fruit-mojito": ["rum-white", "passion-fruit"],
+  "raspberry-rose-lemonade": ["raspberries", "rose-syrup"],
+  "maple-bourbon-smash": ["bourbon", "maple-syrup"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
