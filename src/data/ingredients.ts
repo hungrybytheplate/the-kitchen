@@ -483,6 +483,9 @@ export const spiceItems: IngredientCategory[] = [
       { id: "fish-sauce", name: "Fish Sauce", emoji: "🐟" },
       { id: "oyster-sauce", name: "Oyster Sauce", emoji: "🦪" },
       { id: "hoisin-sauce", name: "Hoisin Sauce", emoji: "🥡" },
+      { id: "chipotle-powder", name: "Chipotle Powder", emoji: "🌶️" },
+      { id: "adobo-sauce", name: "Adobo Sauce", emoji: "🌶️" },
+      { id: "tahini", name: "Tahini", emoji: "🥜" },
     ],
   },
 ];
