@@ -15657,6 +15657,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 35, protein: 3, carbs: 2, fat: 2, fiber: 0, sodium: 80, cholesterol: 3 },
     cuisine: "mexican",
+    proteinTips: [
+      "Blend in 1/4 cup cottage cheese for an extra 7g protein and extra creaminess",
+      "Add a scoop of unflavored collagen peptides (10g protein) — dissolves completely",
+      "Use Icelandic skyr instead of Greek yogurt for 5g more protein per serving",
+    ],
+    suggestedSides: [
+      { name: "Grilled Chicken Tacos", description: "Drizzle over seasoned chicken tacos with pickled onions" },
+      { name: "Burrito Bowls", description: "The perfect finishing sauce for rice, beans, and protein bowls" },
+      { name: "Roasted Sweet Potatoes", description: "Pairs beautifully with the natural sweetness" },
+      { name: "Grilled Steak", description: "A smoky complement to carne asada or flank steak" },
+    ],
   },
   {
     id: "avocado-lime-crema",
@@ -15687,6 +15698,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 70, protein: 2, carbs: 4, fat: 6, fiber: 2, sodium: 50, cholesterol: 1 },
     cuisine: "mexican",
+    proteinTips: [
+      "Increase Greek yogurt to 1/2 cup for a protein-packed crema (adds 8g protein)",
+      "Blend in 2 tbsp cottage cheese for extra creaminess and 4g more protein",
+      "Add a tbsp of hemp seeds for 5g plant-based protein and healthy fats",
+    ],
+    suggestedSides: [
+      { name: "Fish Tacos", description: "A must-have drizzle on crispy fish tacos with slaw" },
+      { name: "Grain Bowls", description: "Elevates any quinoa or rice bowl with healthy fats" },
+      { name: "Grilled Shrimp", description: "Cool crema balances spiced or grilled shrimp perfectly" },
+      { name: "Black Bean Quesadillas", description: "A fresh, creamy contrast to cheesy quesadillas" },
+    ],
   },
   {
     id: "lemon-tahini-sauce",
@@ -15717,6 +15739,17 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 90, protein: 3, carbs: 3, fat: 8, fiber: 1, sodium: 120, cholesterol: 0 },
     cuisine: "mediterranean",
     antiInflammatory: true,
+    proteinTips: [
+      "Blend in 2 tbsp Greek yogurt for a creamier sauce with 4g extra protein",
+      "Add 1 tbsp hemp seeds for 5g plant protein — blends right in",
+      "Stir in 2 tbsp blended silken tofu for 3g protein without changing the flavor",
+    ],
+    suggestedSides: [
+      { name: "Falafel Wraps", description: "The classic tahini-falafel combo in pita or flatbread" },
+      { name: "Roasted Cauliflower", description: "Drizzle over crispy roasted cauliflower florets" },
+      { name: "Mediterranean Grain Bowls", description: "Ties together quinoa, chickpeas, and roasted veggies" },
+      { name: "Grilled Chicken Shawarma", description: "A creamy, nutty sauce for shawarma plates" },
+    ],
   },
   {
     id: "cilantro-lime-yogurt-sauce",
@@ -15746,6 +15779,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 30, protein: 3, carbs: 2, fat: 1, fiber: 0, sodium: 70, cholesterol: 3 },
     cuisine: "mexican",
+    proteinTips: [
+      "Swap half the yogurt for cottage cheese (adds 6g protein per serving)",
+      "Add a scoop of unflavored protein powder — blends smoothly into the sauce",
+      "Use Icelandic skyr for a thicker, higher-protein base",
+    ],
+    suggestedSides: [
+      { name: "Carnitas Tacos", description: "Bright cilantro-lime cuts through rich, slow-cooked pork" },
+      { name: "Grilled Chicken Bowls", description: "Drizzle over chicken with rice and black beans" },
+      { name: "Elote (Mexican Street Corn)", description: "A fresh alternative to mayo-based elote sauce" },
+      { name: "Sweet Potato Tacos", description: "Herbaceous and tangy over roasted sweet potato" },
+    ],
   },
   {
     id: "tzatziki-sauce",
@@ -15777,6 +15821,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 40, protein: 4, carbs: 3, fat: 2, fiber: 0, sodium: 100, cholesterol: 3 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Blend in 1/4 cup cottage cheese for 7g extra protein — makes it even thicker and creamier",
+      "Use 2% Fage Total Greek yogurt for the highest protein-to-calorie ratio",
+      "Add a tbsp of hemp hearts for 5g plant protein and omega-3s",
+    ],
+    suggestedSides: [
+      { name: "Lamb Gyros", description: "The essential Greek pairing — cool tzatziki with spiced lamb" },
+      { name: "Grilled Chicken Souvlaki", description: "Dollop on chicken skewers with warm pita" },
+      { name: "Mediterranean Veggie Platter", description: "Dip cucumbers, peppers, and pita wedges" },
+      { name: "Greek Meatballs (Keftedes)", description: "A refreshing dipping sauce for savory meatballs" },
+    ],
   },
   {
     id: "honey-sriracha-sauce",
@@ -15806,6 +15861,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 55, protein: 0, carbs: 14, fat: 1, fiber: 0, sodium: 320, cholesterol: 0 },
     cuisine: "asian",
+    proteinTips: [
+      "Whisk in 1 tbsp peanut butter for 4g protein and a nutty depth",
+      "Add 2 tbsp blended cottage cheese — it disappears into the sauce and adds 4g protein",
+      "Stir in a tbsp of tahini for 3g plant protein and a creamy upgrade",
+    ],
+    suggestedSides: [
+      { name: "Crispy Chicken Wings", description: "Toss baked wings in this sauce for sticky, sweet heat" },
+      { name: "Glazed Salmon", description: "Brush on salmon fillets for the last 5 min of baking" },
+      { name: "Roasted Cauliflower", description: "Drizzle over crispy cauliflower for a vegan wing alternative" },
+      { name: "Stir-Fried Tofu", description: "Coat crispy tofu cubes for a protein-packed meal" },
+    ],
   },
   {
     id: "garlic-herb-yogurt-sauce",
@@ -15837,6 +15903,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 35, protein: 3, carbs: 2, fat: 2, fiber: 0, sodium: 75, cholesterol: 3 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Blend in 1/4 cup cottage cheese for 7g extra protein with added creaminess",
+      "Use skyr instead of Greek yogurt for 5g more protein per serving",
+      "Add a tbsp of nutritional yeast for 4g protein and a savory, cheesy flavor",
+    ],
+    suggestedSides: [
+      { name: "Grilled Chicken Flatbreads", description: "Spread on warm naan or pita with grilled chicken" },
+      { name: "Roasted Vegetable Platter", description: "Dip roasted zucchini, eggplant, and peppers" },
+      { name: "Quinoa Power Bowls", description: "A herby finishing sauce for grain and veggie bowls" },
+      { name: "Lamb Kofta", description: "Cool, herby yogurt is the perfect match for spiced lamb" },
+    ],
   },
 ];
 
