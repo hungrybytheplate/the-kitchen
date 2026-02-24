@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ShareRecipeButton } from "./ShareRecipeButton";
 import {
   Dialog,
   DialogContent,
@@ -144,17 +145,20 @@ export function DrinkDetailDialog({
               </DialogTitle>
               <p className="text-muted-foreground">{drink.description}</p>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onSave}
-              className={cn(
-                "shrink-0 rounded-full",
-                isSaved && "text-primary bg-primary/10"
-              )}
-            >
-              <Heart className={cn("h-5 w-5", isSaved && "fill-current")} />
-            </Button>
+            <div className="flex items-center gap-1 shrink-0">
+              <ShareRecipeButton recipe={drink} size="icon" className="rounded-full" showDropdown />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onSave}
+                className={cn(
+                  "shrink-0 rounded-full",
+                  isSaved && "text-primary bg-primary/10"
+                )}
+              >
+                <Heart className={cn("h-5 w-5", isSaved && "fill-current")} />
+              </Button>
+            </div>
           </div>
         </DialogHeader>
 
