@@ -8381,6 +8381,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 180, protein: 3, carbs: 1, fat: 18, sodium: 280 },
     cuisine: "american",
+    proteinTips: [
+      "Use extra parmesan for 2g more protein per tbsp",
+      "Blend in Greek yogurt to replace half the mayo for a protein boost",
+      "Toss with grilled chicken or shrimp for a complete protein salad",
+    ],
+    suggestedSides: [
+      { name: "Caesar Salad", description: "Romaine, croutons, and shaved parmesan" },
+      { name: "Grilled Chicken", description: "A creamy dressing for protein-packed salads" },
+      { name: "Roasted Vegetables", description: "Drizzle over roasted broccoli or Brussels sprouts" },
+      { name: "Garlic Bread", description: "Spread on toasted bread for a Caesar bruschetta" },
+    ],
   },
   {
     id: "homemade-ranch-dressing",
@@ -8411,6 +8422,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 90, protein: 1, carbs: 1, fat: 9, sodium: 110 },
     cuisine: "american",
+    proteinTips: [
+      "Replace sour cream with Greek yogurt for 10g+ extra protein",
+      "Blend in cottage cheese for a thick, protein-rich ranch",
+      "Use as a marinade for chicken wings before baking",
+    ],
+    suggestedSides: [
+      { name: "Buffalo Wings", description: "Ranch is the essential buffalo wing sidekick" },
+      { name: "Crudité Platter", description: "Dip fresh veggies for a healthy snack" },
+      { name: "Loaded Baked Potatoes", description: "Drizzle over potatoes with bacon and cheese" },
+      { name: "Fried Chicken", description: "A cool, herby dip for crispy chicken" },
+    ],
   },
   {
     id: "balsamic-vinaigrette",
@@ -8440,6 +8462,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 130, protein: 0, carbs: 4, fat: 14, sodium: 45 },
     cuisine: "italian",
+    proteinTips: [
+      "Add a tbsp of tahini for plant protein and creamy body",
+      "Toss with chickpea and grilled chicken salads for a protein meal",
+      "Whisk in nutritional yeast for a savory, protein-rich vinaigrette",
+    ],
+    suggestedSides: [
+      { name: "Caprese Salad", description: "Drizzle over fresh mozzarella and tomatoes" },
+      { name: "Grilled Vegetables", description: "A tangy finishing touch for charred veggies" },
+      { name: "Bruschetta", description: "Top toasted bread with tomatoes and balsamic" },
+      { name: "Strawberry Spinach Salad", description: "Sweet balsamic pairs with berries and greens" },
+    ],
   },
   {
     id: "honey-mustard-dressing",
@@ -8468,6 +8501,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 80, protein: 0, carbs: 8, fat: 5, sodium: 95 },
     cuisine: "american",
+    proteinTips: [
+      "Mix in Greek yogurt for a lighter, protein-rich version",
+      "Use as a glaze for baked chicken thighs for 35g+ protein",
+      "Add tahini for plant protein and a nutty twist",
+    ],
+    suggestedSides: [
+      { name: "Chicken Strips", description: "The classic dipping sauce for crispy chicken" },
+      { name: "Soft Pretzels", description: "Sweet and tangy dip for warm pretzels" },
+      { name: "Cobb Salad", description: "A sweet-tangy dressing for loaded salads" },
+      { name: "Grilled Pork Chops", description: "Brush on as a glaze in the last minutes" },
+    ],
   },
   // ============ MORE DESSERTS ============
   {
