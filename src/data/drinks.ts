@@ -16177,28 +16177,6 @@ export const sampleDrinks: Drink[] = [
     occasion: "party",
     season: "all-season",
   },
-  {
-    id: "blueberry-lavender-lemonade",
-    title: "Blueberry Lavender Lemonade",
-    drinkType: "mocktail",
-    description: "Deep purple lemonade with blueberries and floral lavender — gorgeous and calming",
-    prepTime: "5 min",
-    ingredients: ["blueberries", "lemon", "lavender-syrup", "water", "ice"],
-    instructions: [
-      "Blend ½ cup blueberries with 8 oz cold water until smooth.",
-      "Strain through a fine mesh sieve into a glass.",
-      "Add juice of 1 lemon and 1 oz lavender syrup. Stir well.",
-      "Serve over ice. The deep purple color is absolutely stunning."
-    ],
-    matchedIngredients: [],
-    glassType: "Tall Glass",
-    garnish: "Fresh blueberries and lavender sprig",
-    isAlcoholic: false,
-    healthTags: ["Antioxidant", "Low Calorie", "Vitamin C"],
-    nutrition: { calories: 70, sugar: 16, carbs: 18 },
-    occasion: "everyday",
-    season: "spring",
-  },
 
 ];
 
