@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Share2, Link, MessageCircle, Mail, Check } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
 interface ShareableItem {
@@ -20,13 +20,11 @@ interface ShareRecipeButtonProps {
   variant?: "ghost" | "outline" | "default";
   size?: "sm" | "default" | "icon";
   className?: string;
+  showDropdown?: boolean;
 }
 
-export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", className }: ShareRecipeButtonProps) {
+export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", className, showDropdown = false }: ShareRecipeButtonProps) {
   const [copied, setCopied] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const didLongPress = useRef(false);
   
   const getShareUrl = () => {
     const baseUrl = window.location.origin;
@@ -63,12 +61,14 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
           text: getShareText(),
           url: getShareUrl(),
         });
+        return true;
       } catch (e) {
         if ((e as Error).name !== 'AbortError') {
           console.error('Share failed:', e);
         }
       }
     }
+    return false;
   };
   
   const handleEmailShare = () => {
@@ -81,63 +81,42 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
     const text = encodeURIComponent(`${getShareText()} ${getShareUrl()}`);
     window.open(`sms:?body=${text}`);
   };
+
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Try native share first (mobile), fall back to copy link
+    const supportsNativeShare = typeof navigator !== 'undefined' && navigator.share;
+    if (supportsNativeShare) {
+      await handleNativeShare();
+    } else {
+      await handleCopyLink();
+    }
+  };
   
-  // On mobile, use native share directly
-  const supportsNativeShare = typeof navigator !== 'undefined' && navigator.share;
-  
-  if (supportsNativeShare) {
+  // Simple button mode (used on cards) — one click shares immediately
+  if (!showDropdown) {
     return (
       <Button
         variant={variant}
         size={size}
         className={className}
-        onClick={(e) => {
-          e.stopPropagation();
-          handleNativeShare();
-        }}
+        onClick={handleShare}
       >
-        <Share2 className="h-4 w-4" />
-        {size !== "icon" && <span className="ml-1.5">Share</span>}
+        {copied ? (
+          <Check className="h-4 w-4 text-green-500" />
+        ) : (
+          <Share2 className="h-4 w-4" />
+        )}
+        {size !== "icon" && <span className="ml-1.5">{copied ? "Copied!" : "Share"}</span>}
       </Button>
     );
   }
-  
-  // On desktop: single click = copy link, dropdown for more options
+
+  // Dropdown mode (used in detail dialogs) — shows share options
   return (
-    <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-        <Button 
-          variant={variant} 
-          size={size} 
-          className={className}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            // Single click = copy link immediately
-            handleCopyLink();
-          }}
-          onPointerDown={(e) => {
-            e.stopPropagation();
-            didLongPress.current = false;
-            holdTimerRef.current = setTimeout(() => {
-              didLongPress.current = true;
-              setMenuOpen(true);
-            }, 500);
-          }}
-          onPointerUp={(e) => {
-            e.stopPropagation();
-            if (holdTimerRef.current) {
-              clearTimeout(holdTimerRef.current);
-              holdTimerRef.current = null;
-            }
-          }}
-          onPointerLeave={() => {
-            if (holdTimerRef.current) {
-              clearTimeout(holdTimerRef.current);
-              holdTimerRef.current = null;
-            }
-          }}
-        >
+        <Button variant={variant} size={size} className={className}>
           {copied ? (
             <Check className="h-4 w-4 text-green-500" />
           ) : (
