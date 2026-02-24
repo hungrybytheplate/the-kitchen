@@ -6,8 +6,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Share2, Link, MessageCircle, Mail, Check } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { toast } from "@/hooks/use-toast";
+
 interface ShareableItem {
   id: string;
   title: string;
@@ -23,6 +24,9 @@ interface ShareRecipeButtonProps {
 
 export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", className }: ShareRecipeButtonProps) {
   const [copied, setCopied] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const didLongPress = useRef(false);
   
   const getShareUrl = () => {
     const baseUrl = window.location.origin;
@@ -39,7 +43,7 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
       setCopied(true);
       toast({
         title: "Link copied!",
-        description: "Recipe link copied to clipboard",
+        description: `Share link for "${recipe.title}" copied to clipboard`,
       });
       setTimeout(() => setCopied(false), 2000);
     } catch (e) {
@@ -60,7 +64,6 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
           url: getShareUrl(),
         });
       } catch (e) {
-        // User cancelled or error
         if ((e as Error).name !== 'AbortError') {
           console.error('Share failed:', e);
         }
@@ -79,7 +82,7 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
     window.open(`sms:?body=${text}`);
   };
   
-  // Use native share on mobile if available
+  // On mobile, use native share directly
   const supportsNativeShare = typeof navigator !== 'undefined' && navigator.share;
   
   if (supportsNativeShare) {
@@ -99,12 +102,48 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
     );
   }
   
+  // On desktop: single click = copy link, dropdown for more options
   return (
-    <DropdownMenu>
+    <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
       <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-        <Button variant={variant} size={size} className={className}>
-          <Share2 className="h-4 w-4" />
-          {size !== "icon" && <span className="ml-1.5">Share</span>}
+        <Button 
+          variant={variant} 
+          size={size} 
+          className={className}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            // Single click = copy link immediately
+            handleCopyLink();
+          }}
+          onPointerDown={(e) => {
+            e.stopPropagation();
+            didLongPress.current = false;
+            holdTimerRef.current = setTimeout(() => {
+              didLongPress.current = true;
+              setMenuOpen(true);
+            }, 500);
+          }}
+          onPointerUp={(e) => {
+            e.stopPropagation();
+            if (holdTimerRef.current) {
+              clearTimeout(holdTimerRef.current);
+              holdTimerRef.current = null;
+            }
+          }}
+          onPointerLeave={() => {
+            if (holdTimerRef.current) {
+              clearTimeout(holdTimerRef.current);
+              holdTimerRef.current = null;
+            }
+          }}
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Share2 className="h-4 w-4" />
+          )}
+          {size !== "icon" && <span className="ml-1.5">{copied ? "Copied!" : "Share"}</span>}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48 bg-popover z-50" onClick={(e) => e.stopPropagation()}>
