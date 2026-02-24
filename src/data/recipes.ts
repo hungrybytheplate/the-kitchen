@@ -13221,6 +13221,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 115, protein: 3, carbs: 14, fat: 6, fiber: 2, sodium: 45 },
     cuisine: "healthy",
+    proteinTips: [
+      "Sub cottage cheese or Greek yogurt for feta for 10g+ protein",
+      "Add nutritional yeast for a cheesy flavor and 4g protein per tbsp",
+      "Toss with protein-enriched pasta for a complete meal",
+    ],
+    suggestedSides: [
+      { name: "Penne Pasta", description: "The vibrant pink sauce shines on tube pasta" },
+      { name: "Roasted Chicken", description: "Drizzle over roasted chicken thighs" },
+      { name: "Grain Bowls", description: "Spoon over farro or quinoa bowls" },
+      { name: "Crusty Bread", description: "Dip warm bread into this colorful sauce" },
+    ],
   },
   // ============ SOURDOUGH DISCARD RECIPES ============
   {
@@ -13430,6 +13441,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 180, protein: 5, carbs: 32, fat: 4, sodium: 290 },
     cuisine: "italian",
+    proteinTips: [
+      "Add extra parmesan for 2g protein per tbsp",
+      "Blend in cottage cheese for a protein-rich, creamy Alfredo",
+      "Toss with protein-enriched pasta for a guilt-free, high-protein meal",
+    ],
+    suggestedSides: [
+      { name: "Fettuccine", description: "Classic Alfredo pasta — kids won't know it's cauliflower" },
+      { name: "Grilled Chicken", description: "Add sliced grilled chicken for a complete meal" },
+      { name: "Roasted Broccoli", description: "Drizzle over crispy roasted broccoli" },
+      { name: "Stuffed Shells", description: "Use as a lighter sauce for baked pasta" },
+    ],
   },
   // ============ NUTRITIOUS SAUCES ============
   {
@@ -13464,6 +13486,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 285, protein: 12, carbs: 42, fat: 9, fiber: 4, sodium: 420 },
     cuisine: "healthy",
+    proteinTips: [
+      "Blend in silken tofu for 5g plant protein per serving",
+      "Use cottage cheese instead of cream cheese for double the protein",
+      "Add hemp seeds for omega-3s and plant protein",
+    ],
+    suggestedSides: [
+      { name: "Pasta", description: "Toss with fettuccine for a hidden-veggie pasta" },
+      { name: "Grain Bowls", description: "Drizzle over quinoa and roasted vegetables" },
+      { name: "Dipping Sauce", description: "Use as a nutrient-dense veggie dip" },
+      { name: "Baked Potatoes", description: "Pour over baked potatoes instead of butter" },
+    ],
   },
   {
     id: "spinach-power-sauce",
@@ -13493,6 +13526,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 145, protein: 8, carbs: 10, fat: 9, fiber: 3, sodium: 280 },
     cuisine: "healthy",
+    proteinTips: [
+      "Blend in Greek yogurt instead of coconut milk for 8g more protein",
+      "Add tahini for plant protein and nutty creaminess",
+      "Stir in collagen peptides — they dissolve invisibly and add 9g protein",
+    ],
+    suggestedSides: [
+      { name: "Rice Noodles", description: "A vibrant, golden sauce for Asian-inspired noodles" },
+      { name: "Roasted Cauliflower", description: "Drizzle over crispy roasted cauliflower" },
+      { name: "Grain Bowls", description: "Pour over quinoa with roasted chickpeas" },
+      { name: "Grilled Chicken", description: "A sweet, warming sauce for grilled chicken" },
+    ],
   },
   {
     id: "golden-carrot-sauce",
@@ -13521,6 +13565,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 135, protein: 2, carbs: 16, fat: 8, fiber: 4, sodium: 180 },
     cuisine: "healthy",
+    proteinTips: [
+      "Increase Greek yogurt to 1/2 cup for a protein-packed sauce",
+      "Add hemp seeds for 5g plant protein per tbsp",
+      "Blend in cottage cheese for extra creaminess and 7g protein",
+    ],
+    suggestedSides: [
+      { name: "Tacos", description: "A fresh, green drizzle for any taco" },
+      { name: "Grain Bowls", description: "The perfect finishing sauce for quinoa bowls" },
+      { name: "Grilled Fish", description: "Bright herb sauce over grilled white fish" },
+      { name: "Sweet Potatoes", description: "Drizzle over roasted sweet potato wedges" },
+    ],
   },
   {
     id: "roasted-red-pepper-sauce",
@@ -13549,6 +13604,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 115, protein: 4, carbs: 8, fat: 8, fiber: 1, sodium: 160 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Cashews already provide 5g protein — add more for a richer sauce",
+      "Blend in white beans for extra plant protein and creaminess",
+      "Add nutritional yeast for a cheesy, protein-rich twist",
+    ],
+    suggestedSides: [
+      { name: "Pasta", description: "A smoky, creamy alternative to marinara" },
+      { name: "Pizza", description: "Use as a flavorful pizza sauce base" },
+      { name: "Roasted Vegetables", description: "Drizzle over roasted zucchini and eggplant" },
+      { name: "Grain Bowls", description: "A protein-rich sauce for Mediterranean bowls" },
+    ],
   },
   {
     id: "creamy-avocado-herb-sauce",
@@ -13635,6 +13701,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 95, protein: 2, carbs: 12, fat: 5, sodium: 450 },
     cuisine: "asian",
+    proteinTips: [
+      "Swap sour cream for Greek yogurt for 8g+ extra protein",
+      "Add peanut butter for 4g protein and nutty depth",
+      "Toss with crispy tofu for a plant-based protein meal",
+    ],
+    suggestedSides: [
+      { name: "Bibimbap", description: "Drizzle over Korean rice bowls with vegetables" },
+      { name: "Chicken Wings", description: "Toss baked wings for Korean-style heat" },
+      { name: "Noodles", description: "Mix with cold noodles for a spicy bowl" },
+      { name: "Grilled Vegetables", description: "A sweet-spicy dip for grilled veggies" },
+    ],
   },
   {
     id: "thai-peanut-sauce",
@@ -13664,6 +13741,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 145, protein: 5, carbs: 10, fat: 10, fiber: 1, sodium: 380 },
     cuisine: "asian",
+    proteinTips: [
+      "Peanut butter already provides 5g protein per serving — use extra",
+      "Add tahini for additional plant protein and nutty complexity",
+      "Toss with edamame noodles for a protein-packed meal",
+    ],
+    suggestedSides: [
+      { name: "Chicken Satay", description: "The classic Thai pairing with grilled chicken skewers" },
+      { name: "Spring Rolls", description: "A rich dipping sauce for fresh vegetable rolls" },
+      { name: "Cold Noodles", description: "Toss with chilled rice noodles and veggies" },
+      { name: "Stir-Fry", description: "Use as a finishing sauce for any stir-fry" },
+    ],
   },
   {
     id: "indian-tikka-masala-sauce",
@@ -13694,6 +13782,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 165, protein: 2, carbs: 10, fat: 14, fiber: 2, sodium: 220 },
     cuisine: "indian",
+    proteinTips: [
+      "Swap heavy cream for Greek yogurt for a lighter, high-protein version",
+      "Add chickpeas to the sauce for 7g plant protein per serving",
+      "Use as a sauce for grilled paneer or chicken for 30g+ protein",
+    ],
+    suggestedSides: [
+      { name: "Grilled Chicken", description: "Toss with grilled chicken for classic tikka masala" },
+      { name: "Paneer", description: "Simmer paneer cubes in this sauce for vegetarian option" },
+      { name: "Basmati Rice", description: "Serve over fluffy basmati or with warm naan" },
+      { name: "Roasted Cauliflower", description: "Pour over roasted cauliflower for veggie tikka" },
+    ],
   },
   {
     id: "japanese-teriyaki-sauce",
@@ -13722,6 +13821,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 65, protein: 1, carbs: 15, fat: 0.5, sodium: 580 },
     cuisine: "asian",
+    proteinTips: [
+      "Glaze chicken or salmon for a 35g+ protein teriyaki dinner",
+      "Toss with crispy tofu for plant-based protein",
+      "Use as a marinade — the soy sauce tenderizes and flavors meat",
+    ],
+    suggestedSides: [
+      { name: "Teriyaki Chicken", description: "Brush on chicken in the last minutes of grilling" },
+      { name: "Salmon", description: "A sweet-savory glaze for baked or grilled salmon" },
+      { name: "Stir-Fry", description: "Toss with vegetables and protein over rice" },
+      { name: "Rice Bowls", description: "Drizzle over rice bowls with pickled veggies" },
+    ],
   },
   {
     id: "chimichurri-sauce",
@@ -13751,6 +13861,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 165, protein: 0.5, carbs: 1, fat: 18, sodium: 75 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Serve over grilled steak for 45g+ protein per serving",
+      "Drizzle on grilled chicken thighs for a fresh herb punch",
+      "Add hemp seeds for 5g plant protein without changing the flavor",
+    ],
+    suggestedSides: [
+      { name: "Grilled Steak", description: "The quintessential Argentinian pairing" },
+      { name: "Grilled Chicken", description: "Spoon over chicken for bright, herby flavor" },
+      { name: "Roasted Vegetables", description: "Drizzle over charred vegetables" },
+      { name: "Crusty Bread", description: "Dip warm bread into the herbaceous oil" },
+    ],
   },
   {
     id: "mole-sauce",
@@ -13780,6 +13901,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 85, protein: 3, carbs: 10, fat: 4, fiber: 2, sodium: 320 },
     cuisine: "mexican",
+    proteinTips: [
+      "Peanut butter adds 3g protein — use extra for a richer, nuttier mole",
+      "Serve over shredded chicken or turkey for a 40g+ protein meal",
+      "Add pepitas (pumpkin seeds) for traditional flavor and plant protein",
+    ],
+    suggestedSides: [
+      { name: "Chicken Enchiladas", description: "Pour over enchiladas for rich, complex flavor" },
+      { name: "Turkey", description: "A traditional pairing with braised turkey" },
+      { name: "Tamales", description: "Drizzle over tamales for authentic Mexican flavor" },
+      { name: "Rice & Beans", description: "Serve alongside for a complete meal" },
+    ],
   },
   {
     id: "zhug-sauce",
@@ -13808,6 +13940,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 140, protein: 1, carbs: 3, fat: 14, sodium: 100 },
     cuisine: "middle-eastern",
+    proteinTips: [
+      "Drizzle over grilled chicken or lamb for a protein-packed meal",
+      "Mix with Greek yogurt for a spicy, protein-rich dipping sauce",
+      "Add tahini for plant protein and a creamy twist",
+    ],
+    suggestedSides: [
+      { name: "Falafel", description: "A fiery green sauce for crispy falafel" },
+      { name: "Shawarma", description: "Essential condiment for chicken or lamb shawarma" },
+      { name: "Grilled Meats", description: "Spoon over any grilled meat for herbaceous heat" },
+      { name: "Eggs", description: "Drizzle over fried or scrambled eggs" },
+    ],
   },
   {
     id: "sweet-potato-tahini-sauce",
@@ -13836,6 +13979,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 155, protein: 3, carbs: 18, fat: 9, fiber: 3, sodium: 95 },
     cuisine: "middle-eastern",
+    proteinTips: [
+      "Tahini provides 3g protein per serving — use extra for a nuttier sauce",
+      "Blend in Greek yogurt for a creamier, protein-rich version",
+      "Drizzle over chickpea bowls for a complete plant-protein meal",
+    ],
+    suggestedSides: [
+      { name: "Grain Bowls", description: "A sweet, nutty sauce for quinoa and roasted veggies" },
+      { name: "Roasted Vegetables", description: "Drizzle over roasted cauliflower and broccoli" },
+      { name: "Falafel Wraps", description: "A unique tahini sauce for falafel" },
+      { name: "Sweet Potato Fries", description: "Use as a dipping sauce for baked fries" },
+    ],
   },
   // ============ HOMEMADE CONDIMENTS ============
   {
