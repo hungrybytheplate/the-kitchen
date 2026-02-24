@@ -16906,22 +16906,15 @@ const keyDrinkIngredients: Record<string, string[]> = {
   "cookies-and-cream-shake": ["chocolate", "milk"],
   "kiwi-spinach-power-smoothie": ["kiwi", "spinach"],
   "tropical-collagen-glow-smoothie": ["pineapple", "collagen"],
-  "aperol-spritz": ["aperol", "club-soda"],
   "mezcal-paloma": ["mezcal", "grapefruit-juice"],
   "coconut-rum-punch": ["coconut-rum", "pineapple-juice"],
-  "cucumber-elderflower-spritz": ["cucumber", "elderflower"],
   "blackberry-ginger-smash-mocktail": ["blackberries", "ginger-fresh"],
-  "watermelon-basil-cooler": ["watermelon", "basil"],
   "iced-brown-sugar-oatmilk-espresso": ["espresso", "brown-sugar-syrup"],
-  "lavender-honey-latte": ["espresso", "lavender-syrup"],
-  "dirty-chai-latte": ["chai", "espresso"],
   "vanilla-cold-foam-cold-brew": ["coffee", "vanilla-syrup"],
-  "matcha-strawberry-latte": ["matcha", "strawberries"],
   "strawberry-basil-lemonade": ["strawberries", "lemon", "basil"],
   "mango-chili-limeade": ["mango", "lime", "cayenne"],
   "peach-ginger-refresher": ["peach", "ginger-fresh"],
   "pomegranate-mint-sparkler": ["pomegranate", "mint"],
-  "blueberry-lavender-lemonade": ["blueberries", "lavender-syrup"],
 };
 
 export function getDrinksForIngredients(selectedIngredients: string[]): Drink[] {
