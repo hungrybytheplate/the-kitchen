@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key, Snowflake, Star, Gauge, HeartPulse } from "lucide-react";
+import { Clock, Users, Heart, Plus, ShoppingCart, Check, ChefHat, Key, Snowflake, Star, Gauge, HeartPulse, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
@@ -152,6 +152,12 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
                   <Badge className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400">
                     <HeartPulse className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                     <span className="hidden xs:inline">Heart Healthy</span>
+                  </Badge>
+                )}
+                {recipe.antiInflammatory && (
+                  <Badge className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-orange-500/15 border border-orange-500/30 text-orange-600 dark:text-orange-400">
+                    <Sparkles className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
+                    <span className="hidden xs:inline">Anti-Inflammatory</span>
                   </Badge>
                 )}
                 {recipe.isHoliday && (
