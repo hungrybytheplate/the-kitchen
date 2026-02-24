@@ -6,6 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
+import { ShareRecipeButton } from "./ShareRecipeButton";
 import { motion } from "framer-motion";
 import { staggerItem, heartBeat } from "@/components/ui/animated";
 interface RecipeCardProps {
