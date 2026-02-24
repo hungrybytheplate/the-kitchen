@@ -183,30 +183,33 @@ export function RecipeCard({ recipe, isSaved, onSave, onAddToCalendar, onAddToSh
               </p>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <motion.div whileTap={heartBeat}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={(e) => { e.stopPropagation(); onSave(); }}
-                  className={cn(
-                    "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
-                    isSaved 
-                      ? "text-primary bg-primary/10 hover:bg-primary/20" 
-                      : "hover:bg-accent/60"
-                  )}
-                  aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
-                >
-                  <motion.div
-                    animate={isSaved ? { scale: [1, 1.3, 1] } : { scale: 1 }}
-                    transition={{ duration: 0.3 }}
+              <div className="flex items-center gap-0.5">
+                <ShareRecipeButton recipe={recipe} variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10 rounded-full" />
+                <motion.div whileTap={heartBeat}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={(e) => { e.stopPropagation(); onSave(); }}
+                    className={cn(
+                      "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
+                      isSaved 
+                        ? "text-primary bg-primary/10 hover:bg-primary/20" 
+                        : "hover:bg-accent/60"
+                    )}
+                    aria-label={isSaved ? `Remove ${recipe.title} from saved recipes` : `Save ${recipe.title}`}
                   >
-                    <Heart className={cn(
-                      "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
-                      isSaved && "fill-current"
-                    )} />
-                  </motion.div>
-                </Button>
-              </motion.div>
+                    <motion.div
+                      animate={isSaved ? { scale: [1, 1.3, 1] } : { scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Heart className={cn(
+                        "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
+                        isSaved && "fill-current"
+                      )} />
+                    </motion.div>
+                  </Button>
+                </motion.div>
+              </div>
               {saveCount > 0 && (
                 <span className="text-[10px] sm:text-xs text-muted-foreground font-medium">
                   {formatSaveCount(saveCount)}
