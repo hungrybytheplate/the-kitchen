@@ -501,6 +501,24 @@ export function RecipeDetailDialog({
                   </Card>
                 )}
 
+                {/* Suggested Pairings */}
+                {recipe.suggestedSides && recipe.suggestedSides.length > 0 && (
+                  <Card className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200/50 dark:border-amber-800/50">
+                    <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                      <Utensils className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                      <span className="text-amber-700 dark:text-amber-300">Pairs Well With</span>
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {recipe.suggestedSides.map((side, index) => (
+                        <div key={index} className="p-2.5 rounded-lg bg-background/60 border border-border/50">
+                          <p className="text-sm font-medium">{side.name}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{side.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                )}
+
                 {/* Seasonal Badge */}
                 {recipe.season && (
                   <div className="flex items-center gap-2">
