@@ -15952,29 +15952,6 @@ export const sampleDrinks: Drink[] = [
 
   // ============ NEW BATCH: COCKTAILS & MOCKTAILS ============
   {
-    id: "aperol-spritz",
-    title: "Aperol Spritz",
-    drinkType: "cocktail",
-    description: "The iconic Italian sunset cocktail — bitter, bubbly, and effortlessly cool",
-    prepTime: "3 min",
-    ingredients: ["aperol", "club-soda", "orange", "ice"],
-    instructions: [
-      "Fill a large wine glass with ice.",
-      "Pour 2 oz Aperol over the ice.",
-      "Top with 3 oz club soda and stir gently.",
-      "Garnish with an orange slice."
-    ],
-    matchedIngredients: [],
-    glassType: "Wine Glass",
-    garnish: "Orange slice",
-    isAlcoholic: true,
-    nutrition: { calories: 140, sugar: 10, carbs: 12 },
-    occasion: "brunch",
-    season: "summer",
-    alcoholSubstitutions: [{ original: "Aperol", alternatives: ["Campari (more bitter)", "Non-alcoholic Aperol alternative"], notes: "Campari gives a more intense, bitter flavor" }],
-    virginVersion: { replaces: [{ original: "Aperol", substitute: "Orange juice + dash of bitters" }], notes: "Use fresh-squeezed OJ with a splash of grapefruit for complexity" },
-  },
-  {
     id: "mezcal-paloma",
     title: "Smoky Mezcal Paloma",
     drinkType: "cocktail",
@@ -16021,28 +15998,6 @@ export const sampleDrinks: Drink[] = [
     virginVersion: { replaces: [{ original: "Coconut rum", substitute: "Coconut water + coconut cream" }], notes: "Still tropical and creamy without the rum" },
   },
   {
-    id: "cucumber-elderflower-spritz",
-    title: "Cucumber Elderflower Spritz",
-    drinkType: "mocktail",
-    description: "Light, elegant, and garden-fresh — a sophisticated mocktail that looks as good as it tastes",
-    prepTime: "5 min",
-    ingredients: ["cucumber", "elderflower", "lime", "club-soda", "mint", "ice"],
-    instructions: [
-      "Muddle 3-4 cucumber slices with 1 oz elderflower syrup and juice of ½ lime.",
-      "Add to a glass with ice.",
-      "Top with 4 oz club soda and stir gently.",
-      "Garnish with a cucumber ribbon and fresh mint."
-    ],
-    matchedIngredients: [],
-    glassType: "Wine Glass",
-    garnish: "Cucumber ribbon and mint sprig",
-    isAlcoholic: false,
-    healthTags: ["Low Calorie", "Hydrating"],
-    nutrition: { calories: 55, sugar: 10, carbs: 12 },
-    occasion: "brunch",
-    season: "spring",
-  },
-  {
     id: "blackberry-ginger-smash-mocktail",
     title: "Blackberry Ginger Smash",
     drinkType: "mocktail",
@@ -16063,28 +16018,6 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 70, sugar: 14, carbs: 18 },
     occasion: "date-night",
     season: "all-season",
-  },
-  {
-    id: "watermelon-basil-cooler",
-    title: "Watermelon Basil Cooler",
-    drinkType: "mocktail",
-    description: "Sweet watermelon with aromatic basil and a hint of lime — summer in a glass",
-    prepTime: "5 min",
-    ingredients: ["watermelon", "basil", "lime", "simple-syrup", "ice"],
-    instructions: [
-      "Blend 2 cups watermelon chunks until smooth.",
-      "Strain through a fine mesh sieve into a glass.",
-      "Add juice of ½ lime, ½ oz simple syrup, and a few torn basil leaves.",
-      "Stir with ice and garnish with a basil leaf and watermelon wedge."
-    ],
-    matchedIngredients: [],
-    glassType: "Highball",
-    garnish: "Basil leaf and watermelon wedge",
-    isAlcoholic: false,
-    healthTags: ["Hydrating", "Low Calorie", "Vitamin C"],
-    nutrition: { calories: 65, sugar: 14, carbs: 16 },
-    occasion: "everyday",
-    season: "summer",
   },
 
   // ============ NEW BATCH: COFFEE & TEA ============
