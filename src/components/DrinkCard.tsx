@@ -6,6 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Drink, HealthTag } from "@/data/drinks";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
+import { ShareRecipeButton } from "./ShareRecipeButton";
 
 interface DrinkCardProps {
   drink: Drink;
@@ -151,25 +152,30 @@ export function DrinkCard({ drink, isSaved, onSave, onAddToShopping }: DrinkCard
                 {drink.description}
               </p>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={(e) => { e.stopPropagation(); onSave(); }}
-              className={cn(
-                "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
-                isSaved
-                  ? "text-primary bg-primary/10 hover:bg-primary/20"
-                  : "hover:bg-accent/60"
-              )}
-              aria-label={isSaved ? `Remove ${drink.title} from saved drinks` : `Save ${drink.title}`}
-            >
-              <Heart
-                className={cn(
-                  "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
-                  isSaved && "fill-current scale-110"
-                )}
-              />
-            </Button>
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex items-center gap-0.5">
+                <ShareRecipeButton recipe={drink} variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10 rounded-full" />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={(e) => { e.stopPropagation(); onSave(); }}
+                  className={cn(
+                    "shrink-0 rounded-full transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10",
+                    isSaved
+                      ? "text-primary bg-primary/10 hover:bg-primary/20"
+                      : "hover:bg-accent/60"
+                  )}
+                  aria-label={isSaved ? `Remove ${drink.title} from saved drinks` : `Save ${drink.title}`}
+                >
+                  <Heart
+                    className={cn(
+                      "h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300",
+                      isSaved && "fill-current scale-110"
+                    )}
+                  />
+                </Button>
+              </div>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4 mt-2.5 sm:mt-4 text-xs sm:text-sm">

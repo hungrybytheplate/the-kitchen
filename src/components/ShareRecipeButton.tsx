@@ -8,10 +8,14 @@ import {
 import { Share2, Link, MessageCircle, Mail, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import type { Recipe } from "@/data/recipes";
+interface ShareableItem {
+  id: string;
+  title: string;
+  description: string;
+}
 
 interface ShareRecipeButtonProps {
-  recipe: Recipe;
+  recipe: ShareableItem;
   variant?: "ghost" | "outline" | "default";
   size?: "sm" | "default" | "icon";
   className?: string;
