@@ -5530,6 +5530,17 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegan", "gluten-free", "dairy-free"],
     difficulty: "easy",
     nutrition: { calories: 95, protein: 0, carbs: 3, fat: 10 },
+    proteinTips: [
+      "Whisk in a tbsp of tahini for 3g plant protein per serving",
+      "Add nutritional yeast for a savory, protein-rich boost",
+      "Drizzle over a high-protein salad with grilled chicken or chickpeas",
+    ],
+    suggestedSides: [
+      { name: "Caprese Salad", description: "A classic pairing with fresh mozzarella and tomatoes" },
+      { name: "Grilled Chicken Salad", description: "Elevates mixed greens with warm grilled chicken" },
+      { name: "Roasted Vegetables", description: "Drizzle over roasted root veggies for tang" },
+      { name: "Crusty Bread", description: "Perfect for dipping alongside olive oil" },
+    ],
   },
   {
     id: "caesar-dressing",
@@ -5558,6 +5569,17 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free"],
     difficulty: "medium",
     nutrition: { calories: 125, protein: 2, carbs: 1, fat: 13 },
+    proteinTips: [
+      "Use extra parmesan for more protein — each tbsp adds 2g",
+      "Blend in Greek yogurt for a lighter, protein-rich Caesar",
+      "Add a second egg yolk for richer flavor and extra protein",
+    ],
+    suggestedSides: [
+      { name: "Classic Caesar Salad", description: "Toss with romaine, croutons, and shaved parmesan" },
+      { name: "Grilled Chicken Wraps", description: "Use as a spread for protein-packed wraps" },
+      { name: "Roasted Broccoli", description: "Drizzle over crispy roasted broccoli florets" },
+      { name: "Grilled Shrimp", description: "Perfect dipping sauce for lemon-garlic shrimp" },
+    ],
   },
   {
     id: "honey-mustard-dressing",
@@ -5584,6 +5606,17 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free", "dairy-free"],
     difficulty: "easy",
     nutrition: { calories: 85, protein: 0, carbs: 8, fat: 6 },
+    proteinTips: [
+      "Mix in Greek yogurt for a creamy, high-protein honey mustard",
+      "Add a tbsp of tahini for 3g protein and nutty depth",
+      "Use as a marinade for chicken breast before grilling",
+    ],
+    suggestedSides: [
+      { name: "Chicken Tenders", description: "The ultimate dipping sauce for crispy chicken" },
+      { name: "Pretzel Bites", description: "Soft pretzels with honey mustard are irresistible" },
+      { name: "Ham & Cheese Sandwich", description: "Spread on sandwiches for sweet-tangy flavor" },
+      { name: "Salad Greens", description: "Toss with mixed greens, pecans, and dried cranberries" },
+    ],
   },
   {
     id: "ranch-dressing",
@@ -5611,6 +5644,17 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 75, protein: 1, carbs: 2, fat: 7 },
+    proteinTips: [
+      "Swap sour cream for Greek yogurt for 8g+ extra protein per serving",
+      "Blend in cottage cheese for a protein-packed ranch with same creaminess",
+      "Use as a marinade for chicken — the herbs infuse beautifully",
+    ],
+    suggestedSides: [
+      { name: "Buffalo Wings", description: "Cool ranch balances spicy buffalo heat perfectly" },
+      { name: "Veggie Platter", description: "The classic crudité dipping sauce" },
+      { name: "Baked Potatoes", description: "Drizzle over loaded baked potatoes" },
+      { name: "Pizza", description: "Use as a dipping sauce for pizza crust" },
+    ],
   },
   {
     id: "greek-lemon-dressing",
@@ -5638,6 +5682,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 110, protein: 0, carbs: 1, fat: 12 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Crumble feta into the dressing for 4g protein per serving",
+      "Whisk in a tbsp of tahini for plant-based protein and creaminess",
+      "Add nutritional yeast for a cheesy, protein-rich twist",
+    ],
+    suggestedSides: [
+      { name: "Greek Salad", description: "The essential dressing for tomatoes, cucumbers, and olives" },
+      { name: "Grilled Lamb Chops", description: "Bright lemon cuts through rich lamb beautifully" },
+      { name: "Roasted Chicken", description: "Drizzle over herb-roasted chicken thighs" },
+      { name: "Grain Bowls", description: "Brighten up quinoa or farro bowls" },
+    ],
   },
   {
     id: "asian-sesame-dressing",
@@ -5666,6 +5721,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 70, protein: 1, carbs: 5, fat: 5 },
     cuisine: "asian",
+    proteinTips: [
+      "Add a tbsp of peanut butter for 4g protein and nutty richness",
+      "Whisk in tahini for plant-based protein and creamy texture",
+      "Toss with edamame-loaded salads for a complete protein meal",
+    ],
+    suggestedSides: [
+      { name: "Asian Chicken Salad", description: "Toss with shredded chicken, cabbage, and mandarin oranges" },
+      { name: "Soba Noodles", description: "A cold noodle salad dressing for hot summer days" },
+      { name: "Grilled Salmon", description: "Drizzle over pan-seared or grilled salmon fillets" },
+      { name: "Spring Rolls", description: "Use as a dipping sauce for fresh vegetable spring rolls" },
+    ],
   },
 
   // ============ HOMEMADE ICINGS & FROSTINGS ============
@@ -7297,6 +7363,17 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 120, protein: 2, carbs: 6, fat: 10 },
+    proteinTips: [
+      "Swap sour cream for Greek yogurt for 10g+ extra protein",
+      "Blend in 1/4 cup cottage cheese for creaminess and 7g protein",
+      "Serve with high-protein dippers like chicken strips or turkey slices",
+    ],
+    suggestedSides: [
+      { name: "Crispy Potato Chips", description: "The classic pairing for caramelized onion dip" },
+      { name: "Crudité Platter", description: "Carrots, celery, and bell peppers for dipping" },
+      { name: "Grilled Burgers", description: "Dollop on burgers instead of regular condiments" },
+      { name: "Roasted Potatoes", description: "Serve alongside as a creamy accompaniment" },
+    ],
   },
   {
     id: "seven-layer-dip",
@@ -10060,6 +10137,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 65, protein: 5, carbs: 4, fat: 3, fiber: 0, sodium: 120 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Already protein-rich from Greek yogurt — use full-fat for extra satisfaction",
+      "Blend in cottage cheese for 7g extra protein per serving",
+      "Top with toasted pine nuts for plant protein and crunch",
+    ],
+    suggestedSides: [
+      { name: "Lamb Gyros", description: "The essential Greek pairing with warm pita" },
+      { name: "Grilled Chicken Skewers", description: "Cool tzatziki balances charred, spiced chicken" },
+      { name: "Falafel Platter", description: "A must-have dip alongside crispy falafel" },
+      { name: "Veggie Crudités", description: "Fresh cucumbers, carrots, and peppers for dipping" },
+    ],
   },
   {
     id: "baba-ganoush",
@@ -10088,6 +10176,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 95, protein: 3, carbs: 10, fat: 6, fiber: 4, sodium: 140 },
     cuisine: "middle-eastern",
+    proteinTips: [
+      "Add extra tahini for 3g more plant protein per serving",
+      "Blend in white beans for a protein-boosted, creamier dip",
+      "Top with a drizzle of yogurt and toasted pine nuts for protein",
+    ],
+    suggestedSides: [
+      { name: "Warm Pita Bread", description: "Tear and dip for the classic experience" },
+      { name: "Grilled Lamb", description: "Smoky eggplant complements rich lamb perfectly" },
+      { name: "Falafel", description: "A staple mezze pairing with crispy falafel" },
+      { name: "Roasted Vegetables", description: "Spread on a plate and top with roasted veggies" },
+    ],
   },
   {
     id: "pimento-cheese",
@@ -10116,6 +10215,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 220, protein: 8, carbs: 2, fat: 20, fiber: 0, sodium: 320 },
     cuisine: "american",
+    proteinTips: [
+      "Already high in protein from cheddar — boost further with extra sharp cheese",
+      "Mix in Greek yogurt instead of half the mayo for 5g+ extra protein",
+      "Blend in cottage cheese for a lower-fat, higher-protein version",
+    ],
+    suggestedSides: [
+      { name: "Celery Sticks", description: "A Southern classic — scooped with fresh celery" },
+      { name: "Crackers", description: "Spread on your favorite crackers for a quick snack" },
+      { name: "Grilled Burgers", description: "Top burgers with a generous scoop" },
+      { name: "BLT Sandwich", description: "Use as a spread instead of mayo for extra flavor" },
+    ],
   },
   {
     id: "whipped-feta",
@@ -13586,6 +13696,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 25, protein: 0, carbs: 6, fat: 0, fiber: 0, sodium: 130 },
     cuisine: "american",
+    proteinTips: [
+      "Mix with Greek yogurt for a tangy, protein-rich dipping sauce",
+      "Serve alongside high-protein foods like grilled chicken or turkey burgers",
+      "Add a dash of Worcestershire for umami depth",
+    ],
+    suggestedSides: [
+      { name: "Homemade French Fries", description: "Nothing beats fresh ketchup with crispy fries" },
+      { name: "Turkey Burgers", description: "A healthier ketchup for protein-packed burgers" },
+      { name: "Meatloaf", description: "Use as a glaze on top before baking" },
+      { name: "Scrambled Eggs", description: "A breakfast classic with homemade ketchup" },
+    ],
   },
   {
     id: "homemade-bbq-sauce",
@@ -13622,6 +13743,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 55, protein: 0, carbs: 14, fat: 0, fiber: 0, sodium: 280 },
     cuisine: "american",
+    proteinTips: [
+      "Use as a glaze on grilled chicken thighs for 40g+ protein per serving",
+      "Mix with Greek yogurt for a protein-rich BBQ dipping sauce",
+      "Brush on salmon fillets for a sweet-smoky protein dinner",
+    ],
+    suggestedSides: [
+      { name: "Pulled Pork", description: "The quintessential BBQ sauce pairing" },
+      { name: "Grilled Chicken", description: "Brush on during the last few minutes of grilling" },
+      { name: "Baby Back Ribs", description: "Slather on ribs for a sticky, caramelized glaze" },
+      { name: "Brisket Sandwich", description: "Drizzle over sliced brisket on toasted buns" },
+    ],
   },
   {
     id: "homemade-hot-sauce",
@@ -13653,6 +13785,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 5, protein: 0, carbs: 1, fat: 0, fiber: 0, sodium: 240 },
     cuisine: "american",
+    proteinTips: [
+      "Dash on eggs, grilled chicken, or steak for a protein-rich kick",
+      "Mix with Greek yogurt for a spicy, protein-boosted hot sauce dip",
+      "Add to high-protein stir-fries for customizable heat",
+    ],
+    suggestedSides: [
+      { name: "Breakfast Eggs", description: "A few dashes transform scrambled or fried eggs" },
+      { name: "Tacos", description: "Essential for adding heat to any taco creation" },
+      { name: "Wings", description: "Mix with butter for homemade buffalo sauce" },
+      { name: "Pizza", description: "Drizzle over pizza for a spicy kick" },
+    ],
   },
   {
     id: "homemade-mayo",
@@ -13683,6 +13826,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 125, protein: 0, carbs: 0, fat: 14, sodium: 85, cholesterol: 12 },
     cuisine: "french",
+    proteinTips: [
+      "Mix 50/50 with Greek yogurt for a high-protein, lower-fat mayo",
+      "Use as a base for protein-rich chicken or tuna salad",
+      "Blend with cottage cheese for a tangy, protein-packed spread",
+    ],
+    suggestedSides: [
+      { name: "BLT Sandwich", description: "Fresh mayo makes the classic BLT extraordinary" },
+      { name: "Deviled Eggs", description: "The essential base for creamy deviled egg filling" },
+      { name: "Chicken Salad", description: "Homemade mayo elevates classic chicken salad" },
+      { name: "French Fries", description: "European-style fries with mayo for dipping" },
+    ],
   },
   {
     id: "homemade-mustard",
@@ -13714,6 +13868,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 20, protein: 1, carbs: 2, fat: 1, fiber: 0, sodium: 75 },
     cuisine: "french",
+    proteinTips: [
+      "Pair with high-protein meats — mustard is a natural complement to sausages and roasts",
+      "Mix with Greek yogurt for a tangy, protein-rich dipping sauce",
+      "Use as a rub base for pork tenderloin or chicken breast",
+    ],
+    suggestedSides: [
+      { name: "Soft Pretzels", description: "The perfect mustard-pretzel combo" },
+      { name: "Charcuterie Board", description: "A must-have condiment for cured meats and cheeses" },
+      { name: "Grilled Sausages", description: "Whole grain mustard is the ideal sausage partner" },
+      { name: "Ham Sandwich", description: "Elevates deli sandwiches with texture and tang" },
+    ],
   },
   {
     id: "homemade-worcestershire-sauce",
@@ -13747,6 +13912,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 10, protein: 0, carbs: 2, fat: 0, sodium: 160 },
     cuisine: "american",
+    proteinTips: [
+      "Use in marinades for steak or chicken to boost protein meals",
+      "Add to savory protein-packed stews and braises",
+      "Mix into ground beef or turkey for enhanced umami flavor",
+    ],
+    suggestedSides: [
+      { name: "Steak", description: "A dash adds complex umami to grilled or pan-seared steak" },
+      { name: "Bloody Mary", description: "Essential ingredient in the classic cocktail" },
+      { name: "Caesar Dressing", description: "A key ingredient in authentic Caesar" },
+      { name: "Meatloaf", description: "Add to the mixture for depth of flavor" },
+    ],
   },
   {
     id: "homemade-sriracha",
@@ -13777,6 +13953,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 10, protein: 0, carbs: 2, fat: 0, sodium: 200 },
     cuisine: "asian",
+    proteinTips: [
+      "Drizzle on scrambled eggs or tofu for a spicy protein breakfast",
+      "Mix with mayo and Greek yogurt for a spicy protein-rich aioli",
+      "Use on grilled chicken bowls for customizable heat and protein",
+    ],
+    suggestedSides: [
+      { name: "Pho", description: "Add a squeeze for heat in Vietnamese noodle soup" },
+      { name: "Fried Rice", description: "Drizzle over fried rice for a spicy kick" },
+      { name: "Banh Mi", description: "Essential condiment for Vietnamese sandwiches" },
+      { name: "Ramen", description: "Stir into ramen broth for added complexity and heat" },
+    ],
   },
   {
     id: "homemade-teriyaki-sauce",
@@ -13810,6 +13997,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 45, protein: 1, carbs: 10, fat: 0, sodium: 520 },
     cuisine: "asian",
+    proteinTips: [
+      "Glaze chicken breast or thighs for a 40g+ protein teriyaki dinner",
+      "Brush on salmon fillets for a sweet-savory high-protein meal",
+      "Toss with crispy tofu cubes for a plant-based protein option",
+    ],
+    suggestedSides: [
+      { name: "Teriyaki Chicken", description: "The classic pairing — glaze chicken in the last minutes of cooking" },
+      { name: "Salmon Fillets", description: "Brush on salmon for a caramelized, umami-rich glaze" },
+      { name: "Stir-Fry Vegetables", description: "Toss with broccoli, snap peas, and bell peppers" },
+      { name: "Rice Bowls", description: "Drizzle over rice bowls with protein and pickled veggies" },
+    ],
   },
   // ============ QUICK & EASY RECIPES (Under 20 min) ============
   {
