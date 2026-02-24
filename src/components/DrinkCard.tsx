@@ -6,6 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Drink, HealthTag } from "@/data/drinks";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
+import { ShareRecipeButton } from "./ShareRecipeButton";
 
 interface DrinkCardProps {
   drink: Drink;
