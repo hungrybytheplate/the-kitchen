@@ -215,6 +215,8 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "collagen", name: "Collagen Powder" },
       { id: "tapioca-pearls", name: "Tapioca Pearls/Boba" },
       { id: "taro-powder", name: "Taro Powder" },
+      { id: "chamomile-tea", name: "Chamomile Tea" },
+      { id: "walnuts", name: "Walnuts" },
     ],
   },
 ];

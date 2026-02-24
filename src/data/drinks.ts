@@ -15764,7 +15764,7 @@ export const sampleDrinks: Drink[] = [
     drinkType: "wellness",
     description: "Concentrated wellness shot with ginger, turmeric, lemon, and cayenne to combat inflammation",
     prepTime: "3 min",
-    ingredients: ["ginger-fresh", "turmeric", "lemon", "honey", "cayenne-pepper"],
+    ingredients: ["ginger-fresh", "turmeric", "lemon", "honey", "cayenne"],
     instructions: [
       "Juice or finely grate 2 inches of fresh ginger.",
       "Mix with juice of 1 lemon, ½ tsp turmeric, 1 tsp honey, and a tiny pinch of cayenne.",
