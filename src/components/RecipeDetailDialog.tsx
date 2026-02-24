@@ -234,7 +234,7 @@ export function RecipeDetailDialog({
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2 line-clamp-2">{recipe.description}</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
-                <ShareRecipeButton recipe={recipe} size="icon" className="rounded-full" />
+                <ShareRecipeButton recipe={recipe} size="icon" className="rounded-full" showDropdown />
                 <Button
                   variant="ghost"
                   size="icon"

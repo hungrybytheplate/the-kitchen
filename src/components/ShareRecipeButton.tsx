@@ -8,6 +8,7 @@ import {
 import { Share2, Link, MessageCircle, Mail, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+
 interface ShareableItem {
   id: string;
   title: string;
@@ -19,9 +20,10 @@ interface ShareRecipeButtonProps {
   variant?: "ghost" | "outline" | "default";
   size?: "sm" | "default" | "icon";
   className?: string;
+  showDropdown?: boolean;
 }
 
-export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", className }: ShareRecipeButtonProps) {
+export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", className, showDropdown = false }: ShareRecipeButtonProps) {
   const [copied, setCopied] = useState(false);
   
   const getShareUrl = () => {
@@ -39,7 +41,7 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
       setCopied(true);
       toast({
         title: "Link copied!",
-        description: "Recipe link copied to clipboard",
+        description: `Share link for "${recipe.title}" copied to clipboard`,
       });
       setTimeout(() => setCopied(false), 2000);
     } catch (e) {
@@ -59,13 +61,14 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
           text: getShareText(),
           url: getShareUrl(),
         });
+        return true;
       } catch (e) {
-        // User cancelled or error
         if ((e as Error).name !== 'AbortError') {
           console.error('Share failed:', e);
         }
       }
     }
+    return false;
   };
   
   const handleEmailShare = () => {
@@ -78,33 +81,48 @@ export function ShareRecipeButton({ recipe, variant = "ghost", size = "sm", clas
     const text = encodeURIComponent(`${getShareText()} ${getShareUrl()}`);
     window.open(`sms:?body=${text}`);
   };
+
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Try native share first (mobile), fall back to copy link
+    const supportsNativeShare = typeof navigator !== 'undefined' && navigator.share;
+    if (supportsNativeShare) {
+      await handleNativeShare();
+    } else {
+      await handleCopyLink();
+    }
+  };
   
-  // Use native share on mobile if available
-  const supportsNativeShare = typeof navigator !== 'undefined' && navigator.share;
-  
-  if (supportsNativeShare) {
+  // Simple button mode (used on cards) — one click shares immediately
+  if (!showDropdown) {
     return (
       <Button
         variant={variant}
         size={size}
         className={className}
-        onClick={(e) => {
-          e.stopPropagation();
-          handleNativeShare();
-        }}
+        onClick={handleShare}
       >
-        <Share2 className="h-4 w-4" />
-        {size !== "icon" && <span className="ml-1.5">Share</span>}
+        {copied ? (
+          <Check className="h-4 w-4 text-green-500" />
+        ) : (
+          <Share2 className="h-4 w-4" />
+        )}
+        {size !== "icon" && <span className="ml-1.5">{copied ? "Copied!" : "Share"}</span>}
       </Button>
     );
   }
-  
+
+  // Dropdown mode (used in detail dialogs) — shows share options
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
         <Button variant={variant} size={size} className={className}>
-          <Share2 className="h-4 w-4" />
-          {size !== "icon" && <span className="ml-1.5">Share</span>}
+          {copied ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Share2 className="h-4 w-4" />
+          )}
+          {size !== "icon" && <span className="ml-1.5">{copied ? "Copied!" : "Share"}</span>}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48 bg-popover z-50" onClick={(e) => e.stopPropagation()}>
