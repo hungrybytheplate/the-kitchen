@@ -9978,6 +9978,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 145, protein: 3, carbs: 4, fat: 13, fiber: 0, sodium: 320 },
     cuisine: "american",
+    proteinTips: [
+      "Swap sour cream for Greek yogurt for 8g+ extra protein",
+      "Blend in cottage cheese for a protein-packed, tangy base",
+      "Serve with high-protein dippers like turkey roll-ups or jerky",
+    ],
+    suggestedSides: [
+      { name: "Potato Chips", description: "Ridged chips are perfect for scooping" },
+      { name: "Pretzels", description: "Soft or hard pretzels pair great with pickle tang" },
+      { name: "Veggie Sticks", description: "Carrots and celery for healthy dipping" },
+      { name: "Sandwich Spread", description: "Use as a tangy spread for deli sandwiches" },
+    ],
   },
   {
     id: "pickle-wrapped-ham",
@@ -10153,6 +10164,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 160, protein: 2, carbs: 9, fat: 14, fiber: 7, sodium: 150 },
     cuisine: "mexican",
+    proteinTips: [
+      "Stir in crumbled cotija or queso fresco for 3g protein per serving",
+      "Mix in Greek yogurt for a creamier, protein-rich guacamole",
+      "Top with pepitas (pumpkin seeds) for 5g plant protein per tbsp",
+    ],
+    suggestedSides: [
+      { name: "Tortilla Chips", description: "The classic dipping companion" },
+      { name: "Carne Asada Tacos", description: "A must-have topping for grilled steak tacos" },
+      { name: "Breakfast Burritos", description: "Add a scoop inside for healthy fats" },
+      { name: "Grilled Fish", description: "Fresh guac pairs beautifully with grilled mahi-mahi or cod" },
+    ],
   },
   {
     id: "tzatziki",
@@ -10298,6 +10320,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 185, protein: 6, carbs: 5, fat: 16, fiber: 0, sodium: 380 },
     cuisine: "mediterranean",
+    proteinTips: [
+      "Feta is already protein-rich — use extra for more protein",
+      "Blend in Greek yogurt for a lighter, even higher-protein version",
+      "Top with toasted walnuts for 4g plant protein and crunch",
+    ],
+    suggestedSides: [
+      { name: "Warm Pita", description: "Tear and spread for a Mediterranean appetizer" },
+      { name: "Grilled Vegetables", description: "Spread on a plate and top with charred veggies" },
+      { name: "Crostini", description: "Spread on toasted baguette slices with honey drizzle" },
+      { name: "Roasted Beets", description: "The sweet-salty combo with roasted beets is divine" },
+    ],
   },
   {
     id: "beer-cheese-dip",
@@ -10326,6 +10359,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 245, protein: 12, carbs: 3, fat: 20, fiber: 0, sodium: 420 },
     cuisine: "american",
+    proteinTips: [
+      "Already protein-rich from cheese — use extra sharp for more flavor and protein",
+      "Add crumbled cooked sausage for a hearty, protein-packed version",
+      "Stir in Greek yogurt for extra creaminess and protein",
+    ],
+    suggestedSides: [
+      { name: "Soft Pretzels", description: "The ultimate beer cheese dipping combo" },
+      { name: "Bratwurst", description: "Pour over grilled brats for a pub-style meal" },
+      { name: "Steamed Broccoli", description: "A protein-rich cheese sauce for veggies" },
+      { name: "Nachos", description: "Drizzle over loaded nachos for game day" },
+    ],
   },
   {
     id: "everything-bagel-dip",
@@ -10353,6 +10397,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 165, protein: 3, carbs: 3, fat: 16, fiber: 0, sodium: 180 },
     cuisine: "american",
+    proteinTips: [
+      "Use Greek yogurt instead of sour cream for 8g+ extra protein",
+      "Blend in cottage cheese for a protein-packed base",
+      "Add smoked salmon on top for an elegant, protein-rich appetizer",
+    ],
+    suggestedSides: [
+      { name: "Bagel Chips", description: "The natural pairing — crunchy bagel with creamy dip" },
+      { name: "Veggie Sticks", description: "Carrots, celery, and cucumber for healthy dipping" },
+      { name: "Smoked Salmon", description: "Top with lox for a brunch-worthy appetizer" },
+      { name: "Crackers", description: "Spread on water crackers for easy snacking" },
+    ],
   },
   {
     id: "cowboy-caviar",
@@ -10381,6 +10436,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 145, protein: 5, carbs: 22, fat: 5, fiber: 5, sodium: 280 },
     cuisine: "mexican",
+    proteinTips: [
+      "Already protein-rich from black beans — add extra for more fiber and protein",
+      "Toss in grilled corn and shredded chicken for a protein-packed salad",
+      "Top with crumbled cotija cheese for 3g extra protein per serving",
+    ],
+    suggestedSides: [
+      { name: "Tortilla Chips", description: "Scoop up with crispy chips" },
+      { name: "Grilled Chicken Tacos", description: "Use as a fresh topping for tacos" },
+      { name: "Fish Tacos", description: "A colorful, zesty topping for grilled fish" },
+      { name: "Rice Bowls", description: "Spoon over burrito bowls for freshness" },
+    ],
   },
   {
     id: "loaded-baked-potato-dip",
@@ -10409,6 +10475,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 235, protein: 9, carbs: 3, fat: 21, fiber: 0, sodium: 380 },
     cuisine: "american",
+    proteinTips: [
+      "Already protein-rich from bacon and cheese — double the bacon for extra protein",
+      "Swap sour cream for Greek yogurt for 8g+ more protein",
+      "Add shredded rotisserie chicken for a complete meal dip",
+    ],
+    suggestedSides: [
+      { name: "Potato Chips", description: "Thick-cut chips are perfect for scooping" },
+      { name: "Celery & Carrots", description: "Balance the richness with crunchy vegetables" },
+      { name: "Bread Bowl", description: "Serve inside a hollowed-out sourdough round" },
+      { name: "Tortilla Chips", description: "Sturdy chips hold up to this hearty dip" },
+    ],
   },
   {
     id: "black-bean-corn-salsa",
@@ -10437,6 +10514,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 95, protein: 4, carbs: 18, fat: 1, fiber: 4, sodium: 180 },
     cuisine: "mexican",
+    proteinTips: [
+      "Black beans are already protein-rich — add extra for more plant protein",
+      "Toss in grilled shrimp or chicken for a protein-packed salsa bowl",
+      "Top with pepitas for plant protein and crunch",
+    ],
+    suggestedSides: [
+      { name: "Tortilla Chips", description: "A colorful, chunky salsa for dipping" },
+      { name: "Grilled Chicken", description: "Spoon over grilled chicken for a fresh topping" },
+      { name: "Tacos", description: "Add to any taco for texture and flavor" },
+      { name: "Quesadillas", description: "Serve alongside cheesy quesadillas" },
+    ],
   },
   {
     id: "bruschetta",
@@ -10465,6 +10553,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 125, protein: 3, carbs: 18, fat: 5, fiber: 2, sodium: 180 },
     cuisine: "italian",
+    proteinTips: [
+      "Top with shaved parmesan for 2g protein per tbsp",
+      "Add white beans to the tomato mixture for plant protein",
+      "Serve with prosciutto draped over the top for extra protein",
+    ],
+    suggestedSides: [
+      { name: "Antipasto Platter", description: "Part of a classic Italian appetizer spread" },
+      { name: "Grilled Chicken", description: "Spoon the tomato mixture over grilled chicken" },
+      { name: "Pasta", description: "Toss the tomato mixture with hot pasta and basil" },
+      { name: "Caprese Salad", description: "Pair with fresh mozzarella and basil" },
+    ],
   },
   {
     id: "roasted-garlic-spread",
@@ -10492,6 +10591,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 145, protein: 1, carbs: 5, fat: 14, fiber: 0, sodium: 120 },
     cuisine: "french",
+    proteinTips: [
+      "Mix roasted garlic butter with cottage cheese for a protein-rich spread",
+      "Spread on high-protein bread or use as a base for chicken dishes",
+      "Add nutritional yeast for extra protein and umami flavor",
+    ],
+    suggestedSides: [
+      { name: "Crusty Bread", description: "Spread generously on warm, crusty bread" },
+      { name: "Steak", description: "Top a grilled steak with a pat of roasted garlic butter" },
+      { name: "Mashed Potatoes", description: "Stir into mashed potatoes for incredible flavor" },
+      { name: "Roasted Chicken", description: "Rub under the skin before roasting" },
+    ],
   },
   {
     id: "caramelized-onion-dip",
@@ -10520,6 +10630,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 175, protein: 3, carbs: 8, fat: 15, fiber: 1, sodium: 140 },
     cuisine: "american",
+    proteinTips: [
+      "Swap sour cream for Greek yogurt for 10g+ extra protein",
+      "Blend in cottage cheese for extra creaminess and 7g protein",
+      "Top with crumbled bacon for protein and smoky flavor",
+    ],
+    suggestedSides: [
+      { name: "Potato Chips", description: "The classic caramelized onion dip companion" },
+      { name: "Crudité Platter", description: "Carrots, celery, and bell peppers for dipping" },
+      { name: "Crusty Bread", description: "Spread on warm bread for an appetizer" },
+      { name: "Burgers", description: "Dollop on burgers for sweet onion flavor" },
+    ],
   },
   {
     id: "muhammara",
@@ -10548,6 +10669,17 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 155, protein: 3, carbs: 10, fat: 12, fiber: 2, sodium: 120 },
     cuisine: "middle-eastern",
+    proteinTips: [
+      "Walnuts provide 4g protein per serving — add extra for more",
+      "Top with crumbled feta for a protein and flavor boost",
+      "Blend in white beans for plant protein without changing the flavor",
+    ],
+    suggestedSides: [
+      { name: "Warm Pita", description: "Spread on flatbread for a Middle Eastern appetizer" },
+      { name: "Grilled Lamb", description: "Smoky, nutty muhammara complements lamb beautifully" },
+      { name: "Mezze Platter", description: "Serve alongside hummus and baba ganoush" },
+      { name: "Roasted Chicken", description: "Use as a sauce or spread with roasted chicken" },
+    ],
   },
   // ============ MORE SIDES ============
   {
