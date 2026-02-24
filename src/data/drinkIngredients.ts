@@ -39,6 +39,10 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "peach-schnapps", name: "Peach Schnapps" },
       { id: "vermouth-sweet", name: "Sweet Vermouth" },
       { id: "vermouth-dry", name: "Dry Vermouth" },
+      { id: "coconut-rum", name: "Coconut Rum" },
+      { id: "st-germain", name: "St-Germain" },
+      { id: "aperol", name: "Aperol" },
+      { id: "mezcal", name: "Mezcal" },
     ],
   },
   {
@@ -81,6 +85,10 @@ export const drinkIngredientCategories: DrinkIngredientCategory[] = [
       { id: "worcestershire", name: "Worcestershire Sauce" },
       { id: "hot-sauce", name: "Hot Sauce" },
       { id: "horseradish", name: "Horseradish" },
+      { id: "vanilla-extract", name: "Vanilla Extract" },
+      { id: "half-and-half", name: "Half & Half" },
+      { id: "whipped-cream", name: "Whipped Cream" },
+      { id: "lemonade", name: "Lemonade" },
     ],
   },
   {
