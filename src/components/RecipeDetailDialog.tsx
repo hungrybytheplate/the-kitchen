@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import { 
   Clock, 
@@ -29,12 +29,35 @@ import {
   Lightbulb,
   Sun,
   CloudSun,
-  Smartphone
+  Smartphone,
+  ExternalLink
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
+import { sampleRecipes } from "@/data/recipes";
 import { ShareRecipeButton } from "./ShareRecipeButton";
 import { CookingMode } from "./CookingMode";
+
+// Build a lookup map from normalized recipe titles to recipes
+function normalizeTitle(title: string): string {
+  return title.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+const recipeTitleMap = new Map<string, Recipe>();
+sampleRecipes.forEach(r => {
+  recipeTitleMap.set(normalizeTitle(r.title), r);
+});
+
+function findRecipeByName(name: string): Recipe | null {
+  const normalized = normalizeTitle(name);
+  // Exact match first
+  if (recipeTitleMap.has(normalized)) return recipeTitleMap.get(normalized)!;
+  // Partial match: find recipe whose normalized title contains the search or vice versa
+  for (const [key, recipe] of recipeTitleMap) {
+    if (key.includes(normalized) || normalized.includes(key)) return recipe;
+  }
+  return null;
+}
 
 interface SideDish {
   id: string;
@@ -137,14 +160,42 @@ export function RecipeDetailDialog({
   const [servingMultiplier, setServingMultiplier] = useState(1);
   const [selectedSides, setSelectedSides] = useState<string[]>([]);
   const [addedToCart, setAddedToCart] = useState<string[]>([]);
+  const [linkedRecipeStack, setLinkedRecipeStack] = useState<Recipe[]>([]);
+
+  // The currently displayed recipe: either a linked recipe from the stack, or the original
+  const displayedRecipe = linkedRecipeStack.length > 0 ? linkedRecipeStack[linkedRecipeStack.length - 1] : recipe;
+
+  const handleNavigateToRecipe = useCallback((linkedRecipe: Recipe) => {
+    setLinkedRecipeStack(prev => [...prev, linkedRecipe]);
+    setCompletedSteps([]);
+    setCurrentStep(0);
+    setServingMultiplier(1);
+    setIsCooking(false);
+  }, []);
+
+  const handleNavigateBack = useCallback(() => {
+    setLinkedRecipeStack(prev => prev.slice(0, -1));
+    setCompletedSteps([]);
+    setCurrentStep(0);
+    setServingMultiplier(1);
+    setIsCooking(false);
+  }, []);
+
+  // Reset linked recipe stack when dialog closes or recipe changes
+  const handleOpenChange = useCallback((isOpen: boolean) => {
+    if (!isOpen) {
+      setLinkedRecipeStack([]);
+    }
+    onOpenChange(isOpen);
+  }, [onOpenChange]);
 
   if (!recipe) return null;
 
-  const config = mealTypeConfig[recipe.mealType];
-  const missingIngredients = recipe.ingredients.filter(
-    ing => !recipe.matchedIngredients.includes(ing)
+  const config = mealTypeConfig[displayedRecipe.mealType];
+  const missingIngredients = displayedRecipe.ingredients.filter(
+    ing => !displayedRecipe.matchedIngredients.includes(ing)
   );
-  const scaledServings = recipe.servings * servingMultiplier;
+  const scaledServings = displayedRecipe.servings * servingMultiplier;
 
   const scaleAmount = (amount: string): string => {
     const num = parseFloat(amount);
@@ -155,11 +206,11 @@ export function RecipeDetailDialog({
     return scaled.toFixed(2).replace(/\.?0+$/, '');
   };
 
-  const scaledNutrition = recipe.nutrition ? {
-    calories: Math.round(recipe.nutrition.calories * servingMultiplier),
-    protein: Math.round(recipe.nutrition.protein * servingMultiplier),
-    carbs: Math.round(recipe.nutrition.carbs * servingMultiplier),
-    fat: Math.round(recipe.nutrition.fat * servingMultiplier),
+  const scaledNutrition = displayedRecipe.nutrition ? {
+    calories: Math.round(displayedRecipe.nutrition.calories * servingMultiplier),
+    protein: Math.round(displayedRecipe.nutrition.protein * servingMultiplier),
+    carbs: Math.round(displayedRecipe.nutrition.carbs * servingMultiplier),
+    fat: Math.round(displayedRecipe.nutrition.fat * servingMultiplier),
   } : null;
 
   const toggleStepComplete = (index: number) => {
@@ -177,7 +228,7 @@ export function RecipeDetailDialog({
   };
 
   const handleNextStep = () => {
-    if (currentStep < recipe.instructions.length - 1) {
+    if (currentStep < displayedRecipe.instructions.length - 1) {
       setCompletedSteps(prev => [...prev, currentStep]);
       setCurrentStep(prev => prev + 1);
     } else {
@@ -195,10 +246,11 @@ export function RecipeDetailDialog({
     setIsCooking(false);
     setCompletedSteps([]);
     setCurrentStep(0);
+    setLinkedRecipeStack([]);
     onOpenChange(false);
   };
 
-  const allStepsComplete = completedSteps.length === recipe.instructions.length;
+  const allStepsComplete = completedSteps.length === displayedRecipe.instructions.length;
 
   return (
     <>
@@ -206,7 +258,7 @@ export function RecipeDetailDialog({
       <AnimatePresence>
         {isFullCookingMode && (
           <CookingMode
-            recipe={recipe}
+            recipe={displayedRecipe}
             open={isFullCookingMode}
             onClose={() => setIsFullCookingMode(false)}
             servingMultiplier={servingMultiplier}
@@ -218,6 +270,16 @@ export function RecipeDetailDialog({
         <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden w-[calc(100vw-1rem)] sm:w-full rounded-xl">
           {/* Header with gradient */}
           <div className={cn("relative px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4", config.bg)}>
+            {/* Back button for linked recipe navigation */}
+            {linkedRecipeStack.length > 0 && (
+              <button
+                onClick={handleNavigateBack}
+                className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground mb-2 transition-colors"
+              >
+                <ArrowLeft className="h-3 w-3" />
+                Back to {linkedRecipeStack.length > 1 ? linkedRecipeStack[linkedRecipeStack.length - 2].title : recipe?.title}
+              </button>
+            )}
             <DialogHeader>
               <div className="flex items-start justify-between gap-2 sm:gap-4">
                 <div className="flex-1 min-w-0">
@@ -229,12 +291,12 @@ export function RecipeDetailDialog({
                   {config.label}
                 </Badge>
                 <DialogTitle className="font-serif text-lg sm:text-2xl font-semibold leading-tight">
-                  {recipe.title}
+                  {displayedRecipe.title}
                 </DialogTitle>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2 line-clamp-2">{recipe.description}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2 line-clamp-2">{displayedRecipe.description}</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
-                <ShareRecipeButton recipe={recipe} size="icon" className="rounded-full" showDropdown />
+                <ShareRecipeButton recipe={displayedRecipe} size="icon" className="rounded-full" showDropdown />
                 <Button
                   variant="ghost"
                   size="icon"
@@ -250,9 +312,9 @@ export function RecipeDetailDialog({
             </div>
 
             {/* Dietary Tags */}
-            {recipe.dietaryTags && recipe.dietaryTags.length > 0 && (
+            {displayedRecipe.dietaryTags && displayedRecipe.dietaryTags.length > 0 && (
               <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-3">
-                {recipe.dietaryTags.map(tag => {
+                {displayedRecipe.dietaryTags.map(tag => {
                   const tagConfig = dietaryTagConfig[tag];
                   return (
                     <Badge key={tag} className={cn("text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5", tagConfig.bg, tagConfig.text)}>
@@ -267,7 +329,7 @@ export function RecipeDetailDialog({
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-2 sm:mt-4 text-xs sm:text-sm">
               <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-background/60">
                 <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
-                <span className="font-medium">{recipe.cookTime}</span>
+                <span className="font-medium">{displayedRecipe.cookTime}</span>
               </div>
               
               {/* Serving Scaler */}
@@ -294,14 +356,14 @@ export function RecipeDetailDialog({
               </div>
 
               {/* Difficulty */}
-              {recipe.difficulty && (
+              {displayedRecipe.difficulty && (
                 <div className={cn(
                   "flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full",
-                  difficultyConfig[recipe.difficulty].bg
+                  difficultyConfig[displayedRecipe.difficulty].bg
                 )}>
-                  <Gauge className={cn("h-3 w-3 sm:h-4 sm:w-4", difficultyConfig[recipe.difficulty].text)} />
-                  <span className={cn("font-medium text-xs sm:text-sm", difficultyConfig[recipe.difficulty].text)}>
-                    {difficultyConfig[recipe.difficulty].label}
+                  <Gauge className={cn("h-3 w-3 sm:h-4 sm:w-4", difficultyConfig[displayedRecipe.difficulty].text)} />
+                  <span className={cn("font-medium text-xs sm:text-sm", difficultyConfig[displayedRecipe.difficulty].text)}>
+                    {difficultyConfig[displayedRecipe.difficulty].label}
                   </span>
                 </div>
               )}
@@ -345,7 +407,7 @@ export function RecipeDetailDialog({
                 <Card className="p-3 sm:p-4 bg-muted/30 border-border/50">
                   <h3 className="font-semibold text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
                     <Utensils className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
-                    Ingredients ({recipe.ingredients.length})
+                    Ingredients ({displayedRecipe.ingredients.length})
                     {servingMultiplier !== 1 && (
                       <Badge variant="outline" className="text-[10px] sm:text-xs ml-auto">
                         ×{servingMultiplier}
@@ -353,9 +415,9 @@ export function RecipeDetailDialog({
                     )}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
-                    {recipe.ingredients.map((ing, i) => {
-                      const isMatched = recipe.matchedIngredients.includes(ing);
-                      const ingredientAmount = recipe.ingredientAmounts?.find(a => a.id === ing);
+                    {displayedRecipe.ingredients.map((ing, i) => {
+                      const isMatched = displayedRecipe.matchedIngredients.includes(ing);
+                      const ingredientAmount = displayedRecipe.ingredientAmounts?.find(a => a.id === ing);
                       return (
                         <div
                           key={i}
@@ -411,7 +473,7 @@ export function RecipeDetailDialog({
                 </Card>
 
                 {/* Side Dish Selector - Only show for dinner and lunch */}
-                {(recipe.mealType === "dinner" || recipe.mealType === "lunch") && (
+                {(displayedRecipe.mealType === "dinner" || displayedRecipe.mealType === "lunch") && (
                   <Card className="p-4 bg-muted/30 border-border/50">
                     <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
                       <Wheat className="h-4 w-4 text-primary" />
@@ -452,14 +514,14 @@ export function RecipeDetailDialog({
                 )}
 
                 {/* Protein Substitutions */}
-                {recipe.proteinSubstitutions && recipe.proteinSubstitutions.length > 0 && (
+                {displayedRecipe.proteinSubstitutions && displayedRecipe.proteinSubstitutions.length > 0 && (
                   <Card className="p-4 bg-muted/30 border-border/50">
                     <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
                       <Repeat className="h-4 w-4 text-primary" />
                       Protein Substitutions
                     </h3>
                     <div className="space-y-2">
-                      {recipe.proteinSubstitutions.map((sub, index) => (
+                      {displayedRecipe.proteinSubstitutions.map((sub, index) => (
                         <div key={index} className="p-3 rounded-lg bg-background/60 border border-border/50">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-sm font-medium capitalize bg-primary/10 text-primary px-2 py-0.5 rounded">
@@ -484,14 +546,14 @@ export function RecipeDetailDialog({
                 )}
 
                 {/* Protein Tips */}
-                {recipe.proteinTips && recipe.proteinTips.length > 0 && (
+                {displayedRecipe.proteinTips && displayedRecipe.proteinTips.length > 0 && (
                   <Card className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-200/50 dark:border-blue-800/50">
                     <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
                       <Dumbbell className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                       <span className="text-blue-700 dark:text-blue-300">Boost Your Protein</span>
                     </h3>
                     <ul className="space-y-2">
-                      {recipe.proteinTips.map((tip, index) => (
+                      {displayedRecipe.proteinTips.map((tip, index) => (
                         <li key={index} className="flex items-start gap-2 text-sm">
                           <Lightbulb className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                           <span className="text-muted-foreground">{tip}</span>
@@ -502,38 +564,53 @@ export function RecipeDetailDialog({
                 )}
 
                 {/* Suggested Pairings */}
-                {recipe.suggestedSides && recipe.suggestedSides.length > 0 && (
+                {displayedRecipe.suggestedSides && displayedRecipe.suggestedSides.length > 0 && (
                   <Card className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200/50 dark:border-amber-800/50">
                     <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
                       <Utensils className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                       <span className="text-amber-700 dark:text-amber-300">Pairs Well With</span>
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {recipe.suggestedSides.map((side, index) => (
-                        <div key={index} className="p-2.5 rounded-lg bg-background/60 border border-border/50">
-                          <p className="text-sm font-medium">{side.name}</p>
-                          <p className="text-xs text-muted-foreground mt-0.5">{side.description}</p>
-                        </div>
-                      ))}
+                      {displayedRecipe.suggestedSides.map((side, index) => {
+                        const linkedRecipe = findRecipeByName(side.name);
+                        return linkedRecipe ? (
+                          <button
+                            key={index}
+                            onClick={() => handleNavigateToRecipe(linkedRecipe)}
+                            className="p-2.5 rounded-lg bg-background/60 border border-border/50 text-left hover:border-primary/50 hover:bg-primary/5 transition-all group"
+                          >
+                            <p className="text-sm font-medium flex items-center gap-1.5 group-hover:text-primary transition-colors">
+                              {side.name}
+                              <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{side.description}</p>
+                          </button>
+                        ) : (
+                          <div key={index} className="p-2.5 rounded-lg bg-background/60 border border-border/50">
+                            <p className="text-sm font-medium">{side.name}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{side.description}</p>
+                          </div>
+                        );
+                      })}
                     </div>
                   </Card>
                 )}
 
                 {/* Seasonal Badge */}
-                {recipe.season && (
+                {displayedRecipe.season && (
                   <div className="flex items-center gap-2">
                     <Badge className={cn(
                       "text-xs px-3 py-1 rounded-full",
-                      recipe.season === "summer" && "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-                      recipe.season === "fall" && "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
-                      recipe.season === "winter" && "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-                      recipe.season === "spring" && "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                      displayedRecipe.season === "summer" && "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+                      displayedRecipe.season === "fall" && "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+                      displayedRecipe.season === "winter" && "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+                      displayedRecipe.season === "spring" && "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                     )}>
-                      {recipe.season === "summer" && <Sun className="h-3 w-3 mr-1" />}
-                      {recipe.season === "fall" && <CloudSun className="h-3 w-3 mr-1" />}
-                      {recipe.season === "winter" && "❄️ "}
-                      {recipe.season === "spring" && "🌸 "}
-                      {recipe.season.charAt(0).toUpperCase() + recipe.season.slice(1)} Favorite
+                      {displayedRecipe.season === "summer" && <Sun className="h-3 w-3 mr-1" />}
+                      {displayedRecipe.season === "fall" && <CloudSun className="h-3 w-3 mr-1" />}
+                      {displayedRecipe.season === "winter" && "❄️ "}
+                      {displayedRecipe.season === "spring" && "🌸 "}
+                      {displayedRecipe.season.charAt(0).toUpperCase() + displayedRecipe.season.slice(1)} Favorite
                     </Badge>
                   </div>
                 )}
@@ -542,10 +619,10 @@ export function RecipeDetailDialog({
                 <Card className="p-3 sm:p-4 bg-muted/30 border-border/50">
                   <h3 className="font-semibold text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
                     <ChefHat className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
-                    Instructions ({recipe.instructions.length} steps)
+                    Instructions ({displayedRecipe.instructions.length} steps)
                   </h3>
                   <ol className="space-y-3">
-                    {recipe.instructions.map((step, i) => (
+                    {displayedRecipe.instructions.map((step, i) => (
                       <li 
                         key={i}
                         className="flex gap-3 group cursor-pointer"
@@ -583,23 +660,23 @@ export function RecipeDetailDialog({
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">
-                      Step {currentStep + 1} of {recipe.instructions.length}
+                    Step {currentStep + 1} of {displayedRecipe.instructions.length}
                     </span>
                     <span className="font-medium text-primary">
-                      {Math.round(((completedSteps.length) / recipe.instructions.length) * 100)}% complete
+                      {Math.round(((completedSteps.length) / displayedRecipe.instructions.length) * 100)}% complete
                     </span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
                     <div 
                       className="h-full gradient-warm transition-all duration-500"
-                      style={{ width: `${(completedSteps.length / recipe.instructions.length) * 100}%` }}
+                      style={{ width: `${(completedSteps.length / displayedRecipe.instructions.length) * 100}%` }}
                     />
                   </div>
                 </div>
 
                 {/* Step indicators */}
                 <div className="flex justify-center gap-2">
-                  {recipe.instructions.map((_, i) => (
+                  {displayedRecipe.instructions.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => setCurrentStep(i)}
@@ -639,7 +716,7 @@ export function RecipeDetailDialog({
                       "text-lg leading-relaxed pt-2",
                       completedSteps.includes(currentStep) && "line-through text-muted-foreground"
                     )}>
-                      {recipe.instructions[currentStep]}
+                      {displayedRecipe.instructions[currentStep]}
                     </p>
                   </div>
                 </Card>
@@ -656,7 +733,7 @@ export function RecipeDetailDialog({
                     Previous
                   </Button>
                   
-                  {currentStep === recipe.instructions.length - 1 ? (
+                  {currentStep === displayedRecipe.instructions.length - 1 ? (
                     <Button
                       variant="warm"
                       onClick={handleNextStep}
