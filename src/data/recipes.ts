@@ -2092,6 +2092,13 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "keto"],
     difficulty: "easy",
     nutrition: { calories: 380, protein: 42, carbs: 4, fat: 22, sodium: 640, cholesterol: 130 },
+    suggestedSides: [
+      { name: "Creamy Mushroom Risotto", description: "Rich risotto soaks up the garlic butter beautifully" },
+      { name: "Classic Balsamic Vinaigrette", description: "Toss a side salad with bright balsamic to cut the richness" },
+      { name: "Soft Butter Dinner Rolls", description: "Warm rolls to mop up every drop of garlic butter" },
+      { name: "🍷 Chardonnay", description: "Buttery, oaky Chardonnay mirrors the garlic butter sauce" },
+      { name: "Virgin Mojito", description: "Bright mint and lime refresher to balance the richness" },
+    ],
   },
   {
     id: "beef-stir-fry",
@@ -2116,6 +2123,13 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "beef", alternatives: ["chicken", "pork", "shrimp", "tofu"], notes: "Tofu makes it vegetarian; shrimp cooks faster (1-2 min)" },
     ],
+    suggestedSides: [
+      { name: "Homemade Teriyaki Sauce", description: "Sweet and savory glaze to drizzle over the stir-fry" },
+      { name: "Asian Sesame Ginger Dressing", description: "Toss a cucumber side salad with this umami-rich dressing" },
+      { name: "Crispy Egg Rolls", description: "Add crispy egg rolls for a takeout-style spread" },
+      { name: "🍷 Riesling", description: "Off-dry Riesling balances the savory soy and ginger" },
+      { name: "Mango Lassi", description: "Cool, creamy mango smoothie to tame the heat" },
+    ],
   },
   {
     id: "creamy-tomato-pasta",
@@ -2137,6 +2151,13 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 480, protein: 18, carbs: 52, fat: 22, sodium: 520, cholesterol: 55 },
+    suggestedSides: [
+      { name: "Classic Caesar Salad", description: "Crisp romaine with creamy Caesar alongside the pasta" },
+      { name: "Classic Balsamic Vinaigrette", description: "A bright side salad to contrast the creamy tomato" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Soft, garlicky breadsticks for dipping in the sauce" },
+      { name: "🍷 Chianti", description: "Medium-bodied Italian red that loves tomato-based sauces" },
+      { name: "Sparkling Strawberry Lemonade", description: "Fizzy berry lemonade to brighten a pasta dinner" },
+    ],
   },
   {
     id: "fish-tacos",
@@ -2160,6 +2181,13 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "fish", alternatives: ["shrimp", "chicken", "carnitas", "tofu"], notes: "Shrimp needs less cook time; carnitas for a Mexican twist" },
     ],
+    suggestedSides: [
+      { name: "Cilantro Lime Yogurt Sauce", description: "Cool, herby crema drizzled over the crispy fish" },
+      { name: "Classic Margarita", description: "The ultimate taco night cocktail — salt rimmed and refreshing" },
+      { name: "Mexican Rice", description: "Flavorful tomato-seasoned rice on the side" },
+      { name: "🍷 Sauvignon Blanc", description: "Zesty, citrusy white that complements the lime and fish" },
+      { name: "Mango Chili Limeade", description: "Sweet-spicy limeade to match the taco flavors" },
+    ],
   },
   {
     id: "lemon-herb-salmon",
@@ -2181,6 +2209,13 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "paleo"],
     difficulty: "easy",
     nutrition: { calories: 320, protein: 34, carbs: 4, fat: 18, sodium: 420, cholesterol: 78 },
+    suggestedSides: [
+      { name: "Lemon Tahini Sauce", description: "Nutty, creamy drizzle that complements the citrus salmon" },
+      { name: "Greek Lemon Herb Dressing", description: "Toss roasted asparagus with this bright dressing" },
+      { name: "Creamy Mushroom Risotto", description: "Elegant risotto pairing for a dinner-party worthy plate" },
+      { name: "🍷 Pinot Noir", description: "Light, earthy Pinot Noir pairs beautifully with salmon" },
+      { name: "Cucumber Mint Cooler", description: "Clean and refreshing alongside the herby fish" },
+    ],
   },
   {
     id: "chicken-curry",
@@ -2205,6 +2240,13 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "chicken", alternatives: ["shrimp", "tofu", "chickpeas", "lamb"], notes: "Chickpeas make it vegan; lamb adds richness" },
     ],
+    suggestedSides: [
+      { name: "Indian Tikka Masala Sauce", description: "Extra sauce for dipping naan or drizzling over rice" },
+      { name: "Honey Butter Cornbread", description: "Sweet cornbread to soak up the creamy curry" },
+      { name: "🍷 Gewürztraminer", description: "Aromatic, slightly sweet white that loves curry spices" },
+      { name: "Mango Lassi", description: "Traditional Indian yogurt drink to cool the palate" },
+      { name: "Classic Hummus", description: "Creamy hummus with warm naan for a mezze-style starter" },
+    ],
   },
   {
     id: "shrimp-scampi",
@@ -2228,6 +2270,13 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "shrimp", alternatives: ["chicken", "scallops", "lobster", "crab"], notes: "Chicken takes longer to cook (3-4 min per side); lobster makes it luxurious" },
     ],
+    suggestedSides: [
+      { name: "Classic Caesar Salad", description: "Crisp Caesar salad is the Italian steakhouse pairing" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Warm garlicky breadsticks for the lemon butter sauce" },
+      { name: "🍷 Pinot Grigio", description: "Crisp, light Italian white that won't overpower the shrimp" },
+      { name: "Sparkling Strawberry Lemonade", description: "Bubbly and refreshing alongside the buttery pasta" },
+      { name: "Classic Balsamic Vinaigrette", description: "A bright arugula salad to balance the rich scampi" },
+    ],
   },
   {
     id: "stuffed-peppers",
@@ -2249,6 +2298,13 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free"],
     difficulty: "medium",
     nutrition: { calories: 420, protein: 28, carbs: 38, fat: 18, sodium: 680, cholesterol: 75 },
+    suggestedSides: [
+      { name: "Homemade Ranch Dressing", description: "Cool ranch for dipping or drizzling over the peppers" },
+      { name: "Honey Butter Cornbread", description: "Sweet, buttery cornbread complements the savory filling" },
+      { name: "🍷 Zinfandel", description: "Bold, spicy Zinfandel stands up to the beefy filling" },
+      { name: "Classic Mojito", description: "Fresh mint and lime to brighten the hearty meal" },
+      { name: "Classic Balsamic Vinaigrette", description: "Dress a simple green salad as a light side" },
+    ],
   },
   {
     id: "pork-chops",
@@ -2270,6 +2326,13 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free"],
     difficulty: "medium",
     nutrition: { calories: 380, protein: 32, carbs: 22, fat: 20, sodium: 520, cholesterol: 95 },
+    suggestedSides: [
+      { name: "Creamy Mushroom Risotto", description: "Rich risotto is an elegant match for glazed pork chops" },
+      { name: "Homemade BBQ Sauce", description: "Brush on extra BBQ sauce for a sweet-smoky twist" },
+      { name: "KFC Copycat Coleslaw", description: "Creamy coleslaw to balance the apple cider sweetness" },
+      { name: "🍷 Pinot Noir", description: "Earthy, fruity Pinot Noir complements pork and apple beautifully" },
+      { name: "Apple Cider Spritz", description: "An autumn-inspired sparkling drink to match the glaze" },
+    ],
   },
   {
     id: "vegetable-stir-fry",
@@ -2291,6 +2354,13 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "vegan"],
     difficulty: "easy",
     nutrition: { calories: 180, protein: 6, carbs: 22, fat: 10 },
+    suggestedSides: [
+      { name: "Asian Sesame Ginger Dressing", description: "Drizzle over the stir-fry for extra umami depth" },
+      { name: "Thai Peanut Sauce", description: "Creamy peanut dipping sauce for an extra layer of flavor" },
+      { name: "Crispy Egg Rolls", description: "Pair with crispy veggie egg rolls for a complete meal" },
+      { name: "🍷 Sauvignon Blanc", description: "Crisp, herbal white wine to complement the fresh vegetables" },
+      { name: "Green Detox Smoothie", description: "Double down on the greens with a healthy smoothie" },
+    ],
   },
   {
     id: "spaghetti-carbonara",
@@ -2317,6 +2387,13 @@ export const sampleRecipes: Recipe[] = [
       "Serve with a side of grilled chicken breast",
       "Use protein-enriched pasta for 10g+ extra protein",
     ],
+    suggestedSides: [
+      { name: "Classic Caesar Salad", description: "The quintessential Italian steakhouse pairing" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Warm, garlicky bread alongside the creamy pasta" },
+      { name: "🍷 Chianti", description: "Classic Tuscan red — the Italian tradition with carbonara" },
+      { name: "Negroni", description: "Bitter, herbal Italian cocktail to start the meal" },
+      { name: "Classic Balsamic Vinaigrette", description: "A peppery arugula salad with shaved parmesan" },
+    ],
   },
   {
     id: "teriyaki-chicken",
@@ -2340,6 +2417,13 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 420, protein: 36, carbs: 38, fat: 14 },
     proteinSubstitutions: [
       { original: "chicken", alternatives: ["salmon", "tofu", "beef", "shrimp"], notes: "Salmon adds omega-3s; tofu makes it vegetarian" },
+    ],
+    suggestedSides: [
+      { name: "Homemade Teriyaki Sauce", description: "Extra glaze for drizzling over the rice bowl" },
+      { name: "Asian Sesame Ginger Dressing", description: "Toss an edamame cucumber salad on the side" },
+      { name: "Crispy Egg Rolls", description: "Add crispy egg rolls for a sushi-bar vibe" },
+      { name: "🍷 Riesling", description: "Off-dry Riesling balances the sweet teriyaki glaze" },
+      { name: "Matcha Energy Smoothie", description: "A bright green matcha drink to complement the Japanese flavors" },
     ],
   },
   {
@@ -2367,6 +2451,13 @@ export const sampleRecipes: Recipe[] = [
       "Stir in white beans for plant-based protein",
       "Top with a poached egg for extra protein and richness",
       "Add crispy pancetta or prosciutto for meat protein",
+    ],
+    suggestedSides: [
+      { name: "Classic Balsamic Vinaigrette", description: "A peppery arugula salad to cut through the richness" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Soft bread to soak up every last bite of risotto" },
+      { name: "🍷 Barolo", description: "Earthy, full-bodied Italian red that loves mushrooms" },
+      { name: "Negroni", description: "Bitter, herbal aperitif to start the Italian meal" },
+      { name: "Sparkling Strawberry Lemonade", description: "Light and bubbly to balance the creamy risotto" },
     ],
   },
   {
@@ -2398,6 +2489,13 @@ export const sampleRecipes: Recipe[] = [
       "Top with Greek yogurt instead of sour cream for 3x the protein",
       "Add a fried egg on top for an extra 6g protein per taco",
     ],
+    suggestedSides: [
+      { name: "Creamy Chipotle Yogurt Sauce", description: "Smoky crema to drizzle over tacos" },
+      { name: "Restaurant-Style Queso Dip", description: "Warm, gooey queso for dipping and drizzling" },
+      { name: "Classic Margarita", description: "The iconic taco night pairing — can't go wrong" },
+      { name: "🍷 Tempranillo", description: "Smooth Spanish red that pairs beautifully with spiced beef" },
+      { name: "Mango Chili Limeade", description: "Sweet, spicy, and refreshing alongside the tacos" },
+    ],
   },
   {
     id: "coconut-shrimp-curry",
@@ -2428,6 +2526,13 @@ export const sampleRecipes: Recipe[] = [
       "Serve over quinoa instead of rice for complete protein",
       "Double the shrimp for a high-protein meal prep option",
     ],
+    suggestedSides: [
+      { name: "Thai Peanut Sauce", description: "Creamy peanut sauce to drizzle over the curry" },
+      { name: "Crispy Egg Rolls", description: "Spring rolls or egg rolls for a Thai-inspired feast" },
+      { name: "🍷 Viognier", description: "Aromatic, full-bodied white that handles coconut and spice" },
+      { name: "Piña Colada", description: "Tropical coconut cocktail echoes the creamy curry" },
+      { name: "Mango Lassi", description: "Cool yogurt-mango smoothie to calm the curry heat" },
+    ],
   },
   {
     id: "baked-ziti",
@@ -2454,6 +2559,13 @@ export const sampleRecipes: Recipe[] = [
       "Use cottage cheese mixed with ricotta for extra protein",
       "Include a layer of shredded chicken",
       "Serve with a side of meatballs for a complete protein meal",
+    ],
+    suggestedSides: [
+      { name: "Classic Caesar Salad", description: "Crisp Caesar is the classic Italian-American pairing" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Garlicky breadsticks to dip in the cheesy sauce" },
+      { name: "🍷 Montepulciano d'Abruzzo", description: "Medium-bodied Italian red that loves baked pasta" },
+      { name: "Sparkling Strawberry Lemonade", description: "Light and bubbly to balance the heavy cheese" },
+      { name: "Classic Balsamic Vinaigrette", description: "A fresh arugula salad to offset the richness" },
     ],
   },
   {
@@ -2482,6 +2594,13 @@ export const sampleRecipes: Recipe[] = [
       "Add cashews for extra protein and crunch",
       "Double portion the chicken for meal prep",
     ],
+    suggestedSides: [
+      { name: "Homemade Teriyaki Sauce", description: "Extra glaze for maximum sticky sweetness" },
+      { name: "Asian Sesame Ginger Dressing", description: "Dress a cool cucumber salad on the side" },
+      { name: "🍷 Riesling", description: "Sweet Riesling balances the honey and soy beautifully" },
+      { name: "Moscow Mule", description: "Spicy ginger beer cocktail complements the Asian flavors" },
+      { name: "Soft Butter Dinner Rolls", description: "Warm rolls to soak up the honey garlic glaze" },
+    ],
   },
   {
     id: "vegetable-lasagna",
@@ -2500,6 +2619,13 @@ export const sampleRecipes: Recipe[] = [
       "Let rest 15 minutes before cutting—this is essential or it will be too runny. Garnish with fresh basil. Can be made a day ahead and refrigerated."
     ],
     matchedIngredients: [],
+    suggestedSides: [
+      { name: "Classic Balsamic Vinaigrette", description: "A bright tomato-basil salad to go with the lasagna" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Soft garlic bread is a must with lasagna" },
+      { name: "🍷 Sangiovese", description: "Medium-bodied Italian red that pairs with cheesy layers" },
+      { name: "Virgin Mojito", description: "Fresh and minty to cut through the rich cheese" },
+      { name: "Homemade Ranch Dressing", description: "Cool ranch dressing for a crisp iceberg side salad" },
+    ],
   },
   {
     id: "beef-and-broccoli",
@@ -2528,6 +2654,13 @@ export const sampleRecipes: Recipe[] = [
       "Include a soft-boiled egg for extra protein",
     ],
     season: "fall",
+    suggestedSides: [
+      { name: "Homemade Teriyaki Sauce", description: "Extra sauce for dipping or drizzling over rice" },
+      { name: "Asian Sesame Ginger Dressing", description: "Dress a crunchy Asian slaw on the side" },
+      { name: "🍷 Malbec", description: "Full-bodied, smooth red to stand up to the savory beef" },
+      { name: "Dark 'n' Stormy", description: "Dark rum and ginger beer — bold drink for bold flavors" },
+      { name: "Crispy Egg Rolls", description: "Add crispy rolls for a takeout feast" },
+    ],
   },
   {
     id: "tofu-stir-fry",
