@@ -39,6 +39,8 @@ export const pantryItems: IngredientCategory[] = [
       { id: "quinoa-red", name: "Red Quinoa", emoji: "🌾" },
       { id: "couscous", name: "Couscous", emoji: "🌾" },
       { id: "crackers", name: "Crackers", emoji: "🥠" },
+      { id: "egg-roll-wrappers", name: "Egg Roll Wrappers", emoji: "🥟" },
+      { id: "cornstarch", name: "Cornstarch", emoji: "🌾" },
     ],
   },
   {
@@ -231,6 +233,7 @@ export const fridgeItems: IngredientCategory[] = [
       { id: "sausage-italian", name: "Italian Sausage", emoji: "🌭" },
       { id: "sausage-breakfast", name: "Breakfast Sausage", emoji: "🌭" },
       { id: "chorizo", name: "Chorizo", emoji: "🌭" },
+      { id: "rope-beef-sausage", name: "Rope Beef Sausage", emoji: "🌭" },
       // Fish
       { id: "salmon-fillet", name: "Salmon Fillet", emoji: "🐟" },
       { id: "salmon-smoked", name: "Smoked Salmon", emoji: "🐟" },
@@ -367,6 +370,7 @@ export const fridgeItems: IngredientCategory[] = [
       { id: "cabbage-green", name: "Green Cabbage", emoji: "🥬" },
       { id: "cabbage-red", name: "Red Cabbage", emoji: "🥬" },
       { id: "cabbage-napa", name: "Napa Cabbage", emoji: "🥬" },
+      { id: "coleslaw-mix", name: "Coleslaw Mix (Bagged)", emoji: "🥬" },
       { id: "kale", name: "Kale", emoji: "🥬" },
       { id: "cauliflower", name: "Cauliflower", emoji: "🥬" },
       { id: "corn-on-cob", name: "Corn on the Cob", emoji: "🌽" },
