@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ShareRecipeButton } from "./ShareRecipeButton";
+import { RecipeDetailDialog } from "./RecipeDetailDialog";
 import { sampleRecipes, type Recipe } from "@/data/recipes";
 import {
   Dialog,
@@ -32,10 +33,13 @@ function normalizeTitle(str: string): string {
   return str.replace(/[^a-z0-9]/gi, "").toLowerCase();
 }
 
+const recipeTitleMap = new Map<string, Recipe>();
+sampleRecipes.forEach((r) => {
+  recipeTitleMap.set(normalizeTitle(r.title), r);
+});
+
 function findRecipeByName(name: string): Recipe | null {
-  if (name.startsWith("🍫") || name.startsWith("🧀") || name.startsWith("🫒") || name.startsWith("🥩") || name.startsWith("🥒") || name.startsWith("🍤") || name.startsWith("🥥") || name.startsWith("🥗") || name.startsWith("🍔") || name.startsWith("🍟") || name.startsWith("🥞") || name.startsWith("🍙") || name.startsWith("🧁")) return null;
-  const normalized = normalizeTitle(name);
-  return sampleRecipes.find((r) => normalizeTitle(r.title) === normalized) ?? null;
+  return recipeTitleMap.get(normalizeTitle(name)) ?? null;
 }
 
 interface DrinkDetailDialogProps {
@@ -96,6 +100,7 @@ export function DrinkDetailDialog({
   const [cookingMode, setCookingMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [addedToCart, setAddedToCart] = useState<string[]>([]);
+  const [selectedLinkedRecipe, setSelectedLinkedRecipe] = useState<Recipe | null>(null);
 
   const config = drinkTypeConfig[drink.drinkType];
   const missingIngredients = drink.ingredients.filter(
@@ -121,6 +126,7 @@ export function DrinkDetailDialog({
   };
 
   return (
+    <>
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
@@ -301,18 +307,21 @@ export function DrinkDetailDialog({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {drink.suggestedPairings.map((pairing, index) => {
                       const linkedRecipe = findRecipeByName(pairing.name);
-                      return (
-                        <div
+                      return linkedRecipe ? (
+                        <button
                           key={index}
-                          className={cn(
-                            "p-2.5 rounded-lg bg-muted/50 border border-border/50",
-                            linkedRecipe && "hover:border-primary/50 hover:bg-primary/5 transition-all"
-                          )}
+                          onClick={() => setSelectedLinkedRecipe(linkedRecipe)}
+                          className="p-2.5 rounded-lg bg-muted/50 border border-border/50 text-left hover:border-primary/50 hover:bg-primary/5 transition-all group"
                         >
-                          <p className="text-sm font-medium flex items-center gap-1.5">
+                          <p className="text-sm font-medium flex items-center gap-1.5 group-hover:text-primary transition-colors">
                             {pairing.name}
-                            {linkedRecipe && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
+                            <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{pairing.description}</p>
+                        </button>
+                      ) : (
+                        <div key={index} className="p-2.5 rounded-lg bg-muted/50 border border-border/50">
+                          <p className="text-sm font-medium">{pairing.name}</p>
                           <p className="text-xs text-muted-foreground mt-0.5">{pairing.description}</p>
                         </div>
                       );
@@ -418,5 +427,16 @@ export function DrinkDetailDialog({
         )}
       </DialogContent>
     </Dialog>
+
+    {/* Linked Recipe Detail Dialog */}
+    <RecipeDetailDialog
+      recipe={selectedLinkedRecipe}
+      open={!!selectedLinkedRecipe}
+      onOpenChange={(open) => !open && setSelectedLinkedRecipe(null)}
+      isSaved={false}
+      onSave={() => {}}
+      onAddToCalendar={() => {}}
+    />
+  </>
   );
 }

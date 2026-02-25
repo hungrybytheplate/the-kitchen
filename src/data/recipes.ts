@@ -750,6 +750,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 580, protein: 45, carbs: 62, fat: 16 },
     cuisine: "asian",
+    suggestedSides: [
+      { name: "Homemade Teriyaki Sauce", description: "Extra glaze for drizzling over the bowl" },
+      { name: "Asian Sesame Ginger Dressing", description: "Toss a side salad with this umami-rich dressing" },
+      { name: "Classic Hummus", description: "Creamy dip for a protein-packed snack on the side" },
+    ],
   },
   {
     id: "mediterranean-quinoa-power-bowl",
@@ -792,6 +797,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 480, protein: 18, carbs: 52, fat: 24 },
     cuisine: "mediterranean",
+    suggestedSides: [
+      { name: "Classic Hummus", description: "Smooth chickpea dip for a Mediterranean spread" },
+      { name: "Greek Lemon Herb Dressing", description: "Bright dressing to drizzle over the bowl" },
+      { name: "Fresh Guacamole", description: "Creamy avocado adds richness to the power bowl" },
+    ],
   },
   {
     id: "beef-and-broccoli-meal-prep",
@@ -833,6 +843,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 540, protein: 42, carbs: 52, fat: 18 },
     cuisine: "asian",
+    suggestedSides: [
+      { name: "Homemade Teriyaki Sauce", description: "Extra sauce for dipping or drizzling" },
+      { name: "Asian Sesame Ginger Dressing", description: "Toss a cucumber salad with this tangy dressing" },
+      { name: "Homemade Pork Dumplings", description: "Savory dumplings as a hearty side" },
+    ],
   },
   {
     id: "turkey-taco-lettuce-cups",
@@ -1168,6 +1183,11 @@ export const sampleRecipes: Recipe[] = [
       "Include a hard-boiled egg for an additional 6g protein",
       "Swap feta for cottage cheese for more protein per ounce",
     ],
+    suggestedSides: [
+      { name: "Classic Tomato Bruschetta", description: "Fresh bruschetta is a natural Mediterranean pairing" },
+      { name: "Classic Hummus", description: "Creamy hummus with warm pita alongside the salad" },
+      { name: "Greek Lemon Herb Dressing", description: "Bright lemon dressing ties the Mediterranean flavors together" },
+    ],
   },
   {
     id: "pasta-primavera",
@@ -1236,6 +1256,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
     nutrition: { calories: 450, protein: 18, carbs: 28, fat: 32, sodium: 720, cholesterol: 85 },
+    suggestedSides: [
+      { name: "Creamy Caesar Dressing", description: "Extra homemade dressing for the perfect Caesar" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Warm garlicky breadsticks alongside the salad" },
+      { name: "Hearty Lentil Soup", description: "A warm soup rounds out the lunch beautifully" },
+    ],
     proteinTips: [
       "Add grilled chicken for a classic Caesar with 35g+ protein",
       "Top with grilled shrimp or salmon for seafood Caesar",
