@@ -91,9 +91,9 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "rum-white", substitute: "club-soda" }], notes: "Extra lime juice adds punch" },
     suggestedPairings: [
-      { name: "Fish Tacos", description: "Light, citrusy fish tacos complement the refreshing mint and lime" },
-      { name: "Guacamole", description: "Creamy avocado dip is a natural match for the Caribbean vibe" },
-      { name: "Shrimp Scampi", description: "Garlic butter shrimp pairs beautifully with the bright citrus notes" },
+      { name: "Crispy Fish Tacos", description: "Light, citrusy fish tacos complement the refreshing mint and lime" },
+      { name: "Fresh Guacamole", description: "Creamy avocado dip is a natural match for the Caribbean vibe" },
+      { name: "Garlic Shrimp Scampi", description: "Garlic butter shrimp pairs beautifully with the bright citrus notes" },
     ],
   },
   {
@@ -121,9 +121,9 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "tequila", substitute: "orange-juice" }, { original: "triple-sec", substitute: "simple-syrup" }], notes: "Add splash of grapefruit for depth" },
     suggestedPairings: [
-      { name: "Beef Tacos", description: "Classic taco night pairing — lime and tequila are a natural duo" },
-      { name: "Guacamole", description: "Fresh avocado dip with the same citrus profile" },
-      { name: "Fish Tacos", description: "Light, crispy fish tacos echo the bright citrus notes" },
+      { name: "Seasoned Beef Tacos", description: "Classic taco night pairing — lime and tequila are a natural duo" },
+      { name: "Fresh Guacamole", description: "Fresh avocado dip with the same citrus profile" },
+      { name: "Crispy Fish Tacos", description: "Light, crispy fish tacos echo the bright citrus notes" },
     ],
   },
   {
@@ -152,8 +152,8 @@ export const sampleDrinks: Drink[] = [
     virginVersion: { replaces: [{ original: "bourbon", substitute: "apple-cider" }], notes: "Use fresh-pressed apple cider for depth" },
     suggestedPairings: [
       { name: "Garlic Butter Chicken", description: "Rich, savory chicken stands up to the bourbon's warmth" },
-      { name: "Pork Chops with Apple Sauce", description: "Apple and bourbon are a timeless combination" },
-      { name: "🧀 Aged Cheddar Board", description: "Sharp cheese complements the caramel and vanilla notes" },
+      { name: "Pan-Seared Pork Chops", description: "Juicy pork chops with apple cider glaze and bourbon — timeless" },
+      { name: "Classic Creamy Coleslaw", description: "Cool, creamy coleslaw cuts through the whiskey's warmth" },
     ],
   },
   {
@@ -176,9 +176,9 @@ export const sampleDrinks: Drink[] = [
     season: "all-season",
     virginVersion: { replaces: [{ original: "vodka", substitute: "club-soda" }, { original: "triple-sec", substitute: "orange-juice" }] },
     suggestedPairings: [
-      { name: "Shrimp Scampi", description: "Elegant shrimp dish matches the cocktail's sophistication" },
-      { name: "🫒 Bruschetta", description: "Light tomato bruschetta with a bright, tangy finish" },
-      { name: "Lemon Herb Salmon", description: "Citrus-forward salmon echoes the cranberry-lime profile" },
+      { name: "Garlic Shrimp Scampi", description: "Elegant shrimp dish matches the cocktail's sophistication" },
+      { name: "Classic Tomato Bruschetta", description: "Light tomato bruschetta with a bright, tangy finish" },
+      { name: "Lemon Herb Baked Salmon", description: "Citrus-forward salmon echoes the cranberry-lime profile" },
     ],
   },
   {
@@ -202,8 +202,8 @@ export const sampleDrinks: Drink[] = [
     season: "fall",
     virginVersion: { replaces: [{ original: "whiskey", substitute: "apple-cider" }], notes: "Warm apple cider adds depth" },
     suggestedPairings: [
-      { name: "Stuffed Bell Peppers", description: "Hearty stuffed peppers pair well with the bold whiskey flavor" },
-      { name: "🥩 Charcuterie Board", description: "Cured meats and pickled items balance the sour citrus" },
+      { name: "Classic Stuffed Bell Peppers", description: "Hearty stuffed peppers pair well with the bold whiskey flavor" },
+      { name: "Buffalo Chicken Dip", description: "Spicy, creamy dip balances the sour citrus" },
       { name: "Creamy Tomato Pasta", description: "Tomato's acidity mirrors the lemon in the cocktail" },
     ],
   },
@@ -228,9 +228,9 @@ export const sampleDrinks: Drink[] = [
     season: "summer",
     virginVersion: { replaces: [{ original: "gin", substitute: "cucumber" }], notes: "Muddle extra cucumber for herbal flavor" },
     suggestedPairings: [
-      { name: "Lemon Herb Salmon", description: "Light, herbal salmon complements the botanical gin notes" },
-      { name: "🥒 Cucumber Tea Sandwiches", description: "Classic British pairing — light and refreshing" },
-      { name: "Chicken Curry", description: "The tonic's quinine cuts through rich curry spices" },
+      { name: "Lemon Herb Baked Salmon", description: "Light, herbal salmon complements the botanical gin notes" },
+      { name: "Classic Tomato Bruschetta", description: "Classic appetizer with a bright, tangy finish" },
+      { name: "Creamy Chicken Curry", description: "The tonic's quinine cuts through rich curry spices" },
     ],
   },
   {
@@ -257,9 +257,9 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "extra ginger-beer" }], notes: "Double the ginger beer for a virgin mule" },
     suggestedPairings: [
-      { name: "Beef Stir-Fry", description: "The ginger beer echoes the ginger in stir-fry dishes" },
-      { name: "🥟 Pork Dumplings", description: "Steamed or fried dumplings with the spicy ginger kick" },
-      { name: "Teriyaki Chicken", description: "Sweet and savory teriyaki alongside the spicy mule" },
+      { name: "Quick Beef Stir-Fry", description: "The ginger beer echoes the ginger in stir-fry dishes" },
+      { name: "Homemade Pork Dumplings", description: "Steamed or fried dumplings with the spicy ginger kick" },
+      { name: "Teriyaki Chicken Bowl", description: "Sweet and savory teriyaki alongside the spicy mule" },
     ],
   },
   {
@@ -285,9 +285,9 @@ export const sampleDrinks: Drink[] = [
     ],
     virginVersion: { replaces: [{ original: "rum-white", substitute: "coconut-water" }], notes: "Extra coconut cream for richness" },
     suggestedPairings: [
-      { name: "Teriyaki Chicken", description: "Sweet teriyaki glaze pairs perfectly with the tropical coconut" },
-      { name: "🍤 Coconut Shrimp", description: "Double coconut flavor with crispy fried shrimp" },
-      { name: "Fish Tacos", description: "Tropical fish tacos and piña colada is a beach day dream" },
+      { name: "Teriyaki Chicken Bowl", description: "Sweet teriyaki glaze pairs perfectly with the tropical coconut" },
+      { name: "Crispy Fish Tacos", description: "Tropical fish tacos and piña colada is a beach day dream" },
+      { name: "Panda Express Copycat Orange Chicken", description: "Sweet citrus chicken echoes the tropical pineapple" },
     ],
   },
   {
@@ -311,9 +311,9 @@ export const sampleDrinks: Drink[] = [
     season: "fall",
     virginVersion: { replaces: [{ original: "gin", substitute: "tonic-water" }, { original: "campari", substitute: "grapefruit-juice" }], notes: "Add rosemary for herbal notes" },
     suggestedPairings: [
-      { name: "🫒 Marinated Olives", description: "Bitter Campari loves salty, briny olives" },
+      { name: "Classic Tomato Bruschetta", description: "Bitter Campari loves bright, fresh tomato bruschetta" },
       { name: "Creamy Tomato Pasta", description: "Rich tomato pasta pairs with the bittersweet profile" },
-      { name: "🧀 Prosciutto & Mozzarella", description: "Classic Italian aperitivo board" },
+      { name: "Spinach Artichoke Dip", description: "Creamy, cheesy dip complements the herbal bitterness" },
     ],
   },
   {
@@ -416,8 +416,8 @@ export const sampleDrinks: Drink[] = [
     season: "all-season",
     virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate" }], notes: "Double espresso for intensity" },
     suggestedPairings: [
-      { name: "🍫 Chocolate Lava Cake", description: "Rich chocolate dessert amplifies the espresso and Kahlúa" },
-      { name: "🧁 Tiramisu", description: "Coffee-soaked ladyfingers echo the espresso base" },
+      { name: "Classic Tiramisu", description: "Coffee-soaked ladyfingers echo the espresso base" },
+      { name: "Fudgy Chocolate Brownies", description: "Rich chocolate amplifies the espresso and Kahlúa" },
       { name: "Creamy Tomato Pasta", description: "A savory dinner before the espresso martini nightcap" },
     ],
   },
@@ -1188,9 +1188,9 @@ export const sampleDrinks: Drink[] = [
     occasion: "party",
     season: "summer",
     suggestedPairings: [
-      { name: "Fish Tacos", description: "Light citrus and mint complement crispy fish perfectly" },
-      { name: "🥗 Garden Salad", description: "Fresh greens pair beautifully with the refreshing mint" },
-      { name: "Chicken Curry", description: "The cool mint balances warm curry spices" },
+      { name: "Crispy Fish Tacos", description: "Light citrus and mint complement crispy fish perfectly" },
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad pairs beautifully with the refreshing mint" },
+      { name: "Creamy Chicken Curry", description: "The cool mint balances warm curry spices" },
     ],
   },
   {
@@ -1212,9 +1212,9 @@ export const sampleDrinks: Drink[] = [
     occasion: "everyday",
     season: "all-season",
     suggestedPairings: [
-      { name: "🍔 Sliders", description: "Mini burgers are a fun, casual pairing for this classic" },
-      { name: "🍟 Sweet Potato Fries", description: "Sweet fries match the grenadine sweetness" },
+      { name: "Crispy Copycat Chicken Nuggets", description: "Classic nuggets are a fun, casual pairing for this sweet drink" },
       { name: "Rope Beef Sausage Egg Rolls", description: "Savory egg rolls balance the sweet, bubbly drink" },
+      { name: "Restaurant-Style Queso Dip", description: "Warm cheese dip is irresistible alongside a Shirley Temple" },
     ],
   },
   {
@@ -2062,7 +2062,7 @@ export const sampleDrinks: Drink[] = [
     suggestedPairings: [
       { name: "Fluffy Scrambled Eggs on Toast", description: "Light breakfast eggs alongside a fruity smoothie" },
       { name: "Greek Yogurt Parfait", description: "Double the berry goodness with a yogurt parfait" },
-      { name: "🥞 Protein Pancakes", description: "Stack of pancakes with fresh berries on top" },
+      { name: "Fluffy Banana Pancakes", description: "Stack of pancakes with fresh berries on top" },
     ],
   },
   {
@@ -2083,9 +2083,9 @@ export const sampleDrinks: Drink[] = [
     isAlcoholic: false,
     healthTags: ["Hydrating", "Vitamin C"],
     suggestedPairings: [
-      { name: "Teriyaki Chicken", description: "Sweet teriyaki with tropical fruits is an island vibe" },
-      { name: "🥥 Coconut Shrimp", description: "Crispy coconut shrimp with a tropical smoothie chaser" },
-      { name: "Fish Tacos", description: "Mango and pineapple smoothie + fish tacos = beach day" },
+      { name: "Teriyaki Chicken Bowl", description: "Sweet teriyaki with tropical fruits is an island vibe" },
+      { name: "Panda Express Copycat Orange Chicken", description: "Sweet citrus chicken with a tropical smoothie chaser" },
+      { name: "Crispy Fish Tacos", description: "Mango and pineapple smoothie + fish tacos = beach day" },
     ],
   },
   {
@@ -2289,8 +2289,8 @@ export const sampleDrinks: Drink[] = [
     healthTags: ["Energy Boost", "Antioxidant"],
     suggestedPairings: [
       { name: "Avocado Toast with Egg", description: "Clean energy breakfast combo — matcha + avocado toast" },
-      { name: "🍙 Rice Bowls", description: "Japanese-inspired pairing with the earthy matcha flavor" },
-      { name: "Beef Stir-Fry", description: "Asian-inspired stir-fry complements the green tea notes" },
+      { name: "Quick Beef Stir-Fry", description: "Asian-inspired stir-fry complements the green tea notes" },
+      { name: "Asian Sesame Noodle Salad", description: "Japanese-inspired pairing with the earthy matcha flavor" },
     ],
   },
   {
@@ -11754,9 +11754,9 @@ export const sampleDrinks: Drink[] = [
     occasion: "nightcap",
     season: "winter",
     suggestedPairings: [
-      { name: "Chicken Curry", description: "Warm golden milk with aromatic curry is cozy perfection" },
-      { name: "🍞 Naan Bread", description: "Tear into warm naan alongside soothing turmeric milk" },
-      { name: "Beef Stir-Fry", description: "Anti-inflammatory drink pairs well with a hearty dinner" },
+      { name: "Creamy Chicken Curry", description: "Warm golden milk with aromatic curry is cozy perfection" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Warm, garlicky breadsticks alongside soothing turmeric milk" },
+      { name: "Quick Beef Stir-Fry", description: "Anti-inflammatory drink pairs well with a hearty dinner" },
     ],
   },
   {
