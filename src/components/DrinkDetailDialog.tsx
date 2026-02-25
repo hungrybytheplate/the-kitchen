@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ShareRecipeButton } from "./ShareRecipeButton";
+import { sampleRecipes, type Recipe } from "@/data/recipes";
 import {
   Dialog,
   DialogContent,
@@ -21,9 +22,21 @@ import {
   Leaf,
   Repeat,
   ShoppingCart,
+  Utensils,
+  ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Drink } from "@/data/drinks";
+
+function normalizeTitle(str: string): string {
+  return str.replace(/[^a-z0-9]/gi, "").toLowerCase();
+}
+
+function findRecipeByName(name: string): Recipe | null {
+  if (name.startsWith("🍫") || name.startsWith("🧀") || name.startsWith("🫒") || name.startsWith("🥩") || name.startsWith("🥒") || name.startsWith("🍤") || name.startsWith("🥥") || name.startsWith("🥗") || name.startsWith("🍔") || name.startsWith("🍟") || name.startsWith("🥞") || name.startsWith("🍙") || name.startsWith("🧁")) return null;
+  const normalized = normalizeTitle(name);
+  return sampleRecipes.find((r) => normalizeTitle(r.title) === normalized) ?? null;
+}
 
 interface DrinkDetailDialogProps {
   drink: Drink;
@@ -272,6 +285,39 @@ export function DrinkDetailDialog({
                   <span className="text-sm">
                     <strong>Garnish:</strong> {drink.garnish}
                   </span>
+                </div>
+              </>
+            )}
+
+            {/* Pairs Well With */}
+            {drink.suggestedPairings && drink.suggestedPairings.length > 0 && (
+              <>
+                <Separator />
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-sm flex items-center gap-2">
+                    <Utensils className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                    <span className="text-amber-700 dark:text-amber-300">Pairs Well With</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {drink.suggestedPairings.map((pairing, index) => {
+                      const linkedRecipe = findRecipeByName(pairing.name);
+                      return (
+                        <div
+                          key={index}
+                          className={cn(
+                            "p-2.5 rounded-lg bg-muted/50 border border-border/50",
+                            linkedRecipe && "hover:border-primary/50 hover:bg-primary/5 transition-all"
+                          )}
+                        >
+                          <p className="text-sm font-medium flex items-center gap-1.5">
+                            {pairing.name}
+                            {linkedRecipe && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{pairing.description}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </>
             )}
