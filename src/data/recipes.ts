@@ -16483,6 +16483,9 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 285, protein: 12, carbs: 28, fat: 14, fiber: 2, sodium: 580, cholesterol: 35 },
     cuisine: "american",
+    proteinSubstitutions: [
+      { original: "rope-beef-sausage", alternatives: ["ground-chicken", "ground-turkey", "ground-pork", "chicken-breast", "turkey-breast", "pork-tenderloin"], notes: "Ground meat works best — just brown and crumble it the same way. If using breast or tenderloin, cut into small bite-size pieces (½-inch cubes) before sautéing so they cook evenly and fit inside the wrappers" },
+    ],
     suggestedSides: [
       { name: "Sweet Chili Dipping Sauce", description: "Sticky-sweet with a kick — the perfect dip for these crispy rolls" },
       { name: "Hot Mustard Dipping Sauce", description: "Sharp, sinus-clearing mustard for bold dippers" },
