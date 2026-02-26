@@ -2105,6 +2105,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Energy Boost"],
+    suggestedPairings: [
+      { name: "Fluffy Banana Pancakes", description: "Banana pancakes with a strawberry banana smoothie" },
+      { name: "Greek Yogurt Parfait", description: "Layer your parfait alongside this classic smoothie" },
+      { name: "Avocado Toast with Egg", description: "Savory toast balances the sweet smoothie" },
+    ],
   },
   {
     id: "mango-lassi",
@@ -2123,6 +2128,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Digestive"],
+    suggestedPairings: [
+      { name: "Creamy Chicken Curry", description: "Classic Indian curry pairs perfectly with mango lassi" },
+      { name: "Quick Beef Stir-Fry", description: "Spiced stir-fry with a cool, creamy lassi" },
+      { name: "Teriyaki Chicken Bowl", description: "Asian-inspired bowl with a South Asian smoothie" },
+    ],
   },
   {
     id: "peanut-butter-banana",
@@ -2141,6 +2151,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Protein Rich", "Energy Boost"],
+    suggestedPairings: [
+      { name: "Fluffy Banana Pancakes", description: "PB banana smoothie and banana pancakes — a match" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Oatmeal alongside a protein-packed smoothie" },
+      { name: "Protein Smoothie Bowl", description: "Double the protein power for a big morning" },
+    ],
   },
   {
     id: "acai-bowl-drink",
@@ -2159,6 +2174,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Antioxidant", "Energy Boost"],
+    suggestedPairings: [
+      { name: "Greek Yogurt Parfait", description: "Parfait and açaí — a superfood breakfast combo" },
+      { name: "Avocado Toast with Egg", description: "Clean eating with avocado toast and açaí" },
+      { name: "Overnight Chia Pudding Parfait", description: "Double the superfoods for a health-packed morning" },
+    ],
   },
   {
     id: "dragon-fruit-dream",
@@ -2177,6 +2197,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Hydrating", "Antioxidant"],
+    suggestedPairings: [
+      { name: "Tropical Smoothie Bowl", description: "Tropical fruits on tropical fruits — vibrant!" },
+      { name: "Greek Yogurt Parfait", description: "Creamy yogurt balances the exotic dragon fruit" },
+      { name: "Avocado Toast with Egg", description: "Savory toast alongside the colorful smoothie" },
+    ],
   },
   {
     id: "cherry-almond",
@@ -2195,6 +2220,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Protein Rich", "Heart Healthy"],
+    suggestedPairings: [
+      { name: "Greek Yogurt Parfait", description: "Almond and cherry flavors with creamy yogurt" },
+      { name: "Classic Chocolate Chip Cookies", description: "Cherry almond smoothie with cookies — delicious" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Hearty oats with a nutty cherry smoothie" },
+    ],
   },
   {
     id: "kiwi-mint-refresh",
@@ -2213,6 +2243,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Vitamin C", "Hydrating"],
+    suggestedPairings: [
+      { name: "Avocado Toast with Egg", description: "Fresh kiwi mint with avocado toast is spa-level" },
+      { name: "Classic Caesar Salad", description: "Light salad with a refreshing fruit smoothie" },
+      { name: "Crispy Fish Tacos", description: "Citrusy kiwi complements light fish tacos" },
+    ],
   },
   {
     id: "oat-breakfast",
@@ -2231,6 +2266,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Protein Rich", "Energy Boost", "Heart Healthy"],
+    suggestedPairings: [
+      { name: "Fluffy Banana Pancakes", description: "Oat smoothie and pancakes — breakfast dream team" },
+      { name: "Avocado Toast with Egg", description: "Savory toast with your filling oat smoothie" },
+      { name: "Greek Yogurt Parfait", description: "Add a yogurt parfait for extra protein" },
+    ],
   },
   {
     id: "tropical-green",
@@ -2249,6 +2289,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Detox", "Vitamin C"],
+    suggestedPairings: [
+      { name: "Avocado Toast with Egg", description: "Green smoothie with green avocado — a clean combo" },
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad with a nutrient-packed smoothie" },
+      { name: "Teriyaki Chicken Bowl", description: "Tropical pineapple in both the smoothie and bowl" },
+    ],
   },
   {
     id: "chai-smoothie",
@@ -2267,6 +2312,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Anti-Inflammatory", "Digestive"],
+    suggestedPairings: [
+      { name: "Cinnabon Copycat Cinnamon Rolls", description: "Chai spices echo the cinnamon rolls perfectly" },
+      { name: "Classic French Toast", description: "Warming spiced smoothie with sweet French toast" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Cozy oatmeal alongside a spiced smoothie" },
+    ],
   },
 
   // ============ WELLNESS DRINKS ============
@@ -2310,6 +2360,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Anti-Inflammatory", "Immune Support"],
+    suggestedPairings: [
+      { name: "Avocado Toast with Egg", description: "Clean breakfast with anti-inflammatory turmeric" },
+      { name: "Mediterranean Chicken Salad", description: "Healthy salad matches the wellness vibes" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Warming oatmeal with a golden wellness drink" },
+    ],
   },
   {
     id: "green-machine",
@@ -2328,6 +2383,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Detox", "Hydrating", "Low Calorie"],
+    suggestedPairings: [
+      { name: "Avocado Toast with Egg", description: "Green power duo — cucumber drink and avocado" },
+      { name: "Classic Caesar Salad", description: "Light salad pairs with this refreshing green drink" },
+      { name: "Greek Yogurt Parfait", description: "Add protein with a yogurt parfait" },
+    ],
   },
   {
     id: "green-detox",
@@ -2346,6 +2406,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Detox", "Immune Support", "Antioxidant"],
+    suggestedPairings: [
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad for a full clean-eating meal" },
+      { name: "Avocado Toast with Egg", description: "Hearty toast with your detox smoothie" },
+      { name: "Greek Yogurt Parfait", description: "Yogurt adds protein to your wellness routine" },
+    ],
   },
   {
     id: "protein-power",
@@ -2364,6 +2429,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     isAlcoholic: false,
     healthTags: ["Protein Rich", "Energy Boost"],
+    suggestedPairings: [
+      { name: "Protein Smoothie Bowl", description: "Double the protein for serious gains" },
+      { name: "Quick Beef Stir-Fry", description: "Post-workout meal with protein shake" },
+      { name: "Teriyaki Chicken Bowl", description: "High-protein bowl after your protein shake" },
+    ],
   },
   {
     id: "immunity-booster",
@@ -2382,6 +2452,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Shot glass",
     isAlcoholic: false,
     healthTags: ["Immune Support", "Vitamin C", "Anti-Inflammatory"],
+    suggestedPairings: [
+      { name: "Warm Oatmeal with Fresh Berries", description: "Gentle breakfast with a powerful immunity shot" },
+      { name: "Greek Yogurt Parfait", description: "Probiotics in yogurt boost immunity alongside" },
+      { name: "Creamy Overnight Oats", description: "Easy make-ahead oats with your morning wellness shot" },
+    ],
   },
   {
     id: "avocado-smoothie",
@@ -7565,6 +7640,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 120, sugar: 9, carbs: 10 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Classic Chocolate Chip Cookies", description: "Warm cookies and a latte — coffeehouse perfection" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti made for dunking in a latte" },
+      { name: "Avocado Toast with Egg", description: "A classic café breakfast pairing" },
+    ],
   },
   {
     id: "vanilla-latte",
@@ -7652,6 +7732,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 280, sugar: 35, carbs: 40 },
     occasion: "everyday",
     season: "winter",
+    suggestedPairings: [
+      { name: "Classic Chocolate Chip Cookies", description: "Warm cookies dunked in hot chocolate" },
+      { name: "Fudgy Chocolate Brownies", description: "Maximum chocolate with brownies and cocoa" },
+      { name: "Cinnabon Copycat Cinnamon Rolls", description: "Gooey cinnamon rolls with hot cocoa" },
+    ],
   },
   {
     id: "peppermint-hot-chocolate",
@@ -7675,6 +7760,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 300, sugar: 42, carbs: 48 },
     occasion: "party",
     season: "winter",
+    suggestedPairings: [
+      { name: "Layered Peppermint Bark", description: "Double peppermint — bark and hot chocolate" },
+      { name: "Classic Gingerbread Cookies", description: "Spiced cookies with minty hot chocolate" },
+      { name: "Holiday Sugar Cookies", description: "Festive cookies alongside festive cocoa" },
+    ],
   },
   {
     id: "white-hot-chocolate",
@@ -7719,6 +7809,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 160, sugar: 22, carbs: 28 },
     occasion: "everyday",
     season: "fall",
+    suggestedPairings: [
+      { name: "Cinnabon Copycat Cinnamon Rolls", description: "Warm spiced chai with gooey cinnamon rolls" },
+      { name: "Classic Gingerbread Cookies", description: "Spiced cookies echo the chai spice blend" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Cozy oatmeal alongside a warming chai" },
+    ],
   },
   {
     id: "dirty-chai-latte",
@@ -7805,6 +7900,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 120, sugar: 28, carbs: 30 },
     occasion: "party",
     season: "fall",
+    suggestedPairings: [
+      { name: "Classic Gingerbread Cookies", description: "Spiced cider with spiced cookies — fall heaven" },
+      { name: "Cranberry Orange Scones", description: "Warm scones alongside warm cider" },
+      { name: "Carrot Cake with Cream Cheese Frosting", description: "Spiced cake echoes the warm cider spices" },
+    ],
   },
   {
     id: "spiked-apple-cider",
@@ -14707,6 +14807,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 90, sugar: 22, carbs: 24 },
     occasion: "everyday",
     season: "summer",
+    suggestedPairings: [
+      { name: "Chick-fil-A Copycat Chicken Sandwich", description: "Crispy chicken sandwich and iced tea — classic combo" },
+      { name: "Crispy Copycat Chicken Nuggets", description: "Nuggets with lemonade iced tea is a perfect lunch" },
+      { name: "Classic Caesar Salad", description: "Light salad with a refreshing Arnold Palmer" },
+    ],
   },
   {
     id: "iced-tea-sweet-southern",
@@ -14729,6 +14834,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 120, sugar: 32, carbs: 32 },
     occasion: "everyday",
     season: "summer",
+    suggestedPairings: [
+      { name: "Popeyes Copycat Spicy Chicken Sandwich", description: "Spicy chicken with sweet tea — the South in a meal" },
+      { name: "Chick-fil-A Copycat Chicken Sandwich", description: "Fried chicken and sweet tea is Southern gospel" },
+      { name: "KFC Copycat Coleslaw", description: "Creamy coleslaw alongside sweet iced tea" },
+    ],
   },
   {
     id: "iced-tea-peach",
@@ -14751,6 +14861,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 95, sugar: 24, carbs: 26 },
     occasion: "everyday",
     season: "summer",
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Fruity peach tea with light, crispy fish tacos" },
+      { name: "Classic Caesar Salad", description: "Fresh salad with a sweet peach tea" },
+      { name: "Lemon Herb Baked Salmon", description: "Delicate salmon with fruity iced tea" },
+    ],
   },
   {
     id: "iced-tea-raspberry",
@@ -14773,6 +14888,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 85, sugar: 20, carbs: 22 },
     occasion: "everyday",
     season: "summer",
+    suggestedPairings: [
+      { name: "Classic Tomato Bruschetta", description: "Light bruschetta with a berry-infused tea" },
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad alongside tangy raspberry tea" },
+      { name: "Garlic Shrimp Scampi", description: "Elegant shrimp with a fruity iced tea" },
+    ],
   },
   {
     id: "iced-tea-thai",
@@ -14795,6 +14915,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 180, sugar: 38, carbs: 42 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Panda Express Copycat Orange Chicken", description: "Sweet orange chicken with creamy Thai tea" },
+      { name: "Quick Beef Stir-Fry", description: "Asian stir-fry with Asian-style iced tea" },
+      { name: "Homemade Pork Dumplings", description: "Dumplings and Thai tea — a street food dream" },
+    ],
   },
   {
     id: "iced-tea-green-mint",
@@ -14818,6 +14943,11 @@ export const sampleDrinks: Drink[] = [
     healthTags: ["Antioxidant", "Hydrating"],
     occasion: "everyday",
     season: "summer",
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Minty green tea with light citrusy fish tacos" },
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad with a cooling mint tea" },
+      { name: "Classic Tomato Bruschetta", description: "Light appetizer alongside minty iced tea" },
+    ],
   },
   {
     id: "iced-tea-passion-fruit",
@@ -14840,6 +14970,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 80, sugar: 18, carbs: 20 },
     occasion: "party",
     season: "summer",
+    suggestedPairings: [
+      { name: "Teriyaki Chicken Bowl", description: "Tropical passion fruit with sweet teriyaki" },
+      { name: "Crispy Fish Tacos", description: "Exotic iced tea with light fish tacos" },
+      { name: "Chipotle Copycat Burrito Bowl", description: "Bold burrito bowl with a fruity tea" },
+    ],
   },
   {
     id: "iced-tea-bubble-classic",
@@ -14862,6 +14997,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 250, sugar: 42, carbs: 58 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Panda Express Copycat Orange Chicken", description: "Boba tea with crispy orange chicken — a classic" },
+      { name: "Homemade Pork Dumplings", description: "Steamed dumplings with chewy boba tea" },
+      { name: "Quick Beef Stir-Fry", description: "Stir-fry and bubble tea — Asian comfort combo" },
+    ],
   },
   {
     id: "iced-tea-taro-bubble",
