@@ -96,6 +96,11 @@ export const sampleRecipes: Recipe[] = [
       "Top with smoked salmon for a protein-packed breakfast",
       "Sprinkle cottage cheese alongside for extra protein and creaminess",
     ],
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "A fruity antioxidant smoothie to start the day" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Hearty oatmeal rounds out a complete breakfast" },
+      { name: "Classic French Toast", description: "Sweet French toast alongside savory eggs" },
+    ],
   },
   {
     id: "oatmeal-berries",
@@ -130,6 +135,11 @@ export const sampleRecipes: Recipe[] = [
       "Sprinkle hemp seeds or chia seeds for plant-based protein boost",
     ],
     heartHealthy: true,
+    suggestedSides: [
+      { name: "Greek Yogurt Parfait", description: "Creamy yogurt parfait for extra protein" },
+      { name: "Fluffy Scrambled Eggs on Toast", description: "Add some protein with fluffy eggs" },
+      { name: "Tropical Paradise Smoothie", description: "A tropical smoothie to brighten your morning" },
+    ],
   },
   {
     id: "avocado-toast",
@@ -164,6 +174,11 @@ export const sampleRecipes: Recipe[] = [
       "Top with smoked salmon or lox for 10g+ protein boost",
       "Sprinkle hemp hearts or pumpkin seeds on top",
       "Add crumbled feta or goat cheese for extra protein",
+    ],
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "Fresh berry smoothie pairs perfectly with avocado toast" },
+      { name: "Savory Egg Muffins", description: "Grab-and-go egg muffins alongside your toast" },
+      { name: "Matcha Energy Smoothie", description: "Clean green energy with your breakfast" },
     ],
   },
   {
@@ -201,6 +216,11 @@ export const sampleRecipes: Recipe[] = [
       "Top with Greek yogurt and nuts instead of just syrup",
       "Serve with a side of turkey bacon or sausage",
     ],
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "Fresh berries in smoothie form with your pancakes" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Double up on breakfast comfort" },
+      { name: "Classic Hot Chocolate", description: "Rich hot chocolate for the ultimate brunch treat" },
+    ],
   },
   {
     id: "greek-yogurt-bowl",
@@ -234,6 +254,11 @@ export const sampleRecipes: Recipe[] = [
       "Add a scoop of unflavored protein powder",
       "Sprinkle with hemp seeds, chia seeds, or chopped almonds",
       "Top with cottage cheese for an extra protein boost",
+    ],
+    suggestedSides: [
+      { name: "Warm Oatmeal with Fresh Berries", description: "Warm oatmeal complements the cool yogurt" },
+      { name: "Fluffy Banana Pancakes", description: "Stack of pancakes rounds out the morning" },
+      { name: "Berry Blast Smoothie", description: "Double the berries for a fruity feast" },
     ],
   },
   {
@@ -271,6 +296,11 @@ export const sampleRecipes: Recipe[] = [
       "Top with sliced almonds or walnuts for protein and crunch",
       "Add a side of bacon or sausage for a complete protein breakfast",
     ],
+    suggestedSides: [
+      { name: "Fluffy Banana Pancakes", description: "Pancakes and French toast for a full brunch spread" },
+      { name: "Berry Blast Smoothie", description: "Fresh berry smoothie cuts through the sweet richness" },
+      { name: "Classic Hot Chocolate", description: "Hot chocolate for the ultimate cozy breakfast" },
+    ],
   },
   {
     id: "veggie-omelette",
@@ -302,6 +332,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free", "keto"],
     difficulty: "medium",
     nutrition: { calories: 380, protein: 24, carbs: 8, fat: 28, sodium: 640, cholesterol: 560 },
+    suggestedSides: [
+      { name: "Avocado Toast with Egg", description: "Creamy avocado toast pairs great with an omelette" },
+      { name: "Fluffy Scrambled Eggs on Toast", description: "Extra eggs on the side for a protein feast" },
+      { name: "Berry Blast Smoothie", description: "A refreshing fruity smoothie alongside your eggs" },
+    ],
   },
   {
     id: "breakfast-burrito",
@@ -323,6 +358,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 420, protein: 18, carbs: 38, fat: 22, sodium: 780, cholesterol: 285 },
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Creamy guacamole is a natural burrito companion" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical smoothie brightens any breakfast" },
+      { name: "Berry Blast Smoothie", description: "Fruity smoothie balances the savory burrito" },
+    ],
   },
   {
     id: "smoothie-bowl",
@@ -344,6 +384,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 340, protein: 12, carbs: 58, fat: 8, sodium: 45, cholesterol: 5 },
+    suggestedSides: [
+      { name: "Greek Yogurt Parfait", description: "Add protein with a side of creamy yogurt" },
+      { name: "Avocado Toast with Egg", description: "Savory toast alongside the sweet smoothie bowl" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Double the fruit power this morning" },
+    ],
   },
   {
     id: "egg-muffins",
@@ -369,6 +414,11 @@ export const sampleRecipes: Recipe[] = [
       "Add diced ham or bacon for extra protein",
       "Use cottage cheese in the mixture for a protein boost",
       "Include turkey sausage crumbles for variety",
+    ],
+    suggestedSides: [
+      { name: "Avocado Toast with Egg", description: "Creamy avocado toast alongside portable egg cups" },
+      { name: "Berry Blast Smoothie", description: "Quick smoothie to wash down the egg muffins" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Hearty oatmeal for a filling breakfast combo" },
     ],
   },
   {
@@ -404,6 +454,11 @@ export const sampleRecipes: Recipe[] = [
       "Add a scoop of protein powder to the mixture",
       "Include nut butter for healthy fats and protein",
       "Top with hemp seeds for extra plant protein",
+    ],
+    suggestedSides: [
+      { name: "Greek Yogurt Parfait", description: "Layered yogurt parfait for extra morning protein" },
+      { name: "Berry Blast Smoothie", description: "Blend up berries to go with your oats" },
+      { name: "Avocado Toast with Egg", description: "Savory toast balances the sweet overnight oats" },
     ],
   },
   {
@@ -586,6 +641,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 380, protein: 18, carbs: 28, fat: 22 },
     cuisine: "mexican",
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Fresh guac elevates any breakfast burrito" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical smoothie is a refreshing contrast" },
+      { name: "Classic Strawberry Banana", description: "A classic smoothie alongside your burritos" },
+    ],
   },
   {
     id: "mason-jar-greek-salad",
@@ -1907,6 +1967,11 @@ export const sampleRecipes: Recipe[] = [
       "Add chopped pecans or walnuts for extra protein and crunch",
       "Use whole wheat flour for half the flour for more fiber"
     ],
+    suggestedSides: [
+      { name: "Classic Café Latte", description: "A warm latte is the perfect cinnamon roll companion" },
+      { name: "Classic Hot Chocolate", description: "Hot chocolate with gooey cinnamon rolls is heaven" },
+      { name: "Greek Yogurt Parfait", description: "Balance the sweetness with a protein-packed parfait" },
+    ],
   },
   {
     id: "cheesecake-factory-copycat-bang-bang-chicken",
@@ -1986,6 +2051,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 290, protein: 17, carbs: 26, fat: 13, sodium: 730, cholesterol: 215 },
     proteinSubstitutions: [
       { original: "ham", alternatives: ["bacon", "sausage-breakfast", "turkey-bacon"], notes: "Breakfast sausage patty makes it a sausage McMuffin style" }
+    ],
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "Fruity smoothie alongside your breakfast muffin" },
+      { name: "Classic Chocolate Chip Cookies", description: "A sweet treat for an indulgent morning" },
+      { name: "Peanut Butter Banana Smoothie", description: "Protein-packed smoothie to fuel the day" },
     ],
   },
   {
@@ -4652,6 +4722,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 165, protein: 2, carbs: 22, fat: 8 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Classic Café Latte", description: "Warm latte is the perfect cookie dunking companion" },
+      { name: "Classic Hot Chocolate", description: "Hot chocolate and cookies — a timeless duo" },
+      { name: "Fudgy Chocolate Brownies", description: "Double the chocolate for ultimate dessert" },
+    ],
   },
   {
     id: "classic-brownies",
@@ -4674,6 +4749,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 245, protein: 3, carbs: 32, fat: 13 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Classic Hot Chocolate", description: "Rich hot chocolate amplifies the chocolate" },
+      { name: "Espresso Martini", description: "Coffee and chocolate is a sophisticated combo" },
+      { name: "Classic Vanilla Layer Cake", description: "Vanilla cake provides a lighter contrast" },
+    ],
   },
   {
     id: "tiramisu",
@@ -4697,6 +4777,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 285, protein: 6, carbs: 28, fat: 16 },
     cuisine: "italian",
+    suggestedSides: [
+      { name: "Espresso Martini", description: "Coffee cocktail echoes the espresso in tiramisu" },
+      { name: "Classic Café Latte", description: "A warm latte alongside this Italian masterpiece" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti for dipping in your espresso" },
+    ],
   },
   {
     id: "rum-cake",
@@ -4814,6 +4899,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 120, protein: 2, carbs: 20, fat: 4 },
     cuisine: "american",
     isHoliday: true,
+    suggestedSides: [
+      { name: "Classic Hot Chocolate", description: "Hot chocolate is the classic gingerbread pairing" },
+      { name: "Holiday Sugar Cookies", description: "A festive cookie platter with gingerbread" },
+      { name: "Peppermint Hot Chocolate", description: "Minty hot chocolate for a holiday treat" },
+    ],
   },
   {
     id: "eggnog-french-toast",
@@ -4837,6 +4927,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 380, protein: 12, carbs: 45, fat: 18 },
     cuisine: "american",
     isHoliday: true,
+    suggestedSides: [
+      { name: "Classic Hot Chocolate", description: "Rich hot chocolate with festive French toast" },
+      { name: "Classic Gingerbread Cookies", description: "Spiced cookies complete the holiday breakfast" },
+      { name: "Layered Peppermint Bark", description: "A sweet holiday treat on the side" },
+    ],
   },
   {
     id: "cranberry-glazed-ham",
@@ -4882,6 +4977,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 145, protein: 2, carbs: 18, fat: 8 },
     cuisine: "american",
     isHoliday: true,
+    suggestedSides: [
+      { name: "Peppermint Hot Chocolate", description: "The ultimate peppermint pairing" },
+      { name: "Classic Gingerbread Cookies", description: "Spiced cookies alongside minty bark" },
+      { name: "Holiday Sugar Cookies", description: "Build a holiday cookie platter together" },
+    ],
   },
   {
     id: "stuffing-classic",
@@ -4927,6 +5027,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 85, protein: 1, carbs: 12, fat: 4 },
     cuisine: "american",
     isHoliday: true,
+    suggestedSides: [
+      { name: "Classic Hot Chocolate", description: "Decorating cookies with a warm mug of cocoa" },
+      { name: "Classic Gingerbread Cookies", description: "A perfect cookie duo for holiday baking" },
+      { name: "Layered Peppermint Bark", description: "Chocolate bark rounds out the holiday spread" },
+    ],
   },
   {
     id: "mulled-cider-pork",
@@ -4972,6 +5077,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 265, protein: 4, carbs: 38, fat: 11 },
     cuisine: "american",
     isHoliday: true,
+    suggestedSides: [
+      { name: "Classic Café Latte", description: "Warm latte is the perfect scone companion" },
+      { name: "Classic Hot Chocolate", description: "Rich hot chocolate for a cozy breakfast" },
+      { name: "Almond Biscotti", description: "Italian cookies alongside festive scones" },
+    ],
   },
   {
     id: "donut-holes",
@@ -4994,6 +5104,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 95, protein: 2, carbs: 14, fat: 4 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Classic Café Latte", description: "Dunk warm donut holes into your morning latte" },
+      { name: "Classic Hot Chocolate", description: "Hot chocolate with cinnamon sugar donuts" },
+      { name: "Classic Chocolate Chip Cookies", description: "A sweet treat combo for dessert lovers" },
+    ],
   },
   {
     id: "monkey-bread",
