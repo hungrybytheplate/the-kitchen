@@ -3188,9 +3188,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 480, protein: 32, carbs: 38, fat: 22 },
     suggestedSides: [
-      { name: "Fresh Guacamole", description: "Extra guac for the burrito bowl" },
-      { name: "Mexican Street Corn Salad", description: "Elote salad adds a sweet contrast" },
-      { name: "Classic Margarita", description: "Lime margarita is a natural burrito companion" },
+      { name: "Fresh Guacamole", description: "Creamy guac is a must with enchiladas" },
+      { name: "Rice & Beans", description: "Classic Mexican side completes the meal" },
+      { name: "Mexican Street Corn Salad", description: "Elote-style corn salad for a festive spread" },
+      { name: "Classic Margarita", description: "Tequila and lime are the perfect enchilada pairing" },
     ],
   },
   {
@@ -3214,9 +3215,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "hard",
     nutrition: { calories: 380, protein: 42, carbs: 8, fat: 22 },
     suggestedSides: [
-      { name: "Fresh Guacamole", description: "Creamy guac for dipping alongside the quesadilla" },
-      { name: "Mexican Street Corn Salad", description: "Sweet corn salad brightens the plate" },
-      { name: "Classic Margarita", description: "A cold margarita with a cheesy quesadilla" },
+      { name: "Fresh Guacamole", description: "Fresh guac in warm tortillas with the carnitas" },
+      { name: "Rice & Beans", description: "Traditional Mexican rice and beans on the side" },
+      { name: "Mexican Street Corn Salad", description: "Sweet charred corn salad for a fiesta" },
+      { name: "Classic Margarita", description: "Citrus margarita pairs perfectly with pork" },
     ],
   },
   {
