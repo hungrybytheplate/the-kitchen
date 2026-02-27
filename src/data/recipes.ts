@@ -3239,9 +3239,9 @@ export const sampleRecipes: Recipe[] = [
     ],
     matchedIngredients: [],
     suggestedSides: [
-      { name: "Steamed Rice", description: "Jasmine rice to serve alongside the noodles" },
-      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls for a Thai takeout spread" },
-      { name: "Thai Iced Tea", description: "Sweet and creamy Thai tea cools the palate" },
+      { name: "Fresh Guacamole", description: "Extra guac for the burrito bowl" },
+      { name: "Mexican Street Corn Salad", description: "Elote salad adds a sweet contrast" },
+      { name: "Classic Margarita", description: "Lime margarita is a natural burrito companion" },
     ],
   },
   {
@@ -3265,9 +3265,9 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 480, protein: 38, carbs: 42, fat: 18 },
     suggestedSides: [
-      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls round out the Chinese takeout" },
-      { name: "Asian Cucumber Salad", description: "Cool cucumber salad for contrast" },
-      { name: "Moscow Mule", description: "Ginger beer and lime refresh alongside fried rice" },
+      { name: "Fresh Guacamole", description: "Creamy guac for dipping alongside the quesadilla" },
+      { name: "Mexican Street Corn Salad", description: "Sweet corn salad brightens the plate" },
+      { name: "Classic Margarita", description: "A cold margarita with a cheesy quesadilla" },
     ],
   },
   // ============ ASIAN CUISINE ============
