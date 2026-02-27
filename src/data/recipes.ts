@@ -1893,6 +1893,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "italian",
     nutrition: { calories: 180, protein: 4, carbs: 28, fat: 6, sodium: 340, cholesterol: 15 },
+    suggestedSides: [
+      { name: "Creamy Tomato Pasta", description: "Breadsticks and tomato pasta — the Olive Garden experience" },
+      { name: "Virgin Negroni", description: "Italian-inspired aperitif with Italian breadsticks" },
+      { name: "Classic Tomato Bruschetta", description: "Double the garlic bread vibes" },
+    ],
   },
   {
     id: "kfc-copycat-coleslaw",
@@ -1928,6 +1933,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "american",
     nutrition: { calories: 120, protein: 1, carbs: 12, fat: 8, sodium: 220, cholesterol: 5 },
+    suggestedSides: [
+      { name: "Crispy Copycat Chicken Nuggets", description: "Coleslaw and crispy chicken — the ultimate combo" },
+      { name: "Popeyes Copycat Spicy Chicken Sandwich", description: "Cool, creamy slaw with a spicy fried chicken sandwich" },
+      { name: "Arnold Palmer", description: "Classic Arnold Palmer with a classic coleslaw" },
+    ],
   },
   {
     id: "cinnabon-copycat-rolls",
