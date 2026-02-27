@@ -1874,6 +1874,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Wine glass",
     garnish: "Orange slice",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Classic Tomato Bruschetta", description: "Italian-inspired appetizer with an Italian-style spritz" },
+      { name: "Mediterranean Chicken Salad", description: "Light citrus salad with a bittersweet orange cooler" },
+    ],
   },
   {
     id: "virgin-daiquiri",
@@ -1892,9 +1896,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Coupe glass",
     garnish: "Lime wheel",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Citrusy lime mocktail is a natural fish taco companion" },
+      { name: "Fresh Guacamole", description: "Simple lime drink with creamy avocado dip" },
+    ],
   },
-  {
-    id: "virgin-tom-collins",
     title: "Virgin Tom Collins",
     drinkType: "mocktail",
     description: "Classic lemon sour with fizzy refreshment",
@@ -1910,9 +1916,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Collins glass",
     garnish: "Lemon wheel, cherry",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Classic Caesar Salad", description: "Fizzy lemon refresher alongside a crisp salad" },
+      { name: "Chick-fil-A Copycat Chicken Sandwich", description: "Lemonade and fried chicken — a classic combo" },
+    ],
   },
-  {
-    id: "virgin-paloma",
     title: "Virgin Paloma",
     drinkType: "mocktail",
     description: "Refreshing grapefruit and lime Mexican cooler",
@@ -1928,9 +1936,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Salt rim, grapefruit wedge",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Grapefruit paloma with spicy tacos — Mexican fiesta" },
+      { name: "Fresh Guacamole", description: "Citrus and avocado are a natural match" },
+    ],
   },
-  {
-    id: "virgin-dark-and-stormy",
     title: "Virgin Dark 'n' Stormy",
     drinkType: "mocktail",
     description: "Spicy ginger beer with lime and molasses notes",
@@ -1946,9 +1956,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Lime wedge",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Quick Beef Stir-Fry", description: "Ginger beer echoes the ginger in stir-fry" },
+      { name: "Homemade Pork Dumplings", description: "Spicy ginger kick with savory dumplings" },
+    ],
   },
-  {
-    id: "virgin-hibiscus-margarita",
     title: "Virgin Hibiscus Margarita",
     drinkType: "mocktail",
     description: "Floral and vibrant pink margarita mocktail",
@@ -1964,9 +1976,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Coupe glass",
     garnish: "Dried hibiscus flower",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Floral margarita mocktail with spicy tacos" },
+      { name: "Classic Hummus", description: "Light, floral drink with a savory dip" },
+    ],
   },
-
-  // ============ MORE COCKTAILS ============
   {
     id: "mai-tai",
     title: "Mai Tai",
