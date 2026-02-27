@@ -1,4 +1,5 @@
 import { pairingRecipes } from "./pairingRecipes";
+import { generatePairings } from "./autoPairings";
 
 export type DietaryTag = "vegetarian" | "vegan" | "gluten-free" | "dairy-free" | "keto" | "paleo" | "nut-free" | "high-protein" | "low-carb" | "high-fiber" | "no-sodium" | "low-sodium";
 export type DifficultyLevel = "easy" | "medium" | "hard";
@@ -2946,6 +2947,12 @@ export const sampleRecipes: Recipe[] = [
       "Add edamame or cashews for extra plant protein",
       "Serve over quinoa for complete amino acids",
     ],
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Fluffy rice to soak up the savory stir-fry sauce" },
+      { name: "Soba Noodles", description: "Nutty buckwheat noodles complement the crispy tofu" },
+      { name: "Asian Slaw", description: "Crunchy cabbage slaw with sesame dressing" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical fruit smoothie for a refreshing contrast" },
+    ],
   },
   // ============ ITALIAN CLASSICS ============
   {
@@ -2986,6 +2993,12 @@ export const sampleRecipes: Recipe[] = [
       "Add capers for a tangy protein-rich garnish",
       "Serve with a side of white beans for extra protein",
     ],
+    suggestedSides: [
+      { name: "Fettuccine Alfredo", description: "Creamy pasta to pair with the lemon-caper sauce" },
+      { name: "Roasted Vegetables", description: "Seasonal roasted veggies round out the plate" },
+      { name: "Crusty Bread", description: "Warm bread to soak up the bright butter sauce" },
+      { name: "Classic Balsamic Vinaigrette", description: "Dress a side salad to lighten the meal" },
+    ],
   },
   {
     id: "chicken-marsala",
@@ -3024,6 +3037,12 @@ export const sampleRecipes: Recipe[] = [
       "Include a side salad with chickpeas",
     ],
     season: "fall",
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Warm garlic bread alongside the mushroom wine sauce" },
+      { name: "Creamy Mashed Potatoes", description: "Buttery mashed potatoes soak up the Marsala sauce" },
+      { name: "Roasted Vegetables", description: "Light roasted veggies balance the rich sauce" },
+      { name: "Old Fashioned", description: "A bold cocktail to match the savory depth" },
+    ],
   },
   {
     id: "chicken-parmesan",
@@ -3061,6 +3080,12 @@ export const sampleRecipes: Recipe[] = [
       "Serve over protein pasta for an extra boost",
       "Include a side of Italian sausage links",
     ],
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Classic Italian garlic bread for dipping in marinara" },
+      { name: "Classic Caesar Salad", description: "Crisp Caesar salad complements the breaded chicken" },
+      { name: "Fettuccine Alfredo", description: "Creamy pasta rounds out the Italian dinner" },
+      { name: "Negroni", description: "Bitter Italian cocktail pairs beautifully" },
+    ],
   },
   {
     id: "eggplant-parmesan",
@@ -3082,6 +3107,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "hard",
     nutrition: { calories: 420, protein: 18, carbs: 32, fat: 26 },
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Crusty garlic bread for soaking up marinara" },
+      { name: "Classic Caesar Salad", description: "Light Caesar salad balances the rich eggplant" },
+      { name: "Crusty Bread", description: "Warm bread alongside the cheesy layers" },
+      { name: "Classic Mojito", description: "Fresh mint cocktail cuts through the richness" },
+    ],
   },
   {
     id: "fettuccine-alfredo",
@@ -3103,6 +3134,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 620, protein: 18, carbs: 52, fat: 38 },
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Warm garlic bread is a must with Alfredo" },
+      { name: "Classic Caesar Salad", description: "Crisp salad lightens the creamy pasta" },
+      { name: "Classic Tomato Bruschetta", description: "Fresh tomato bruschetta for a bright contrast" },
+      { name: "Negroni", description: "Bitter Italian cocktail balances the cream" },
+    ],
   },
   {
     id: "penne-vodka",
@@ -3124,6 +3161,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 520, protein: 16, carbs: 58, fat: 24 },
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Garlicky bread for the creamy tomato sauce" },
+      { name: "Classic Caesar Salad", description: "Caesar salad pairs perfectly with Italian pasta" },
+      { name: "Classic Tomato Bruschetta", description: "Double down on tomato with fresh bruschetta" },
+      { name: "Cosmopolitan", description: "Bright cranberry cocktail matches the tangy sauce" },
+    ],
   },
   // ============ MEXICAN FAVORITES ============
   {
@@ -3145,6 +3188,12 @@ export const sampleRecipes: Recipe[] = [
     matchedIngredients: [],
     difficulty: "medium",
     nutrition: { calories: 480, protein: 32, carbs: 38, fat: 22 },
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Creamy guac is a must with enchiladas" },
+      { name: "Rice & Beans", description: "Classic Mexican side completes the meal" },
+      { name: "Mexican Street Corn Salad", description: "Elote-style corn salad for a festive spread" },
+      { name: "Classic Margarita", description: "Tequila and lime are the perfect enchilada pairing" },
+    ],
   },
   {
     id: "carnitas",
@@ -3166,6 +3215,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "dairy-free"],
     difficulty: "hard",
     nutrition: { calories: 380, protein: 42, carbs: 8, fat: 22 },
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Fresh guac in warm tortillas with the carnitas" },
+      { name: "Rice & Beans", description: "Traditional Mexican rice and beans on the side" },
+      { name: "Mexican Street Corn Salad", description: "Sweet charred corn salad for a fiesta" },
+      { name: "Classic Margarita", description: "Citrus margarita pairs perfectly with pork" },
+    ],
   },
   {
     id: "burrito-bowl",
@@ -3184,6 +3239,11 @@ export const sampleRecipes: Recipe[] = [
       "Serve with salsa, sour cream, and extra lime wedges on the side. Let everyone customize their bowl to their liking."
     ],
     matchedIngredients: [],
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Extra guac for the burrito bowl" },
+      { name: "Mexican Street Corn Salad", description: "Elote salad adds a sweet contrast" },
+      { name: "Classic Margarita", description: "Lime margarita is a natural burrito companion" },
+    ],
   },
   {
     id: "quesadilla",
@@ -3205,6 +3265,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free"],
     difficulty: "easy",
     nutrition: { calories: 480, protein: 38, carbs: 42, fat: 18 },
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Creamy guac for dipping alongside the quesadilla" },
+      { name: "Mexican Street Corn Salad", description: "Sweet corn salad brightens the plate" },
+      { name: "Classic Margarita", description: "A cold margarita with a cheesy quesadilla" },
+    ],
   },
   // ============ ASIAN CUISINE ============
   {
@@ -3227,6 +3292,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 480, protein: 28, carbs: 52, fat: 18 },
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Jasmine rice to serve alongside the noodles" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls for a Thai takeout spread" },
+      { name: "Thai Iced Tea", description: "Sweet and creamy Thai tea cools the palate" },
+    ],
   },
   {
     id: "fried-rice",
@@ -3248,6 +3318,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14 },
+    suggestedSides: [
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls round out the Chinese takeout" },
+      { name: "Asian Cucumber Salad", description: "Cool cucumber salad for contrast" },
+      { name: "Moscow Mule", description: "Ginger beer and lime refresh alongside fried rice" },
+    ],
   },
   {
     id: "kung-pao-chicken",
@@ -3269,6 +3344,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 420, protein: 32, carbs: 32, fat: 18 },
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Jasmine rice to balance the spicy Sichuan heat" },
+      { name: "Asian Cucumber Salad", description: "Cool cucumber salad tames the spice" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls for a full Chinese spread" },
+      { name: "Moscow Mule", description: "Ginger beer cools the Sichuan spice" },
+    ],
   },
   {
     id: "orange-chicken",
@@ -3290,6 +3371,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 480, protein: 28, carbs: 42, fat: 24 },
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Rice to serve under the sweet orange sauce" },
+      { name: "Crispy Egg Rolls", description: "Egg rolls complete the Chinese takeout feast" },
+      { name: "Asian Slaw", description: "Crunchy slaw for a refreshing contrast" },
+    ],
   },
   {
     id: "general-tso-chicken",
@@ -3311,6 +3397,11 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 520, protein: 28, carbs: 48, fat: 26 },
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Rice for the sweet and spicy chicken" },
+      { name: "Crispy Egg Rolls", description: "Golden egg rolls for a Chinese feast" },
+      { name: "Asian Cucumber Salad", description: "Cool cucumber balances the spicy sauce" },
+    ],
   },
   {
     id: "thai-green-curry",
@@ -3332,6 +3423,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["gluten-free", "dairy-free"],
     difficulty: "medium",
     nutrition: { calories: 420, protein: 32, carbs: 38, fat: 18 },
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Jasmine rice to soak up the coconut curry" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls on the side" },
+      { name: "Thai Iced Tea", description: "Sweet Thai tea balances the curry heat" },
+      { name: "Piña Colada", description: "Coconut cocktail echoes the curry's tropical base" },
+    ],
   },
   {
     id: "japanese-chicken-katsu",
@@ -17586,6 +17683,13 @@ function estimateSodium(recipe: Recipe): number {
 sampleRecipes.forEach(recipe => {
   if (recipe.nutrition && recipe.nutrition.sodium === undefined) {
     recipe.nutrition.sodium = estimateSodium(recipe);
+  }
+});
+
+// Fill in missing suggestedSides using auto-pairing algorithm
+sampleRecipes.forEach(recipe => {
+  if (!recipe.suggestedSides || recipe.suggestedSides.length === 0) {
+    recipe.suggestedSides = generatePairings(recipe);
   }
 });
 
