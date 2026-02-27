@@ -582,4 +582,13 @@ export const pairingRecipes: Recipe[] = [
     matchedIngredients: [], nutrition: { calories: 80, protein: 0, carbs: 20, fat: 0 },
     dietaryTags: ["vegan", "gluten-free", "dairy-free"],
   },
+  {
+    id: "creamy-mashed-potatoes-pairing", title: "Creamy Mashed Potatoes", mealType: "sides",
+    description: "Buttery, fluffy mashed potatoes whipped to creamy perfection",
+    cookTime: "25 min", servings: 6, difficulty: "easy",
+    ingredients: ["potato", "butter", "milk", "salt", "pepper"],
+    instructions: ["Peel and cube 3 lbs russet potatoes. Boil in salted water 15-20 minutes until fork-tender. Drain well.", "Mash with 4 tbsp butter and 1/2 cup warm milk until smooth and creamy. Season with salt and pepper."],
+    matchedIngredients: [], nutrition: { calories: 220, protein: 4, carbs: 34, fat: 8 },
+    dietaryTags: ["vegetarian", "gluten-free"],
+  },
 ];
