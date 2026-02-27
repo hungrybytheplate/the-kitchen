@@ -495,6 +495,10 @@ export const sampleRecipes: Recipe[] = [
       "Include silken tofu for a vegan protein boost",
       "Top with nuts and seeds for additional protein",
     ],
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "Fresh berry smoothie alongside a protein-packed bowl" },
+      { name: "Avocado Toast with Egg", description: "Savory toast complements the sweet smoothie bowl" },
+    ],
   },
   {
     id: "egg-white-bites",
@@ -531,6 +535,10 @@ export const sampleRecipes: Recipe[] = [
       "Include cottage cheese for silky texture and protein",
       "Make with different cheese varieties for taste variety",
     ],
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "Fruity smoothie rounds out a quick breakfast" },
+      { name: "Classic Café Latte", description: "Coffee and egg bites — the Starbucks duo at home" },
+    ],
   },
   {
     id: "peanut-butter-banana-smoothie",
@@ -565,6 +573,10 @@ export const sampleRecipes: Recipe[] = [
       "Use powdered peanut butter for more protein, less fat",
       "Include silken tofu for creaminess and plant protein",
       "Add hemp seeds for omega-3s and protein",
+    ],
+    suggestedSides: [
+      { name: "Fluffy Scrambled Eggs on Toast", description: "Balance a sweet smoothie with savory eggs" },
+      { name: "Creamy Overnight Oats", description: "Prep oats and smoothie together for the week" },
     ],
   },
   {
@@ -602,6 +614,10 @@ export const sampleRecipes: Recipe[] = [
       "Include cottage cheese in the scramble for creaminess",
       "Use 5-6 eggs for a higher protein meal",
       "Serve with a side of Greek yogurt",
+    ],
+    suggestedSides: [
+      { name: "Avocado Toast with Egg", description: "Creamy avocado toast pairs with a veggie scramble" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical smoothie brightens any savory breakfast" },
     ],
   },
 
@@ -684,6 +700,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 320, protein: 12, carbs: 22, fat: 22 },
     cuisine: "mediterranean",
+    suggestedSides: [
+      { name: "Classic Hummus", description: "Smooth chickpea dip with your Mediterranean salad" },
+      { name: "Olive Garden Copycat Breadsticks", description: "Warm breadsticks on the side" },
+      { name: "Sparkling Strawberry Lemonade", description: "A refreshing fizzy drink with a healthy salad" },
+    ],
   },
   {
     id: "mason-jar-asian-noodle-salad",
@@ -947,6 +968,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 420, protein: 38, carbs: 22, fat: 22 },
     cuisine: "mexican",
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Creamy guac in lettuce cups alongside the taco filling" },
+      { name: "Mango Chili Limeade", description: "Sweet and spicy limeade with taco lettuce cups" },
+    ],
   },
   {
     id: "sheet-pan-sausage-vegetables",
@@ -986,6 +1011,10 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 520, protein: 28, carbs: 42, fat: 26 },
     cuisine: "italian",
     isOnePan: true,
+    suggestedSides: [
+      { name: "Olive Garden Copycat Breadsticks", description: "Soft breadsticks alongside the sheet pan dinner" },
+      { name: "Classic Balsamic Vinaigrette", description: "Dress a side salad for a complete meal" },
+    ],
   },
   {
     id: "honey-garlic-salmon-meal-prep",
@@ -1025,6 +1054,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 520, protein: 42, carbs: 42, fat: 20 },
     cuisine: "asian",
+    suggestedSides: [
+      { name: "Asian Sesame Ginger Dressing", description: "Toss a cucumber salad with umami dressing" },
+      { name: "Matcha Energy Smoothie", description: "Green tea smoothie complements the Asian flavors" },
+    ],
   },
   {
     id: "egg-muffin-cups",
@@ -1061,6 +1094,10 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free", "keto", "high-protein", "low-carb"],
     difficulty: "easy",
     nutrition: { calories: 110, protein: 8, carbs: 2, fat: 8 },
+    suggestedSides: [
+      { name: "Berry Blast Smoothie", description: "Quick smoothie to go with grab-and-go egg cups" },
+      { name: "Tropical Smoothie Bowl", description: "A smoothie bowl rounds out your breakfast prep" },
+    ],
   },
   {
     id: "chicken-fried-rice-meal-prep",
@@ -1100,6 +1137,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 450, protein: 35, carbs: 48, fat: 14 },
     cuisine: "asian",
+    suggestedSides: [
+      { name: "Crispy Egg Rolls", description: "Crispy egg rolls complete the takeout vibe" },
+      { name: "Asian Sesame Ginger Dressing", description: "Drizzle over the fried rice for extra flavor" },
+    ],
   },
   {
     id: "overnight-chia-pudding",
@@ -1134,6 +1175,10 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian", "gluten-free", "high-fiber"],
     difficulty: "easy",
     nutrition: { calories: 320, protein: 12, carbs: 42, fat: 14 },
+    suggestedSides: [
+      { name: "Fluffy Scrambled Eggs on Toast", description: "Add protein with eggs alongside the parfait" },
+      { name: "Matcha Energy Smoothie", description: "Green matcha pairs with the berry pudding" },
+    ],
   },
   {
     id: "greek-chicken-meal-prep",
@@ -1174,6 +1219,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 580, protein: 42, carbs: 35, fat: 32 },
     cuisine: "mediterranean",
+    suggestedSides: [
+      { name: "Classic Hummus", description: "Smooth hummus alongside Mediterranean chicken" },
+      { name: "Greek Lemon Herb Dressing", description: "Extra lemon dressing for drizzling" },
+      { name: "Sparkling Strawberry Lemonade", description: "Fizzy lemonade to brighten the meal" },
+    ],
   },
   {
     id: "black-bean-sweet-potato-bowls",
@@ -1214,6 +1264,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 480, protein: 16, carbs: 72, fat: 16 },
     cuisine: "mexican",
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Fresh guac drizzled over the power bowl" },
+      { name: "Mango Chili Limeade", description: "Sweet, spicy, and refreshing alongside the bowl" },
+    ],
   },
 
   // ============ LUNCH ============
