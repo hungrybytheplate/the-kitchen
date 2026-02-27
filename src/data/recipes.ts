@@ -1,4 +1,5 @@
 import { pairingRecipes } from "./pairingRecipes";
+import { generatePairings } from "./autoPairings";
 
 export type DietaryTag = "vegetarian" | "vegan" | "gluten-free" | "dairy-free" | "keto" | "paleo" | "nut-free" | "high-protein" | "low-carb" | "high-fiber" | "no-sodium" | "low-sodium";
 export type DifficultyLevel = "easy" | "medium" | "hard";
