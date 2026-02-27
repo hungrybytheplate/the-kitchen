@@ -2559,7 +2559,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Homemade Ranch Dressing", description: "Cool ranch for dipping or drizzling over the peppers" },
       { name: "Honey Butter Cornbread", description: "Sweet, buttery cornbread complements the savory filling" },
-      { name: "Garden Side Salad", description: "Fresh green salad to lighten the hearty stuffed peppers" },
+      { name: "Classic Caesar Salad", description: "Fresh green salad to lighten the hearty stuffed peppers" },
       { name: "Classic Mojito", description: "Fresh mint and lime to brighten the hearty meal" },
       { name: "Classic Balsamic Vinaigrette", description: "Dress a simple green salad as a light side" },
     ],
