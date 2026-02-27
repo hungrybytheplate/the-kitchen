@@ -1237,6 +1237,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "summer",
     healthTags: ["Hydrating", "Low Calorie"],
+    suggestedPairings: [
+      { name: "Lemon Herb Baked Salmon", description: "Light, herbal salmon with a refreshing cucumber drink" },
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad paired with cool cucumber flavors" },
+    ],
   },
   {
     id: "virgin-pina-colada",
@@ -1256,6 +1260,10 @@ export const sampleDrinks: Drink[] = [
     isAlcoholic: false,
     occasion: "party",
     season: "summer",
+    suggestedPairings: [
+      { name: "Teriyaki Chicken Bowl", description: "Tropical coconut pairs beautifully with sweet teriyaki" },
+      { name: "Crispy Fish Tacos", description: "Tropical vibes with fish tacos on the side" },
+    ],
   },
   {
     id: "strawberry-lemonade",
@@ -1277,6 +1285,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "spring",
     healthTags: ["Vitamin C"],
+    suggestedPairings: [
+      { name: "Chick-fil-A Copycat Chicken Sandwich", description: "Sweet strawberry lemonade with crispy chicken — classic" },
+      { name: "Classic Chocolate Chip Cookies", description: "Cookies and cold lemonade on a sunny day" },
+    ],
   },
   {
     id: "passion-fruit-spritz",
@@ -1297,6 +1309,10 @@ export const sampleDrinks: Drink[] = [
     isAlcoholic: false,
     occasion: "brunch",
     season: "summer",
+    suggestedPairings: [
+      { name: "Garlic Shrimp Scampi", description: "Tropical spritz pairs with buttery shrimp beautifully" },
+      { name: "Crispy Fish Tacos", description: "Bright tropical flavors with light, crispy fish" },
+    ],
   },
   {
     id: "ginger-mint-spritzer",
@@ -1318,6 +1334,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "everyday",
     season: "all-season",
     healthTags: ["Digestive"],
+    suggestedPairings: [
+      { name: "Quick Beef Stir-Fry", description: "Ginger spritzer echoes the ginger in stir-fry" },
+      { name: "Homemade Pork Dumplings", description: "Spicy ginger kick alongside savory dumplings" },
+    ],
   },
   {
     id: "watermelon-basil-cooler",
@@ -1339,6 +1359,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "party",
     season: "summer",
     healthTags: ["Hydrating"],
+    suggestedPairings: [
+      { name: "Mediterranean Chicken Salad", description: "Fresh basil and watermelon pair with bright Mediterranean flavors" },
+      { name: "Classic Tomato Bruschetta", description: "Basil in the drink, basil on the bruschetta — summer magic" },
+    ],
   },
   {
     id: "citrus-sunrise",
@@ -1360,6 +1384,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "all-season",
     healthTags: ["Vitamin C"],
+    suggestedPairings: [
+      { name: "Fluffy Banana Pancakes", description: "A bright citrus sunrise with a stack of pancakes — brunch perfection" },
+      { name: "Classic French Toast", description: "Sweet French toast with a tangy orange drink" },
+    ],
   },
   {
     id: "lavender-lemonade",
@@ -1380,6 +1408,10 @@ export const sampleDrinks: Drink[] = [
     isAlcoholic: false,
     occasion: "brunch",
     season: "spring",
+    suggestedPairings: [
+      { name: "Lemon Blueberry Cream Tart", description: "Floral lavender and bright lemon tart — spring in a glass and on a plate" },
+      { name: "Cranberry Orange Scones", description: "Citrus scones with a fragrant lavender lemonade" },
+    ],
   },
   {
     id: "peach-bellini-mock",
@@ -1400,6 +1432,10 @@ export const sampleDrinks: Drink[] = [
     isAlcoholic: false,
     occasion: "brunch",
     season: "summer",
+    suggestedPairings: [
+      { name: "Classic Eggs Benedict", description: "Bubbly peach bellini is the quintessential brunch pairing" },
+      { name: "Classic French Toast", description: "Sweet peach drink with sweet French toast" },
+    ],
   },
   {
     id: "pomegranate-sparkler",
@@ -1421,6 +1457,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "party",
     season: "fall",
     healthTags: ["Antioxidant"],
+    suggestedPairings: [
+      { name: "Classic Hummus", description: "Middle Eastern hummus pairs with the pomegranate's tart sweetness" },
+      { name: "Mediterranean Chicken Salad", description: "Pomegranate seeds and Mediterranean salad — a natural match" },
+    ],
   },
   {
     id: "tropical-punch",
@@ -1442,6 +1482,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "party",
     season: "summer",
     healthTags: ["Vitamin C"],
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Tropical punch cools down spicy taco night" },
+      { name: "Teriyaki Chicken Bowl", description: "Sweet tropical punch with a sweet teriyaki bowl" },
+    ],
   },
   {
     id: "arnold-palmer",
@@ -1460,6 +1504,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Tall glass",
     garnish: "Lemon wedge",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Chick-fil-A Copycat Chicken Sandwich", description: "The classic Southern combo — fried chicken and iced tea" },
+      { name: "In-N-Out Copycat Double-Double", description: "Burgers and Arnold Palmers on a summer day" },
+    ],
   },
   {
     id: "coconut-lime-refresher",
@@ -1478,6 +1526,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Lime wheel, mint",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Coconut and lime with fresh fish tacos — tropical heaven" },
+      { name: "Teriyaki Chicken Bowl", description: "Coconut lime refresher with sweet teriyaki" },
+    ],
   },
 
   // ============ VIRGIN COCKTAIL MOCKTAILS ============
@@ -1499,6 +1551,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Rocks glass",
     garnish: "Jalapeño slice, salt rim",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Spicy margarita with spicy tacos — a fiery duo" },
+      { name: "Fresh Guacamole", description: "The classic margarita and guac combo, sans tequila" },
+    ],
   },
   {
     id: "virgin-espresso-martini",
@@ -1519,6 +1575,10 @@ export const sampleDrinks: Drink[] = [
     garnish: "Chocolate shavings, coffee beans",
     isAlcoholic: false,
     healthTags: ["Energy Boost"],
+    suggestedPairings: [
+      { name: "Classic Tiramisu", description: "Coffee mocktail with coffee-soaked dessert — double espresso bliss" },
+      { name: "Fudgy Chocolate Brownies", description: "Rich brownies pair perfectly with espresso" },
+    ],
   },
   {
     id: "virgin-mojito-strawberry",
@@ -1537,6 +1597,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Strawberry, mint sprig",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Strawberry mint freshness with light, crispy fish" },
+      { name: "Mediterranean Chicken Salad", description: "Bright salad with a fruity mint mocktail" },
+    ],
   },
   {
     id: "virgin-passion-fruit-martini",
@@ -1555,6 +1619,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Martini glass",
     garnish: "Passion fruit half",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Garlic Shrimp Scampi", description: "Tropical passion fruit with elegant shrimp" },
+      { name: "Panda Express Copycat Orange Chicken", description: "Tropical and tangy orange — a sweet pairing" },
+    ],
   },
   {
     id: "virgin-negroni",
@@ -1573,6 +1641,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Rocks glass",
     garnish: "Orange peel, rosemary",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Classic Tomato Bruschetta", description: "Italian bruschetta with an Italian-inspired aperitif" },
+      { name: "Creamy Tomato Pasta", description: "Bittersweet citrus cuts through rich tomato pasta" },
+    ],
   },
   {
     id: "virgin-old-fashioned",
@@ -1591,6 +1663,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Rocks glass",
     garnish: "Orange peel, cherry",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Pan-Seared Pork Chops", description: "Aromatic bitters and savory pork — a refined combo" },
+      { name: "Garlic Butter Chicken", description: "Rich, buttery chicken with a complex mocktail" },
+    ],
   },
   {
     id: "virgin-mango-margarita",
@@ -1609,6 +1685,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Margarita glass",
     garnish: "Salt rim, mango slice",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Sweet mango margarita with savory beef tacos" },
+      { name: "Chipotle Copycat Burrito Bowl", description: "Mango and Mexican flavors are a natural pair" },
+    ],
   },
   {
     id: "virgin-whiskey-sour",
@@ -1627,6 +1707,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Rocks glass",
     garnish: "Angostura drops, cherry",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Buffalo Chicken Dip", description: "Tangy sour cuts through creamy, spicy dip" },
+      { name: "Classic Stuffed Bell Peppers", description: "Hearty stuffed peppers with a citrusy sour" },
+    ],
   },
   {
     id: "virgin-cosmopolitan",
@@ -1644,6 +1728,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Martini glass",
     garnish: "Lime wheel",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Garlic Shrimp Scampi", description: "Elegant cranberry cosmo with buttery shrimp" },
+      { name: "Classic Tomato Bruschetta", description: "Light appetizer alongside a classy mocktail" },
+    ],
   },
   {
     id: "virgin-aperol-spritz",
@@ -7666,6 +7754,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 180, sugar: 24, carbs: 26 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Cinnabon Copycat Cinnamon Rolls", description: "Vanilla latte and warm cinnamon rolls — café perfection" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti made for dunking in a vanilla latte" },
+      { name: "Classic Chocolate Chip Cookies", description: "Warm cookies and a sweet vanilla latte" },
+    ],
   },
   {
     id: "caramel-latte",
@@ -7856,6 +7949,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 140, sugar: 14, carbs: 18 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Avocado Toast with Egg", description: "Clean, earthy matcha pairs perfectly with savory avocado toast" },
+      { name: "Greek Yogurt Parfait", description: "Light yogurt parfait alongside antioxidant-rich matcha" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Hearty oatmeal with earthy matcha for a zen morning" },
+    ],
   },
   {
     id: "london-fog",
@@ -7878,6 +7976,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 130, sugar: 18, carbs: 22 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Cranberry Orange Scones", description: "Floral tea with a citrusy scone — very British" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti dipped in a creamy London Fog" },
+      { name: "Lemon Blueberry Cream Tart", description: "Bright lemon tart echoes the bergamot in Earl Grey" },
+    ],
   },
   {
     id: "mulled-apple-cider",
@@ -7957,6 +8060,11 @@ export const sampleDrinks: Drink[] = [
       replaces: [{ original: "whiskey", substitute: "green-tea" }],
       notes: "Replace whiskey with hot tea for a soothing non-alcoholic version"
     },
+    suggestedPairings: [
+      { name: "Classic Gingerbread Cookies", description: "Spiced cookies alongside a warming toddy" },
+      { name: "Carrot Cake with Cream Cheese Frosting", description: "Spiced cake complements the honey-lemon warmth" },
+      { name: "Classic Herb Stuffing", description: "Comfort food with a comforting drink on a cold night" },
+    ],
   },
   {
     id: "irish-coffee",
@@ -7983,6 +8091,11 @@ export const sampleDrinks: Drink[] = [
       replaces: [{ original: "whiskey", substitute: "vanilla-syrup" }],
       notes: "Use vanilla syrup instead of whiskey"
     },
+    suggestedPairings: [
+      { name: "Classic Tiramisu", description: "Coffee dessert meets coffee cocktail — Italian perfection" },
+      { name: "Fudgy Chocolate Brownies", description: "Rich brownies with a boozy coffee warmer" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti for dunking in your Irish coffee" },
+    ],
   },
   // ============ SUMMER REFRESHERS ============
   {

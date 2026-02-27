@@ -1893,6 +1893,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "italian",
     nutrition: { calories: 180, protein: 4, carbs: 28, fat: 6, sodium: 340, cholesterol: 15 },
+    suggestedSides: [
+      { name: "Creamy Tomato Pasta", description: "Breadsticks and tomato pasta — the Olive Garden experience" },
+      { name: "Virgin Negroni", description: "Italian-inspired aperitif with Italian breadsticks" },
+      { name: "Classic Tomato Bruschetta", description: "Double the garlic bread vibes" },
+    ],
   },
   {
     id: "kfc-copycat-coleslaw",
@@ -1928,6 +1933,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "american",
     nutrition: { calories: 120, protein: 1, carbs: 12, fat: 8, sodium: 220, cholesterol: 5 },
+    suggestedSides: [
+      { name: "Crispy Copycat Chicken Nuggets", description: "Coleslaw and crispy chicken — the ultimate combo" },
+      { name: "Popeyes Copycat Spicy Chicken Sandwich", description: "Cool, creamy slaw with a spicy fried chicken sandwich" },
+      { name: "Arnold Palmer", description: "Classic Arnold Palmer with a classic coleslaw" },
+    ],
   },
   {
     id: "cinnabon-copycat-rolls",
@@ -2092,6 +2102,11 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "sausage-breakfast", alternatives: ["bacon", "ham", "turkey-bacon"], notes: "Turkey sausage works for a lighter version" }
     ],
+    suggestedSides: [
+      { name: "Vanilla Latte", description: "Sweet vanilla latte with a savory sausage biscuit" },
+      { name: "Berry Blast Smoothie", description: "Fresh berries alongside a hearty breakfast sandwich" },
+      { name: "KFC Copycat Coleslaw", description: "Creamy slaw for a Southern breakfast spread" },
+    ],
   },
   {
     id: "copycat-bacon-egg-cheese-griddle",
@@ -2128,6 +2143,11 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "bacon", alternatives: ["turkey-bacon", "ham", "sausage-breakfast"], notes: "Sausage patty works great as an alternative" }
     ],
+    suggestedSides: [
+      { name: "Caramel Latte", description: "Sweet caramel latte mirrors the maple griddle cakes" },
+      { name: "Tropical Paradise Smoothie", description: "Bright tropical smoothie with a savory-sweet stack" },
+      { name: "Fluffy Scrambled Eggs on Toast", description: "Extra eggs on the side for a full breakfast" },
+    ],
   },
   {
     id: "copycat-breakfast-burrito",
@@ -2163,6 +2183,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 510, protein: 26, carbs: 38, fat: 28, sodium: 820, cholesterol: 260 },
     proteinSubstitutions: [
       { original: "sausage-breakfast", alternatives: ["bacon", "ham", "chorizo"], notes: "Chorizo adds a spicy twist" }
+    ],
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Creamy guac is a natural burrito companion" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical smoothie brightens your breakfast" },
+      { name: "Citrus Sunrise", description: "Bright orange sunrise drink with a savory burrito" },
     ],
   },
 
@@ -4805,6 +4830,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 320, protein: 4, carbs: 42, fat: 14 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Irish Coffee", description: "Boozy coffee warmer with a boozy rum cake — adults-only treat" },
+      { name: "Piña Colada", description: "Caribbean rum cake with a tropical piña colada" },
+      { name: "Classic Vanilla Layer Cake", description: "Layer cake alongside rum cake for a dessert spread" },
+    ],
   },
   {
     id: "christmas-crack",
@@ -4828,6 +4858,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 175, protein: 1, carbs: 22, fat: 10 },
     cuisine: "american",
     isHoliday: true,
+    suggestedSides: [
+      { name: "Peppermint Hot Chocolate", description: "Sweet-salty toffee with peppermint cocoa" },
+      { name: "Classic Gingerbread Cookies", description: "Holiday cookie tin essentials together" },
+      { name: "Layered Peppermint Bark", description: "Double the holiday chocolate treats" },
+    ],
   },
   {
     id: "biscotti",
@@ -4851,6 +4886,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 95, protein: 2, carbs: 14, fat: 4 },
     cuisine: "italian",
+    suggestedSides: [
+      { name: "Vanilla Latte", description: "A warm latte for dunking crunchy biscotti" },
+      { name: "London Fog", description: "Earl Grey tea latte pairs beautifully with almond biscotti" },
+      { name: "Classic Tiramisu", description: "Italian biscotti with an Italian coffee dessert" },
+    ],
   },
   {
     id: "chocolate-buttons",
@@ -5132,6 +5172,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 285, protein: 3, carbs: 42, fat: 12 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Classic Hot Chocolate", description: "Hot cocoa with gooey pull-apart bread" },
+      { name: "Vanilla Latte", description: "Vanilla latte with cinnamon-sugar monkey bread" },
+      { name: "Homemade Cinnamon Rolls", description: "Double the cinnamon-sugar goodness" },
+    ],
   },
   {
     id: "cinnamon-rolls",
@@ -5155,6 +5200,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "hard",
     nutrition: { calories: 380, protein: 6, carbs: 58, fat: 14 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Caramel Latte", description: "Gooey cinnamon rolls with a sweet caramel latte" },
+      { name: "Classic Hot Chocolate", description: "Hot cocoa and warm cinnamon rolls" },
+      { name: "Pull-Apart Monkey Bread", description: "Go all-in on cinnamon morning treats" },
+    ],
   },
   {
     id: "vanilla-cake",
@@ -5181,6 +5231,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "easy",
     nutrition: { calories: 395, protein: 4, carbs: 58, fat: 17 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Strawberry Lemonade", description: "Bright strawberry lemonade with a classic vanilla cake" },
+      { name: "Lavender Lemonade", description: "Floral lemonade with a light vanilla cake" },
+      { name: "Classic Vanilla Buttercream", description: "Extra buttercream for decorating" },
+    ],
   },
   {
     id: "chocolate-cake",
@@ -5203,6 +5258,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 380, protein: 5, carbs: 52, fat: 18 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "Virgin Espresso Martini", description: "Coffee mocktail with rich chocolate cake" },
+      { name: "Rich Chocolate Ganache", description: "Extra ganache for an over-the-top chocolate experience" },
+      { name: "Classic Café Latte", description: "Coffee and chocolate — the perfect duo" },
+    ],
   },
   {
     id: "cream-cheese-frosting-cake",
@@ -5226,6 +5286,11 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 465, protein: 5, carbs: 58, fat: 24 },
     cuisine: "american",
+    suggestedSides: [
+      { name: "London Fog", description: "Earl Grey tea latte pairs beautifully with spiced carrot cake" },
+      { name: "Classic Hot Toddy", description: "Warm spiced toddy echoes the cake's cinnamon and spice" },
+      { name: "Cream Cheese Frosting", description: "Extra cream cheese frosting on the side" },
+    ],
   },
 
   // ============ SIDES & BREADS ============
@@ -6167,6 +6232,10 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
     nutrition: { calories: 285, protein: 3, carbs: 34, fat: 16 },
+    suggestedSides: [
+      { name: "Classic Café Latte", description: "Coffee and salted caramel brownies — irresistible" },
+      { name: "Classic Hot Chocolate", description: "Rich chocolate on chocolate" },
+    ],
   },
   {
     id: "lemon-blueberry-tart",
@@ -6195,6 +6264,10 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
     nutrition: { calories: 325, protein: 4, carbs: 38, fat: 18 },
+    suggestedSides: [
+      { name: "Lavender Lemonade", description: "Floral lavender lemonade with a bright lemon tart" },
+      { name: "London Fog", description: "Earl Grey tea's bergamot notes complement the lemon curd" },
+    ],
   },
   {
     id: "tres-leches-cake",
