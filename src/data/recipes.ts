@@ -3292,10 +3292,9 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 480, protein: 28, carbs: 52, fat: 18 },
     suggestedSides: [
-      { name: "Steamed Rice", description: "Jasmine rice to balance the spicy Sichuan heat" },
-      { name: "Asian Cucumber Salad", description: "Cool cucumber salad tames the spice" },
-      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls for a full Chinese spread" },
-      { name: "Moscow Mule", description: "Ginger beer cools the Sichuan spice" },
+      { name: "Steamed Rice", description: "Jasmine rice to serve alongside the noodles" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls for a Thai takeout spread" },
+      { name: "Thai Iced Tea", description: "Sweet and creamy Thai tea cools the palate" },
     ],
   },
   {
@@ -3319,9 +3318,9 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 380, protein: 14, carbs: 52, fat: 14 },
     suggestedSides: [
-      { name: "Steamed Rice", description: "Rice to serve under the sweet orange sauce" },
-      { name: "Crispy Egg Rolls", description: "Egg rolls complete the Chinese takeout feast" },
-      { name: "Asian Slaw", description: "Crunchy slaw for a refreshing contrast" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls round out the Chinese takeout" },
+      { name: "Asian Cucumber Salad", description: "Cool cucumber salad for contrast" },
+      { name: "Moscow Mule", description: "Ginger beer and lime refresh alongside fried rice" },
     ],
   },
   {
@@ -3345,9 +3344,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 420, protein: 32, carbs: 32, fat: 18 },
     suggestedSides: [
-      { name: "Steamed Rice", description: "Rice for the sweet and spicy chicken" },
-      { name: "Crispy Egg Rolls", description: "Golden egg rolls for a Chinese feast" },
-      { name: "Asian Cucumber Salad", description: "Cool cucumber balances the spicy sauce" },
+      { name: "Steamed Rice", description: "Jasmine rice to balance the spicy Sichuan heat" },
+      { name: "Asian Cucumber Salad", description: "Cool cucumber salad tames the spice" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls for a full Chinese spread" },
+      { name: "Moscow Mule", description: "Ginger beer cools the Sichuan spice" },
     ],
   },
   {
@@ -3371,10 +3371,9 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 480, protein: 28, carbs: 42, fat: 24 },
     suggestedSides: [
-      { name: "Steamed Rice", description: "Jasmine rice to soak up the coconut curry" },
-      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls on the side" },
-      { name: "Thai Iced Tea", description: "Sweet Thai tea balances the curry heat" },
-      { name: "Piña Colada", description: "Coconut cocktail echoes the curry's tropical base" },
+      { name: "Steamed Rice", description: "Rice to serve under the sweet orange sauce" },
+      { name: "Crispy Egg Rolls", description: "Egg rolls complete the Chinese takeout feast" },
+      { name: "Asian Slaw", description: "Crunchy slaw for a refreshing contrast" },
     ],
   },
   {
@@ -3398,9 +3397,9 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 520, protein: 28, carbs: 48, fat: 26 },
     suggestedSides: [
-      { name: "Steamed Rice", description: "Japanese rice alongside the crispy katsu" },
-      { name: "Asian Cucumber Salad", description: "Light cucumber salad refreshes the palate" },
-      { name: "Asian Slaw", description: "Shredded cabbage slaw pairs naturally with katsu" },
+      { name: "Steamed Rice", description: "Rice for the sweet and spicy chicken" },
+      { name: "Crispy Egg Rolls", description: "Golden egg rolls for a Chinese feast" },
+      { name: "Asian Cucumber Salad", description: "Cool cucumber balances the spicy sauce" },
     ],
   },
   {
@@ -3424,10 +3423,10 @@ export const sampleRecipes: Recipe[] = [
     difficulty: "medium",
     nutrition: { calories: 420, protein: 32, carbs: 38, fat: 18 },
     suggestedSides: [
-      { name: "Classic Hummus", description: "Creamy hummus with warm pita on the side" },
-      { name: "Roasted Vegetables", description: "Roasted Mediterranean vegetables complete the plate" },
-      { name: "Basmati Rice", description: "Fragrant rice to soak up the lemon sauce" },
-      { name: "Tom Collins", description: "Citrusy gin cocktail echoes the bright lemon" },
+      { name: "Steamed Rice", description: "Jasmine rice to soak up the coconut curry" },
+      { name: "Crispy Egg Rolls", description: "Crunchy egg rolls on the side" },
+      { name: "Thai Iced Tea", description: "Sweet Thai tea balances the curry heat" },
+      { name: "Piña Colada", description: "Coconut cocktail echoes the curry's tropical base" },
     ],
   },
   {
