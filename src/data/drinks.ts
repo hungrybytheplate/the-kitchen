@@ -1254,6 +1254,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["bourbon", "brandy"], notes: "Bourbon adds warmth, brandy adds elegance" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate-syrup" }], notes: "Strong cold brew with chocolate syrup" },
+    suggestedPairings: [
+      { name: "Classic Tiramisu", description: "Coffee cocktail with a coffee-flavored dessert" },
+      { name: "Fudgy Chocolate Brownies", description: "Rich chocolate with a bold coffee drink" },
+    ],
   },
   {
     id: "midori-sour",
@@ -1281,6 +1285,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["gin", "rum-white"], notes: "Gin adds herbal notes, rum makes it more tropical" },
     ],
     virginVersion: { replaces: [{ original: "midori", substitute: "honeydew-juice" }, { original: "vodka", substitute: "club-soda" }], notes: "Fresh honeydew juice is the key" },
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Sweet melon cocktail with light, crispy fish" },
+      { name: "Fresh Guacamole", description: "Fruity green cocktail with creamy green guac" },
+    ],
   },
 
   // ============ MOCKTAILS ============
