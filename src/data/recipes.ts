@@ -2092,6 +2092,11 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "sausage-breakfast", alternatives: ["bacon", "ham", "turkey-bacon"], notes: "Turkey sausage works for a lighter version" }
     ],
+    suggestedSides: [
+      { name: "Vanilla Latte", description: "Sweet vanilla latte with a savory sausage biscuit" },
+      { name: "Berry Blast Smoothie", description: "Fresh berries alongside a hearty breakfast sandwich" },
+      { name: "KFC Copycat Coleslaw", description: "Creamy slaw for a Southern breakfast spread" },
+    ],
   },
   {
     id: "copycat-bacon-egg-cheese-griddle",
@@ -2128,6 +2133,11 @@ export const sampleRecipes: Recipe[] = [
     proteinSubstitutions: [
       { original: "bacon", alternatives: ["turkey-bacon", "ham", "sausage-breakfast"], notes: "Sausage patty works great as an alternative" }
     ],
+    suggestedSides: [
+      { name: "Caramel Latte", description: "Sweet caramel latte mirrors the maple griddle cakes" },
+      { name: "Tropical Paradise Smoothie", description: "Bright tropical smoothie with a savory-sweet stack" },
+      { name: "Fluffy Scrambled Eggs on Toast", description: "Extra eggs on the side for a full breakfast" },
+    ],
   },
   {
     id: "copycat-breakfast-burrito",
@@ -2163,6 +2173,11 @@ export const sampleRecipes: Recipe[] = [
     nutrition: { calories: 510, protein: 26, carbs: 38, fat: 28, sodium: 820, cholesterol: 260 },
     proteinSubstitutions: [
       { original: "sausage-breakfast", alternatives: ["bacon", "ham", "chorizo"], notes: "Chorizo adds a spicy twist" }
+    ],
+    suggestedSides: [
+      { name: "Fresh Guacamole", description: "Creamy guac is a natural burrito companion" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical smoothie brightens your breakfast" },
+      { name: "Citrus Sunrise", description: "Bright orange sunrise drink with a savory burrito" },
     ],
   },
 
