@@ -1104,6 +1104,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["rum-white", "gin"], notes: "Rum adds tropical vibes, gin adds herbal complexity" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "club-soda" }, { original: "peach-schnapps", substitute: "peach-nectar" }], notes: "Peach nectar is the key to the virgin version" },
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Fruity cocktail with light, crispy fish tacos" },
+      { name: "Classic Chocolate Chip Cookies", description: "Sweet peach cocktail with warm cookies — pool party vibes" },
+    ],
   },
   {
     id: "blue-lagoon",
@@ -1131,6 +1135,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["gin", "rum-white"], notes: "Gin adds botanicals, rum makes it more tropical" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "lemonade" }, { original: "blue-curacao", substitute: "blue-syrup" }], notes: "Blue food coloring with orange syrup replicates the color and flavor" },
+    suggestedPairings: [
+      { name: "Crispy Copycat Chicken Nuggets", description: "Fun blue cocktail with fun nuggets — party food" },
+      { name: "Restaurant-Style Queso Dip", description: "Warm cheese dip alongside a colorful cocktail" },
+    ],
   },
   {
     id: "jungle-bird",
@@ -1158,6 +1166,10 @@ export const sampleDrinks: Drink[] = [
       { original: "campari", alternatives: ["aperol"], notes: "Aperol is less bitter and sweeter" },
     ],
     virginVersion: { replaces: [{ original: "rum-dark", substitute: "ginger-beer" }, { original: "campari", substitute: "grapefruit-juice" }], notes: "Grapefruit provides the bitterness" },
+    suggestedPairings: [
+      { name: "Teriyaki Chicken Bowl", description: "Tropical pineapple tiki cocktail with teriyaki" },
+      { name: "Garlic Shrimp Scampi", description: "Bittersweet Campari balances the buttery shrimp" },
+    ],
   },
   {
     id: "corpse-reviver-2",
@@ -1182,6 +1194,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "all-season",
     virginVersion: { replaces: [{ original: "gin", substitute: "tonic-water" }, { original: "triple-sec", substitute: "orange-juice" }], notes: "A splash of anise extract gives the absinthe note" },
+    suggestedPairings: [
+      { name: "Classic Eggs Benedict", description: "Brunch cocktail with the ultimate brunch dish" },
+      { name: "Classic French Toast", description: "Sweet French toast alongside a citrusy reviver" },
+    ],
   },
   {
     id: "white-russian",
@@ -1208,6 +1224,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["bourbon", "rum-dark"], notes: "Bourbon adds warmth, rum creates a more complex drink" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate-syrup" }], notes: "Cold brew coffee with chocolate and cream is delicious" },
+    suggestedPairings: [
+      { name: "Fudgy Chocolate Brownies", description: "Creamy coffee cocktail with rich chocolate brownies" },
+      { name: "Classic Tiramisu", description: "Coffee and cream in both — a decadent duo" },
+    ],
   },
   {
     id: "black-russian",
