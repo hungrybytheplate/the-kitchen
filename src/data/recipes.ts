@@ -6232,6 +6232,10 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
     nutrition: { calories: 285, protein: 3, carbs: 34, fat: 16 },
+    suggestedSides: [
+      { name: "Classic Café Latte", description: "Coffee and salted caramel brownies — irresistible" },
+      { name: "Classic Hot Chocolate", description: "Rich chocolate on chocolate" },
+    ],
   },
   {
     id: "lemon-blueberry-tart",
@@ -6260,6 +6264,10 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "medium",
     nutrition: { calories: 325, protein: 4, carbs: 38, fat: 18 },
+    suggestedSides: [
+      { name: "Lavender Lemonade", description: "Floral lavender lemonade with a bright lemon tart" },
+      { name: "London Fog", description: "Earl Grey tea's bergamot notes complement the lemon curd" },
+    ],
   },
   {
     id: "tres-leches-cake",
