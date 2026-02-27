@@ -17686,6 +17686,13 @@ sampleRecipes.forEach(recipe => {
   }
 });
 
+// Fill in missing suggestedSides using auto-pairing algorithm
+sampleRecipes.forEach(recipe => {
+  if (!recipe.suggestedSides || recipe.suggestedSides.length === 0) {
+    recipe.suggestedSides = generatePairings(recipe);
+  }
+});
+
 // Key ingredients that MUST be present for certain recipes (base ingredient names)
 const keyIngredients: Record<string, string[]> = {
   // Potato sides
