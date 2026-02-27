@@ -3139,12 +3139,6 @@ export const sampleRecipes: Recipe[] = [
       { name: "Classic Tomato Bruschetta", description: "Fresh tomato bruschetta for a bright contrast" },
       { name: "Negroni", description: "Bitter Italian cocktail balances the cream" },
     ],
-    suggestedSides: [
-      { name: "Fresh Guacamole", description: "Creamy guac is a must with enchiladas" },
-      { name: "Rice & Beans", description: "Classic Mexican side completes the meal" },
-      { name: "Mexican Street Corn Salad", description: "Elote-style corn salad for a festive spread" },
-      { name: "Classic Margarita", description: "Tequila and lime are the perfect enchilada pairing" },
-    ],
   },
   {
     id: "penne-vodka",
@@ -3171,12 +3165,6 @@ export const sampleRecipes: Recipe[] = [
       { name: "Classic Caesar Salad", description: "Caesar salad pairs perfectly with Italian pasta" },
       { name: "Classic Tomato Bruschetta", description: "Double down on tomato with fresh bruschetta" },
       { name: "Cosmopolitan", description: "Bright cranberry cocktail matches the tangy sauce" },
-    ],
-    suggestedSides: [
-      { name: "Fresh Guacamole", description: "Fresh guac in warm tortillas with the carnitas" },
-      { name: "Rice & Beans", description: "Traditional Mexican rice and beans on the side" },
-      { name: "Mexican Street Corn Salad", description: "Sweet charred corn salad for a fiesta" },
-      { name: "Classic Margarita", description: "Citrus margarita pairs perfectly with pork" },
     ],
   },
   // ============ MEXICAN FAVORITES ============
