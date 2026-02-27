@@ -37,27 +37,9 @@ import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
 import { sampleRecipes } from "@/data/recipes";
 import { ShareRecipeButton } from "./ShareRecipeButton";
 import { CookingMode } from "./CookingMode";
-
-// Build a lookup map from normalized recipe titles to recipes
-function normalizeTitle(title: string): string {
-  return title.toLowerCase().replace(/[^a-z0-9]/g, '');
-}
-
-const recipeTitleMap = new Map<string, Recipe>();
-sampleRecipes.forEach(r => {
-  recipeTitleMap.set(normalizeTitle(r.title), r);
-});
-
-function findRecipeByName(name: string): Recipe | null {
-  const normalized = normalizeTitle(name);
-  // Exact match first
-  if (recipeTitleMap.has(normalized)) return recipeTitleMap.get(normalized)!;
-  // Partial match: find recipe whose normalized title contains the search or vice versa
-  for (const [key, recipe] of recipeTitleMap) {
-    if (key.includes(normalized) || normalized.includes(key)) return recipe;
-  }
-  return null;
-}
+import { findPairingByName } from "@/lib/pairingLookup";
+import { DrinkDetailDialog } from "./DrinkDetailDialog";
+import type { Drink } from "@/data/drinks";
 
 interface SideDish {
   id: string;
@@ -161,6 +143,7 @@ export function RecipeDetailDialog({
   const [selectedSides, setSelectedSides] = useState<string[]>([]);
   const [addedToCart, setAddedToCart] = useState<string[]>([]);
   const [linkedRecipeStack, setLinkedRecipeStack] = useState<Recipe[]>([]);
+  const [selectedLinkedDrink, setSelectedLinkedDrink] = useState<Drink | null>(null);
 
   // The currently displayed recipe: either a linked recipe from the stack, or the original
   const displayedRecipe = linkedRecipeStack.length > 0 ? linkedRecipeStack[linkedRecipeStack.length - 1] : recipe;
@@ -571,12 +554,15 @@ export function RecipeDetailDialog({
                       <span className="text-amber-700 dark:text-amber-300">Pairs Well With</span>
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {displayedRecipe.suggestedSides.map((side, index) => {
-                        const linkedRecipe = findRecipeByName(side.name);
-                        return linkedRecipe ? (
+                    {displayedRecipe.suggestedSides.map((side, index) => {
+                        const match = findPairingByName(side.name);
+                        return match ? (
                           <button
                             key={index}
-                            onClick={() => handleNavigateToRecipe(linkedRecipe)}
+                            onClick={() => {
+                              if (match.type === "recipe") handleNavigateToRecipe(match.data);
+                              else setSelectedLinkedDrink(match.data);
+                            }}
                             className="p-2.5 rounded-lg bg-background/60 border border-border/50 text-left hover:border-primary/50 hover:bg-primary/5 transition-all group"
                           >
                             <p className="text-sm font-medium flex items-center gap-1.5 group-hover:text-primary transition-colors">
@@ -815,6 +801,17 @@ export function RecipeDetailDialog({
         </div>
       </DialogContent>
     </Dialog>
+
+    {/* Linked Drink Dialog */}
+    {selectedLinkedDrink && (
+      <DrinkDetailDialog
+        drink={selectedLinkedDrink}
+        open={!!selectedLinkedDrink}
+        onOpenChange={(open) => !open && setSelectedLinkedDrink(null)}
+        isSaved={false}
+        onSave={() => {}}
+      />
+    )}
     </>
   );
 }

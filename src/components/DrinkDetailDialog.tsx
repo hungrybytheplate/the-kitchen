@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { ShareRecipeButton } from "./ShareRecipeButton";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
-import { sampleRecipes, type Recipe } from "@/data/recipes";
+import type { Recipe } from "@/data/recipes";
+import { findPairingByName } from "@/lib/pairingLookup";
 import {
   Dialog,
   DialogContent,
@@ -29,18 +30,6 @@ import {
 import { cn } from "@/lib/utils";
 import type { Drink } from "@/data/drinks";
 
-function normalizeTitle(str: string): string {
-  return str.replace(/[^a-z0-9]/gi, "").toLowerCase();
-}
-
-const recipeTitleMap = new Map<string, Recipe>();
-sampleRecipes.forEach((r) => {
-  recipeTitleMap.set(normalizeTitle(r.title), r);
-});
-
-function findRecipeByName(name: string): Recipe | null {
-  return recipeTitleMap.get(normalizeTitle(name)) ?? null;
-}
 
 interface DrinkDetailDialogProps {
   drink: Drink;
@@ -306,11 +295,11 @@ export function DrinkDetailDialog({
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {drink.suggestedPairings.map((pairing, index) => {
-                      const linkedRecipe = findRecipeByName(pairing.name);
-                      return linkedRecipe ? (
+                      const match = findPairingByName(pairing.name);
+                      return match?.type === "recipe" ? (
                         <button
                           key={index}
-                          onClick={() => setSelectedLinkedRecipe(linkedRecipe)}
+                          onClick={() => setSelectedLinkedRecipe(match.data)}
                           className="p-2.5 rounded-lg bg-muted/50 border border-border/50 text-left hover:border-primary/50 hover:bg-primary/5 transition-all group"
                         >
                           <p className="text-sm font-medium flex items-center gap-1.5 group-hover:text-primary transition-colors">
