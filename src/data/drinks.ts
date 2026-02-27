@@ -341,6 +341,10 @@ export const sampleDrinks: Drink[] = [
       { original: "whiskey", alternatives: ["bourbon", "rye-whiskey", "scotch"], notes: "Bourbon is sweeter, rye is spicier, scotch adds smoke" },
     ],
     virginVersion: { replaces: [{ original: "whiskey", substitute: "cold-brew" }, { original: "vermouth-sweet", substitute: "cherry-juice" }], notes: "Cold brew coffee with cherry creates a sophisticated mocktail" },
+    suggestedPairings: [
+      { name: "Pan-Seared Pork Chops", description: "Rich pork chops stand up to the bold whiskey flavors" },
+      { name: "Classic Tiramisu", description: "Coffee-flavored dessert echoes the cocktail's sophistication" },
+    ],
   },
   {
     id: "sidecar",
@@ -369,6 +373,10 @@ export const sampleDrinks: Drink[] = [
       { original: "triple-sec", alternatives: ["grand-marnier", "cointreau"], notes: "Grand Marnier adds richness, Cointreau is more refined" },
     ],
     virginVersion: { replaces: [{ original: "brandy", substitute: "apple-juice" }, { original: "triple-sec", substitute: "orange-juice" }], notes: "Use fresh apple cider for depth and complexity" },
+    suggestedPairings: [
+      { name: "Cranberry Orange Scones", description: "Citrus scones complement the cognac's orange notes" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti perfect for a refined cocktail moment" },
+    ],
   },
   {
     id: "aviation",
@@ -395,6 +403,10 @@ export const sampleDrinks: Drink[] = [
       { original: "gin", alternatives: ["vodka", "tequila-blanco"], notes: "Vodka makes it lighter, blanco tequila adds earthy notes" },
     ],
     virginVersion: { replaces: [{ original: "gin", substitute: "cucumber-water" }], notes: "Muddle cucumber with lavender syrup for floral notes" },
+    suggestedPairings: [
+      { name: "Lemon Herb Baked Salmon", description: "Floral gin pairs beautifully with herbed salmon" },
+      { name: "Lemon Blueberry Cream Tart", description: "Delicate floral dessert matches the violet notes" },
+    ],
   },
   {
     id: "espresso-martini",
@@ -440,6 +452,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "party",
     season: "summer",
     virginVersion: { replaces: [{ original: "rum-white", substitute: "coconut-water" }], notes: "Add extra lime for punch" },
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Light citrusy fish tacos are a natural rum cocktail pairing" },
+      { name: "Fresh Guacamole", description: "Creamy guac and a tart daiquiri — Caribbean bliss" },
+    ],
   },
   {
     id: "dark-and-stormy",
@@ -464,6 +480,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-dark", alternatives: ["bourbon", "rum-spiced", "whiskey"], notes: "Bourbon creates a warming variation, spiced rum adds complexity" },
     ],
     virginVersion: { replaces: [{ original: "rum-dark", substitute: "molasses" }], notes: "Tiny bit of molasses with extra ginger beer" },
+    suggestedPairings: [
+      { name: "Quick Beef Stir-Fry", description: "Ginger in both the drink and stir-fry — a bold combo" },
+      { name: "Homemade Pork Dumplings", description: "Spicy ginger beer alongside savory dumplings" },
+    ],
   },
   {
     id: "porn-star-martini",
@@ -492,6 +512,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["vanilla-vodka", "gin"], notes: "Vanilla vodka enhances sweetness, gin adds botanical notes" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "passion-fruit-juice" }], notes: "Use sparkling water instead of prosecco" },
+    suggestedPairings: [
+      { name: "Garlic Shrimp Scampi", description: "Glamorous shrimp scampi alongside an equally glamorous martini" },
+      { name: "Classic Tomato Bruschetta", description: "Light, elegant appetizer before the main event" },
+    ],
   },
   {
     id: "french-martini",
@@ -520,6 +544,10 @@ export const sampleDrinks: Drink[] = [
       { original: "chambord", alternatives: ["grenadine", "raspberry-syrup"], notes: "Grenadine is sweeter, raspberry syrup is less complex" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "apple-juice" }, { original: "chambord", substitute: "grenadine" }], notes: "Extra pineapple juice for body" },
+    suggestedPairings: [
+      { name: "Classic Chocolate Chip Cookies", description: "Raspberry and chocolate — a French-inspired treat" },
+      { name: "Lemon Herb Baked Salmon", description: "Light, elegant salmon pairs with the fruity martini" },
+    ],
   },
   {
     id: "lychee-martini",
@@ -547,6 +575,10 @@ export const sampleDrinks: Drink[] = [
       { original: "lychee-liqueur", alternatives: ["elderflower", "simple-syrup"], notes: "Elderflower adds floral notes, use simple syrup with canned lychee juice" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "coconut-water" }, { original: "lychee-liqueur", substitute: "simple-syrup" }], notes: "Use syrup from canned lychees" },
+    suggestedPairings: [
+      { name: "Homemade Pork Dumplings", description: "Asian-inspired dumplings with an exotic lychee cocktail" },
+      { name: "Quick Beef Stir-Fry", description: "Bold stir-fry flavors balanced by sweet, floral lychee" },
+    ],
   },
   {
     id: "appletini",
@@ -574,6 +606,10 @@ export const sampleDrinks: Drink[] = [
       { original: "apple-liqueur", alternatives: ["midori", "triple-sec"], notes: "Midori makes it a Japanese Apple, triple sec adds citrus" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "apple-juice" }, { original: "apple-liqueur", substitute: "simple-syrup" }], notes: "Use fresh green apple juice for authenticity" },
+    suggestedPairings: [
+      { name: "Pan-Seared Pork Chops", description: "Pork and apple is a timeless flavor combination" },
+      { name: "Classic Chocolate Chip Cookies", description: "Sweet apple martini alongside warm cookies" },
+    ],
   },
   {
     id: "watermelon-martini",
@@ -601,6 +637,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["tequila", "rum-white", "gin"], notes: "Tequila adds a Mexican twist, rum makes it tropical, gin adds herbal notes" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "club-soda" }], notes: "Fresh watermelon juice is naturally sweet" },
+    suggestedPairings: [
+      { name: "Mediterranean Chicken Salad", description: "Fresh salad with a refreshing watermelon cocktail — summer perfection" },
+      { name: "Crispy Fish Tacos", description: "Light tacos pair with the bright, fruity flavors" },
+    ],
   },
   {
     id: "peach-martini",
@@ -629,6 +669,10 @@ export const sampleDrinks: Drink[] = [
       { original: "peach-schnapps", alternatives: ["amaretto", "triple-sec"], notes: "Amaretto adds nuttiness, triple sec adds citrus" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "peach-nectar" }, { original: "peach-schnapps", substitute: "simple-syrup" }], notes: "Use ripe fresh peaches for best flavor" },
+    suggestedPairings: [
+      { name: "Garlic Butter Chicken", description: "Sweet peach balances the rich garlic butter" },
+      { name: "Classic French Toast", description: "Peach martini and cinnamon French toast — brunch vibes" },
+    ],
   },
   {
     id: "mango-martini",
@@ -657,6 +701,10 @@ export const sampleDrinks: Drink[] = [
       { original: "triple-sec", alternatives: ["cointreau", "grand-marnier"], notes: "Premium orange liqueurs add depth" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "coconut-water" }, { original: "triple-sec", substitute: "orange-juice" }], notes: "Fresh mango makes this naturally delicious" },
+    suggestedPairings: [
+      { name: "Panda Express Copycat Orange Chicken", description: "Tropical mango with sweet orange chicken — a fruity duo" },
+      { name: "Seasoned Beef Tacos", description: "Spicy chili-mango rim pairs perfectly with taco night" },
+    ],
   },
   {
     id: "raspberry-martini",
@@ -685,6 +733,10 @@ export const sampleDrinks: Drink[] = [
       { original: "chambord", alternatives: ["grenadine", "triple-sec"], notes: "Grenadine is sweeter, triple sec adds citrus brightness" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "cranberry-juice" }, { original: "chambord", substitute: "grenadine" }], notes: "Muddle extra raspberries for intensity" },
+    suggestedPairings: [
+      { name: "Fudgy Chocolate Brownies", description: "Raspberry and chocolate is a timeless pairing" },
+      { name: "Lemon Blueberry Cream Tart", description: "Berry martini with a berry tart — double the fruit" },
+    ],
   },
   {
     id: "rum-runner",
@@ -712,6 +764,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-white", alternatives: ["vodka"], notes: "Vodka makes it lighter but less tropical" },
     ],
     virginVersion: { replaces: [{ original: "rum-white", substitute: "pineapple-juice" }, { original: "rum-dark", substitute: "coconut-water" }], notes: "Add extra grenadine for color and sweetness" },
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Tropical rum punch with light, crispy fish — beach party vibes" },
+      { name: "Fresh Guacamole", description: "Creamy guacamole cools the fruity, boozy punch" },
+    ],
   },
   {
     id: "hurricane",
@@ -739,6 +795,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-dark", alternatives: ["spiced-rum", "bourbon"], notes: "Spiced rum adds warmth, bourbon creates a twist" },
     ],
     virginVersion: { replaces: [{ original: "rum-white", substitute: "orange-juice" }, { original: "rum-dark", substitute: "pineapple-juice" }], notes: "Passion fruit carries this mocktail beautifully" },
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Bold tropical cocktail with spicy tacos — a party combo" },
+      { name: "Panda Express Copycat Orange Chicken", description: "Sweet passion fruit and tangy orange chicken" },
+    ],
   },
   {
     id: "mai-tai",
@@ -766,6 +826,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-white", alternatives: ["aged-rum", "rhum-agricole"], notes: "Aged rum adds complexity, agricole rum is traditional Martinique style" },
     ],
     virginVersion: { replaces: [{ original: "rum-white", substitute: "pineapple-juice" }, { original: "rum-dark", substitute: "ginger-ale" }], notes: "Orgeat makes the virgin version still taste authentic" },
+    suggestedPairings: [
+      { name: "Teriyaki Chicken Bowl", description: "Tiki cocktail with sweet teriyaki — island dinner" },
+      { name: "Crispy Fish Tacos", description: "Rum, lime, and fish tacos are made for each other" },
+    ],
   },
   {
     id: "zombie",
@@ -793,6 +857,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-spiced", alternatives: ["bourbon", "brandy"], notes: "Either adds warming spice notes" },
     ],
     virginVersion: { replaces: [{ original: "rum-white", substitute: "coconut-water" }, { original: "rum-dark", substitute: "cold-brew" }, { original: "rum-spiced", substitute: "ginger-beer" }], notes: "Cold brew adds complexity to this virgin tiki drink" },
+    suggestedPairings: [
+      { name: "Buffalo Chicken Dip", description: "Bold spicy dip to match this bold tiki cocktail" },
+      { name: "Restaurant-Style Queso Dip", description: "Rich, cheesy dip for a tropical party spread" },
+    ],
   },
   {
     id: "planters-punch",
@@ -821,6 +889,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-dark", alternatives: ["rum-spiced", "bourbon"], notes: "Spiced rum enhances warmth, bourbon creates a Southern twist" },
     ],
     virginVersion: { replaces: [{ original: "rum-dark", substitute: "ginger-beer" }], notes: "Ginger beer adds the punch this drink needs" },
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Caribbean rum punch with spicy taco night" },
+      { name: "Classic Hummus", description: "Light snacking dip alongside a fruity punch" },
+    ],
   },
   {
     id: "painkiller",
@@ -848,6 +920,10 @@ export const sampleDrinks: Drink[] = [
       { original: "rum-dark", alternatives: ["spiced-rum", "aged-rum"], notes: "Spiced rum enhances the tropical warmth" },
     ],
     virginVersion: { replaces: [{ original: "rum-dark", substitute: "coconut-water" }], notes: "Double the coconut cream for richness" },
+    suggestedPairings: [
+      { name: "Teriyaki Chicken Bowl", description: "Creamy coconut pairs perfectly with teriyaki" },
+      { name: "Honey Garlic Salmon", description: "Rich salmon with a tropical creamy cocktail" },
+    ],
   },
   {
     id: "long-island-iced-tea",
@@ -875,6 +951,10 @@ export const sampleDrinks: Drink[] = [
       { original: "tequila", alternatives: ["mezcal"], notes: "Mezcal adds smokiness" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "lemon-lime-soda" }, { original: "rum-white", substitute: "simple-syrup" }, { original: "gin", substitute: "tonic-water" }, { original: "tequila", substitute: "club-soda" }], notes: "Sweet tea mixed with lemonade recreates the flavor" },
+    suggestedPairings: [
+      { name: "In-N-Out Copycat Double-Double", description: "Classic burger with a classic party cocktail" },
+      { name: "Buffalo Chicken Dip", description: "Bold dip for a bold drink — party essentials" },
+    ],
   },
   {
     id: "tequila-sunrise",
@@ -902,6 +982,10 @@ export const sampleDrinks: Drink[] = [
       { original: "tequila", alternatives: ["vodka", "rum-white"], notes: "Vodka makes a Screwdriver base, rum goes tropical" },
     ],
     virginVersion: { replaces: [{ original: "tequila", substitute: "club-soda" }], notes: "The grenadine and OJ make this naturally delicious virgin" },
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Tequila sunrise and taco night — a Mexican fiesta" },
+      { name: "Fresh Guacamole", description: "Classic tequila cocktail with fresh guac" },
+    ],
   },
   {
     id: "tom-collins",
@@ -929,6 +1013,10 @@ export const sampleDrinks: Drink[] = [
       { original: "gin", alternatives: ["vodka", "bourbon", "rum-white"], notes: "Vodka makes a Vodka Collins, bourbon makes a John Collins, rum goes tropical" },
     ],
     virginVersion: { replaces: [{ original: "gin", substitute: "cucumber" }], notes: "Muddle cucumber for a spa-like refresher" },
+    suggestedPairings: [
+      { name: "Mediterranean Chicken Salad", description: "Light, herby salad with a refreshing gin cocktail" },
+      { name: "Classic Caesar Salad", description: "Classic salad with a classic cocktail" },
+    ],
   },
   {
     id: "gimlet",
@@ -955,6 +1043,10 @@ export const sampleDrinks: Drink[] = [
       { original: "gin", alternatives: ["vodka", "tequila", "rum-white"], notes: "Vodka makes a Vodka Gimlet, each spirit creates its own variation" },
     ],
     virginVersion: { replaces: [{ original: "gin", substitute: "tonic-water" }], notes: "Add cucumber for herbal notes" },
+    suggestedPairings: [
+      { name: "Garlic Shrimp Scampi", description: "Elegant gin cocktail with buttery shrimp" },
+      { name: "Lemon Herb Baked Salmon", description: "Citrus gimlet complements herby salmon" },
+    ],
   },
   {
     id: "amaretto-sour",
@@ -982,6 +1074,10 @@ export const sampleDrinks: Drink[] = [
       { original: "bourbon", alternatives: ["rye-whiskey", "cognac"], notes: "Rye adds spice, cognac adds elegance" },
     ],
     virginVersion: { replaces: [{ original: "amaretto", substitute: "orgeat" }, { original: "bourbon", substitute: "apple-juice" }], notes: "Orgeat provides the almond flavor" },
+    suggestedPairings: [
+      { name: "Classic Tiramisu", description: "Nutty amaretto pairs beautifully with coffee dessert" },
+      { name: "Almond Biscotti", description: "Almond on almond — a perfect match" },
+    ],
   },
   {
     id: "sex-on-the-beach",
@@ -1008,6 +1104,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["rum-white", "gin"], notes: "Rum adds tropical vibes, gin adds herbal complexity" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "club-soda" }, { original: "peach-schnapps", substitute: "peach-nectar" }], notes: "Peach nectar is the key to the virgin version" },
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Fruity cocktail with light, crispy fish tacos" },
+      { name: "Classic Chocolate Chip Cookies", description: "Sweet peach cocktail with warm cookies — pool party vibes" },
+    ],
   },
   {
     id: "blue-lagoon",
@@ -1035,6 +1135,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["gin", "rum-white"], notes: "Gin adds botanicals, rum makes it more tropical" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "lemonade" }, { original: "blue-curacao", substitute: "blue-syrup" }], notes: "Blue food coloring with orange syrup replicates the color and flavor" },
+    suggestedPairings: [
+      { name: "Crispy Copycat Chicken Nuggets", description: "Fun blue cocktail with fun nuggets — party food" },
+      { name: "Restaurant-Style Queso Dip", description: "Warm cheese dip alongside a colorful cocktail" },
+    ],
   },
   {
     id: "jungle-bird",
@@ -1062,6 +1166,10 @@ export const sampleDrinks: Drink[] = [
       { original: "campari", alternatives: ["aperol"], notes: "Aperol is less bitter and sweeter" },
     ],
     virginVersion: { replaces: [{ original: "rum-dark", substitute: "ginger-beer" }, { original: "campari", substitute: "grapefruit-juice" }], notes: "Grapefruit provides the bitterness" },
+    suggestedPairings: [
+      { name: "Teriyaki Chicken Bowl", description: "Tropical pineapple tiki cocktail with teriyaki" },
+      { name: "Garlic Shrimp Scampi", description: "Bittersweet Campari balances the buttery shrimp" },
+    ],
   },
   {
     id: "corpse-reviver-2",
@@ -1086,6 +1194,10 @@ export const sampleDrinks: Drink[] = [
     occasion: "brunch",
     season: "all-season",
     virginVersion: { replaces: [{ original: "gin", substitute: "tonic-water" }, { original: "triple-sec", substitute: "orange-juice" }], notes: "A splash of anise extract gives the absinthe note" },
+    suggestedPairings: [
+      { name: "Classic Eggs Benedict", description: "Brunch cocktail with the ultimate brunch dish" },
+      { name: "Classic French Toast", description: "Sweet French toast alongside a citrusy reviver" },
+    ],
   },
   {
     id: "white-russian",
@@ -1112,6 +1224,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["bourbon", "rum-dark"], notes: "Bourbon adds warmth, rum creates a more complex drink" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate-syrup" }], notes: "Cold brew coffee with chocolate and cream is delicious" },
+    suggestedPairings: [
+      { name: "Fudgy Chocolate Brownies", description: "Creamy coffee cocktail with rich chocolate brownies" },
+      { name: "Classic Tiramisu", description: "Coffee and cream in both — a decadent duo" },
+    ],
   },
   {
     id: "black-russian",
@@ -1138,6 +1254,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["bourbon", "brandy"], notes: "Bourbon adds warmth, brandy adds elegance" },
     ],
     virginVersion: { replaces: [{ original: "vodka", substitute: "cold-brew" }, { original: "kahlua", substitute: "chocolate-syrup" }], notes: "Strong cold brew with chocolate syrup" },
+    suggestedPairings: [
+      { name: "Classic Tiramisu", description: "Coffee cocktail with a coffee-flavored dessert" },
+      { name: "Fudgy Chocolate Brownies", description: "Rich chocolate with a bold coffee drink" },
+    ],
   },
   {
     id: "midori-sour",
@@ -1165,6 +1285,10 @@ export const sampleDrinks: Drink[] = [
       { original: "vodka", alternatives: ["gin", "rum-white"], notes: "Gin adds herbal notes, rum makes it more tropical" },
     ],
     virginVersion: { replaces: [{ original: "midori", substitute: "honeydew-juice" }, { original: "vodka", substitute: "club-soda" }], notes: "Fresh honeydew juice is the key" },
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Sweet melon cocktail with light, crispy fish" },
+      { name: "Fresh Guacamole", description: "Fruity green cocktail with creamy green guac" },
+    ],
   },
 
   // ============ MOCKTAILS ============
@@ -1750,6 +1874,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Wine glass",
     garnish: "Orange slice",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Classic Tomato Bruschetta", description: "Italian-inspired appetizer with an Italian-style spritz" },
+      { name: "Mediterranean Chicken Salad", description: "Light citrus salad with a bittersweet orange cooler" },
+    ],
   },
   {
     id: "virgin-daiquiri",
@@ -1768,6 +1896,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Coupe glass",
     garnish: "Lime wheel",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Crispy Fish Tacos", description: "Citrusy lime mocktail is a natural fish taco companion" },
+      { name: "Fresh Guacamole", description: "Simple lime drink with creamy avocado dip" },
+    ],
   },
   {
     id: "virgin-tom-collins",
@@ -1786,6 +1918,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Collins glass",
     garnish: "Lemon wheel, cherry",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Classic Caesar Salad", description: "Fizzy lemon refresher alongside a crisp salad" },
+      { name: "Chick-fil-A Copycat Chicken Sandwich", description: "Lemonade and fried chicken — a classic combo" },
+    ],
   },
   {
     id: "virgin-paloma",
@@ -1804,6 +1940,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Salt rim, grapefruit wedge",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Grapefruit paloma with spicy tacos — Mexican fiesta" },
+      { name: "Fresh Guacamole", description: "Citrus and avocado are a natural match" },
+    ],
   },
   {
     id: "virgin-dark-and-stormy",
@@ -1822,6 +1962,10 @@ export const sampleDrinks: Drink[] = [
     glassType: "Highball",
     garnish: "Lime wedge",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Quick Beef Stir-Fry", description: "Ginger beer echoes the ginger in stir-fry" },
+      { name: "Homemade Pork Dumplings", description: "Spicy ginger kick with savory dumplings" },
+    ],
   },
   {
     id: "virgin-hibiscus-margarita",
@@ -1840,9 +1984,11 @@ export const sampleDrinks: Drink[] = [
     glassType: "Coupe glass",
     garnish: "Dried hibiscus flower",
     isAlcoholic: false,
+    suggestedPairings: [
+      { name: "Seasoned Beef Tacos", description: "Floral margarita mocktail with spicy tacos" },
+      { name: "Classic Hummus", description: "Light, floral drink with a savory dip" },
+    ],
   },
-
-  // ============ MORE COCKTAILS ============
   {
     id: "mai-tai",
     title: "Mai Tai",
