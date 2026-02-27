@@ -17535,6 +17535,9 @@ export const sampleRecipes: Recipe[] = [
   },
 ];
 
+// Merge pairing-only recipes into the main collection
+sampleRecipes.push(...pairingRecipes);
+
 // Estimate sodium for recipes missing it based on ingredients and meal characteristics
 function estimateSodium(recipe: Recipe): number {
   const ingredients = recipe.ingredients.join(' ').toLowerCase();
