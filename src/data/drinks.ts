@@ -1901,6 +1901,8 @@ export const sampleDrinks: Drink[] = [
       { name: "Fresh Guacamole", description: "Simple lime drink with creamy avocado dip" },
     ],
   },
+  {
+    id: "virgin-tom-collins",
     title: "Virgin Tom Collins",
     drinkType: "mocktail",
     description: "Classic lemon sour with fizzy refreshment",
@@ -1921,6 +1923,8 @@ export const sampleDrinks: Drink[] = [
       { name: "Chick-fil-A Copycat Chicken Sandwich", description: "Lemonade and fried chicken — a classic combo" },
     ],
   },
+  {
+    id: "virgin-paloma",
     title: "Virgin Paloma",
     drinkType: "mocktail",
     description: "Refreshing grapefruit and lime Mexican cooler",
@@ -1941,6 +1945,8 @@ export const sampleDrinks: Drink[] = [
       { name: "Fresh Guacamole", description: "Citrus and avocado are a natural match" },
     ],
   },
+  {
+    id: "virgin-dark-and-stormy",
     title: "Virgin Dark 'n' Stormy",
     drinkType: "mocktail",
     description: "Spicy ginger beer with lime and molasses notes",
@@ -1961,6 +1967,8 @@ export const sampleDrinks: Drink[] = [
       { name: "Homemade Pork Dumplings", description: "Spicy ginger kick with savory dumplings" },
     ],
   },
+  {
+    id: "virgin-hibiscus-margarita",
     title: "Virgin Hibiscus Margarita",
     drinkType: "mocktail",
     description: "Floral and vibrant pink margarita mocktail",
