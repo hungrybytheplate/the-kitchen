@@ -2946,6 +2946,12 @@ export const sampleRecipes: Recipe[] = [
       "Add edamame or cashews for extra plant protein",
       "Serve over quinoa for complete amino acids",
     ],
+    suggestedSides: [
+      { name: "Steamed Rice", description: "Fluffy rice to soak up the savory stir-fry sauce" },
+      { name: "Soba Noodles", description: "Nutty buckwheat noodles complement the crispy tofu" },
+      { name: "Asian Slaw", description: "Crunchy cabbage slaw with sesame dressing" },
+      { name: "Tropical Paradise Smoothie", description: "Tropical fruit smoothie for a refreshing contrast" },
+    ],
   },
   // ============ ITALIAN CLASSICS ============
   {
@@ -2986,6 +2992,12 @@ export const sampleRecipes: Recipe[] = [
       "Add capers for a tangy protein-rich garnish",
       "Serve with a side of white beans for extra protein",
     ],
+    suggestedSides: [
+      { name: "Fettuccine Alfredo", description: "Creamy pasta to pair with the lemon-caper sauce" },
+      { name: "Roasted Vegetables", description: "Seasonal roasted veggies round out the plate" },
+      { name: "Crusty Bread", description: "Warm bread to soak up the bright butter sauce" },
+      { name: "Classic Balsamic Vinaigrette", description: "Dress a side salad to lighten the meal" },
+    ],
   },
   {
     id: "chicken-marsala",
@@ -3024,6 +3036,12 @@ export const sampleRecipes: Recipe[] = [
       "Include a side salad with chickpeas",
     ],
     season: "fall",
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Warm garlic bread alongside the mushroom wine sauce" },
+      { name: "Creamy Mashed Potatoes", description: "Buttery mashed potatoes soak up the Marsala sauce" },
+      { name: "Roasted Vegetables", description: "Light roasted veggies balance the rich sauce" },
+      { name: "Old Fashioned", description: "A bold cocktail to match the savory depth" },
+    ],
   },
   {
     id: "chicken-parmesan",
@@ -3061,6 +3079,12 @@ export const sampleRecipes: Recipe[] = [
       "Serve over protein pasta for an extra boost",
       "Include a side of Italian sausage links",
     ],
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Classic Italian garlic bread for dipping in marinara" },
+      { name: "Classic Caesar Salad", description: "Crisp Caesar salad complements the breaded chicken" },
+      { name: "Fettuccine Alfredo", description: "Creamy pasta rounds out the Italian dinner" },
+      { name: "Negroni", description: "Bitter Italian cocktail pairs beautifully" },
+    ],
   },
   {
     id: "eggplant-parmesan",
@@ -3082,6 +3106,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "hard",
     nutrition: { calories: 420, protein: 18, carbs: 32, fat: 26 },
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Crusty garlic bread for soaking up marinara" },
+      { name: "Classic Caesar Salad", description: "Light Caesar salad balances the rich eggplant" },
+      { name: "Crusty Bread", description: "Warm bread alongside the cheesy layers" },
+      { name: "Classic Mojito", description: "Fresh mint cocktail cuts through the richness" },
+    ],
   },
   {
     id: "fettuccine-alfredo",
@@ -3103,6 +3133,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 620, protein: 18, carbs: 52, fat: 38 },
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Warm garlic bread is a must with Alfredo" },
+      { name: "Classic Caesar Salad", description: "Crisp salad lightens the creamy pasta" },
+      { name: "Classic Tomato Bruschetta", description: "Fresh tomato bruschetta for a bright contrast" },
+      { name: "Negroni", description: "Bitter Italian cocktail balances the cream" },
+    ],
   },
   {
     id: "penne-vodka",
@@ -3124,6 +3160,12 @@ export const sampleRecipes: Recipe[] = [
     dietaryTags: ["vegetarian"],
     difficulty: "easy",
     nutrition: { calories: 520, protein: 16, carbs: 58, fat: 24 },
+    suggestedSides: [
+      { name: "Garlic Bread", description: "Garlicky bread for the creamy tomato sauce" },
+      { name: "Classic Caesar Salad", description: "Caesar salad pairs perfectly with Italian pasta" },
+      { name: "Classic Tomato Bruschetta", description: "Double down on tomato with fresh bruschetta" },
+      { name: "Cosmopolitan", description: "Bright cranberry cocktail matches the tangy sauce" },
+    ],
   },
   // ============ MEXICAN FAVORITES ============
   {
