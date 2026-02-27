@@ -1,3 +1,5 @@
+import { pairingRecipes } from "./pairingRecipes";
+
 export type DietaryTag = "vegetarian" | "vegan" | "gluten-free" | "dairy-free" | "keto" | "paleo" | "nut-free" | "high-protein" | "low-carb" | "high-fiber" | "no-sodium" | "low-sodium";
 export type DifficultyLevel = "easy" | "medium" | "hard";
 export type CuisineType = "italian" | "mexican" | "asian" | "mediterranean" | "american" | "french" | "indian" | "middle-eastern" | "comfort" | "healthy";
@@ -2352,7 +2354,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Creamy Mushroom Risotto", description: "Rich risotto soaks up the garlic butter beautifully" },
       { name: "Classic Balsamic Vinaigrette", description: "Toss a side salad with bright balsamic to cut the richness" },
       { name: "Soft Butter Dinner Rolls", description: "Warm rolls to mop up every drop of garlic butter" },
-      { name: "🍷 Chardonnay", description: "Buttery, oaky Chardonnay mirrors the garlic butter sauce" },
+      { name: "Crusty Bread", description: "Warm crusty bread to soak up the garlic butter sauce" },
       { name: "Virgin Mojito", description: "Bright mint and lime refresher to balance the richness" },
     ],
   },
@@ -2383,7 +2385,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Homemade Teriyaki Sauce", description: "Sweet and savory glaze to drizzle over the stir-fry" },
       { name: "Asian Sesame Ginger Dressing", description: "Toss a cucumber side salad with this umami-rich dressing" },
       { name: "Crispy Egg Rolls", description: "Add crispy egg rolls for a takeout-style spread" },
-      { name: "🍷 Riesling", description: "Off-dry Riesling balances the savory soy and ginger" },
+      { name: "Steamed Rice", description: "Fluffy steamed rice to soak up every drop of sauce" },
       { name: "Mango Lassi", description: "Cool, creamy mango smoothie to tame the heat" },
     ],
   },
@@ -2411,7 +2413,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Classic Caesar Salad", description: "Crisp romaine with creamy Caesar alongside the pasta" },
       { name: "Classic Balsamic Vinaigrette", description: "A bright side salad to contrast the creamy tomato" },
       { name: "Olive Garden Copycat Breadsticks", description: "Soft, garlicky breadsticks for dipping in the sauce" },
-      { name: "🍷 Chianti", description: "Medium-bodied Italian red that loves tomato-based sauces" },
+      { name: "Garlic Bread", description: "Warm garlic bread for dipping in the creamy tomato sauce" },
       { name: "Sparkling Strawberry Lemonade", description: "Fizzy berry lemonade to brighten a pasta dinner" },
     ],
   },
@@ -2441,7 +2443,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Cilantro Lime Yogurt Sauce", description: "Cool, herby crema drizzled over the crispy fish" },
       { name: "Classic Margarita", description: "The ultimate taco night cocktail — salt rimmed and refreshing" },
       { name: "Mexican Rice", description: "Flavorful tomato-seasoned rice on the side" },
-      { name: "🍷 Sauvignon Blanc", description: "Zesty, citrusy white that complements the lime and fish" },
+      { name: "Tortilla Chips", description: "Crispy tortilla chips for scooping up fish taco toppings" },
       { name: "Mango Chili Limeade", description: "Sweet-spicy limeade to match the taco flavors" },
     ],
   },
@@ -2469,7 +2471,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Lemon Tahini Sauce", description: "Nutty, creamy drizzle that complements the citrus salmon" },
       { name: "Greek Lemon Herb Dressing", description: "Toss roasted asparagus with this bright dressing" },
       { name: "Creamy Mushroom Risotto", description: "Elegant risotto pairing for a dinner-party worthy plate" },
-      { name: "🍷 Pinot Noir", description: "Light, earthy Pinot Noir pairs beautifully with salmon" },
+      { name: "Roasted Asparagus", description: "Tender-crisp asparagus is a classic salmon pairing" },
       { name: "Cucumber Mint Cooler", description: "Clean and refreshing alongside the herby fish" },
     ],
   },
@@ -2499,7 +2501,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Indian Tikka Masala Sauce", description: "Extra sauce for dipping naan or drizzling over rice" },
       { name: "Honey Butter Cornbread", description: "Sweet cornbread to soak up the creamy curry" },
-      { name: "🍷 Gewürztraminer", description: "Aromatic, slightly sweet white that loves curry spices" },
+      { name: "Basmati Rice", description: "Fragrant basmati rice to soak up the creamy curry" },
       { name: "Mango Lassi", description: "Traditional Indian yogurt drink to cool the palate" },
       { name: "Classic Hummus", description: "Creamy hummus with warm naan for a mezze-style starter" },
     ],
@@ -2529,7 +2531,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Classic Caesar Salad", description: "Crisp Caesar salad is the Italian steakhouse pairing" },
       { name: "Olive Garden Copycat Breadsticks", description: "Warm garlicky breadsticks for the lemon butter sauce" },
-      { name: "🍷 Pinot Grigio", description: "Crisp, light Italian white that won't overpower the shrimp" },
+      { name: "Crusty Bread", description: "Warm crusty bread to mop up the lemon butter sauce" },
       { name: "Sparkling Strawberry Lemonade", description: "Bubbly and refreshing alongside the buttery pasta" },
       { name: "Classic Balsamic Vinaigrette", description: "A bright arugula salad to balance the rich scampi" },
     ],
@@ -2557,7 +2559,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Homemade Ranch Dressing", description: "Cool ranch for dipping or drizzling over the peppers" },
       { name: "Honey Butter Cornbread", description: "Sweet, buttery cornbread complements the savory filling" },
-      { name: "🍷 Zinfandel", description: "Bold, spicy Zinfandel stands up to the beefy filling" },
+      { name: "Garden Side Salad", description: "Fresh green salad to lighten the hearty stuffed peppers" },
       { name: "Classic Mojito", description: "Fresh mint and lime to brighten the hearty meal" },
       { name: "Classic Balsamic Vinaigrette", description: "Dress a simple green salad as a light side" },
     ],
@@ -2586,7 +2588,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Creamy Mushroom Risotto", description: "Rich risotto is an elegant match for glazed pork chops" },
       { name: "Homemade BBQ Sauce", description: "Brush on extra BBQ sauce for a sweet-smoky twist" },
       { name: "KFC Copycat Coleslaw", description: "Creamy coleslaw to balance the apple cider sweetness" },
-      { name: "🍷 Pinot Noir", description: "Earthy, fruity Pinot Noir complements pork and apple beautifully" },
+      { name: "Roasted Sweet Potatoes", description: "Sweet roasted potatoes complement the apple cider glaze" },
       { name: "Apple Cider Spritz", description: "An autumn-inspired sparkling drink to match the glaze" },
     ],
   },
@@ -2614,7 +2616,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Asian Sesame Ginger Dressing", description: "Drizzle over the stir-fry for extra umami depth" },
       { name: "Thai Peanut Sauce", description: "Creamy peanut dipping sauce for an extra layer of flavor" },
       { name: "Crispy Egg Rolls", description: "Pair with crispy veggie egg rolls for a complete meal" },
-      { name: "🍷 Sauvignon Blanc", description: "Crisp, herbal white wine to complement the fresh vegetables" },
+      { name: "Steamed Rice", description: "Simple steamed rice rounds out the stir-fry" },
       { name: "Green Detox Smoothie", description: "Double down on the greens with a healthy smoothie" },
     ],
   },
@@ -2646,7 +2648,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Classic Caesar Salad", description: "The quintessential Italian steakhouse pairing" },
       { name: "Olive Garden Copycat Breadsticks", description: "Warm, garlicky bread alongside the creamy pasta" },
-      { name: "🍷 Chianti", description: "Classic Tuscan red — the Italian tradition with carbonara" },
+      { name: "Garlic Bread", description: "Crusty garlic bread alongside the creamy pasta" },
       { name: "Negroni", description: "Bitter, herbal Italian cocktail to start the meal" },
       { name: "Classic Balsamic Vinaigrette", description: "A peppery arugula salad with shaved parmesan" },
     ],
@@ -2678,7 +2680,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Homemade Teriyaki Sauce", description: "Extra glaze for drizzling over the rice bowl" },
       { name: "Asian Sesame Ginger Dressing", description: "Toss an edamame cucumber salad on the side" },
       { name: "Crispy Egg Rolls", description: "Add crispy egg rolls for a sushi-bar vibe" },
-      { name: "🍷 Riesling", description: "Off-dry Riesling balances the sweet teriyaki glaze" },
+      { name: "Steamed Rice", description: "Steamed jasmine rice for the perfect teriyaki bowl" },
       { name: "Matcha Energy Smoothie", description: "A bright green matcha drink to complement the Japanese flavors" },
     ],
   },
@@ -2711,7 +2713,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Classic Balsamic Vinaigrette", description: "A peppery arugula salad to cut through the richness" },
       { name: "Olive Garden Copycat Breadsticks", description: "Soft bread to soak up every last bite of risotto" },
-      { name: "🍷 Barolo", description: "Earthy, full-bodied Italian red that loves mushrooms" },
+      { name: "Crusty Bread", description: "Warm crusty bread to scoop up every last bite of risotto" },
       { name: "Negroni", description: "Bitter, herbal aperitif to start the Italian meal" },
       { name: "Sparkling Strawberry Lemonade", description: "Light and bubbly to balance the creamy risotto" },
     ],
@@ -2749,7 +2751,7 @@ export const sampleRecipes: Recipe[] = [
       { name: "Creamy Chipotle Yogurt Sauce", description: "Smoky crema to drizzle over tacos" },
       { name: "Restaurant-Style Queso Dip", description: "Warm, gooey queso for dipping and drizzling" },
       { name: "Classic Margarita", description: "The iconic taco night pairing — can't go wrong" },
-      { name: "🍷 Tempranillo", description: "Smooth Spanish red that pairs beautifully with spiced beef" },
+      { name: "Mexican Rice", description: "Tomato-seasoned Mexican rice rounds out taco night" },
       { name: "Mango Chili Limeade", description: "Sweet, spicy, and refreshing alongside the tacos" },
     ],
   },
@@ -2785,7 +2787,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Thai Peanut Sauce", description: "Creamy peanut sauce to drizzle over the curry" },
       { name: "Crispy Egg Rolls", description: "Spring rolls or egg rolls for a Thai-inspired feast" },
-      { name: "🍷 Viognier", description: "Aromatic, full-bodied white that handles coconut and spice" },
+      { name: "Basmati Rice", description: "Fragrant basmati rice to balance the rich curry" },
       { name: "Piña Colada", description: "Tropical coconut cocktail echoes the creamy curry" },
       { name: "Mango Lassi", description: "Cool yogurt-mango smoothie to calm the curry heat" },
     ],
@@ -2819,7 +2821,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Classic Caesar Salad", description: "Crisp Caesar is the classic Italian-American pairing" },
       { name: "Olive Garden Copycat Breadsticks", description: "Garlicky breadsticks to dip in the cheesy sauce" },
-      { name: "🍷 Montepulciano d'Abruzzo", description: "Medium-bodied Italian red that loves baked pasta" },
+      { name: "Garlic Bread", description: "Garlicky bread for dipping in the cheesy baked ziti" },
       { name: "Sparkling Strawberry Lemonade", description: "Light and bubbly to balance the heavy cheese" },
       { name: "Classic Balsamic Vinaigrette", description: "A fresh arugula salad to offset the richness" },
     ],
@@ -2853,7 +2855,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Homemade Teriyaki Sauce", description: "Extra glaze for maximum sticky sweetness" },
       { name: "Asian Sesame Ginger Dressing", description: "Dress a cool cucumber salad on the side" },
-      { name: "🍷 Riesling", description: "Sweet Riesling balances the honey and soy beautifully" },
+      { name: "Steamed Rice", description: "Steamed rice to soak up the sticky honey garlic glaze" },
       { name: "Moscow Mule", description: "Spicy ginger beer cocktail complements the Asian flavors" },
       { name: "Soft Butter Dinner Rolls", description: "Warm rolls to soak up the honey garlic glaze" },
     ],
@@ -2878,7 +2880,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Classic Balsamic Vinaigrette", description: "A bright tomato-basil salad to go with the lasagna" },
       { name: "Olive Garden Copycat Breadsticks", description: "Soft garlic bread is a must with lasagna" },
-      { name: "🍷 Sangiovese", description: "Medium-bodied Italian red that pairs with cheesy layers" },
+      { name: "Garlic Bread", description: "Garlic bread is a must alongside layered lasagna" },
       { name: "Virgin Mojito", description: "Fresh and minty to cut through the rich cheese" },
       { name: "Homemade Ranch Dressing", description: "Cool ranch dressing for a crisp iceberg side salad" },
     ],
@@ -2913,7 +2915,7 @@ export const sampleRecipes: Recipe[] = [
     suggestedSides: [
       { name: "Homemade Teriyaki Sauce", description: "Extra sauce for dipping or drizzling over rice" },
       { name: "Asian Sesame Ginger Dressing", description: "Dress a crunchy Asian slaw on the side" },
-      { name: "🍷 Malbec", description: "Full-bodied, smooth red to stand up to the savory beef" },
+      { name: "Steamed Rice", description: "Fluffy steamed rice for the classic beef and broccoli combo" },
       { name: "Dark 'n' Stormy", description: "Dark rum and ginger beer — bold drink for bold flavors" },
       { name: "Crispy Egg Rolls", description: "Add crispy rolls for a takeout feast" },
     ],
