@@ -7666,6 +7666,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 180, sugar: 24, carbs: 26 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Cinnabon Copycat Cinnamon Rolls", description: "Vanilla latte and warm cinnamon rolls — café perfection" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti made for dunking in a vanilla latte" },
+      { name: "Classic Chocolate Chip Cookies", description: "Warm cookies and a sweet vanilla latte" },
+    ],
   },
   {
     id: "caramel-latte",
@@ -7856,6 +7861,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 140, sugar: 14, carbs: 18 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Avocado Toast with Egg", description: "Clean, earthy matcha pairs perfectly with savory avocado toast" },
+      { name: "Greek Yogurt Parfait", description: "Light yogurt parfait alongside antioxidant-rich matcha" },
+      { name: "Warm Oatmeal with Fresh Berries", description: "Hearty oatmeal with earthy matcha for a zen morning" },
+    ],
   },
   {
     id: "london-fog",
@@ -7878,6 +7888,11 @@ export const sampleDrinks: Drink[] = [
     nutrition: { calories: 130, sugar: 18, carbs: 22 },
     occasion: "everyday",
     season: "all-season",
+    suggestedPairings: [
+      { name: "Cranberry Orange Scones", description: "Floral tea with a citrusy scone — very British" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti dipped in a creamy London Fog" },
+      { name: "Lemon Blueberry Cream Tart", description: "Bright lemon tart echoes the bergamot in Earl Grey" },
+    ],
   },
   {
     id: "mulled-apple-cider",
@@ -7957,6 +7972,11 @@ export const sampleDrinks: Drink[] = [
       replaces: [{ original: "whiskey", substitute: "green-tea" }],
       notes: "Replace whiskey with hot tea for a soothing non-alcoholic version"
     },
+    suggestedPairings: [
+      { name: "Classic Gingerbread Cookies", description: "Spiced cookies alongside a warming toddy" },
+      { name: "Carrot Cake with Cream Cheese Frosting", description: "Spiced cake complements the honey-lemon warmth" },
+      { name: "Classic Herb Stuffing", description: "Comfort food with a comforting drink on a cold night" },
+    ],
   },
   {
     id: "irish-coffee",
@@ -7983,6 +8003,11 @@ export const sampleDrinks: Drink[] = [
       replaces: [{ original: "whiskey", substitute: "vanilla-syrup" }],
       notes: "Use vanilla syrup instead of whiskey"
     },
+    suggestedPairings: [
+      { name: "Classic Tiramisu", description: "Coffee dessert meets coffee cocktail — Italian perfection" },
+      { name: "Fudgy Chocolate Brownies", description: "Rich brownies with a boozy coffee warmer" },
+      { name: "Almond Biscotti", description: "Crunchy biscotti for dunking in your Irish coffee" },
+    ],
   },
   // ============ SUMMER REFRESHERS ============
   {
