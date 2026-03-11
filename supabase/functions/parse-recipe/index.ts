@@ -130,12 +130,19 @@ Deno.serve(async (req) => {
     const truncatedHtml = html.substring(0, 15000);
 
     // Use Lovable AI to parse the recipe
-    const aiResponse = await fetch('https://ai.lovable.dev/api/chat', {
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    if (!LOVABLE_API_KEY) {
+      return new Response(
+        JSON.stringify({ error: 'AI service not configured' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const aiResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Deno.env.get('SUPABASE_ANON_KEY')}`,
-        'x-lovable-project-id': Deno.env.get('LOVABLE_PROJECT_ID') || '',
+        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
       },
       body: JSON.stringify({
         model: 'google/gemini-2.5-flash',
@@ -173,7 +180,20 @@ Rules:
     });
 
     if (!aiResponse.ok) {
-      console.error('AI API error:', aiResponse.status, await aiResponse.text());
+      const errorText = await aiResponse.text();
+      console.error('AI API error:', aiResponse.status, errorText);
+      if (aiResponse.status === 429) {
+        return new Response(
+          JSON.stringify({ error: 'Rate limit exceeded. Please try again in a moment.' }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      if (aiResponse.status === 402) {
+        return new Response(
+          JSON.stringify({ error: 'AI service credits exhausted. Please try again later.' }),
+          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
       return new Response(
         JSON.stringify({ error: 'Failed to parse recipe. Please try again.' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
