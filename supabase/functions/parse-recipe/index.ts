@@ -100,6 +100,24 @@ Deno.serve(async (req) => {
 
     // Validate URL
     const trimmedUrl = url.trim();
+    
+    // Check it's a valid URL with a proper domain
+    try {
+      const parsed = new URL(trimmedUrl);
+      // Must have a dot in hostname (e.g. example.com) to be a real domain
+      if (!parsed.hostname.includes('.')) {
+        return new Response(
+          JSON.stringify({ error: 'Please enter a valid recipe URL (e.g. https://www.allrecipes.com/recipe/...)' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    } catch {
+      return new Response(
+        JSON.stringify({ error: 'Please enter a valid recipe URL (e.g. https://www.allrecipes.com/recipe/...)' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
     if (isPrivateUrl(trimmedUrl)) {
       return new Response(
         JSON.stringify({ error: 'Invalid URL' }),
