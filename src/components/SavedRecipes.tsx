@@ -51,7 +51,7 @@ export function SavedRecipes({
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
   
-  const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat } = useCustomRecipes();
+  const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat, refresh: refreshCustomRecipes } = useCustomRecipes();
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
