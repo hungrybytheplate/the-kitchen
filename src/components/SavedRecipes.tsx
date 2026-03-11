@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,7 @@ import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { StarRating } from "@/components/StarRating";
 import { QuickTooltip } from "@/components/Tooltip";
 import { useCustomRecipes } from "@/hooks/useCustomRecipes";
+import { ImportRecipeDialog } from "@/components/ImportRecipeDialog";
 import { toast } from "@/hooks/use-toast";
 import type { Ratings } from "@/hooks/useUserData";
 
@@ -50,7 +51,7 @@ export function SavedRecipes({
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
   
-  const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat } = useCustomRecipes();
+  const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat, refresh: refreshCustomRecipes } = useCustomRecipes();
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
@@ -373,7 +374,9 @@ export function SavedRecipes({
           </TabsContent>
 
           <TabsContent value="imported" className="mt-4">
-            <div className="space-y-2">
+            <div className="space-y-3">
+              <ImportRecipeDialog onImported={refreshCustomRecipes} />
+              
               {filteredImportedRecipes.length > 0 ? (
                 filteredImportedRecipes.map((recipe) => (
                   <div
@@ -404,7 +407,7 @@ export function SavedRecipes({
                 ))
               ) : (
                 <p className="text-center text-muted-foreground py-4">
-                  {search ? `No imported recipes match "${search}"` : "No imported recipes yet"}
+                  {search ? `No imported recipes match "${search}"` : "No imported recipes yet. Paste a URL to get started!"}
                 </p>
               )}
             </div>
