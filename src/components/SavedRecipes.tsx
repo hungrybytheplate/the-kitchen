@@ -14,6 +14,7 @@ import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { StarRating } from "@/components/StarRating";
 import { QuickTooltip } from "@/components/Tooltip";
 import { useCustomRecipes } from "@/hooks/useCustomRecipes";
+import { ImportRecipeDialog } from "@/components/ImportRecipeDialog";
 import { toast } from "@/hooks/use-toast";
 import type { Ratings } from "@/hooks/useUserData";
 
