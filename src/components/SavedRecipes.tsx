@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
