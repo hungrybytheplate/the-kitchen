@@ -374,7 +374,9 @@ export function SavedRecipes({
           </TabsContent>
 
           <TabsContent value="imported" className="mt-4">
-            <div className="space-y-2">
+            <div className="space-y-3">
+              <ImportRecipeDialog onImported={refreshCustomRecipes} />
+              
               {filteredImportedRecipes.length > 0 ? (
                 filteredImportedRecipes.map((recipe) => (
                   <div
@@ -405,7 +407,7 @@ export function SavedRecipes({
                 ))
               ) : (
                 <p className="text-center text-muted-foreground py-4">
-                  {search ? `No imported recipes match "${search}"` : "No imported recipes yet"}
+                  {search ? `No imported recipes match "${search}"` : "No imported recipes yet. Paste a URL to get started!"}
                 </p>
               )}
             </div>
