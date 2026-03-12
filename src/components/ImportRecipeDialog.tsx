@@ -131,10 +131,20 @@ export function ImportRecipeDialog({ onImported, trigger }: ImportRecipeDialogPr
               onKeyDown={(e) => e.key === "Enter" && !loading && handleImport()}
               className="flex-1"
             />
-            <Button onClick={handleImport} disabled={loading || !url.trim()} className="shrink-0">
+            <Button onClick={() => handleImport()} disabled={loading || !url.trim()} className="shrink-0">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Import"}
             </Button>
           </div>
+
+          {duplicateWarning && (
+            <div className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700">
+              <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span className="text-amber-800 dark:text-amber-300 flex-1">{duplicateWarning}</span>
+              <Button size="sm" variant="outline" onClick={() => handleImport(true)} className="shrink-0 text-xs">
+                Import Anyway
+              </Button>
+            </div>
+          )
 
           {status !== "idle" && (
             <div className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-muted/50">
