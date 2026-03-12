@@ -372,6 +372,14 @@ export function SavedRecipes({
                       <Button
                         variant="ghost"
                         size="icon"
+                        onClick={() => setAddToCollectionRecipeId(recipe.id)}
+                        className="h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                      >
+                        <FolderPlus className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         onClick={() => handleOpenNotes(recipe.id, recipe.title)}
                         className={cn(
                           "transition-opacity text-muted-foreground hover:text-primary h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100",
