@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus, FolderPlus } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ import { StarRating } from "@/components/StarRating";
 import { QuickTooltip } from "@/components/Tooltip";
 import { useCustomRecipes } from "@/hooks/useCustomRecipes";
 import { ImportRecipeDialog } from "@/components/ImportRecipeDialog";
+import { RecipeCollections, AddToCollectionDialog } from "@/components/RecipeCollections";
+import { useRecipeCollections } from "@/hooks/useRecipeCollections";
 import { toast } from "@/hooks/use-toast";
 import type { Ratings } from "@/hooks/useUserData";
 
