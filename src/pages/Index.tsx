@@ -46,7 +46,8 @@ import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/rec
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake } from "lucide-react";
+import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake, Flower2 } from "lucide-react";
+import { SpringHostingPlanner } from "@/components/SpringHostingPlanner";
 import { cn } from "@/lib/utils";
 import { BottomNav } from "@/components/BottomNav";
 
