@@ -269,6 +269,27 @@ const menuCategories: MenuCategory[] = [
   },
 ];
 
+const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
+  { tag: "vegetarian", label: "Vegetarian", icon: "🥬" },
+  { tag: "vegan", label: "Vegan", icon: "🌱" },
+  { tag: "gluten-free", label: "Gluten-Free", icon: "🌾" },
+  { tag: "dairy-free", label: "Dairy-Free", icon: "🥛" },
+  { tag: "keto", label: "Keto", icon: "🥑" },
+  { tag: "paleo", label: "Paleo", icon: "🍖" },
+  { tag: "high-protein", label: "High Protein", icon: "💪" },
+  { tag: "low-carb", label: "Low Carb", icon: "🥗" },
+];
+
+const cuisineFilters: { cuisine: CuisineType; label: string; icon: string }[] = [
+  { cuisine: "italian", label: "Italian", icon: "🇮🇹" },
+  { cuisine: "mexican", label: "Mexican", icon: "🇲🇽" },
+  { cuisine: "asian", label: "Asian", icon: "🥢" },
+  { cuisine: "mediterranean", label: "Mediterranean", icon: "🫒" },
+  { cuisine: "american", label: "American", icon: "🇺🇸" },
+  { cuisine: "french", label: "French", icon: "🇫🇷" },
+  { cuisine: "indian", label: "Indian", icon: "🇮🇳" },
+];
+
 export function SpringHostingPlanner({
   onAddToCalendar,
   onAddToShopping,
@@ -282,21 +303,71 @@ export function SpringHostingPlanner({
   const [refreshKey, setRefreshKey] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [guestCount, setGuestCount] = useState("8");
+  const [activeDietaryFilters, setActiveDietaryFilters] = useState<DietaryTag[]>([]);
+  const [activeCuisineFilters, setActiveCuisineFilters] = useState<CuisineType[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  const hasActiveFilters = activeDietaryFilters.length > 0 || activeCuisineFilters.length > 0;
+
+  const toggleDietary = (tag: DietaryTag) => {
+    setActiveDietaryFilters(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const toggleCuisine = (cuisine: CuisineType) => {
+    setActiveCuisineFilters(prev =>
+      prev.includes(cuisine) ? prev.filter(c => c !== cuisine) : [...prev, cuisine]
+    );
+  };
+
+  const clearFilters = () => {
+    setActiveDietaryFilters([]);
+    setActiveCuisineFilters([]);
+  };
+
+  // Filter recipes/drinks based on active filters
+  const filteredRecipes = useMemo(() => {
+    return sampleRecipes.filter(r => {
+      if (activeDietaryFilters.length > 0) {
+        if (!activeDietaryFilters.every(tag => r.dietaryTags?.includes(tag))) return false;
+      }
+      if (activeCuisineFilters.length > 0) {
+        if (!r.cuisineType || !activeCuisineFilters.includes(r.cuisineType)) return false;
+      }
+      return true;
+    });
+  }, [activeDietaryFilters, activeCuisineFilters]);
+
+  const filteredDrinks = useMemo(() => {
+    return sampleDrinks.filter(d => {
+      if (activeDietaryFilters.length > 0) {
+        // For drinks, check healthTags for dietary compatibility
+        const drinkTags = (d.healthTags || []).map(t => t.toLowerCase());
+        for (const tag of activeDietaryFilters) {
+          if (tag === "vegan" && !drinkTags.some(t => t.includes("vegan"))) return false;
+          if (tag === "gluten-free" && !drinkTags.some(t => t.includes("gluten"))) return false;
+          if (tag === "dairy-free" && !drinkTags.some(t => t.includes("dairy"))) return false;
+        }
+      }
+      return true;
+    });
+  }, [activeDietaryFilters]);
 
   const menuSuggestions = useMemo(() => {
     return menuCategories.map((category) => {
       if (category.type === "recipe") {
-        const filtered = sampleRecipes.filter(category.filter as (r: Recipe) => boolean);
+        const filtered = filteredRecipes.filter(category.filter as (r: Recipe) => boolean);
         const shuffled = seededShuffle(filtered, refreshKey + category.title.length * 31);
         return { ...category, items: shuffled.slice(0, category.count) };
       } else {
-        const filtered = sampleDrinks.filter(category.filter as (d: Drink) => boolean);
+        const filtered = filteredDrinks.filter(category.filter as (d: Drink) => boolean);
         const shuffled = seededShuffle(filtered, refreshKey + category.title.length * 37);
         return { ...category, items: shuffled.slice(0, category.count) };
       }
     });
-  }, [refreshKey]);
+  }, [refreshKey, filteredRecipes, filteredDrinks]);
 
   const handleRefresh = () => setRefreshKey((prev) => prev + 1);
 
