@@ -974,6 +974,7 @@ const Index = () => {
               savedRecipes={savedRecipes}
               onSaveRecipe={handleSaveRecipe}
               onAddToCalendar={handleAddToCalendar}
+              shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
             />
 
             {/* Weekly Nutrition Summary */}
