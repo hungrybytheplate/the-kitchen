@@ -27,6 +27,7 @@ interface MealCalendarProps {
   savedRecipes?: string[];
   onSaveRecipe?: (recipeId: string) => void;
   onAddToCalendar?: (recipe: Recipe) => void;
+  shoppingList?: { variant: string; checked: boolean }[];
 }
 
 const CALENDAR_PREFERENCE_KEY = 'preferred-calendar-provider';
