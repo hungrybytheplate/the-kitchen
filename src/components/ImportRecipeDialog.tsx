@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Link, Loader2, Plus, CheckCircle2, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { useCustomRecipes } from "@/hooks/useCustomRecipes";
 
 interface ImportRecipeDialogProps {
   onImported: () => void;
