@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus, CalendarCheck } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus, CalendarCheck, FileText } from "lucide-react";
 import { useState, DragEvent } from "react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import { cn } from "@/lib/utils";
