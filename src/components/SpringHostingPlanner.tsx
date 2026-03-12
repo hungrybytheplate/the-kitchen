@@ -42,7 +42,7 @@ interface SpringHostingPlannerProps {
 
 interface MenuCategory {
   title: string;
-  icon: typeof Utensils;
+  icon: typeof ChefHat;
   color: string;
   bgColor: string;
   type: "recipe" | "drink" | "static";
