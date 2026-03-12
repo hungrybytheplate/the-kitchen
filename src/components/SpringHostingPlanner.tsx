@@ -334,7 +334,7 @@ export function SpringHostingPlanner({
         if (!activeDietaryFilters.every(tag => r.dietaryTags?.includes(tag))) return false;
       }
       if (activeCuisineFilters.length > 0) {
-        if (!r.cuisineType || !activeCuisineFilters.includes(r.cuisineType)) return false;
+        if (!r.cuisine || !activeCuisineFilters.includes(r.cuisine)) return false;
       }
       return true;
     });
