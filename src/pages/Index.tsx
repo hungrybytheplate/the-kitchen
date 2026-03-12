@@ -867,6 +867,7 @@ const Index = () => {
               </div>
             ) : (
               // DRINK MODE
+              <Suspense fallback={<LazyFallback />}>
               <div className="grid gap-4 lg:grid-cols-2">
                 <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
@@ -968,6 +969,7 @@ const Index = () => {
                   )}
                 </div>
               </div>
+              </Suspense>
             )}
           </TabsContent>
 
