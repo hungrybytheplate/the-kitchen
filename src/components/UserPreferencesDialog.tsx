@@ -32,7 +32,9 @@ const skillLevels = [
 const mealTypeLabels: { key: keyof MealTimes; label: string; icon: string }[] = [
   { key: 'breakfast', label: 'Breakfast', icon: '🌅' },
   { key: 'lunch', label: 'Lunch', icon: '☀️' },
+  { key: 'snack', label: 'Snack', icon: '🍎' },
   { key: 'dinner', label: 'Dinner', icon: '🌙' },
+  { key: 'happyHour', label: 'Happy Hour', icon: '🍸' },
   { key: 'dessert', label: 'Dessert', icon: '🍰' },
   { key: 'sides', label: 'Sides', icon: '🥗' },
 ];

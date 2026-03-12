@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { useToast } from "@/hooks/use-toast";
+import { useUserPreferences, type MealTimes } from "@/hooks/useUserPreferences";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -58,6 +59,7 @@ export function MealCalendar({
   const [isSyncingAll, setIsSyncingAll] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const { toast } = useToast();
+  const { preferences } = useUserPreferences();
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
   
@@ -151,34 +153,78 @@ export function MealCalendar({
   const mealTypeIcons: Record<string, string> = {
     breakfast: "🌅",
     lunch: "☀️",
+    snack: "🍎",
     dinner: "🌙",
+    happyHour: "🍸",
     dessert: "🍰",
     sides: "🥐",
   };
 
   const isEmpty = mealPlan.length === 0;
 
+  const parseCookTimeMinutes = (cookTime: string): number => {
+    const hourMatch = cookTime.match(/(\d+)\s*h/i);
+    const minMatch = cookTime.match(/(\d+)\s*m/i);
+    let total = 0;
+    if (hourMatch) total += parseInt(hourMatch[1]) * 60;
+    if (minMatch) total += parseInt(minMatch[1]);
+    if (total === 0) {
+      const numOnly = cookTime.match(/(\d+)/);
+      if (numOnly) total = parseInt(numOnly[1]);
+    }
+    return total || 60;
+  };
+
   const generateCalendarLink = (entry: MealPlanEntry, type: CalendarProvider) => {
     const startDate = new Date(entry.date);
     const endDate = new Date(entry.date);
+    const recipe = entry.recipe;
     
-    // Set meal times based on meal type
-    const mealTimes: Record<string, { start: number; end: number }> = {
-      breakfast: { start: 8, end: 9 },
-      lunch: { start: 12, end: 13 },
-      dinner: { start: 18, end: 19 },
-      dessert: { start: 19, end: 20 },
-      sides: { start: 18, end: 19 },
-    };
+    // Use user's preferred meal times
+    const userMealTimes = preferences.mealTimes;
+    const time24 = userMealTimes[recipe.mealType as keyof MealTimes] || '12:00';
+    const [startHour, startMin] = time24.split(':').map(Number);
+    const cookMinutes = parseCookTimeMinutes(recipe.cookTime);
     
-    const times = mealTimes[entry.recipe.mealType] || { start: 12, end: 13 };
-    startDate.setHours(times.start, 0, 0);
-    endDate.setHours(times.end, 0, 0);
+    startDate.setHours(startHour, startMin, 0);
+    const endTotalMin = startHour * 60 + startMin + cookMinutes;
+    endDate.setHours(Math.floor(endTotalMin / 60), endTotalMin % 60, 0);
     
-    const title = encodeURIComponent(entry.recipe.title);
-    const details = encodeURIComponent(`Recipe: ${entry.recipe.title}\n\nIngredients:\n${entry.recipe.ingredients.join(', ')}\n\nInstructions:\n${entry.recipe.instructions.join('\n')}`);
+    // Build full recipe description
+    const ingredientsList = recipe.ingredientAmounts && recipe.ingredientAmounts.length > 0
+      ? recipe.ingredientAmounts.map(ing => `• ${ing.amount} ${ing.unit} ${ing.id.replace(/-/g, ' ')}`).join('\n')
+      : recipe.ingredients.map(ing => `• ${ing.replace(/-/g, ' ')}`).join('\n');
     
-    if (type === 'google') {
+    const instructionsText = recipe.instructions.map((step, i) => `${i + 1}. ${step}`).join('\n');
+    
+    const descParts = [
+      `⏱️ Cook Time: ${recipe.cookTime}`,
+      `👥 Servings: ${recipe.servings}`,
+      '',
+      '📝 INGREDIENTS:',
+      ingredientsList,
+      '',
+      '📋 INSTRUCTIONS:',
+      instructionsText,
+    ];
+    
+    if (recipe.nutrition) {
+      const n = recipe.nutrition;
+      descParts.push('', `📊 NUTRITION: ${n.calories} cal | ${n.protein}g protein | ${n.carbs}g carbs | ${n.fat}g fat`);
+    }
+    
+    if (recipe.dietaryTags && recipe.dietaryTags.length > 0) {
+      descParts.push('', `🏷️ ${recipe.dietaryTags.join(', ')}`);
+    }
+    
+    descParts.push('', '🔗 Made with The Kitchen');
+    const fullDesc = descParts.join('\n');
+    
+    const mealTypeLabel = recipe.mealType.charAt(0).toUpperCase() + recipe.mealType.slice(1);
+    const title = encodeURIComponent(`🍳 ${recipe.title} (${mealTypeLabel})`);
+    const details = encodeURIComponent(fullDesc);
+    
+    if (type === 'google' || type === 'samsung') {
       const start = format(startDate, "yyyyMMdd'T'HHmmss");
       const end = format(endDate, "yyyyMMdd'T'HHmmss");
       return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}`;
@@ -190,25 +236,19 @@ export function MealCalendar({
       return `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${start}&enddt=${end}&body=${details}`;
     }
 
-    if (type === 'samsung') {
-      // Samsung Calendar uses similar format to Google on Android
-      const start = format(startDate, "yyyyMMdd'T'HHmmss");
-      const end = format(endDate, "yyyyMMdd'T'HHmmss");
-      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}`;
-    }
-
     if (type === 'yahoo') {
       const start = format(startDate, "yyyyMMdd'T'HHmmss");
-      const duration = '0100'; // 1 hour in HHMM format
-      return `https://calendar.yahoo.com/?v=60&title=${title}&st=${start}&dur=${duration}&desc=${details}`;
+      const durationHH = String(Math.floor(cookMinutes / 60)).padStart(2, '0');
+      const durationMM = String(cookMinutes % 60).padStart(2, '0');
+      return `https://calendar.yahoo.com/?v=60&title=${title}&st=${start}&dur=${durationHH}${durationMM}&desc=${details}`;
     }
     
-    // Apple Calendar & Default (ICS file) - Enhanced format
+    // Apple Calendar / ICS
     const start = format(startDate, "yyyyMMdd'T'HHmmss");
     const end = format(endDate, "yyyyMMdd'T'HHmmss");
-    const uid = `${entry.recipe.id}-${entry.date}@thekitchen.app`;
+    const uid = `${recipe.id}-${entry.date}@thekitchen.app`;
     const now = format(new Date(), "yyyyMMdd'T'HHmmss");
-    const escapedDesc = entry.recipe.instructions.join('\\n').replace(/,/g, '\\,');
+    const escapedDesc = fullDesc.replace(/,/g, '\\,').replace(/\n/g, '\\n');
     const ics = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//The Kitchen//Meal Planner//EN
@@ -219,14 +259,19 @@ UID:${uid}
 DTSTAMP:${now}
 DTSTART:${start}
 DTEND:${end}
-SUMMARY:${entry.recipe.title}
+SUMMARY:🍳 ${recipe.title} (${mealTypeLabel})
 DESCRIPTION:${escapedDesc}
-CATEGORIES:Meal Prep,Cooking
+CATEGORIES:Meal Prep,Cooking,${mealTypeLabel}
 STATUS:CONFIRMED
 BEGIN:VALARM
-TRIGGER:-PT30M
+TRIGGER:-PT15M
 ACTION:DISPLAY
-DESCRIPTION:Time to start cooking ${entry.recipe.title}!
+DESCRIPTION:⏰ Start prepping ${recipe.title}! Cook time: ${recipe.cookTime}
+END:VALARM
+BEGIN:VALARM
+TRIGGER:PT0M
+ACTION:DISPLAY
+DESCRIPTION:🍳 Time to cook ${recipe.title}!
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;

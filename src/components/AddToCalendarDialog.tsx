@@ -71,11 +71,30 @@ function formatIngredientsList(recipe: Recipe): string {
   return recipe.ingredients.map(ing => `• ${ing.replace(/-/g, ' ')}`).join('\n');
 }
 
+function parseCookTimeMinutes(cookTime: string): number {
+  const hourMatch = cookTime.match(/(\d+)\s*h/i);
+  const minMatch = cookTime.match(/(\d+)\s*m/i);
+  let total = 0;
+  if (hourMatch) total += parseInt(hourMatch[1]) * 60;
+  if (minMatch) total += parseInt(minMatch[1]);
+  if (total === 0) {
+    const numOnly = cookTime.match(/(\d+)/);
+    if (numOnly) total = parseInt(numOnly[1]);
+  }
+  return total || 60; // Default 60 min
+}
+
+function formatInstructions(recipe: Recipe): string {
+  return recipe.instructions.map((step, i) => `${i + 1}. ${step}`).join('\n');
+}
+
 function generateCalendarLinks(recipe: Recipe, date: Date, mealTimes: MealTimes) {
   const mealInfo = getMealTypeTime(recipe.mealType, mealTimes);
   const mealTypeLabel = formatMealType(recipe.mealType);
   const nutritionInfo = formatNutrition(recipe);
   const ingredientsList = formatIngredientsList(recipe);
+  const cookMinutes = parseCookTimeMinutes(recipe.cookTime);
+  const instructionsText = formatInstructions(recipe);
   
   // Build comprehensive description
   const descriptionParts = [
@@ -85,6 +104,9 @@ function generateCalendarLinks(recipe: Recipe, date: Date, mealTimes: MealTimes)
     '',
     '📝 INGREDIENTS:',
     ingredientsList,
+    '',
+    '📋 INSTRUCTIONS:',
+    instructionsText,
   ];
   
   if (nutritionInfo) {
@@ -95,37 +117,46 @@ function generateCalendarLinks(recipe: Recipe, date: Date, mealTimes: MealTimes)
     descriptionParts.push('', `📈 Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}`);
   }
   
+  if (recipe.dietaryTags && recipe.dietaryTags.length > 0) {
+    descriptionParts.push('', `🏷️ Tags: ${recipe.dietaryTags.join(', ')}`);
+  }
+  
   descriptionParts.push('', '🔗 Made with The Kitchen - the-kitchen.org');
   
   const fullDescription = descriptionParts.join('\n');
   
-  const title = encodeURIComponent(`${recipe.title} (${mealTypeLabel})`);
+  const title = encodeURIComponent(`🍳 ${recipe.title} (${mealTypeLabel})`);
   const description = encodeURIComponent(fullDescription);
   const startDate = format(date, "yyyyMMdd");
   const uid = `${recipe.id}-${startDate}@thekitchen.app`;
   const now = format(new Date(), "yyyyMMdd'T'HHmmss");
   
-  // Format time for timed events (Google/Outlook)
+  // Calculate end time based on cook time duration
+  const startTotalMinutes = mealInfo.hour * 60 + mealInfo.minute;
+  const endTotalMinutes = startTotalMinutes + cookMinutes;
+  const endHour = Math.floor(endTotalMinutes / 60);
+  const endMinute = endTotalMinutes % 60;
+  
   const startDateTime = `${startDate}T${String(mealInfo.hour).padStart(2, '0')}${String(mealInfo.minute).padStart(2, '0')}00`;
-  const endHour = mealInfo.hour + 1;
-  const endMinute = mealInfo.minute;
   const endDateTime = `${startDate}T${String(endHour).padStart(2, '0')}${String(endMinute).padStart(2, '0')}00`;
 
-  // Google Calendar - with specific time
+  // Google Calendar
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDateTime}/${endDateTime}&details=${description}`;
 
-  // Outlook Calendar - with specific time
-  const outlookStartTime = `${format(date, "yyyy-MM-dd")}T${String(mealInfo.hour).padStart(2, '0')}:00:00`;
-  const outlookEndTime = `${format(date, "yyyy-MM-dd")}T${String(endHour).padStart(2, '0')}:00:00`;
+  // Outlook Calendar
+  const outlookStartTime = `${format(date, "yyyy-MM-dd")}T${String(mealInfo.hour).padStart(2, '0')}:${String(mealInfo.minute).padStart(2, '0')}:00`;
+  const outlookEndTime = `${format(date, "yyyy-MM-dd")}T${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}:00`;
   const outlookUrl = `https://outlook.live.com/calendar/0/action/compose?subject=${title}&startdt=${outlookStartTime}&enddt=${outlookEndTime}&body=${description}`;
 
   // Yahoo Calendar
-  const yahooUrl = `https://calendar.yahoo.com/?v=60&title=${title}&st=${startDateTime}&dur=0100&desc=${description}`;
+  const durationHH = String(Math.floor(cookMinutes / 60)).padStart(2, '0');
+  const durationMM = String(cookMinutes % 60).padStart(2, '0');
+  const yahooUrl = `https://calendar.yahoo.com/?v=60&title=${title}&st=${startDateTime}&dur=${durationHH}${durationMM}&desc=${description}`;
 
-  // Samsung Calendar (uses Google Calendar on Android)
+  // Samsung Calendar
   const samsungUrl = googleUrl;
 
-  // Enhanced ICS for Apple Calendar with alarm and full details
+  // Enhanced ICS for Apple Calendar
   const escapedDesc = fullDescription.replace(/,/g, '\\,').replace(/\n/g, '\\n');
   const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
@@ -137,14 +168,19 @@ UID:${uid}
 DTSTAMP:${now}
 DTSTART:${startDateTime}
 DTEND:${endDateTime}
-SUMMARY:${recipe.title} (${mealTypeLabel})
+SUMMARY:🍳 ${recipe.title} (${mealTypeLabel})
 DESCRIPTION:${escapedDesc}
 CATEGORIES:Meal Prep,Cooking,${mealTypeLabel}
 STATUS:CONFIRMED
 BEGIN:VALARM
-TRIGGER:-PT1H
+TRIGGER:-PT15M
 ACTION:DISPLAY
-DESCRIPTION:Time to start cooking ${recipe.title}! Cook time: ${recipe.cookTime}
+DESCRIPTION:⏰ Start prepping ${recipe.title}! Cook time: ${recipe.cookTime}
+END:VALARM
+BEGIN:VALARM
+TRIGGER:PT0M
+ACTION:DISPLAY
+DESCRIPTION:🍳 Time to cook ${recipe.title}!
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;
