@@ -281,16 +281,27 @@ END:VCALENDAR`;
             </div>
             <div className="flex items-center justify-between sm:justify-end gap-1 sm:gap-2">
               {weekMeals.length > 0 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleSyncAllWeek}
-                  disabled={isSyncingAll}
-                  className="mr-1 sm:mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
-                >
-                  <CalendarCheck className="h-4 w-4 sm:mr-1.5" />
-                  <span className="hidden sm:inline">{isSyncingAll ? "Syncing..." : "Sync Week"}</span>
-                </Button>
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowExport(true)}
+                    className="mr-0.5 sm:mr-1 h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
+                  >
+                    <FileText className="h-4 w-4 sm:mr-1.5" />
+                    <span className="hidden sm:inline">Export</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSyncAllWeek}
+                    disabled={isSyncingAll}
+                    className="mr-1 sm:mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
+                  >
+                    <CalendarCheck className="h-4 w-4 sm:mr-1.5" />
+                    <span className="hidden sm:inline">{isSyncingAll ? "Syncing..." : "Sync Week"}</span>
+                  </Button>
+                </>
               )}
               <Button
                 variant="ghost"
