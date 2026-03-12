@@ -62,7 +62,7 @@ const isSpringAppetizer = (r: Recipe) => {
   const desc = (r.description || "").toLowerCase();
   const combined = title + " " + desc;
   const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke dip", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap", "flatbread", "pinwheel", "croquette", "fritter"];
-  const excludeKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning"];
+  const excludeKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning", "mayo", "mayonnaise", "gochujang", "ketchup", "mustard", "salsa", "pesto", "chutney", "relish", "gravy", "compound butter"];
   if (excludeKeywords.some(k => title.includes(k))) return false;
   return (
     (r.mealType === "sides" || r.mealType === "lunch") &&
