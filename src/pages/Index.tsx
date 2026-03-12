@@ -651,7 +651,7 @@ const Index = () => {
         <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
       )}
       
-      <InstallBanner />
+      <Suspense fallback={null}><InstallBanner /></Suspense>
       
       <Header onShowTour={() => setShowTour(true)} />
 
