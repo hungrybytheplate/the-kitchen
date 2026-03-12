@@ -49,12 +49,14 @@ export function MealCalendar({
   onAddToShopping,
   savedRecipes = [],
   onSaveRecipe,
-  onAddToCalendar
+  onAddToCalendar,
+  shoppingList = []
 }: MealCalendarProps) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [dragOverDate, setDragOverDate] = useState<string | null>(null);
   const [isSyncingAll, setIsSyncingAll] = useState(false);
+  const [showExport, setShowExport] = useState(false);
   const { toast } = useToast();
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
