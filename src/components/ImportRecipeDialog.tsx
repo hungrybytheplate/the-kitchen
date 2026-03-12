@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Link, Loader2, Plus, CheckCircle2, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { useCustomRecipes } from "@/hooks/useCustomRecipes";
 
 interface ImportRecipeDialogProps {
   onImported: () => void;
@@ -23,14 +24,27 @@ export function ImportRecipeDialog({ onImported, trigger }: ImportRecipeDialogPr
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "fetching" | "parsing" | "saving" | "done" | "error">("idle");
+  const [duplicateWarning, setDuplicateWarning] = useState<string | null>(null);
+  const { customRecipes } = useCustomRecipes();
 
-  const handleImport = async () => {
+  const handleImport = async (force = false) => {
     const trimmed = url.trim();
     if (!trimmed) return;
 
     // Basic URL validation
     try {
-      new URL(trimmed.startsWith("http") ? trimmed : `https://${trimmed}`);
+      const finalUrl = trimmed.startsWith("http") ? trimmed : `https://${trimmed}`;
+      new URL(finalUrl);
+      
+      // Check for duplicate URL
+      if (!force) {
+        const existingByUrl = customRecipes.find(r => r.source_url === finalUrl);
+        if (existingByUrl) {
+          setDuplicateWarning(`You already imported "${existingByUrl.title}" from this URL.`);
+          return;
+        }
+      }
+      setDuplicateWarning(null);
     } catch {
       toast({ title: "Invalid URL", description: "Please enter a valid recipe URL.", variant: "destructive" });
       return;
@@ -117,10 +131,20 @@ export function ImportRecipeDialog({ onImported, trigger }: ImportRecipeDialogPr
               onKeyDown={(e) => e.key === "Enter" && !loading && handleImport()}
               className="flex-1"
             />
-            <Button onClick={handleImport} disabled={loading || !url.trim()} className="shrink-0">
+            <Button onClick={() => handleImport()} disabled={loading || !url.trim()} className="shrink-0">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Import"}
             </Button>
           </div>
+
+          {duplicateWarning && (
+            <div className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700">
+              <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span className="text-amber-800 dark:text-amber-300 flex-1">{duplicateWarning}</span>
+              <Button size="sm" variant="outline" onClick={() => handleImport(true)} className="shrink-0 text-xs">
+                Import Anyway
+              </Button>
+            </div>
+          )}
 
           {status !== "idle" && (
             <div className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-muted/50">

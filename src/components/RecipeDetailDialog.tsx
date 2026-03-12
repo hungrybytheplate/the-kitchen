@@ -30,7 +30,8 @@ import {
   Sun,
   CloudSun,
   Smartphone,
-  ExternalLink
+  ExternalLink,
+  Timer
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
@@ -39,6 +40,7 @@ import { ShareRecipeButton } from "./ShareRecipeButton";
 import { CookingMode } from "./CookingMode";
 import { findPairingByName } from "@/lib/pairingLookup";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
+import { SourdoughTimerDialog } from "./SourdoughTimerDialog";
 import type { Drink } from "@/data/drinks";
 
 interface SideDish {
@@ -144,6 +146,7 @@ export function RecipeDetailDialog({
   const [addedToCart, setAddedToCart] = useState<string[]>([]);
   const [linkedRecipeStack, setLinkedRecipeStack] = useState<Recipe[]>([]);
   const [selectedLinkedDrink, setSelectedLinkedDrink] = useState<Drink | null>(null);
+  const [showSourdoughTimer, setShowSourdoughTimer] = useState(false);
 
   // The currently displayed recipe: either a linked recipe from the stack, or the original
   const displayedRecipe = linkedRecipeStack.length > 0 ? linkedRecipeStack[linkedRecipeStack.length - 1] : recipe;
@@ -769,6 +772,16 @@ export function RecipeDetailDialog({
               </Button>
               
               <div className="flex gap-3">
+                {displayedRecipe.id === "sourdough-bread" && (
+                  <Button
+                    variant="outline"
+                    className="gap-2"
+                    onClick={() => setShowSourdoughTimer(true)}
+                  >
+                    <Timer className="h-4 w-4" />
+                    <span className="hidden sm:inline">Set Timers</span>
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   className="flex-1"
@@ -812,6 +825,12 @@ export function RecipeDetailDialog({
         onSave={() => {}}
       />
     )}
+
+    {/* Sourdough Timer Dialog */}
+    <SourdoughTimerDialog
+      open={showSourdoughTimer}
+      onOpenChange={setShowSourdoughTimer}
+    />
     </>
   );
 }

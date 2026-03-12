@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus, CalendarCheck } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Calendar, CalendarPlus, CalendarCheck, FileText } from "lucide-react";
 import { useState, DragEvent } from "react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { ExportMealPlanDialog } from "@/components/ExportMealPlanDialog";
 export interface MealPlanEntry {
   date: string;
   recipe: Recipe;
@@ -27,6 +27,7 @@ interface MealCalendarProps {
   savedRecipes?: string[];
   onSaveRecipe?: (recipeId: string) => void;
   onAddToCalendar?: (recipe: Recipe) => void;
+  shoppingList?: { variant: string; checked: boolean }[];
 }
 
 const CALENDAR_PREFERENCE_KEY = 'preferred-calendar-provider';
@@ -48,12 +49,14 @@ export function MealCalendar({
   onAddToShopping,
   savedRecipes = [],
   onSaveRecipe,
-  onAddToCalendar
+  onAddToCalendar,
+  shoppingList = []
 }: MealCalendarProps) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [dragOverDate, setDragOverDate] = useState<string | null>(null);
   const [isSyncingAll, setIsSyncingAll] = useState(false);
+  const [showExport, setShowExport] = useState(false);
   const { toast } = useToast();
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
@@ -278,16 +281,27 @@ END:VCALENDAR`;
             </div>
             <div className="flex items-center justify-between sm:justify-end gap-1 sm:gap-2">
               {weekMeals.length > 0 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleSyncAllWeek}
-                  disabled={isSyncingAll}
-                  className="mr-1 sm:mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
-                >
-                  <CalendarCheck className="h-4 w-4 sm:mr-1.5" />
-                  <span className="hidden sm:inline">{isSyncingAll ? "Syncing..." : "Sync Week"}</span>
-                </Button>
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowExport(true)}
+                    className="mr-0.5 sm:mr-1 h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
+                  >
+                    <FileText className="h-4 w-4 sm:mr-1.5" />
+                    <span className="hidden sm:inline">Export</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSyncAllWeek}
+                    disabled={isSyncingAll}
+                    className="mr-1 sm:mr-2 bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary h-8 w-8 sm:h-auto sm:w-auto p-1.5 sm:px-3"
+                  >
+                    <CalendarCheck className="h-4 w-4 sm:mr-1.5" />
+                    <span className="hidden sm:inline">{isSyncingAll ? "Syncing..." : "Sync Week"}</span>
+                  </Button>
+                </>
               )}
               <Button
                 variant="ghost"
@@ -503,6 +517,14 @@ END:VCALENDAR`;
           onAddToCalendar={onAddToCalendar ? () => onAddToCalendar(selectedRecipe) : () => {}}
         />
       )}
+
+      <ExportMealPlanDialog
+        open={showExport}
+        onOpenChange={setShowExport}
+        mealPlan={mealPlan}
+        weekStart={weekStart}
+        shoppingList={shoppingList}
+      />
     </>
   );
 }

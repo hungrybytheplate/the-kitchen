@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus, FolderPlus } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ import { StarRating } from "@/components/StarRating";
 import { QuickTooltip } from "@/components/Tooltip";
 import { useCustomRecipes } from "@/hooks/useCustomRecipes";
 import { ImportRecipeDialog } from "@/components/ImportRecipeDialog";
+import { RecipeCollections, AddToCollectionDialog } from "@/components/RecipeCollections";
+import { useRecipeCollections } from "@/hooks/useRecipeCollections";
 import { toast } from "@/hooks/use-toast";
 import type { Ratings } from "@/hooks/useUserData";
 
@@ -50,16 +52,29 @@ export function SavedRecipes({
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
+  const [addToCollectionRecipeId, setAddToCollectionRecipeId] = useState<string | null>(null);
   
   const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat, refresh: refreshCustomRecipes } = useCustomRecipes();
+  const {
+    collections,
+    selectedCollectionId,
+    setSelectedCollectionId,
+    createCollection,
+    deleteCollection,
+    addToCollection,
+    removeFromCollection,
+    getFilteredRecipeIds,
+  } = useRecipeCollections();
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
   const importedRecipes = getRecipesAsAppFormat();
   
-  const savedRecipes = allSavedRecipes.filter((r) =>
-    r.title.toLowerCase().includes(search.toLowerCase())
-  );
+  // Apply collection filter then search filter
+  const collectionFilteredIds = getFilteredRecipeIds(allSavedRecipes.map(r => r.id));
+  const savedRecipes = allSavedRecipes
+    .filter((r) => collectionFilteredIds.includes(r.id))
+    .filter((r) => r.title.toLowerCase().includes(search.toLowerCase()));
   const filteredImportedRecipes = importedRecipes.filter((r) =>
     r.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -314,6 +329,15 @@ export function SavedRecipes({
           </TabsContent>
 
           <TabsContent value="recipes" className="mt-4">
+            <RecipeCollections
+              collections={collections}
+              onCreateCollection={createCollection}
+              onDeleteCollection={deleteCollection}
+              onSelectCollection={setSelectedCollectionId}
+              selectedCollectionId={selectedCollectionId}
+              onAddToCollection={addToCollection}
+              onRemoveFromCollection={removeFromCollection}
+            />
             <div className="space-y-2">
               {savedRecipes.length > 0 ? (
                 savedRecipes.map((recipe) => (
@@ -343,6 +367,14 @@ export function SavedRecipes({
                       </div>
                     </div>
                     <div className="flex items-center gap-0.5 sm:gap-1" onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setAddToCollectionRecipeId(recipe.id)}
+                        className="h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                      >
+                        <FolderPlus className="h-4 w-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon"
@@ -488,6 +520,17 @@ export function SavedRecipes({
             onOpenChange={(open) => !open && setSelectedDrink(null)}
             isSaved={savedDrinkIds.includes(selectedDrink.id)}
             onSave={() => onRemoveDrink(selectedDrink.id)}
+          />
+        )}
+
+        {addToCollectionRecipeId && (
+          <AddToCollectionDialog
+            open={!!addToCollectionRecipeId}
+            onOpenChange={(open) => !open && setAddToCollectionRecipeId(null)}
+            collections={collections}
+            recipeId={addToCollectionRecipeId}
+            onAdd={addToCollection}
+            onRemove={removeFromCollection}
           />
         )}
       </CardContent>
