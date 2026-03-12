@@ -999,40 +999,44 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6 space-y-6">
-            {/* Smart Suggestions */}
-            <SmartSuggestions
-              savedRecipeIds={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              onAddToCalendar={handleAddToCalendar}
-              onAddToShopping={handleAddToShopping}
-            />
-            
-            <SavedRecipes 
-              savedRecipeIds={savedRecipes} 
-              savedDrinkIds={savedDrinks}
-              onRemoveRecipe={handleSaveRecipe} 
-              onRemoveDrink={handleSaveDrink}
-              recipeNotes={recipeNotes}
-              onSaveNote={async (recipeId, note) => {
-                await updateRecipeNotes(recipeId, note);
-              }}
-              onAddToCalendar={handleAddToCalendar}
-              ratings={ratings}
-              onRate={async (itemId, itemType, rating) => {
-                await setItemRating(itemId, itemType, rating);
-              }}
-            />
+            <Suspense fallback={<LazyFallback />}>
+              {/* Smart Suggestions */}
+              <SmartSuggestions
+                savedRecipeIds={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                onAddToCalendar={handleAddToCalendar}
+                onAddToShopping={handleAddToShopping}
+              />
+              
+              <SavedRecipes 
+                savedRecipeIds={savedRecipes} 
+                savedDrinkIds={savedDrinks}
+                onRemoveRecipe={handleSaveRecipe} 
+                onRemoveDrink={handleSaveDrink}
+                recipeNotes={recipeNotes}
+                onSaveNote={async (recipeId, note) => {
+                  await updateRecipeNotes(recipeId, note);
+                }}
+                onAddToCalendar={handleAddToCalendar}
+                ratings={ratings}
+                onRate={async (itemId, itemType, rating) => {
+                  await setItemRating(itemId, itemType, rating);
+                }}
+              />
+            </Suspense>
           </TabsContent>
 
 
           <TabsContent value="shopping" className="mt-6">
-            <ShoppingList
-              items={shoppingList}
-              onToggleItem={handleToggleShoppingItem}
-              onRemoveItem={handleRemoveShoppingItem}
-              onClearCompleted={handleClearCompletedShopping}
-              onClearAll={handleClearAllShopping}
-            />
+            <Suspense fallback={<LazyFallback />}>
+              <ShoppingList
+                items={shoppingList}
+                onToggleItem={handleToggleShoppingItem}
+                onRemoveItem={handleRemoveShoppingItem}
+                onClearCompleted={handleClearCompletedShopping}
+                onClearAll={handleClearAllShopping}
+              />
+            </Suspense>
           </TabsContent>
         </Tabs>
         
