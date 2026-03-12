@@ -307,10 +307,12 @@ export function SpringHostingPlanner({
   const [guestCount, setGuestCount] = useState("8");
   const [activeDietaryFilters, setActiveDietaryFilters] = useState<DietaryTag[]>([]);
   const [activeCuisineFilters, setActiveCuisineFilters] = useState<CuisineType[]>([]);
+  const [showHeartHealthyOnly, setShowHeartHealthyOnly] = useState(false);
+  const [showAntiInflammatoryOnly, setShowAntiInflammatoryOnly] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
-  const hasActiveFilters = activeDietaryFilters.length > 0 || activeCuisineFilters.length > 0;
+  const hasActiveFilters = activeDietaryFilters.length > 0 || activeCuisineFilters.length > 0 || showHeartHealthyOnly || showAntiInflammatoryOnly;
 
   const toggleDietary = (tag: DietaryTag) => {
     setActiveDietaryFilters(prev =>
