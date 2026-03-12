@@ -146,6 +146,7 @@ export function RecipeDetailDialog({
   const [addedToCart, setAddedToCart] = useState<string[]>([]);
   const [linkedRecipeStack, setLinkedRecipeStack] = useState<Recipe[]>([]);
   const [selectedLinkedDrink, setSelectedLinkedDrink] = useState<Drink | null>(null);
+  const [showSourdoughTimer, setShowSourdoughTimer] = useState(false);
 
   // The currently displayed recipe: either a linked recipe from the stack, or the original
   const displayedRecipe = linkedRecipeStack.length > 0 ? linkedRecipeStack[linkedRecipeStack.length - 1] : recipe;
