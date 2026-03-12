@@ -307,10 +307,12 @@ export function SpringHostingPlanner({
   const [guestCount, setGuestCount] = useState("8");
   const [activeDietaryFilters, setActiveDietaryFilters] = useState<DietaryTag[]>([]);
   const [activeCuisineFilters, setActiveCuisineFilters] = useState<CuisineType[]>([]);
+  const [showHeartHealthyOnly, setShowHeartHealthyOnly] = useState(false);
+  const [showAntiInflammatoryOnly, setShowAntiInflammatoryOnly] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
-  const hasActiveFilters = activeDietaryFilters.length > 0 || activeCuisineFilters.length > 0;
+  const hasActiveFilters = activeDietaryFilters.length > 0 || activeCuisineFilters.length > 0 || showHeartHealthyOnly || showAntiInflammatoryOnly;
 
   const toggleDietary = (tag: DietaryTag) => {
     setActiveDietaryFilters(prev =>
@@ -327,6 +329,8 @@ export function SpringHostingPlanner({
   const clearFilters = () => {
     setActiveDietaryFilters([]);
     setActiveCuisineFilters([]);
+    setShowHeartHealthyOnly(false);
+    setShowAntiInflammatoryOnly(false);
   };
 
   // Filter recipes/drinks based on active filters
@@ -338,9 +342,11 @@ export function SpringHostingPlanner({
       if (activeCuisineFilters.length > 0) {
         if (!r.cuisine || !activeCuisineFilters.includes(r.cuisine)) return false;
       }
+      if (showHeartHealthyOnly && !r.heartHealthy) return false;
+      if (showAntiInflammatoryOnly && !r.antiInflammatory) return false;
       return true;
     });
-  }, [activeDietaryFilters, activeCuisineFilters]);
+  }, [activeDietaryFilters, activeCuisineFilters, showHeartHealthyOnly, showAntiInflammatoryOnly]);
 
   const filteredDrinks = useMemo(() => {
     return sampleDrinks.filter(d => {
@@ -474,7 +480,7 @@ export function SpringHostingPlanner({
                   Filters
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1 h-5 w-5 p-0 flex items-center justify-center text-[10px]">
-                      {activeDietaryFilters.length + activeCuisineFilters.length}
+                      {activeDietaryFilters.length + activeCuisineFilters.length + (showHeartHealthyOnly ? 1 : 0) + (showAntiInflammatoryOnly ? 1 : 0)}
                     </Badge>
                   )}
                 </Button>
@@ -509,6 +515,39 @@ export function SpringHostingPlanner({
                             {label}
                           </Badge>
                         ))}
+                      </div>
+                    </div>
+
+                    {/* Health Filters */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Health</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        <Badge
+                          variant={showHeartHealthyOnly ? "default" : "outline"}
+                          className={cn(
+                            "cursor-pointer transition-all text-xs",
+                            showHeartHealthyOnly
+                              ? "bg-red-500/90 text-white hover:bg-red-600/90 border-red-500/90"
+                              : "hover:bg-accent"
+                          )}
+                          onClick={() => setShowHeartHealthyOnly(!showHeartHealthyOnly)}
+                        >
+                          <span className="mr-1">❤️</span>
+                          Heart Healthy
+                        </Badge>
+                        <Badge
+                          variant={showAntiInflammatoryOnly ? "default" : "outline"}
+                          className={cn(
+                            "cursor-pointer transition-all text-xs",
+                            showAntiInflammatoryOnly
+                              ? "bg-orange-500/90 text-white hover:bg-orange-600/90 border-orange-500/90"
+                              : "hover:bg-accent"
+                          )}
+                          onClick={() => setShowAntiInflammatoryOnly(!showAntiInflammatoryOnly)}
+                        >
+                          <span className="mr-1">✨</span>
+                          Anti-Inflammatory
+                        </Badge>
                       </div>
                     </div>
 
