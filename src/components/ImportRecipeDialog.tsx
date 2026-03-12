@@ -144,7 +144,7 @@ export function ImportRecipeDialog({ onImported, trigger }: ImportRecipeDialogPr
                 Import Anyway
               </Button>
             </div>
-          )
+          )}
 
           {status !== "idle" && (
             <div className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-muted/50">
