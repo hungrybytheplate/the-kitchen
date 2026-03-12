@@ -517,6 +517,14 @@ END:VCALENDAR`;
           onAddToCalendar={onAddToCalendar ? () => onAddToCalendar(selectedRecipe) : () => {}}
         />
       )}
+
+      <ExportMealPlanDialog
+        open={showExport}
+        onOpenChange={setShowExport}
+        mealPlan={mealPlan}
+        weekStart={weekStart}
+        shoppingList={shoppingList}
+      />
     </>
   );
 }
