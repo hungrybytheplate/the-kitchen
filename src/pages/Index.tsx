@@ -51,6 +51,8 @@ import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, Glas
 import { cn } from "@/lib/utils";
 import { BottomNav } from "@/components/BottomNav";
 
+const InstallBanner = lazy(() => import("@/components/InstallBanner").then(m => ({ default: m.InstallBanner })));
+
 const LazyFallback = () => <div className="animate-pulse p-4 text-center text-muted-foreground text-sm">Loading...</div>;
 
 // Inline Lookup Results Component
