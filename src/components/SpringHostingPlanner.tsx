@@ -480,7 +480,7 @@ export function SpringHostingPlanner({
                   Filters
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1 h-5 w-5 p-0 flex items-center justify-center text-[10px]">
-                      {activeDietaryFilters.length + activeCuisineFilters.length}
+                      {activeDietaryFilters.length + activeCuisineFilters.length + (showHeartHealthyOnly ? 1 : 0) + (showAntiInflammatoryOnly ? 1 : 0)}
                     </Badge>
                   )}
                 </Button>
