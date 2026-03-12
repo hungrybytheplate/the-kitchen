@@ -825,6 +825,12 @@ export function RecipeDetailDialog({
         onSave={() => {}}
       />
     )}
+
+    {/* Sourdough Timer Dialog */}
+    <SourdoughTimerDialog
+      open={showSourdoughTimer}
+      onOpenChange={setShowSourdoughTimer}
+    />
     </>
   );
 }
