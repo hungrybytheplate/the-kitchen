@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { sampleRecipes, type Recipe } from "@/data/recipes";
+import { sampleRecipes, type Recipe, type DietaryTag, type CuisineType } from "@/data/recipes";
 import { sampleDrinks, type Drink } from "@/data/drinks";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
@@ -28,6 +28,8 @@ import {
   Grape,
   Egg,
   Coffee,
+  Filter,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -267,6 +269,27 @@ const menuCategories: MenuCategory[] = [
   },
 ];
 
+const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
+  { tag: "vegetarian", label: "Vegetarian", icon: "🥬" },
+  { tag: "vegan", label: "Vegan", icon: "🌱" },
+  { tag: "gluten-free", label: "Gluten-Free", icon: "🌾" },
+  { tag: "dairy-free", label: "Dairy-Free", icon: "🥛" },
+  { tag: "keto", label: "Keto", icon: "🥑" },
+  { tag: "paleo", label: "Paleo", icon: "🍖" },
+  { tag: "high-protein", label: "High Protein", icon: "💪" },
+  { tag: "low-carb", label: "Low Carb", icon: "🥗" },
+];
+
+const cuisineFilters: { cuisine: CuisineType; label: string; icon: string }[] = [
+  { cuisine: "italian", label: "Italian", icon: "🇮🇹" },
+  { cuisine: "mexican", label: "Mexican", icon: "🇲🇽" },
+  { cuisine: "asian", label: "Asian", icon: "🥢" },
+  { cuisine: "mediterranean", label: "Mediterranean", icon: "🫒" },
+  { cuisine: "american", label: "American", icon: "🇺🇸" },
+  { cuisine: "french", label: "French", icon: "🇫🇷" },
+  { cuisine: "indian", label: "Indian", icon: "🇮🇳" },
+];
+
 export function SpringHostingPlanner({
   onAddToCalendar,
   onAddToShopping,
@@ -280,21 +303,71 @@ export function SpringHostingPlanner({
   const [refreshKey, setRefreshKey] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [guestCount, setGuestCount] = useState("8");
+  const [activeDietaryFilters, setActiveDietaryFilters] = useState<DietaryTag[]>([]);
+  const [activeCuisineFilters, setActiveCuisineFilters] = useState<CuisineType[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  const hasActiveFilters = activeDietaryFilters.length > 0 || activeCuisineFilters.length > 0;
+
+  const toggleDietary = (tag: DietaryTag) => {
+    setActiveDietaryFilters(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const toggleCuisine = (cuisine: CuisineType) => {
+    setActiveCuisineFilters(prev =>
+      prev.includes(cuisine) ? prev.filter(c => c !== cuisine) : [...prev, cuisine]
+    );
+  };
+
+  const clearFilters = () => {
+    setActiveDietaryFilters([]);
+    setActiveCuisineFilters([]);
+  };
+
+  // Filter recipes/drinks based on active filters
+  const filteredRecipes = useMemo(() => {
+    return sampleRecipes.filter(r => {
+      if (activeDietaryFilters.length > 0) {
+        if (!activeDietaryFilters.every(tag => r.dietaryTags?.includes(tag))) return false;
+      }
+      if (activeCuisineFilters.length > 0) {
+        if (!r.cuisine || !activeCuisineFilters.includes(r.cuisine)) return false;
+      }
+      return true;
+    });
+  }, [activeDietaryFilters, activeCuisineFilters]);
+
+  const filteredDrinks = useMemo(() => {
+    return sampleDrinks.filter(d => {
+      if (activeDietaryFilters.length > 0) {
+        // For drinks, check healthTags for dietary compatibility
+        const drinkTags = (d.healthTags || []).map(t => t.toLowerCase());
+        for (const tag of activeDietaryFilters) {
+          if (tag === "vegan" && !drinkTags.some(t => t.includes("vegan"))) return false;
+          if (tag === "gluten-free" && !drinkTags.some(t => t.includes("gluten"))) return false;
+          if (tag === "dairy-free" && !drinkTags.some(t => t.includes("dairy"))) return false;
+        }
+      }
+      return true;
+    });
+  }, [activeDietaryFilters]);
 
   const menuSuggestions = useMemo(() => {
     return menuCategories.map((category) => {
       if (category.type === "recipe") {
-        const filtered = sampleRecipes.filter(category.filter as (r: Recipe) => boolean);
+        const filtered = filteredRecipes.filter(category.filter as (r: Recipe) => boolean);
         const shuffled = seededShuffle(filtered, refreshKey + category.title.length * 31);
         return { ...category, items: shuffled.slice(0, category.count) };
       } else {
-        const filtered = sampleDrinks.filter(category.filter as (d: Drink) => boolean);
+        const filtered = filteredDrinks.filter(category.filter as (d: Drink) => boolean);
         const shuffled = seededShuffle(filtered, refreshKey + category.title.length * 37);
         return { ...category, items: shuffled.slice(0, category.count) };
       }
     });
-  }, [refreshKey]);
+  }, [refreshKey, filteredRecipes, filteredDrinks]);
 
   const handleRefresh = () => setRefreshKey((prev) => prev + 1);
 
@@ -384,6 +457,84 @@ export function SpringHostingPlanner({
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            {/* Filters */}
+            <div className="space-y-3 no-print">
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={showFilters ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="gap-2"
+                >
+                  <Filter className="h-4 w-4" />
+                  Filters
+                  {hasActiveFilters && (
+                    <Badge variant="secondary" className="ml-1 h-5 w-5 p-0 flex items-center justify-center text-[10px]">
+                      {activeDietaryFilters.length + activeCuisineFilters.length}
+                    </Badge>
+                  )}
+                </Button>
+                {hasActiveFilters && (
+                  <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-muted-foreground">
+                    <X className="h-3 w-3" />
+                    Clear
+                  </Button>
+                )}
+              </div>
+
+              {showFilters && (
+                <Card className="border border-border/60">
+                  <CardContent className="p-4 space-y-4">
+                    {/* Dietary Filters */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Dietary</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {dietaryFilters.map(({ tag, label, icon }) => (
+                          <Badge
+                            key={tag}
+                            variant={activeDietaryFilters.includes(tag) ? "default" : "outline"}
+                            className={cn(
+                              "cursor-pointer transition-all text-xs",
+                              activeDietaryFilters.includes(tag)
+                                ? "bg-primary text-primary-foreground"
+                                : "hover:bg-accent"
+                            )}
+                            onClick={() => toggleDietary(tag)}
+                          >
+                            <span className="mr-1">{icon}</span>
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Cuisine Filters */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Cuisine</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cuisineFilters.map(({ cuisine, label, icon }) => (
+                          <Badge
+                            key={cuisine}
+                            variant={activeCuisineFilters.includes(cuisine) ? "default" : "outline"}
+                            className={cn(
+                              "cursor-pointer transition-all text-xs",
+                              activeCuisineFilters.includes(cuisine)
+                                ? "bg-primary text-primary-foreground"
+                                : "hover:bg-accent"
+                            )}
+                            onClick={() => toggleCuisine(cuisine)}
+                          >
+                            <span className="mr-1">{icon}</span>
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             {/* Print-only guest count header */}
