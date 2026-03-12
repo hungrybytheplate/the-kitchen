@@ -9,6 +9,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Card, CardContent } from "@/components/ui/card";
 import type { Recipe, DietaryTag, CuisineType } from "@/data/recipes";
 import { Sunrise, Sun, Moon, Filter, ChevronDown, Cake, Croissant, Clock, Flame, Dumbbell, Leaf, Globe, Snowflake, Cookie, ChefHat, Lightbulb, Search, Zap, Timer, Gauge, Droplets, Package, Baby, PiggyBank, HeartPulse, Sparkles } from "lucide-react";
+import { estimateSodium } from "@/lib/sodiumEstimation";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { staggerContainer } from "@/components/ui/animated";
@@ -314,18 +315,15 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       if (standardFilters.length > 0 && !standardFilters.every(filter => recipe.dietaryTags?.includes(filter))) {
         return false;
       }
-      // Check sodium-based filters via nutrition data
-      if (activeSodiumFilters.length > 0 && recipe.nutrition?.sodium !== undefined) {
-        const sodium = recipe.nutrition.sodium;
+      // Check sodium-based filters via estimated/actual sodium
+      if (activeSodiumFilters.length > 0) {
+        const sodium = estimateSodium(recipe);
         const passesSodium = activeSodiumFilters.some(f => {
           if (f === "no-sodium") return sodium === 0;
           if (f === "low-sodium") return sodium <= 140;
           return false;
         });
         if (!passesSodium) return false;
-      }
-      if (activeSodiumFilters.length > 0 && recipe.nutrition?.sodium === undefined) {
-        return false;
       }
     }
     // Cuisine filter

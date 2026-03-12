@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { sampleRecipes, type Recipe, type DietaryTag, type CuisineType } from "@/data/recipes";
+import { estimateSodium } from "@/lib/sodiumEstimation";
 import { sampleDrinks, type Drink } from "@/data/drinks";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
@@ -264,10 +265,9 @@ export function SpringHostingPlanner({
         if (standardFilters.length > 0 && !standardFilters.every(tag => r.dietaryTags?.includes(tag))) {
           return false;
         }
-        // Check sodium-based filters via nutrition data
+        // Check sodium-based filters via estimated/actual sodium
         if (activeSodiumFilters.length > 0) {
-          if (r.nutrition?.sodium === undefined) return false;
-          const sodium = r.nutrition.sodium;
+          const sodium = estimateSodium(r);
           const passesSodium = activeSodiumFilters.some(f => {
             if (f === "no-sodium") return sodium === 0;
             if (f === "low-sodium") return sodium <= 140;
