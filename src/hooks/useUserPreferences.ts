@@ -27,6 +27,8 @@ const defaultMealTimes: MealTimes = {
   dinner: '18:00',
   dessert: '19:00',
   sides: '18:00',
+  snack: '15:00',
+  happyHour: '17:00',
 };
 
 const defaultPreferences: UserPreferences = {

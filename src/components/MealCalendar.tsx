@@ -151,7 +151,9 @@ export function MealCalendar({
   const mealTypeIcons: Record<string, string> = {
     breakfast: "🌅",
     lunch: "☀️",
+    snack: "🍎",
     dinner: "🌙",
+    happyHour: "🍸",
     dessert: "🍰",
     sides: "🥐",
   };
