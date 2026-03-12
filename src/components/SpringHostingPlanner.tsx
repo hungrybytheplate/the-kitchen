@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { sampleRecipes, type Recipe } from "@/data/recipes";
+import { sampleRecipes, type Recipe, type DietaryTag, type CuisineType } from "@/data/recipes";
 import { sampleDrinks, type Drink } from "@/data/drinks";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
@@ -28,6 +28,8 @@ import {
   Grape,
   Egg,
   Coffee,
+  Filter,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
