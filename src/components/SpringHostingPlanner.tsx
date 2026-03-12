@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { sampleRecipes, type Recipe, type DietaryTag, type CuisineType } from "@/data/recipes";
+import { estimateSodium } from "@/lib/sodiumEstimation";
 import { sampleDrinks, type Drink } from "@/data/drinks";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
