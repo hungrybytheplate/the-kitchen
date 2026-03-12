@@ -315,18 +315,15 @@ export function RecipeResults({ recipes, savedRecipes, onSave, onAddToCalendar, 
       if (standardFilters.length > 0 && !standardFilters.every(filter => recipe.dietaryTags?.includes(filter))) {
         return false;
       }
-      // Check sodium-based filters via nutrition data
-      if (activeSodiumFilters.length > 0 && recipe.nutrition?.sodium !== undefined) {
-        const sodium = recipe.nutrition.sodium;
+      // Check sodium-based filters via estimated/actual sodium
+      if (activeSodiumFilters.length > 0) {
+        const sodium = estimateSodium(recipe);
         const passesSodium = activeSodiumFilters.some(f => {
           if (f === "no-sodium") return sodium === 0;
           if (f === "low-sodium") return sodium <= 140;
           return false;
         });
         if (!passesSodium) return false;
-      }
-      if (activeSodiumFilters.length > 0 && recipe.nutrition?.sodium === undefined) {
-        return false;
       }
     }
     // Cuisine filter
