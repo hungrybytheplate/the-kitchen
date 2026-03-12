@@ -764,9 +764,10 @@ const Index = () => {
                     addRecentlyViewed(recipe.id);
                   }}
                   savedRecipes={savedRecipes}
-                onSaveRecipe={handleSaveRecipe}
-                onAddToCalendar={handleAddToCalendar}
-              />
+                  onSaveRecipe={handleSaveRecipe}
+                  onAddToCalendar={handleAddToCalendar}
+                />
+              </Suspense>
             )}
 
             {appMode === "cook" ? (
