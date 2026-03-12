@@ -524,6 +524,17 @@ export function SavedRecipes({
             onSave={() => onRemoveDrink(selectedDrink.id)}
           />
         )}
+
+        {addToCollectionRecipeId && (
+          <AddToCollectionDialog
+            open={!!addToCollectionRecipeId}
+            onOpenChange={(open) => !open && setAddToCollectionRecipeId(null)}
+            collections={collections}
+            recipeId={addToCollectionRecipeId}
+            onAdd={addToCollection}
+            onRemove={removeFromCollection}
+          />
+        )}
       </CardContent>
     </Card>
   );
