@@ -1062,10 +1062,12 @@ const Index = () => {
         onConfirm={handleConfirmShoppingAdd}
       />
 
-      <KeyboardShortcutsHelp 
-        open={showShortcutsHelp} 
-        onOpenChange={setShowShortcutsHelp} 
-      />
+      <Suspense fallback={null}>
+        <KeyboardShortcutsHelp 
+          open={showShortcutsHelp} 
+          onOpenChange={setShowShortcutsHelp} 
+        />
+      </Suspense>
 
       {hasUndo && pendingAction && (
         <UndoToast
