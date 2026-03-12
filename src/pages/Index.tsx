@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,27 +7,28 @@ import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
 
-import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
-import { DrinkResults } from "@/components/DrinkResults";
-import { GarnishSuggestions } from "@/components/GarnishSuggestions";
-import { GlasswareGuide } from "@/components/GlasswareGuide";
-import { MealCalendar } from "@/components/MealCalendar";
-import { SavedRecipes } from "@/components/SavedRecipes";
+// Lazy load heavy tab components
+const DrinkIngredientSelector = lazy(() => import("@/components/DrinkIngredientSelector").then(m => ({ default: m.DrinkIngredientSelector })));
+const DrinkResults = lazy(() => import("@/components/DrinkResults").then(m => ({ default: m.DrinkResults })));
+const GarnishSuggestions = lazy(() => import("@/components/GarnishSuggestions").then(m => ({ default: m.GarnishSuggestions })));
+const GlasswareGuide = lazy(() => import("@/components/GlasswareGuide").then(m => ({ default: m.GlasswareGuide })));
+const MealCalendar = lazy(() => import("@/components/MealCalendar").then(m => ({ default: m.MealCalendar })));
+const SavedRecipes = lazy(() => import("@/components/SavedRecipes").then(m => ({ default: m.SavedRecipes })));
+const ShoppingList = lazy(() => import("@/components/ShoppingList").then(m => ({ default: m.ShoppingList })));
+const WeeklyNutritionSummary = lazy(() => import("@/components/WeeklyNutritionSummary").then(m => ({ default: m.WeeklyNutritionSummary })));
+const SpringHostingPlanner = lazy(() => import("@/components/SpringHostingPlanner").then(m => ({ default: m.SpringHostingPlanner })));
+const WelcomeTour = lazy(() => import("@/components/WelcomeTour").then(m => ({ default: m.WelcomeTour })));
+const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsHelp").then(m => ({ default: m.KeyboardShortcutsHelp })));
+const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
+const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
 
-import { ShoppingList } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
-import { WelcomeTour } from "@/components/WelcomeTour";
-import { InstallBanner } from "@/components/InstallBanner";
 import { QuickTooltip } from "@/components/Tooltip";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { UndoToast } from "@/components/UndoToast";
-import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
-import { RecentlyViewed } from "@/components/RecentlyViewed";
-import { SmartSuggestions } from "@/components/SmartSuggestions";
 import { RecipeSearchAutocomplete } from "@/components/RecipeSearchAutocomplete";
-import { WeeklyNutritionSummary } from "@/components/WeeklyNutritionSummary";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -47,9 +48,10 @@ import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake, Flower2 } from "lucide-react";
-import { SpringHostingPlanner } from "@/components/SpringHostingPlanner";
 import { cn } from "@/lib/utils";
 import { BottomNav } from "@/components/BottomNav";
+
+const LazyFallback = () => <div className="animate-pulse p-4 text-center text-muted-foreground text-sm">Loading...</div>;
 
 // Inline Lookup Results Component
 interface LookupResultsProps {
