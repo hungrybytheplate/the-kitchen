@@ -76,6 +76,13 @@ const isSpringAppetizer = (r: Recipe) => {
 
 const isSpringEntree = (r: Recipe) => {
   const title = r.title.toLowerCase();
+  const desc = (r.description || "").toLowerCase();
+  
+  // Allow pasta sauces as entrées (they ARE the dish when paired with pasta)
+  const isPastaSauce = (title.includes("sauce") || title.includes("alfredo") || title.includes("mole")) &&
+    (title.includes("pasta") || desc.includes("pasta") || desc.includes("noodle") || desc.includes("spaghetti") || desc.includes("fettuccine") || desc.includes("linguine"));
+  if (isPastaSauce) return true;
+  
   if (isNonDish(title)) return false;
   const springEntreeKeywords = ["lamb", "salmon", "ham", "chicken", "roast", "grilled", "herb", "lemon", "asparagus", "pork tenderloin", "sea bass", "halibut", "shrimp", "scallop"];
   return (
