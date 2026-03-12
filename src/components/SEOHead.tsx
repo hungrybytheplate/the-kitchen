@@ -121,12 +121,7 @@ export function generateRecipeSchema(recipe: {
       recipe.difficulty || "easy",
       "homemade",
       ...recipe.ingredients.slice(0, 5).map(ing => ing.replace(/-/g, " "))
-    ].join(", "),
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.5",
-      "reviewCount": Math.floor(Math.random() * 50) + 10
-    }
+    ].join(", ")
   };
 }
 
