@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import type { Recipe } from "@/data/recipes";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { useToast } from "@/hooks/use-toast";
+import { useUserPreferences, type MealTimes } from "@/hooks/useUserPreferences";
 import {
   DropdownMenu,
   DropdownMenuContent,
