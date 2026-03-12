@@ -52,8 +52,19 @@ export function SavedRecipes({
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
+  const [addToCollectionRecipeId, setAddToCollectionRecipeId] = useState<string | null>(null);
   
   const { customRecipes, deleteCustomRecipe, getRecipesAsAppFormat, refresh: refreshCustomRecipes } = useCustomRecipes();
+  const {
+    collections,
+    selectedCollectionId,
+    setSelectedCollectionId,
+    createCollection,
+    deleteCollection,
+    addToCollection,
+    removeFromCollection,
+    getFilteredRecipeIds,
+  } = useRecipeCollections();
   
   const allSavedRecipes = sampleRecipes.filter((r) => savedRecipeIds.includes(r.id));
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
