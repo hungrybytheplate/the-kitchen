@@ -84,6 +84,18 @@ const steps: TourStep[] = [
     highlight: "Build your personal cookbook",
   },
   {
+    icon: Link,
+    title: "Import Recipes from the Web",
+    description: "Paste a URL from any recipe website and AI will extract the title, ingredients, instructions, and nutrition info automatically.",
+    highlight: "Works with AllRecipes, Food Network, and more",
+  },
+  {
+    icon: Utensils,
+    title: "Pairs Well With",
+    description: "Every recipe and drink has curated pairing suggestions. Tap any pairing to jump straight to it.",
+    highlight: "Discover perfect food & drink combos",
+  },
+  {
     icon: Star,
     title: "Smart Suggestions",
     description: "Get personalized recipe recommendations based on your saved favorites and preferences.",
