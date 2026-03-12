@@ -61,11 +61,13 @@ const isSpringAppetizer = (r: Recipe) => {
   const title = r.title.toLowerCase();
   const desc = (r.description || "").toLowerCase();
   const combined = title + " " + desc;
-  const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap"];
+  const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke dip", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap", "flatbread", "pinwheel", "croquette", "fritter"];
+  const excludeKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning"];
+  if (excludeKeywords.some(k => title.includes(k))) return false;
   return (
     (r.mealType === "sides" || r.mealType === "lunch") &&
     appetizerKeywords.some(k => combined.includes(k))
-  ) || (r.mealType === "sides" && r.servings <= 8 && r.cookTime.includes("min") && !r.cookTime.includes("h"));
+  );
 };
 
 const isSpringEntree = (r: Recipe) => {
