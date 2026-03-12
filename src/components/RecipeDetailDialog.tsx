@@ -772,6 +772,16 @@ export function RecipeDetailDialog({
               </Button>
               
               <div className="flex gap-3">
+                {displayedRecipe.id === "sourdough-bread" && (
+                  <Button
+                    variant="outline"
+                    className="gap-2"
+                    onClick={() => setShowSourdoughTimer(true)}
+                  >
+                    <Timer className="h-4 w-4" />
+                    <span className="hidden sm:inline">Set Timers</span>
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   className="flex-1"
