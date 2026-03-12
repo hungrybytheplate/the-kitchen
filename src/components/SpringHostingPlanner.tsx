@@ -56,14 +56,18 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
   return result;
 }
 
+// Shared exclusion list for non-dish items (sauces, dressings, condiments, etc.)
+const nonDishKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning", "mayo", "mayonnaise", "gochujang", "ketchup", "mustard", "salsa", "pesto", "chutney", "relish", "gravy", "compound butter", "alfredo", "mole", "zhug", "teriyaki", "tikka masala", "romesco", "tahini sauce", "hot sauce", "worcestershire", "chimichurri", "tzatziki", "sriracha", "harissa", "curry paste", "spice mix", "spice blend", "extract", "simple syrup", "cream sauce", "pasta sauce", "pizza dough", "pasta dough", "pie crust", "crouton"];
+
+const isNonDish = (title: string) => nonDishKeywords.some(k => title.includes(k));
+
 // Spring-appropriate recipe filters
 const isSpringAppetizer = (r: Recipe) => {
   const title = r.title.toLowerCase();
   const desc = (r.description || "").toLowerCase();
   const combined = title + " " + desc;
   const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke dip", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap", "flatbread", "pinwheel", "croquette", "fritter"];
-  const excludeKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning", "mayo", "mayonnaise", "gochujang", "ketchup", "mustard", "salsa", "pesto", "chutney", "relish", "gravy", "compound butter"];
-  if (excludeKeywords.some(k => title.includes(k))) return false;
+  if (isNonDish(title)) return false;
   return (
     (r.mealType === "sides" || r.mealType === "lunch") &&
     appetizerKeywords.some(k => combined.includes(k))
@@ -72,6 +76,7 @@ const isSpringAppetizer = (r: Recipe) => {
 
 const isSpringEntree = (r: Recipe) => {
   const title = r.title.toLowerCase();
+  if (isNonDish(title)) return false;
   const springEntreeKeywords = ["lamb", "salmon", "ham", "chicken", "roast", "grilled", "herb", "lemon", "asparagus", "pork tenderloin", "sea bass", "halibut", "shrimp", "scallop"];
   return (
     r.mealType === "dinner" &&
@@ -86,6 +91,7 @@ const isSpringDessert = (r: Recipe) => {
   if (excludeDessertKeywords.some(k => title.includes(k)) && !title.includes("cake") && !title.includes("cupcake")) {
     return false;
   }
+  if (isNonDish(title)) return false;
   const springDessertKeywords = ["lemon", "berry", "strawberry", "raspberry", "blueberry", "lavender", "vanilla", "cream", "tart", "cake", "pavlova", "mousse", "cheesecake", "shortcake", "meringue", "sorbet", "panna cotta", "fruit"];
   return (
     r.mealType === "dessert" &&
@@ -95,6 +101,7 @@ const isSpringDessert = (r: Recipe) => {
 
 const isVeggieSide = (r: Recipe) => {
   const title = r.title.toLowerCase();
+  if (isNonDish(title)) return false;
   const veggieKeywords = ["asparagus", "salad", "green bean", "pea", "roasted vegetable", "grilled vegetable", "slaw", "carrot", "beet", "radish", "cucumber", "zucchini", "artichoke", "brussels", "broccoli", "spinach", "kale", "corn"];
   return (
     (r.mealType === "sides" || r.mealType === "lunch") &&
@@ -105,7 +112,10 @@ const isVeggieSide = (r: Recipe) => {
 
 const isBreadSide = (r: Recipe) => {
   const title = r.title.toLowerCase();
-  const breadKeywords = ["bread", "roll", "biscuit", "cornbread", "focaccia", "sourdough", "baguette", "brioche", "pretzel", "muffin", "scone"];
+  if (isNonDish(title)) return false;
+  const breadKeywords = ["bread", "roll", "biscuit", "cornbread", "focaccia", "sourdough", "baguette", "brioche", "pretzel", "dinner roll"];
+  // Exclude non-bread items that happen to have "roll" in them (e.g. "spring roll")
+  if (title.includes("spring roll") || title.includes("egg roll") || title.includes("cinnamon roll")) return false;
   return (
     (r.mealType === "sides" || r.mealType === "breakfast") &&
     breadKeywords.some(k => title.includes(k))
