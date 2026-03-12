@@ -16,6 +16,8 @@ import {
   Activity,
   Package,
   Star,
+  Link,
+  Utensils,
   LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
