@@ -970,30 +970,32 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-6 space-y-8">
-            {/* Spring Hosting Planner */}
-            <SpringHostingPlanner
-              onAddToCalendar={handleAddToCalendar}
-              onAddToShopping={handleAddToShopping}
-              savedRecipes={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              savedDrinks={savedDrinks}
-              onSaveDrink={handleSaveDrink}
-            />
+            <Suspense fallback={<LazyFallback />}>
+              {/* Spring Hosting Planner */}
+              <SpringHostingPlanner
+                onAddToCalendar={handleAddToCalendar}
+                onAddToShopping={handleAddToShopping}
+                savedRecipes={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                savedDrinks={savedDrinks}
+                onSaveDrink={handleSaveDrink}
+              />
 
-            {/* Regular Meal Calendar */}
-            <MealCalendar 
-              mealPlan={mealPlan} 
-              onRemove={handleRemoveFromCalendar}
-              onMoveMeal={moveMeal}
-              onAddToShopping={handleAddToShopping}
-              savedRecipes={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              onAddToCalendar={handleAddToCalendar}
-              shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
-            />
+              {/* Regular Meal Calendar */}
+              <MealCalendar 
+                mealPlan={mealPlan} 
+                onRemove={handleRemoveFromCalendar}
+                onMoveMeal={moveMeal}
+                onAddToShopping={handleAddToShopping}
+                savedRecipes={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                onAddToCalendar={handleAddToCalendar}
+                shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
+              />
 
-            {/* Weekly Nutrition Summary */}
-            <WeeklyNutritionSummary mealPlan={mealPlan} />
+              {/* Weekly Nutrition Summary */}
+              <WeeklyNutritionSummary mealPlan={mealPlan} />
+            </Suspense>
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6 space-y-6">
