@@ -305,14 +305,27 @@ export function SpringHostingPlanner({
       if (category.type === "recipe") {
         const filtered = filteredRecipes.filter(category.filter as (r: Recipe) => boolean);
         const shuffled = seededShuffle(filtered, refreshKey + category.title.length * 31);
-        return { ...category, items: shuffled.slice(0, category.count) };
+        let items = shuffled.slice(0, category.count);
+        // Fallback: if filters leave no results, show at least 1 unfiltered item
+        if (items.length === 0 && hasActiveFilters) {
+          const allInCategory = sampleRecipes.filter(category.filter as (r: Recipe) => boolean);
+          const fallback = seededShuffle(allInCategory, refreshKey + category.title.length * 31);
+          items = fallback.slice(0, 1);
+        }
+        return { ...category, items, isFallback: items.length > 0 && filtered.length === 0 && hasActiveFilters };
       } else {
         const filtered = filteredDrinks.filter(category.filter as (d: Drink) => boolean);
         const shuffled = seededShuffle(filtered, refreshKey + category.title.length * 37);
-        return { ...category, items: shuffled.slice(0, category.count) };
+        let items = shuffled.slice(0, category.count);
+        if (items.length === 0 && hasActiveFilters) {
+          const allInCategory = sampleDrinks.filter(category.filter as (d: Drink) => boolean);
+          const fallback = seededShuffle(allInCategory, refreshKey + category.title.length * 37);
+          items = fallback.slice(0, 1);
+        }
+        return { ...category, items, isFallback: items.length > 0 && filtered.length === 0 && hasActiveFilters };
       }
     });
-  }, [refreshKey, filteredRecipes, filteredDrinks]);
+  }, [refreshKey, filteredRecipes, filteredDrinks, hasActiveFilters]);
 
   const handleRefresh = () => setRefreshKey((prev) => prev + 1);
 
@@ -539,6 +552,11 @@ export function SpringHostingPlanner({
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-2 px-4 pb-4">
+                      {category.isFallback && (
+                        <p className="text-[10px] text-muted-foreground italic">
+                          No exact filter match — showing top pick
+                        </p>
+                      )}
                       {category.items.length > 0 ? (
                         category.items.map((item) => {
                           const isRecipe = category.type === "recipe";
