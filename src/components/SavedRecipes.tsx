@@ -329,6 +329,17 @@ export function SavedRecipes({
           </TabsContent>
 
           <TabsContent value="recipes" className="mt-4">
+            {collections.length > 0 && (
+              <RecipeCollections
+                collections={collections}
+                onCreateCollection={createCollection}
+                onDeleteCollection={deleteCollection}
+                onSelectCollection={setSelectedCollectionId}
+                selectedCollectionId={selectedCollectionId}
+                onAddToCollection={addToCollection}
+                onRemoveFromCollection={removeFromCollection}
+              />
+            )}
             <div className="space-y-2">
               {savedRecipes.length > 0 ? (
                 savedRecipes.map((recipe) => (
