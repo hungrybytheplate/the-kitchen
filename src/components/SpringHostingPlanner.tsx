@@ -459,6 +459,84 @@ export function SpringHostingPlanner({
               </div>
             </div>
 
+            {/* Filters */}
+            <div className="space-y-3 no-print">
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={showFilters ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="gap-2"
+                >
+                  <Filter className="h-4 w-4" />
+                  Filters
+                  {hasActiveFilters && (
+                    <Badge variant="secondary" className="ml-1 h-5 w-5 p-0 flex items-center justify-center text-[10px]">
+                      {activeDietaryFilters.length + activeCuisineFilters.length}
+                    </Badge>
+                  )}
+                </Button>
+                {hasActiveFilters && (
+                  <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-muted-foreground">
+                    <X className="h-3 w-3" />
+                    Clear
+                  </Button>
+                )}
+              </div>
+
+              {showFilters && (
+                <Card className="border border-border/60">
+                  <CardContent className="p-4 space-y-4">
+                    {/* Dietary Filters */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Dietary</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {dietaryFilters.map(({ tag, label, icon }) => (
+                          <Badge
+                            key={tag}
+                            variant={activeDietaryFilters.includes(tag) ? "default" : "outline"}
+                            className={cn(
+                              "cursor-pointer transition-all text-xs",
+                              activeDietaryFilters.includes(tag)
+                                ? "bg-primary text-primary-foreground"
+                                : "hover:bg-accent"
+                            )}
+                            onClick={() => toggleDietary(tag)}
+                          >
+                            <span className="mr-1">{icon}</span>
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Cuisine Filters */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Cuisine</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cuisineFilters.map(({ cuisine, label, icon }) => (
+                          <Badge
+                            key={cuisine}
+                            variant={activeCuisineFilters.includes(cuisine) ? "default" : "outline"}
+                            className={cn(
+                              "cursor-pointer transition-all text-xs",
+                              activeCuisineFilters.includes(cuisine)
+                                ? "bg-primary text-primary-foreground"
+                                : "hover:bg-accent"
+                            )}
+                            onClick={() => toggleCuisine(cuisine)}
+                          >
+                            <span className="mr-1">{icon}</span>
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+
             {/* Print-only guest count header */}
             <div className="hidden print:block text-sm text-muted-foreground mb-4">
               Planning for <strong>{guestCount} guests</strong> · Servings scaled accordingly
