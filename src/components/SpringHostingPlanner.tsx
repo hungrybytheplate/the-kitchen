@@ -256,7 +256,25 @@ export function SpringHostingPlanner({
   const filteredRecipes = useMemo(() => {
     return sampleRecipes.filter(r => {
       if (activeDietaryFilters.length > 0) {
-        if (!activeDietaryFilters.every(tag => r.dietaryTags?.includes(tag))) return false;
+        const sodiumFilters: DietaryTag[] = ["no-sodium", "low-sodium"];
+        const standardFilters = activeDietaryFilters.filter(f => !sodiumFilters.includes(f));
+        const activeSodiumFilters = activeDietaryFilters.filter(f => sodiumFilters.includes(f));
+
+        // Check standard dietary tags
+        if (standardFilters.length > 0 && !standardFilters.every(tag => r.dietaryTags?.includes(tag))) {
+          return false;
+        }
+        // Check sodium-based filters via nutrition data
+        if (activeSodiumFilters.length > 0) {
+          if (r.nutrition?.sodium === undefined) return false;
+          const sodium = r.nutrition.sodium;
+          const passesSodium = activeSodiumFilters.some(f => {
+            if (f === "no-sodium") return sodium === 0;
+            if (f === "low-sodium") return sodium <= 140;
+            return false;
+          });
+          if (!passesSodium) return false;
+        }
       }
       if (activeCuisineFilters.length > 0) {
         if (!r.cuisine || !activeCuisineFilters.includes(r.cuisine)) return false;
