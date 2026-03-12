@@ -10,6 +10,8 @@ export interface MealTimes {
   dinner: string;
   dessert: string;
   sides: string;
+  snack: string;
+  happyHour: string;
 }
 
 export interface UserPreferences {
