@@ -648,7 +648,7 @@ const Index = () => {
       <SEOHead />
       
       {showTour && (
-        <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
+        <Suspense fallback={null}><WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} /></Suspense>
       )}
       
       <Suspense fallback={null}><InstallBanner /></Suspense>
