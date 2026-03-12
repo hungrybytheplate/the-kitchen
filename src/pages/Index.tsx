@@ -755,14 +755,15 @@ const Index = () => {
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
             {/* Recently Viewed Section */}
             {appMode === "cook" && recentlyViewed.length > 0 && (
-              <RecentlyViewed
-                recentIds={recentlyViewed}
-                onClear={clearRecentlyViewed}
-                onViewRecipe={(recipe) => {
-                  setRecentViewedRecipe(recipe);
-                  addRecentlyViewed(recipe.id);
-                }}
-                savedRecipes={savedRecipes}
+              <Suspense fallback={null}>
+                <RecentlyViewed
+                  recentIds={recentlyViewed}
+                  onClear={clearRecentlyViewed}
+                  onViewRecipe={(recipe) => {
+                    setRecentViewedRecipe(recipe);
+                    addRecentlyViewed(recipe.id);
+                  }}
+                  savedRecipes={savedRecipes}
                 onSaveRecipe={handleSaveRecipe}
                 onAddToCalendar={handleAddToCalendar}
               />
