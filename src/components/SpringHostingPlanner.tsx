@@ -518,6 +518,39 @@ export function SpringHostingPlanner({
                       </div>
                     </div>
 
+                    {/* Health Filters */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Health</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        <Badge
+                          variant={showHeartHealthyOnly ? "default" : "outline"}
+                          className={cn(
+                            "cursor-pointer transition-all text-xs",
+                            showHeartHealthyOnly
+                              ? "bg-red-500/90 text-white hover:bg-red-600/90 border-red-500/90"
+                              : "hover:bg-accent"
+                          )}
+                          onClick={() => setShowHeartHealthyOnly(!showHeartHealthyOnly)}
+                        >
+                          <span className="mr-1">❤️</span>
+                          Heart Healthy
+                        </Badge>
+                        <Badge
+                          variant={showAntiInflammatoryOnly ? "default" : "outline"}
+                          className={cn(
+                            "cursor-pointer transition-all text-xs",
+                            showAntiInflammatoryOnly
+                              ? "bg-orange-500/90 text-white hover:bg-orange-600/90 border-orange-500/90"
+                              : "hover:bg-accent"
+                          )}
+                          onClick={() => setShowAntiInflammatoryOnly(!showAntiInflammatoryOnly)}
+                        >
+                          <span className="mr-1">✨</span>
+                          Anti-Inflammatory
+                        </Badge>
+                      </div>
+                    </div>
+
                     {/* Cuisine Filters */}
                     <div>
                       <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Cuisine</p>
