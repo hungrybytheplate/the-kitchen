@@ -64,76 +64,6 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
   return result;
 }
 
-// Shared exclusion list for non-dish items
-const nonDishKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning", "mayo", "mayonnaise", "gochujang", "ketchup", "mustard", "salsa", "pesto", "chutney", "relish", "gravy", "compound butter", "alfredo", "mole", "zhug", "teriyaki", "tikka masala", "romesco", "tahini sauce", "hot sauce", "worcestershire", "chimichurri", "tzatziki", "sriracha", "harissa", "curry paste", "spice mix", "spice blend", "extract", "simple syrup", "cream sauce", "pasta sauce", "pizza dough", "pasta dough", "pie crust", "crouton"];
-
-const isNonDish = (title: string) => nonDishKeywords.some(k => title.includes(k));
-
-// Category filters
-const isSpringAppetizer = (r: Recipe) => {
-  const title = r.title.toLowerCase();
-  const desc = (r.description || "").toLowerCase();
-  const combined = title + " " + desc;
-  const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke dip", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap", "flatbread", "pinwheel", "croquette", "fritter", "prosciutto bundle"];
-  if (isNonDish(title)) return false;
-  return (
-    (r.mealType === "sides" || r.mealType === "lunch") &&
-    appetizerKeywords.some(k => combined.includes(k))
-  );
-};
-
-const isSpringEntree = (r: Recipe) => {
-  const title = r.title.toLowerCase();
-  const desc = (r.description || "").toLowerCase();
-  const isPastaSauce = (title.includes("sauce") || title.includes("alfredo") || title.includes("mole")) &&
-    (title.includes("pasta") || desc.includes("pasta") || desc.includes("noodle") || desc.includes("spaghetti") || desc.includes("fettuccine") || desc.includes("linguine"));
-  if (isPastaSauce) return true;
-  if (isNonDish(title)) return false;
-  const springEntreeKeywords = ["lamb", "salmon", "ham", "chicken", "roast", "grilled", "herb", "lemon", "asparagus", "pork tenderloin", "sea bass", "halibut", "shrimp", "scallop", "risotto"];
-  return (
-    r.mealType === "dinner" &&
-    (r.season === "spring" || springEntreeKeywords.some(k => title.includes(k)))
-  );
-};
-
-const isSpringDessert = (r: Recipe) => {
-  const title = r.title.toLowerCase();
-  const excludeDessertKeywords = ["buttercream", "frosting", "icing", "glaze"];
-  if (excludeDessertKeywords.some(k => title.includes(k)) && !title.includes("cake") && !title.includes("cupcake")) return false;
-  if (isNonDish(title)) return false;
-  const springDessertKeywords = ["lemon", "berry", "strawberry", "raspberry", "blueberry", "lavender", "vanilla", "cream", "tart", "cake", "pavlova", "mousse", "cheesecake", "shortcake", "meringue", "sorbet", "panna cotta", "fruit"];
-  return r.mealType === "dessert" && springDessertKeywords.some(k => title.includes(k));
-};
-
-const isVeggieSide = (r: Recipe) => {
-  const title = r.title.toLowerCase();
-  if (isNonDish(title)) return false;
-  const veggieKeywords = ["asparagus", "salad", "green bean", "pea", "roasted vegetable", "grilled vegetable", "slaw", "carrot", "beet", "radish", "cucumber", "zucchini", "artichoke", "brussels", "broccoli", "spinach", "kale", "corn"];
-  return (
-    (r.mealType === "sides" || r.mealType === "lunch") &&
-    veggieKeywords.some(k => title.includes(k)) &&
-    !isSpringAppetizer(r)
-  );
-};
-
-const isBreadSide = (r: Recipe) => {
-  const title = r.title.toLowerCase();
-  if (isNonDish(title)) return false;
-  const breadKeywords = ["bread", "roll", "biscuit", "cornbread", "focaccia", "sourdough", "baguette", "brioche", "pretzel", "dinner roll"];
-  if (title.includes("spring roll") || title.includes("egg roll") || title.includes("cinnamon roll")) return false;
-  return (
-    (r.mealType === "sides" || r.mealType === "breakfast") &&
-    breadKeywords.some(k => title.includes(k))
-  );
-};
-
-const isBrunchItem = (r: Recipe) => {
-  const title = r.title.toLowerCase();
-  if (isNonDish(title)) return false;
-  const brunchKeywords = ["eggs benedict", "eggs florentine", "quiche", "french toast", "pancake", "waffle", "frittata", "omelette", "omelet", "mimosa", "crepe", "scone", "hot cross bun"];
-  return r.mealType === "breakfast" && brunchKeywords.some(k => title.includes(k));
-};
-
 // Wine pairing data
 interface WinePairing {
   type: string;
@@ -172,24 +102,25 @@ const guestPresets = [
   { value: "20", label: "20 guests" },
 ];
 
+// Broad mealType/drinkType categories so every recipe & drink is available
 const menuCategories: MenuCategory[] = [
   {
-    title: "Brunch",
+    title: "Breakfast & Brunch",
     icon: Coffee,
     color: "text-orange-600 dark:text-orange-400",
     bgColor: "bg-orange-500/10 border-orange-500/20",
     type: "recipe",
-    count: 2,
-    filter: (r) => isBrunchItem(r as Recipe),
+    count: 3,
+    filter: (r) => (r as Recipe).mealType === "breakfast",
   },
   {
-    title: "Appetizers",
-    icon: Utensils,
-    color: "text-rose-600 dark:text-rose-400",
-    bgColor: "bg-rose-500/10 border-rose-500/20",
+    title: "Lunch",
+    icon: Egg,
+    color: "text-yellow-600 dark:text-yellow-400",
+    bgColor: "bg-yellow-500/10 border-yellow-500/20",
     type: "recipe",
     count: 3,
-    filter: (r) => isSpringAppetizer(r as Recipe),
+    filter: (r) => (r as Recipe).mealType === "lunch",
   },
   {
     title: "Entrées",
@@ -197,26 +128,17 @@ const menuCategories: MenuCategory[] = [
     color: "text-emerald-600 dark:text-emerald-400",
     bgColor: "bg-emerald-500/10 border-emerald-500/20",
     type: "recipe",
-    count: 2,
-    filter: (r) => isSpringEntree(r as Recipe),
+    count: 3,
+    filter: (r) => (r as Recipe).mealType === "dinner",
   },
   {
-    title: "Veggie Sides",
+    title: "Sides",
     icon: Salad,
     color: "text-green-600 dark:text-green-400",
     bgColor: "bg-green-500/10 border-green-500/20",
     type: "recipe",
     count: 3,
-    filter: (r) => isVeggieSide(r as Recipe),
-  },
-  {
-    title: "Bread & Rolls",
-    icon: Wheat,
-    color: "text-amber-600 dark:text-amber-400",
-    bgColor: "bg-amber-500/10 border-amber-500/20",
-    type: "recipe",
-    count: 2,
-    filter: (r) => isBreadSide(r as Recipe),
+    filter: (r) => (r as Recipe).mealType === "sides",
   },
   {
     title: "Desserts",
@@ -224,20 +146,17 @@ const menuCategories: MenuCategory[] = [
     color: "text-pink-600 dark:text-pink-400",
     bgColor: "bg-pink-500/10 border-pink-500/20",
     type: "recipe",
-    count: 2,
-    filter: (r) => isSpringDessert(r as Recipe),
+    count: 3,
+    filter: (r) => (r as Recipe).mealType === "dessert",
   },
   {
-    title: "Wine & Cocktails",
+    title: "Cocktails",
     icon: Wine,
     color: "text-purple-600 dark:text-purple-400",
     bgColor: "bg-purple-500/10 border-purple-500/20",
     type: "drink",
     count: 3,
-    filter: (d) => {
-      const drink = d as Drink;
-      return drink.isAlcoholic && (drink.season === "spring" || drink.season === "all-season" || drink.occasion === "brunch" || drink.occasion === "party");
-    },
+    filter: (d) => (d as Drink).drinkType === "cocktail",
   },
   {
     title: "Mocktails",
@@ -245,26 +164,28 @@ const menuCategories: MenuCategory[] = [
     color: "text-teal-600 dark:text-teal-400",
     bgColor: "bg-teal-500/10 border-teal-500/20",
     type: "drink",
-    count: 2,
-    filter: (d) => {
-      const drink = d as Drink;
-      return drink.drinkType === "mocktail" && (drink.season === "spring" || drink.season === "all-season" || drink.occasion === "brunch" || drink.occasion === "party");
-    },
+    count: 3,
+    filter: (d) => (d as Drink).drinkType === "mocktail",
   },
   {
-    title: "Flavored Waters",
+    title: "Smoothies",
     icon: GlassWater,
     color: "text-sky-600 dark:text-sky-400",
     bgColor: "bg-sky-500/10 border-sky-500/20",
     type: "drink",
-    count: 2,
+    count: 3,
+    filter: (d) => (d as Drink).drinkType === "smoothie",
+  },
+  {
+    title: "Wellness & Hot Drinks",
+    icon: Sparkles,
+    color: "text-amber-600 dark:text-amber-400",
+    bgColor: "bg-amber-500/10 border-amber-500/20",
+    type: "drink",
+    count: 3,
     filter: (d) => {
       const drink = d as Drink;
-      const title = drink.title.toLowerCase();
-      return (
-        !drink.isAlcoholic &&
-        (title.includes("water") || title.includes("infused") || drink.healthTags?.includes("Hydrating"))
-      ) && !title.includes("coconut");
+      return drink.drinkType === "wellness" || drink.drinkType === "hot";
     },
   },
 ];
