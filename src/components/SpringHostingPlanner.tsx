@@ -1,7 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { sampleRecipes, type Recipe } from "@/data/recipes";
 import { sampleDrinks, type Drink } from "@/data/drinks";
 import { RecipeDetailDialog } from "./RecipeDetailDialog";
@@ -22,6 +23,11 @@ import {
   ChevronDown,
   ChevronUp,
   Martini,
+  Users,
+  Printer,
+  Grape,
+  Egg,
+  Coffee,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +45,7 @@ interface MenuCategory {
   icon: typeof Utensils;
   color: string;
   bgColor: string;
-  type: "recipe" | "drink";
+  type: "recipe" | "drink" | "static";
   count: number;
   filter: (item: Recipe | Drink) => boolean;
 }
@@ -56,17 +62,17 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
   return result;
 }
 
-// Shared exclusion list for non-dish items (sauces, dressings, condiments, etc.)
+// Shared exclusion list for non-dish items
 const nonDishKeywords = ["sauce", "dressing", "syrup", "butter", "condiment", "marinade", "jam", "jelly", "vinaigrette", "aioli", "glaze", "rub", "seasoning", "mayo", "mayonnaise", "gochujang", "ketchup", "mustard", "salsa", "pesto", "chutney", "relish", "gravy", "compound butter", "alfredo", "mole", "zhug", "teriyaki", "tikka masala", "romesco", "tahini sauce", "hot sauce", "worcestershire", "chimichurri", "tzatziki", "sriracha", "harissa", "curry paste", "spice mix", "spice blend", "extract", "simple syrup", "cream sauce", "pasta sauce", "pizza dough", "pasta dough", "pie crust", "crouton"];
 
 const isNonDish = (title: string) => nonDishKeywords.some(k => title.includes(k));
 
-// Spring-appropriate recipe filters
+// Category filters
 const isSpringAppetizer = (r: Recipe) => {
   const title = r.title.toLowerCase();
   const desc = (r.description || "").toLowerCase();
   const combined = title + " " + desc;
-  const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke dip", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap", "flatbread", "pinwheel", "croquette", "fritter"];
+  const appetizerKeywords = ["bruschetta", "dip", "hummus", "crostini", "caprese", "spring roll", "deviled", "stuffed mushroom", "artichoke dip", "cheese ball", "brie", "goat cheese", "shrimp cocktail", "ceviche", "tartare", "pâté", "pate", "appetizer", "starter", "bite", "skewer", "wrap", "flatbread", "pinwheel", "croquette", "fritter", "prosciutto bundle"];
   if (isNonDish(title)) return false;
   return (
     (r.mealType === "sides" || r.mealType === "lunch") &&
@@ -77,14 +83,11 @@ const isSpringAppetizer = (r: Recipe) => {
 const isSpringEntree = (r: Recipe) => {
   const title = r.title.toLowerCase();
   const desc = (r.description || "").toLowerCase();
-  
-  // Allow pasta sauces as entrées (they ARE the dish when paired with pasta)
   const isPastaSauce = (title.includes("sauce") || title.includes("alfredo") || title.includes("mole")) &&
     (title.includes("pasta") || desc.includes("pasta") || desc.includes("noodle") || desc.includes("spaghetti") || desc.includes("fettuccine") || desc.includes("linguine"));
   if (isPastaSauce) return true;
-  
   if (isNonDish(title)) return false;
-  const springEntreeKeywords = ["lamb", "salmon", "ham", "chicken", "roast", "grilled", "herb", "lemon", "asparagus", "pork tenderloin", "sea bass", "halibut", "shrimp", "scallop"];
+  const springEntreeKeywords = ["lamb", "salmon", "ham", "chicken", "roast", "grilled", "herb", "lemon", "asparagus", "pork tenderloin", "sea bass", "halibut", "shrimp", "scallop", "risotto"];
   return (
     r.mealType === "dinner" &&
     (r.season === "spring" || springEntreeKeywords.some(k => title.includes(k)))
@@ -93,17 +96,11 @@ const isSpringEntree = (r: Recipe) => {
 
 const isSpringDessert = (r: Recipe) => {
   const title = r.title.toLowerCase();
-  // Exclude standalone frostings/buttercreams — they're components, not desserts
   const excludeDessertKeywords = ["buttercream", "frosting", "icing", "glaze"];
-  if (excludeDessertKeywords.some(k => title.includes(k)) && !title.includes("cake") && !title.includes("cupcake")) {
-    return false;
-  }
+  if (excludeDessertKeywords.some(k => title.includes(k)) && !title.includes("cake") && !title.includes("cupcake")) return false;
   if (isNonDish(title)) return false;
   const springDessertKeywords = ["lemon", "berry", "strawberry", "raspberry", "blueberry", "lavender", "vanilla", "cream", "tart", "cake", "pavlova", "mousse", "cheesecake", "shortcake", "meringue", "sorbet", "panna cotta", "fruit"];
-  return (
-    r.mealType === "dessert" &&
-    springDessertKeywords.some(k => title.includes(k))
-  );
+  return r.mealType === "dessert" && springDessertKeywords.some(k => title.includes(k));
 };
 
 const isVeggieSide = (r: Recipe) => {
@@ -121,7 +118,6 @@ const isBreadSide = (r: Recipe) => {
   const title = r.title.toLowerCase();
   if (isNonDish(title)) return false;
   const breadKeywords = ["bread", "roll", "biscuit", "cornbread", "focaccia", "sourdough", "baguette", "brioche", "pretzel", "dinner roll"];
-  // Exclude non-bread items that happen to have "roll" in them (e.g. "spring roll")
   if (title.includes("spring roll") || title.includes("egg roll") || title.includes("cinnamon roll")) return false;
   return (
     (r.mealType === "sides" || r.mealType === "breakfast") &&
@@ -129,7 +125,61 @@ const isBreadSide = (r: Recipe) => {
   );
 };
 
+const isBrunchItem = (r: Recipe) => {
+  const title = r.title.toLowerCase();
+  if (isNonDish(title)) return false;
+  const brunchKeywords = ["eggs benedict", "eggs florentine", "quiche", "french toast", "pancake", "waffle", "frittata", "omelette", "omelet", "mimosa", "crepe", "scone", "hot cross bun"];
+  return r.mealType === "breakfast" && brunchKeywords.some(k => title.includes(k));
+};
+
+// Wine pairing data
+interface WinePairing {
+  type: string;
+  name: string;
+  description: string;
+  emoji: string;
+  pairsWith: string;
+}
+
+const springWinePairings: WinePairing[] = [
+  { type: "White", name: "Sauvignon Blanc", description: "Crisp, herbaceous — perfect with asparagus, salads, and seafood", emoji: "🥂", pairsWith: "Appetizers, veggie sides, seafood entrées" },
+  { type: "Rosé", name: "Provence Rosé", description: "Dry, fruity — the ultimate spring wine for outdoor entertaining", emoji: "🌸", pairsWith: "Everything! Especially charcuterie, chicken, and light pasta" },
+  { type: "Red", name: "Pinot Noir", description: "Light-bodied, earthy — elegant with lamb, ham, and mushrooms", emoji: "🍷", pairsWith: "Lamb, ham, risotto, roasted vegetables" },
+  { type: "Sparkling", name: "Prosecco or Champagne", description: "Festive bubbles for toasts, mimosas, and aperitifs", emoji: "🍾", pairsWith: "Appetizers, brunch, desserts, celebrations" },
+];
+
+// Charcuterie board suggestions
+interface BoardItem {
+  category: string;
+  suggestions: string[];
+}
+
+const charcuterieBoard: BoardItem[] = [
+  { category: "Cheeses", suggestions: ["Brie", "Aged Gouda", "Goat Cheese with Honey", "Manchego"] },
+  { category: "Cured Meats", suggestions: ["Prosciutto", "Sopressata", "Coppa", "Salami"] },
+  { category: "Crackers & Bread", suggestions: ["Water Crackers", "Grissini", "Sliced Baguette", "Flatbread Crisps"] },
+  { category: "Fresh & Dried Fruit", suggestions: ["Grapes", "Figs", "Dried Apricots", "Strawberries"] },
+  { category: "Accompaniments", suggestions: ["Fig Jam", "Honeycomb", "Marcona Almonds", "Cornichons", "Dijon Mustard"] },
+];
+
+const guestPresets = [
+  { value: "4", label: "4 guests" },
+  { value: "8", label: "8 guests" },
+  { value: "12", label: "12 guests" },
+  { value: "16", label: "16 guests" },
+  { value: "20", label: "20 guests" },
+];
+
 const menuCategories: MenuCategory[] = [
+  {
+    title: "Brunch",
+    icon: Coffee,
+    color: "text-orange-600 dark:text-orange-400",
+    bgColor: "bg-orange-500/10 border-orange-500/20",
+    type: "recipe",
+    count: 2,
+    filter: (r) => isBrunchItem(r as Recipe),
+  },
   {
     title: "Appetizers",
     icon: Utensils,
@@ -200,7 +250,7 @@ const menuCategories: MenuCategory[] = [
     },
   },
   {
-    title: "Flavored Waters & Refreshers",
+    title: "Flavored Waters",
     icon: GlassWater,
     color: "text-sky-600 dark:text-sky-400",
     bgColor: "bg-sky-500/10 border-sky-500/20",
@@ -211,8 +261,8 @@ const menuCategories: MenuCategory[] = [
       const title = drink.title.toLowerCase();
       return (
         !drink.isAlcoholic &&
-        (title.includes("water") || title.includes("lemonade") || title.includes("refresher") || title.includes("infused") || title.includes("spritz") || title.includes("cooler") || title.includes("iced tea") || drink.healthTags?.includes("Hydrating"))
-      );
+        (title.includes("water") || title.includes("infused") || drink.healthTags?.includes("Hydrating"))
+      ) && !title.includes("coconut");
     },
   },
 ];
@@ -229,6 +279,8 @@ export function SpringHostingPlanner({
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [guestCount, setGuestCount] = useState("8");
+  const printRef = useRef<HTMLDivElement>(null);
 
   const menuSuggestions = useMemo(() => {
     return menuCategories.map((category) => {
@@ -257,16 +309,27 @@ export function SpringHostingPlanner({
     .filter(c => c.type === "recipe")
     .reduce((sum, c) => sum + c.items.length, 0);
 
+  const guestMultiplier = parseInt(guestCount) / 4; // Base recipes serve ~4
+
+  const scaleServings = (servings: number) => {
+    const scaled = Math.round(servings * guestMultiplier);
+    return scaled;
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <>
-      <Card className="overflow-hidden border-2 border-emerald-500/20 bg-gradient-to-br from-pink-500/5 via-card to-emerald-500/5">
+      <Card className="overflow-hidden border-2 border-emerald-500/20 bg-gradient-to-br from-pink-500/5 via-card to-emerald-500/5 print:border print:border-border">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="flex items-center gap-3 text-left group"
             >
-              <div className="p-3 rounded-xl bg-gradient-to-br from-pink-400 to-emerald-500 shadow-lg">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-pink-400 to-emerald-500 shadow-lg print:shadow-none">
                 <Flower2 className="h-6 w-6 text-white" />
               </div>
               <div>
@@ -278,45 +341,70 @@ export function SpringHostingPlanner({
                   Complete menu for Easter, Mother's Day, or any spring gathering
                 </p>
               </div>
-              {isExpanded ? (
-                <ChevronUp className="h-5 w-5 text-muted-foreground ml-auto shrink-0" />
-              ) : (
-                <ChevronDown className="h-5 w-5 text-muted-foreground ml-auto shrink-0" />
-              )}
+              <span className="no-print">
+                {isExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-muted-foreground ml-auto shrink-0" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-muted-foreground ml-auto shrink-0" />
+                )}
+              </span>
             </button>
           </div>
         </CardHeader>
 
         {isExpanded && (
-          <CardContent className="pt-0 space-y-5">
-            <div className="flex flex-wrap gap-2">
+          <CardContent className="pt-0 space-y-6" ref={printRef}>
+            {/* Action bar */}
+            <div className="flex flex-wrap items-center gap-2 no-print">
               <Button
                 onClick={handleAddAllToCalendar}
                 className="bg-gradient-to-r from-pink-500 to-emerald-500 hover:from-pink-600 hover:to-emerald-600 text-white gap-2"
               >
                 <Calendar className="h-4 w-4" />
-                Add All {totalRecipes} Recipes to Plan
+                Add All {totalRecipes} to Plan
               </Button>
               <Button variant="outline" size="sm" onClick={handleRefresh} className="gap-2">
                 <RefreshCw className="h-4 w-4" />
-                Shuffle Menu
+                Shuffle
               </Button>
+              <Button variant="outline" size="sm" onClick={handlePrint} className="gap-2">
+                <Printer className="h-4 w-4" />
+                Print Menu
+              </Button>
+              <div className="flex items-center gap-2 ml-auto">
+                <Users className="h-4 w-4 text-muted-foreground" />
+                <Select value={guestCount} onValueChange={setGuestCount}>
+                  <SelectTrigger className="w-[130px] h-8 text-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {guestPresets.map(p => (
+                      <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Print-only guest count header */}
+            <div className="hidden print:block text-sm text-muted-foreground mb-4">
+              Planning for <strong>{guestCount} guests</strong> · Servings scaled accordingly
             </div>
 
             {/* Menu Categories Grid */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 print:grid-cols-3 print:gap-3">
               {menuSuggestions.map((category) => {
                 const Icon = category.icon;
                 return (
                   <Card
                     key={category.title}
-                    className={cn("border-2 transition-all hover:shadow-md", category.bgColor)}
+                    className={cn("border-2 transition-all hover:shadow-md print:shadow-none print:break-inside-avoid", category.bgColor)}
                   >
                     <CardHeader className="pb-2 pt-4 px-4">
                       <div className="flex items-center gap-2">
                         <Icon className={cn("h-5 w-5", category.color)} />
                         <CardTitle className="text-base">{category.title}</CardTitle>
-                        <Badge variant="outline" className="ml-auto text-[10px]">
+                        <Badge variant="outline" className="ml-auto text-[10px] no-print">
                           {category.items.length}
                         </Badge>
                       </div>
@@ -327,14 +415,11 @@ export function SpringHostingPlanner({
                           const isRecipe = category.type === "recipe";
                           const recipe = item as Recipe;
                           const drink = item as Drink;
-                          const isSaved = isRecipe
-                            ? savedRecipes.includes(recipe.id)
-                            : savedDrinks.includes(drink.id);
 
                           return (
                             <div
                               key={isRecipe ? recipe.id : drink.id}
-                              className="p-2.5 rounded-lg bg-card border border-border/50 hover:border-border transition-all cursor-pointer group"
+                              className="p-2.5 rounded-lg bg-card border border-border/50 hover:border-border transition-all cursor-pointer group print:p-2 print:rounded"
                               onClick={() =>
                                 isRecipe
                                   ? setSelectedRecipe(recipe)
@@ -353,9 +438,9 @@ export function SpringHostingPlanner({
                                     <Badge variant="outline" className="text-[10px] px-1.5 py-0">
                                       {isRecipe ? recipe.cookTime : drink.prepTime}
                                     </Badge>
-                                    {isRecipe && recipe.servings && (
+                                    {isRecipe && (
                                       <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                                        {recipe.servings} srv
+                                        {scaleServings(recipe.servings)} srv
                                       </Badge>
                                     )}
                                     {!isRecipe && drink.isAlcoholic && drink.virginVersion && (
@@ -369,7 +454,7 @@ export function SpringHostingPlanner({
                                   <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="h-7 w-7 shrink-0"
+                                    className="h-7 w-7 shrink-0 no-print"
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       onAddToCalendar(recipe);
@@ -391,6 +476,57 @@ export function SpringHostingPlanner({
                   </Card>
                 );
               })}
+
+              {/* Cheese & Charcuterie Board - static */}
+              <Card className="border-2 transition-all hover:shadow-md bg-amber-500/10 border-amber-500/20 print:shadow-none print:break-inside-avoid">
+                <CardHeader className="pb-2 pt-4 px-4">
+                  <div className="flex items-center gap-2">
+                    <Grape className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                    <CardTitle className="text-base">Charcuterie Board</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="px-4 pb-4">
+                  <div className="space-y-2.5">
+                    {charcuterieBoard.map((section) => (
+                      <div key={section.category}>
+                        <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">{section.category}</p>
+                        <p className="text-xs leading-relaxed">{section.suggestions.join(" · ")}</p>
+                      </div>
+                    ))}
+                    <p className="text-[10px] text-muted-foreground italic mt-2">
+                      Tip: Plan ~2 oz cheese + 1.5 oz meat per guest for {guestCount} guests = {Math.round(parseInt(guestCount) * 2 / 16 * 10) / 10} lbs cheese
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Wine Pairing Guide - static */}
+              <Card className="border-2 transition-all hover:shadow-md bg-purple-500/10 border-purple-500/20 print:shadow-none print:break-inside-avoid">
+                <CardHeader className="pb-2 pt-4 px-4">
+                  <div className="flex items-center gap-2">
+                    <Wine className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                    <CardTitle className="text-base">Wine Guide</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="px-4 pb-4">
+                  <div className="space-y-2.5">
+                    {springWinePairings.map((wine) => (
+                      <div key={wine.name} className="p-2 rounded-lg bg-card border border-border/50">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-sm">{wine.emoji}</span>
+                          <span className="font-medium text-sm">{wine.name}</span>
+                          <Badge variant="outline" className="text-[9px] ml-auto">{wine.type}</Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">{wine.description}</p>
+                        <p className="text-[10px] text-muted-foreground/70 mt-0.5">Pairs with: {wine.pairsWith}</p>
+                      </div>
+                    ))}
+                    <p className="text-[10px] text-muted-foreground italic">
+                      Tip: Plan ~1 bottle per 2-3 guests. For {guestCount} guests ≈ {Math.ceil(parseInt(guestCount) / 2.5)} bottles
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </CardContent>
         )}
