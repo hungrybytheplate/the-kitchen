@@ -56,6 +56,10 @@ export function Header({ onShowTour }: HeaderProps) {
             <img 
               src={logo} 
               alt="The Kitchen Logo" 
+              width={80}
+              height={80}
+              loading="eager"
+              fetchPriority="high"
               className="h-10 w-10 sm:h-20 sm:w-20 rounded-xl sm:rounded-3xl object-cover shadow-lg ring-2 ring-primary/20"
             />
           </motion.div>
@@ -146,7 +150,7 @@ export function Header({ onShowTour }: HeaderProps) {
           )}
           
           <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-accent/50 border border-accent-foreground/10">
-            <img src={taglineIcon} alt="" className="h-5 w-5 object-contain" />
+            <img src={taglineIcon} alt="" width={20} height={20} loading="lazy" className="h-5 w-5 object-contain" />
             <span className="text-sm font-medium text-accent-foreground">Fresh & Simple</span>
           </div>
         </div>
