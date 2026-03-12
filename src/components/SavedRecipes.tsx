@@ -70,9 +70,11 @@ export function SavedRecipes({
   const allSavedDrinks = sampleDrinks.filter((d) => savedDrinkIds.includes(d.id));
   const importedRecipes = getRecipesAsAppFormat();
   
-  const savedRecipes = allSavedRecipes.filter((r) =>
-    r.title.toLowerCase().includes(search.toLowerCase())
-  );
+  // Apply collection filter then search filter
+  const collectionFilteredIds = getFilteredRecipeIds(allSavedRecipes.map(r => r.id));
+  const savedRecipes = allSavedRecipes
+    .filter((r) => collectionFilteredIds.includes(r.id))
+    .filter((r) => r.title.toLowerCase().includes(search.toLowerCase()));
   const filteredImportedRecipes = importedRecipes.filter((r) =>
     r.title.toLowerCase().includes(search.toLowerCase())
   );
