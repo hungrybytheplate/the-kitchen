@@ -278,6 +278,8 @@ const dietaryFilters: { tag: DietaryTag; label: string; icon: string }[] = [
   { tag: "paleo", label: "Paleo", icon: "🍖" },
   { tag: "high-protein", label: "High Protein", icon: "💪" },
   { tag: "low-carb", label: "Low Carb", icon: "🥗" },
+  { tag: "no-sodium", label: "No Sodium", icon: "🚫" },
+  { tag: "low-sodium", label: "Low Sodium", icon: "🧂" },
 ];
 
 const cuisineFilters: { cuisine: CuisineType; label: string; icon: string }[] = [
