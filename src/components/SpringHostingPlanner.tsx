@@ -329,6 +329,8 @@ export function SpringHostingPlanner({
   const clearFilters = () => {
     setActiveDietaryFilters([]);
     setActiveCuisineFilters([]);
+    setShowHeartHealthyOnly(false);
+    setShowAntiInflammatoryOnly(false);
   };
 
   // Filter recipes/drinks based on active filters
@@ -340,9 +342,11 @@ export function SpringHostingPlanner({
       if (activeCuisineFilters.length > 0) {
         if (!r.cuisine || !activeCuisineFilters.includes(r.cuisine)) return false;
       }
+      if (showHeartHealthyOnly && !r.heartHealthy) return false;
+      if (showAntiInflammatoryOnly && !r.antiInflammatory) return false;
       return true;
     });
-  }, [activeDietaryFilters, activeCuisineFilters]);
+  }, [activeDietaryFilters, activeCuisineFilters, showHeartHealthyOnly, showAntiInflammatoryOnly]);
 
   const filteredDrinks = useMemo(() => {
     return sampleDrinks.filter(d => {
