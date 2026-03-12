@@ -24,6 +24,8 @@ export function ImportRecipeDialog({ onImported, trigger }: ImportRecipeDialogPr
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "fetching" | "parsing" | "saving" | "done" | "error">("idle");
+  const [duplicateWarning, setDuplicateWarning] = useState<string | null>(null);
+  const { customRecipes } = useCustomRecipes();
 
   const handleImport = async () => {
     const trimmed = url.trim();
