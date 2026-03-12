@@ -27,13 +27,24 @@ export function ImportRecipeDialog({ onImported, trigger }: ImportRecipeDialogPr
   const [duplicateWarning, setDuplicateWarning] = useState<string | null>(null);
   const { customRecipes } = useCustomRecipes();
 
-  const handleImport = async () => {
+  const handleImport = async (force = false) => {
     const trimmed = url.trim();
     if (!trimmed) return;
 
     // Basic URL validation
     try {
-      new URL(trimmed.startsWith("http") ? trimmed : `https://${trimmed}`);
+      const finalUrl = trimmed.startsWith("http") ? trimmed : `https://${trimmed}`;
+      new URL(finalUrl);
+      
+      // Check for duplicate URL
+      if (!force) {
+        const existingByUrl = customRecipes.find(r => r.source_url === finalUrl);
+        if (existingByUrl) {
+          setDuplicateWarning(`You already imported "${existingByUrl.title}" from this URL.`);
+          return;
+        }
+      }
+      setDuplicateWarning(null);
     } catch {
       toast({ title: "Invalid URL", description: "Please enter a valid recipe URL.", variant: "destructive" });
       return;
