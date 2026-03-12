@@ -1,6 +1,6 @@
 import { HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
-import logo from "@/assets/logo.png";
-import taglineIcon from "@/assets/tagline-icon.png";
+import logo from "@/assets/logo-sm.webp";
+import taglineIcon from "@/assets/tagline-icon-sm.webp";
 import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";

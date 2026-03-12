@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,27 +7,28 @@ import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
 import { RecipeResults } from "@/components/RecipeResults";
 
-import { DrinkIngredientSelector } from "@/components/DrinkIngredientSelector";
-import { DrinkResults } from "@/components/DrinkResults";
-import { GarnishSuggestions } from "@/components/GarnishSuggestions";
-import { GlasswareGuide } from "@/components/GlasswareGuide";
-import { MealCalendar } from "@/components/MealCalendar";
-import { SavedRecipes } from "@/components/SavedRecipes";
+// Lazy load heavy tab components
+const DrinkIngredientSelector = lazy(() => import("@/components/DrinkIngredientSelector").then(m => ({ default: m.DrinkIngredientSelector })));
+const DrinkResults = lazy(() => import("@/components/DrinkResults").then(m => ({ default: m.DrinkResults })));
+const GarnishSuggestions = lazy(() => import("@/components/GarnishSuggestions").then(m => ({ default: m.GarnishSuggestions })));
+const GlasswareGuide = lazy(() => import("@/components/GlasswareGuide").then(m => ({ default: m.GlasswareGuide })));
+const MealCalendar = lazy(() => import("@/components/MealCalendar").then(m => ({ default: m.MealCalendar })));
+const SavedRecipes = lazy(() => import("@/components/SavedRecipes").then(m => ({ default: m.SavedRecipes })));
+const ShoppingList = lazy(() => import("@/components/ShoppingList").then(m => ({ default: m.ShoppingList })));
+const WeeklyNutritionSummary = lazy(() => import("@/components/WeeklyNutritionSummary").then(m => ({ default: m.WeeklyNutritionSummary })));
+const SpringHostingPlanner = lazy(() => import("@/components/SpringHostingPlanner").then(m => ({ default: m.SpringHostingPlanner })));
+const WelcomeTour = lazy(() => import("@/components/WelcomeTour").then(m => ({ default: m.WelcomeTour })));
+const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsHelp").then(m => ({ default: m.KeyboardShortcutsHelp })));
+const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
+const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
 
-import { ShoppingList } from "@/components/ShoppingList";
 import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
 import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
-import { WelcomeTour } from "@/components/WelcomeTour";
-import { InstallBanner } from "@/components/InstallBanner";
 import { QuickTooltip } from "@/components/Tooltip";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { UndoToast } from "@/components/UndoToast";
-import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
-import { RecentlyViewed } from "@/components/RecentlyViewed";
-import { SmartSuggestions } from "@/components/SmartSuggestions";
 import { RecipeSearchAutocomplete } from "@/components/RecipeSearchAutocomplete";
-import { WeeklyNutritionSummary } from "@/components/WeeklyNutritionSummary";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -47,9 +48,12 @@ import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake, Flower2 } from "lucide-react";
-import { SpringHostingPlanner } from "@/components/SpringHostingPlanner";
 import { cn } from "@/lib/utils";
 import { BottomNav } from "@/components/BottomNav";
+
+const InstallBanner = lazy(() => import("@/components/InstallBanner").then(m => ({ default: m.InstallBanner })));
+
+const LazyFallback = () => <div className="animate-pulse p-4 text-center text-muted-foreground text-sm">Loading...</div>;
 
 // Inline Lookup Results Component
 interface LookupResultsProps {
@@ -644,10 +648,10 @@ const Index = () => {
       <SEOHead />
       
       {showTour && (
-        <WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} />
+        <Suspense fallback={null}><WelcomeTour onComplete={handleCompleteTour} onSkip={handleSkipTour} /></Suspense>
       )}
       
-      <InstallBanner />
+      <Suspense fallback={null}><InstallBanner /></Suspense>
       
       <Header onShowTour={() => setShowTour(true)} />
 
@@ -751,17 +755,19 @@ const Index = () => {
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
             {/* Recently Viewed Section */}
             {appMode === "cook" && recentlyViewed.length > 0 && (
-              <RecentlyViewed
-                recentIds={recentlyViewed}
-                onClear={clearRecentlyViewed}
-                onViewRecipe={(recipe) => {
-                  setRecentViewedRecipe(recipe);
-                  addRecentlyViewed(recipe.id);
-                }}
-                savedRecipes={savedRecipes}
-                onSaveRecipe={handleSaveRecipe}
-                onAddToCalendar={handleAddToCalendar}
-              />
+              <Suspense fallback={null}>
+                <RecentlyViewed
+                  recentIds={recentlyViewed}
+                  onClear={clearRecentlyViewed}
+                  onViewRecipe={(recipe) => {
+                    setRecentViewedRecipe(recipe);
+                    addRecentlyViewed(recipe.id);
+                  }}
+                  savedRecipes={savedRecipes}
+                  onSaveRecipe={handleSaveRecipe}
+                  onAddToCalendar={handleAddToCalendar}
+                />
+              </Suspense>
             )}
 
             {appMode === "cook" ? (
@@ -861,6 +867,7 @@ const Index = () => {
               </div>
             ) : (
               // DRINK MODE
+              <Suspense fallback={<LazyFallback />}>
               <div className="grid gap-4 lg:grid-cols-2">
                 <Card className="shadow-elevated border-border/50 bg-card/90 backdrop-blur-sm overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 gradient-warm" />
@@ -962,71 +969,78 @@ const Index = () => {
                   )}
                 </div>
               </div>
+              </Suspense>
             )}
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-6 space-y-8">
-            {/* Spring Hosting Planner */}
-            <SpringHostingPlanner
-              onAddToCalendar={handleAddToCalendar}
-              onAddToShopping={handleAddToShopping}
-              savedRecipes={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              savedDrinks={savedDrinks}
-              onSaveDrink={handleSaveDrink}
-            />
+            <Suspense fallback={<LazyFallback />}>
+              {/* Spring Hosting Planner */}
+              <SpringHostingPlanner
+                onAddToCalendar={handleAddToCalendar}
+                onAddToShopping={handleAddToShopping}
+                savedRecipes={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                savedDrinks={savedDrinks}
+                onSaveDrink={handleSaveDrink}
+              />
 
-            {/* Regular Meal Calendar */}
-            <MealCalendar 
-              mealPlan={mealPlan} 
-              onRemove={handleRemoveFromCalendar}
-              onMoveMeal={moveMeal}
-              onAddToShopping={handleAddToShopping}
-              savedRecipes={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              onAddToCalendar={handleAddToCalendar}
-              shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
-            />
+              {/* Regular Meal Calendar */}
+              <MealCalendar 
+                mealPlan={mealPlan} 
+                onRemove={handleRemoveFromCalendar}
+                onMoveMeal={moveMeal}
+                onAddToShopping={handleAddToShopping}
+                savedRecipes={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                onAddToCalendar={handleAddToCalendar}
+                shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
+              />
 
-            {/* Weekly Nutrition Summary */}
-            <WeeklyNutritionSummary mealPlan={mealPlan} />
+              {/* Weekly Nutrition Summary */}
+              <WeeklyNutritionSummary mealPlan={mealPlan} />
+            </Suspense>
           </TabsContent>
 
           <TabsContent value="saved" className="mt-6 space-y-6">
-            {/* Smart Suggestions */}
-            <SmartSuggestions
-              savedRecipeIds={savedRecipes}
-              onSaveRecipe={handleSaveRecipe}
-              onAddToCalendar={handleAddToCalendar}
-              onAddToShopping={handleAddToShopping}
-            />
-            
-            <SavedRecipes 
-              savedRecipeIds={savedRecipes} 
-              savedDrinkIds={savedDrinks}
-              onRemoveRecipe={handleSaveRecipe} 
-              onRemoveDrink={handleSaveDrink}
-              recipeNotes={recipeNotes}
-              onSaveNote={async (recipeId, note) => {
-                await updateRecipeNotes(recipeId, note);
-              }}
-              onAddToCalendar={handleAddToCalendar}
-              ratings={ratings}
-              onRate={async (itemId, itemType, rating) => {
-                await setItemRating(itemId, itemType, rating);
-              }}
-            />
+            <Suspense fallback={<LazyFallback />}>
+              {/* Smart Suggestions */}
+              <SmartSuggestions
+                savedRecipeIds={savedRecipes}
+                onSaveRecipe={handleSaveRecipe}
+                onAddToCalendar={handleAddToCalendar}
+                onAddToShopping={handleAddToShopping}
+              />
+              
+              <SavedRecipes 
+                savedRecipeIds={savedRecipes} 
+                savedDrinkIds={savedDrinks}
+                onRemoveRecipe={handleSaveRecipe} 
+                onRemoveDrink={handleSaveDrink}
+                recipeNotes={recipeNotes}
+                onSaveNote={async (recipeId, note) => {
+                  await updateRecipeNotes(recipeId, note);
+                }}
+                onAddToCalendar={handleAddToCalendar}
+                ratings={ratings}
+                onRate={async (itemId, itemType, rating) => {
+                  await setItemRating(itemId, itemType, rating);
+                }}
+              />
+            </Suspense>
           </TabsContent>
 
 
           <TabsContent value="shopping" className="mt-6">
-            <ShoppingList
-              items={shoppingList}
-              onToggleItem={handleToggleShoppingItem}
-              onRemoveItem={handleRemoveShoppingItem}
-              onClearCompleted={handleClearCompletedShopping}
-              onClearAll={handleClearAllShopping}
-            />
+            <Suspense fallback={<LazyFallback />}>
+              <ShoppingList
+                items={shoppingList}
+                onToggleItem={handleToggleShoppingItem}
+                onRemoveItem={handleRemoveShoppingItem}
+                onClearCompleted={handleClearCompletedShopping}
+                onClearAll={handleClearAllShopping}
+              />
+            </Suspense>
           </TabsContent>
         </Tabs>
         
@@ -1048,10 +1062,12 @@ const Index = () => {
         onConfirm={handleConfirmShoppingAdd}
       />
 
-      <KeyboardShortcutsHelp 
-        open={showShortcutsHelp} 
-        onOpenChange={setShowShortcutsHelp} 
-      />
+      <Suspense fallback={null}>
+        <KeyboardShortcutsHelp 
+          open={showShortcutsHelp} 
+          onOpenChange={setShowShortcutsHelp} 
+        />
+      </Suspense>
 
       {hasUndo && pendingAction && (
         <UndoToast
