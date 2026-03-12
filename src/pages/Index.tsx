@@ -966,6 +966,16 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-6 space-y-8">
+            {/* Spring Hosting Planner */}
+            <SpringHostingPlanner
+              onAddToCalendar={handleAddToCalendar}
+              onAddToShopping={handleAddToShopping}
+              savedRecipes={savedRecipes}
+              onSaveRecipe={handleSaveRecipe}
+              savedDrinks={savedDrinks}
+              onSaveDrink={handleSaveDrink}
+            />
+
             {/* Regular Meal Calendar */}
             <MealCalendar 
               mealPlan={mealPlan} 
