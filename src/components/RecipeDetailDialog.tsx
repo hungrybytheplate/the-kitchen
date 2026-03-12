@@ -30,7 +30,8 @@ import {
   Sun,
   CloudSun,
   Smartphone,
-  ExternalLink
+  ExternalLink,
+  Timer
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Recipe, DietaryTag, DifficultyLevel } from "@/data/recipes";
@@ -39,6 +40,7 @@ import { ShareRecipeButton } from "./ShareRecipeButton";
 import { CookingMode } from "./CookingMode";
 import { findPairingByName } from "@/lib/pairingLookup";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
+import { SourdoughTimerDialog } from "./SourdoughTimerDialog";
 import type { Drink } from "@/data/drinks";
 
 interface SideDish {
