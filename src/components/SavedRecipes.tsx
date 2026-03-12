@@ -339,15 +339,6 @@ export function SavedRecipes({
               onRemoveFromCollection={removeFromCollection}
             />
             <div className="space-y-2">
-                onCreateCollection={createCollection}
-                onDeleteCollection={deleteCollection}
-                onSelectCollection={setSelectedCollectionId}
-                selectedCollectionId={selectedCollectionId}
-                onAddToCollection={addToCollection}
-                onRemoveFromCollection={removeFromCollection}
-              />
-            )}
-            <div className="space-y-2">
               {savedRecipes.length > 0 ? (
                 savedRecipes.map((recipe) => (
                   <div
