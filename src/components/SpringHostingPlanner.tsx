@@ -81,6 +81,11 @@ const isSpringEntree = (r: Recipe) => {
 
 const isSpringDessert = (r: Recipe) => {
   const title = r.title.toLowerCase();
+  // Exclude standalone frostings/buttercreams — they're components, not desserts
+  const excludeDessertKeywords = ["buttercream", "frosting", "icing", "glaze"];
+  if (excludeDessertKeywords.some(k => title.includes(k)) && !title.includes("cake") && !title.includes("cupcake")) {
+    return false;
+  }
   const springDessertKeywords = ["lemon", "berry", "strawberry", "raspberry", "blueberry", "lavender", "vanilla", "cream", "tart", "cake", "pavlova", "mousse", "cheesecake", "shortcake", "meringue", "sorbet", "panna cotta", "fruit"];
   return (
     r.mealType === "dessert" &&
