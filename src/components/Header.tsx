@@ -56,6 +56,10 @@ export function Header({ onShowTour }: HeaderProps) {
             <img 
               src={logo} 
               alt="The Kitchen Logo" 
+              width={80}
+              height={80}
+              loading="eager"
+              fetchPriority="high"
               className="h-10 w-10 sm:h-20 sm:w-20 rounded-xl sm:rounded-3xl object-cover shadow-lg ring-2 ring-primary/20"
             />
           </motion.div>
