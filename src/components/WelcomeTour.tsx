@@ -183,7 +183,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
 
         <CardContent className="p-4 sm:p-5 pt-8 sm:pt-10">
           {/* Progress dots */}
-          <div className="flex justify-center gap-1 sm:gap-1.5 mb-4 sm:mb-5 flex-wrap" role="tablist" aria-label="Tour progress">
+          <div className="flex justify-center gap-0 sm:gap-0 mb-4 sm:mb-5 flex-wrap" role="tablist" aria-label="Tour progress">
             {steps.map((_, index) => (
               <button
                 key={index}
@@ -195,7 +195,7 @@ export function WelcomeTour({ onComplete, onSkip }: WelcomeTourProps) {
                 role="tab"
                 aria-selected={index === currentStep}
                 className={cn(
-                  "relative p-1.5 -m-1.5 rounded-full transition-all duration-300",
+                  "relative flex items-center justify-center min-w-[24px] min-h-[24px] rounded-full transition-all duration-300",
                   "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 )}
               >
