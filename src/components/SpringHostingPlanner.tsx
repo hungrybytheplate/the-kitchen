@@ -552,6 +552,11 @@ export function SpringHostingPlanner({
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-2 px-4 pb-4">
+                      {category.isFallback && (
+                        <p className="text-[10px] text-muted-foreground italic">
+                          No exact filter match — showing top pick
+                        </p>
+                      )}
                       {category.items.length > 0 ? (
                         category.items.map((item) => {
                           const isRecipe = category.type === "recipe";
