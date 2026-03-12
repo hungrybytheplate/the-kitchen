@@ -31,13 +31,7 @@ const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsH
 const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
 const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
 
-import { AddToCalendarDialog } from "@/components/AddToCalendarDialog";
-import { AddToShoppingDialog } from "@/components/AddToShoppingDialog";
 import { QuickTooltip } from "@/components/Tooltip";
-import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
-import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
-import { UndoToast } from "@/components/UndoToast";
-import { RecipeSearchAutocomplete } from "@/components/RecipeSearchAutocomplete";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -58,7 +52,6 @@ import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake, Flower2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BottomNav } from "@/components/BottomNav";
 
 const InstallBanner = lazy(() => import("@/components/InstallBanner").then(m => ({ default: m.InstallBanner })));
 
