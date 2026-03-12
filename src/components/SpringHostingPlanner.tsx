@@ -9,12 +9,10 @@ import { RecipeDetailDialog } from "./RecipeDetailDialog";
 import { DrinkDetailDialog } from "./DrinkDetailDialog";
 import {
   Flower2,
-  Utensils,
   ChefHat,
   Wine,
   Cake,
   Salad,
-  Wheat,
   GlassWater,
   Plus,
   Calendar,
