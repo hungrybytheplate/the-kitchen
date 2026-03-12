@@ -1,11 +1,20 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { SEOHead, generateRecipeCollectionSchema, generateMealPlanningGuideSchema, injectStructuredData } from "@/components/SEOHead";
 import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
-import { RecipeResults } from "@/components/RecipeResults";
+
+// Lazy load components not needed for initial render
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
+const RecipeResults = lazy(() => import("@/components/RecipeResults").then(m => ({ default: m.RecipeResults })));
+const RecipeDetailDialog = lazy(() => import("@/components/RecipeDetailDialog").then(m => ({ default: m.RecipeDetailDialog })));
+const DrinkDetailDialog = lazy(() => import("@/components/DrinkDetailDialog").then(m => ({ default: m.DrinkDetailDialog })));
+const AddToCalendarDialog = lazy(() => import("@/components/AddToCalendarDialog").then(m => ({ default: m.AddToCalendarDialog })));
+const AddToShoppingDialog = lazy(() => import("@/components/AddToShoppingDialog").then(m => ({ default: m.AddToShoppingDialog })));
+const UndoToast = lazy(() => import("@/components/UndoToast").then(m => ({ default: m.UndoToast })));
+const RecipeSearchAutocomplete = lazy(() => import("@/components/RecipeSearchAutocomplete").then(m => ({ default: m.RecipeSearchAutocomplete })));
+const BottomNav = lazy(() => import("@/components/BottomNav").then(m => ({ default: m.BottomNav })));
 
 // Lazy load heavy tab components
 const DrinkIngredientSelector = lazy(() => import("@/components/DrinkIngredientSelector").then(m => ({ default: m.DrinkIngredientSelector })));
