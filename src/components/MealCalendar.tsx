@@ -59,6 +59,7 @@ export function MealCalendar({
   const [isSyncingAll, setIsSyncingAll] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const { toast } = useToast();
+  const { preferences } = useUserPreferences();
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
   
