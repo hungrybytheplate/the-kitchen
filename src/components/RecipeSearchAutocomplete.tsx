@@ -259,8 +259,8 @@ export function RecipeSearchAutocomplete({
           ref={inputRef}
           placeholder={
             mode === "cook"
-              ? "Search recipes by name, ingredient, or diet..."
-              : "Search drinks by name or ingredient..."
+              ? "Search by name, ingredient, diet, or health tag..."
+              : "Search by name, ingredient, health tag, or occasion..."
           }
           value={search}
           onChange={(e) => {
