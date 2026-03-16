@@ -360,10 +360,34 @@ export function RecipeSearchAutocomplete({
         )}
       </div>
 
+      {/* Quick-filter chips */}
+      <div className="flex flex-wrap gap-1.5 mt-2">
+        {(mode === "cook" ? cookQuickFilters : drinkQuickFilters).map((filter) => {
+          const isActive = search.toLowerCase().trim() === filter.searchTerm.toLowerCase();
+          const FilterIcon = filter.icon;
+          return (
+            <button
+              key={filter.searchTerm}
+              onClick={() => handleChipToggle(filter.searchTerm)}
+              className={cn(
+                "inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium border transition-all",
+                isActive
+                  ? filter.activeClass
+                  : "border-border/60 text-muted-foreground hover:border-foreground/30 hover:text-foreground bg-card/60"
+              )}
+            >
+              <FilterIcon className="h-3 w-3" />
+              {filter.label}
+            </button>
+          );
+        })}
+      </div>
+
       {showDropdown && (
         <div
           ref={listRef}
           className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden"
+          style={{ top: "calc(100% - 0.5rem)" }}
         >
           {search.length < 2 && popularItems.length > 0 && (
             <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/30 border-b border-border/50">
@@ -376,7 +400,7 @@ export function RecipeSearchAutocomplete({
           {displayItems.length === 0 && search.length >= 2 && (
             <div className="p-4 text-center">
               <p className="text-muted-foreground text-sm">
-                No {mode === "cook" ? "recipes" : "drinks"} found for "{search}"
+                No {mode === "cook" ? "recipes" : "drinks"} found for &ldquo;{search}&rdquo;
               </p>
               <p className="text-muted-foreground text-xs mt-1">
                 Try searching by name, ingredient, or dietary tag
@@ -391,6 +415,7 @@ export function RecipeSearchAutocomplete({
                   const difficulty = recipe.difficulty
                     ? difficultyConfig[recipe.difficulty]
                     : null;
+                  const matchedTags = search.length >= 2 ? getMatchedRecipeTags(recipe, expandedTerms) : [];
 
                   return (
                     <div
@@ -406,7 +431,7 @@ export function RecipeSearchAutocomplete({
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <div className="flex items-center gap-1.5 flex-wrap mb-1">
                             <Badge
                               className={cn(
                                 "text-[10px] shrink-0",
@@ -423,15 +448,24 @@ export function RecipeSearchAutocomplete({
                                 ★ Saved
                               </Badge>
                             )}
-                            {recipe.dietaryTags?.slice(0, 2).map((tag) => (
-                              <Badge
-                                key={tag}
-                                variant="outline"
-                                className="text-[10px] capitalize"
-                              >
-                                {tag}
-                              </Badge>
-                            ))}
+                            {matchedTags.length > 0
+                              ? matchedTags.slice(0, 3).map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    className="text-[10px] capitalize bg-primary/15 text-primary border border-primary/30"
+                                  >
+                                    ✓ {tag}
+                                  </Badge>
+                                ))
+                              : recipe.dietaryTags?.slice(0, 2).map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    variant="outline"
+                                    className="text-[10px] capitalize"
+                                  >
+                                    {tag}
+                                  </Badge>
+                                ))}
                           </div>
                           <p className="font-medium text-sm truncate">
                             {recipe.title}
@@ -464,6 +498,7 @@ export function RecipeSearchAutocomplete({
               : (displayItems as Drink[]).map((drink, index) => {
                   const isSaved = savedDrinks.includes(drink.id);
                   const drinkType = drink.drinkType || "cocktail";
+                  const matchedTags = search.length >= 2 ? getMatchedDrinkTags(drink, expandedTerms) : [];
 
                   return (
                     <div
@@ -479,7 +514,7 @@ export function RecipeSearchAutocomplete({
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <div className="flex items-center gap-1.5 flex-wrap mb-1">
                             <Badge
                               className={cn(
                                 "text-[10px] shrink-0 capitalize",
@@ -497,14 +532,23 @@ export function RecipeSearchAutocomplete({
                                 ★ Saved
                               </Badge>
                             )}
-                            {drink.isAlcoholic === false && (
-                              <Badge
-                                variant="outline"
-                                className="text-[10px] text-green-600 border-green-600/50"
-                              >
-                                Non-alcoholic
-                              </Badge>
-                            )}
+                            {matchedTags.length > 0
+                              ? matchedTags.slice(0, 3).map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    className="text-[10px] capitalize bg-primary/15 text-primary border border-primary/30"
+                                  >
+                                    ✓ {tag}
+                                  </Badge>
+                                ))
+                              : drink.isAlcoholic === false && (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-[10px] text-green-600 border-green-600/50"
+                                  >
+                                    Non-alcoholic
+                                  </Badge>
+                                )}
                           </div>
                           <p className="font-medium text-sm truncate">
                             {drink.title}
