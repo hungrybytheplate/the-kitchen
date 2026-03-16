@@ -114,6 +114,7 @@ export function RecipeSearchAutocomplete({
 
   // Diet/health keyword aliases for smarter matching
   const dietKeywordAliases: Record<string, string[]> = useMemo(() => ({
+    "heart": ["heart healthy", "heart-healthy"],
     "heart healthy": ["heart healthy", "heart-healthy"],
     "kidney": ["kidney healthy", "kidney-healthy"],
     "kidney healthy": ["kidney healthy", "kidney-healthy"],
@@ -124,12 +125,12 @@ export function RecipeSearchAutocomplete({
     "protein": ["high-protein", "protein rich"],
     "high fiber": ["high-fiber", "high fiber"],
     "fiber": ["high-fiber", "high fiber"],
-    "no sodium": ["no-sodium"],
-    "low sodium": ["low-sodium"],
-    "sodium": ["no-sodium", "low-sodium"],
-    "sugar free": ["diabetes friendly", "keto"],
-    "diabetic": ["diabetes friendly"],
-    "diabetes": ["diabetes friendly"],
+    "no sodium": ["no sodium", "no-sodium", "zero sodium"],
+    "low sodium": ["low sodium", "low-sodium"],
+    "sodium": ["no sodium", "no-sodium", "low sodium", "low-sodium"],
+    "diabetes friendly": ["diabetes friendly", "diabetic friendly", "blood sugar friendly"],
+    "diabetic": ["diabetes friendly", "diabetic friendly"],
+    "diabetes": ["diabetes friendly", "diabetic friendly"],
     "plant based": ["vegan", "vegetarian"],
     "plant-based": ["vegan", "vegetarian"],
     "immune": ["immune support"],
@@ -145,13 +146,43 @@ export function RecipeSearchAutocomplete({
     const query = search.toLowerCase().trim();
     const terms = new Set<string>([query]);
     if (query.length < 2) return terms;
+
+    const normalizedQuery = query.replace(/-/g, " ");
+    terms.add(normalizedQuery);
+
     for (const [keyword, aliases] of Object.entries(dietKeywordAliases)) {
-      if (query.includes(keyword) || keyword.includes(query)) {
-        aliases.forEach((a) => terms.add(a));
+      const normalizedKeyword = keyword.replace(/-/g, " ");
+      if (
+        query.includes(keyword) ||
+        keyword.includes(query) ||
+        normalizedQuery.includes(normalizedKeyword) ||
+        normalizedKeyword.includes(normalizedQuery)
+      ) {
+        aliases.forEach((alias) => {
+          terms.add(alias);
+          terms.add(alias.replace(/-/g, " "));
+        });
       }
     }
+
     return terms;
   }, [search, dietKeywordAliases]);
+
+  const normalizedExpandedTerms = useMemo(
+    () => [...expandedTerms].map((term) => term.toLowerCase().replace(/-/g, " ")),
+    [expandedTerms]
+  );
+
+  const matchesExpandedTerms = useCallback(
+    (value?: string | null) => {
+      if (!value) return false;
+      const normalizedValue = value.toLowerCase().replace(/-/g, " ");
+      return normalizedExpandedTerms.some(
+        (term) => normalizedValue.includes(term) || term.includes(normalizedValue)
+      );
+    },
+    [normalizedExpandedTerms]
+  );
 
   // Get suggestions based on search
   const suggestions = useMemo(() => {
@@ -161,36 +192,31 @@ export function RecipeSearchAutocomplete({
     if (mode === "cook") {
       return sampleRecipes
         .filter((r) => {
-          const titleMatch = r.title.toLowerCase().includes(query);
-          const descMatch = r.description?.toLowerCase().includes(query);
-          const ingredientMatch = r.ingredients.some((i) =>
-            i.toLowerCase().includes(query)
+          const titleMatch = matchesExpandedTerms(r.title);
+          const descMatch = matchesExpandedTerms(r.description);
+          const ingredientMatch = r.ingredients.some((i) => matchesExpandedTerms(i));
+          const tagMatch = r.dietaryTags?.some((t) => matchesExpandedTerms(t));
+          const cuisineMatch = matchesExpandedTerms(r.cuisine);
+          const difficultyMatch = matchesExpandedTerms(r.difficulty);
+          const heartMatch = r.heartHealthy && normalizedExpandedTerms.some((t) =>
+            ["heart healthy", "heart healthy recipe"].some((h) => h.includes(t) || t.includes(h))
           );
-          const tagMatch = r.dietaryTags?.some((t) => {
-            const tLower = t.toLowerCase();
-            return [...expandedTerms].some((term) => tLower.includes(term) || term.includes(tLower));
-          });
-          const cuisineMatch = r.cuisine?.toLowerCase().includes(query);
-          const difficultyMatch = r.difficulty?.toLowerCase().includes(query);
-          const heartMatch = r.heartHealthy && [...expandedTerms].some((t) =>
-            ["heart healthy", "heart-healthy"].some((h) => h.includes(t) || t.includes(h))
-          );
-          const antiInflamMatch = r.antiInflammatory && [...expandedTerms].some((t) =>
-            ["anti-inflammatory", "antiinflammatory"].some((h) => h.includes(t) || t.includes(h))
+          const antiInflamMatch = r.antiInflammatory && normalizedExpandedTerms.some((t) =>
+            ["anti inflammatory", "anti inflammatory recipe"].some((h) => h.includes(t) || t.includes(h))
           );
           const methodMatch = (r.isSlowCooker && query.includes("slow cooker")) ||
             (r.isInstantPot && query.includes("instant pot")) ||
             (r.isOnePan && (query.includes("one pan") || query.includes("one-pan")));
-          const seasonMatch = r.season?.toLowerCase().includes(query);
+          const seasonMatch = matchesExpandedTerms(r.season);
           return titleMatch || descMatch || ingredientMatch || tagMatch || cuisineMatch || difficultyMatch || heartMatch || antiInflamMatch || methodMatch || seasonMatch;
         })
         .sort((a, b) => {
-          const aTitle = a.title.toLowerCase().includes(query) ? 0 : 1;
-          const bTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
+          const aTitle = matchesExpandedTerms(a.title) ? 0 : 1;
+          const bTitle = matchesExpandedTerms(b.title) ? 0 : 1;
           if (aTitle !== bTitle) return aTitle - bTitle;
-          
-          const aDiet = a.dietaryTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
-          const bDiet = b.dietaryTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
+
+          const aDiet = a.dietaryTags?.some((t) => matchesExpandedTerms(t)) ? 0 : 1;
+          const bDiet = b.dietaryTags?.some((t) => matchesExpandedTerms(t)) ? 0 : 1;
           if (aDiet !== bDiet) return aDiet - bDiet;
 
           const aSaved = savedRecipes.includes(a.id) ? 0 : 1;
@@ -198,40 +224,37 @@ export function RecipeSearchAutocomplete({
           return aSaved - bSaved;
         })
         .slice(0, 8);
-    } else {
-      return sampleDrinks
-        .filter((d) => {
-          const titleMatch = d.title.toLowerCase().includes(query);
-          const descMatch = d.description?.toLowerCase().includes(query);
-          const ingredientMatch = d.ingredients.some((i) =>
-            i.toLowerCase().includes(query)
-          );
-          const healthTagMatch = d.healthTags?.some((t) => {
-            const tLower = t.toLowerCase();
-            return [...expandedTerms].some((term) => tLower.includes(term) || term.includes(tLower));
-          });
-          const typeMatch = d.drinkType?.toLowerCase().includes(query);
-          const occasionMatch = d.occasion?.toLowerCase().includes(query);
-          const seasonMatch = d.season?.toLowerCase().includes(query);
-          const alcoholMatch = (query === "non-alcoholic" || query === "non alcoholic" || query === "virgin") && !d.isAlcoholic;
-          return titleMatch || descMatch || ingredientMatch || healthTagMatch || typeMatch || occasionMatch || seasonMatch || alcoholMatch;
-        })
-        .sort((a, b) => {
-          const aTitle = a.title.toLowerCase().includes(query) ? 0 : 1;
-          const bTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
-          if (aTitle !== bTitle) return aTitle - bTitle;
-
-          const aHealth = a.healthTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
-          const bHealth = b.healthTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
-          if (aHealth !== bHealth) return aHealth - bHealth;
-          
-          const aSaved = savedDrinks.includes(a.id) ? 0 : 1;
-          const bSaved = savedDrinks.includes(b.id) ? 0 : 1;
-          return aSaved - bSaved;
-        })
-        .slice(0, 8);
     }
-  }, [search, mode, savedRecipes, savedDrinks, expandedTerms]);
+
+    return sampleDrinks
+      .filter((d) => {
+        const titleMatch = matchesExpandedTerms(d.title);
+        const descMatch = matchesExpandedTerms(d.description);
+        const ingredientMatch = d.ingredients.some((i) => matchesExpandedTerms(i));
+        const healthTagMatch = d.healthTags?.some((t) => matchesExpandedTerms(t));
+        const typeMatch = matchesExpandedTerms(d.drinkType);
+        const occasionMatch = matchesExpandedTerms(d.occasion);
+        const seasonMatch = matchesExpandedTerms(d.season);
+        const alcoholMatch = normalizedExpandedTerms.some((term) =>
+          ["non alcoholic", "virgin"].includes(term)
+        ) && !d.isAlcoholic;
+        return titleMatch || descMatch || ingredientMatch || healthTagMatch || typeMatch || occasionMatch || seasonMatch || alcoholMatch;
+      })
+      .sort((a, b) => {
+        const aTitle = matchesExpandedTerms(a.title) ? 0 : 1;
+        const bTitle = matchesExpandedTerms(b.title) ? 0 : 1;
+        if (aTitle !== bTitle) return aTitle - bTitle;
+
+        const aHealth = a.healthTags?.some((t) => matchesExpandedTerms(t)) ? 0 : 1;
+        const bHealth = b.healthTags?.some((t) => matchesExpandedTerms(t)) ? 0 : 1;
+        if (aHealth !== bHealth) return aHealth - bHealth;
+
+        const aSaved = savedDrinks.includes(a.id) ? 0 : 1;
+        const bSaved = savedDrinks.includes(b.id) ? 0 : 1;
+        return aSaved - bSaved;
+      })
+      .slice(0, 8);
+  }, [search, mode, savedRecipes, savedDrinks, matchesExpandedTerms, normalizedExpandedTerms]);
 
   // Quick filter chip toggle
   const handleChipToggle = useCallback((searchTerm: string) => {
