@@ -349,7 +349,7 @@ const Index = () => {
   const [calendarDialogRecipe, setCalendarDialogRecipe] = useState<Recipe | null>(null);
   const [shoppingDialogIngredient, setShoppingDialogIngredient] = useState<string | null>(null);
   const [hasSeenTour, setHasSeenTour] = useLocalStorage<boolean>("hasSeenTour", false);
-  const [showTour, setShowTour] = useState(() => !hasSeenTour && !isMobile);
+  const [showTour, setShowTour] = useState(false);
   const [activeTab, setActiveTab] = useState("ingredients");
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
 
