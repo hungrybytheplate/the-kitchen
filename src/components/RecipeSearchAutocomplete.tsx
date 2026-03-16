@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useMemo } from "react";
-import { Search, X, Clock, ChefHat, Flame } from "lucide-react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { Search, X, Clock, ChefHat, Flame, HeartPulse, Leaf, Wheat, Droplets, Shield, Sparkles, Zap } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
