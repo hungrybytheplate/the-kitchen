@@ -140,18 +140,23 @@ export function RecipeSearchAutocomplete({
     "omega": ["omega-3"],
   }), []);
 
+  // Compute expanded terms (used by both suggestions and render)
+  const expandedTerms = useMemo(() => {
+    const query = search.toLowerCase().trim();
+    const terms = new Set<string>([query]);
+    if (query.length < 2) return terms;
+    for (const [keyword, aliases] of Object.entries(dietKeywordAliases)) {
+      if (query.includes(keyword) || keyword.includes(query)) {
+        aliases.forEach((a) => terms.add(a));
+      }
+    }
+    return terms;
+  }, [search, dietKeywordAliases]);
+
   // Get suggestions based on search
   const suggestions = useMemo(() => {
     const query = search.toLowerCase().trim();
     if (query.length < 2) return [];
-
-    // Expand query to include alias matches
-    const expandedTerms = new Set<string>([query]);
-    for (const [keyword, aliases] of Object.entries(dietKeywordAliases)) {
-      if (query.includes(keyword) || keyword.includes(query)) {
-        aliases.forEach((a) => expandedTerms.add(a));
-      }
-    }
 
     if (mode === "cook") {
       return sampleRecipes
@@ -180,17 +185,14 @@ export function RecipeSearchAutocomplete({
           return titleMatch || descMatch || ingredientMatch || tagMatch || cuisineMatch || difficultyMatch || heartMatch || antiInflamMatch || methodMatch || seasonMatch;
         })
         .sort((a, b) => {
-          // Prioritize title matches
           const aTitle = a.title.toLowerCase().includes(query) ? 0 : 1;
           const bTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
           if (aTitle !== bTitle) return aTitle - bTitle;
           
-          // Then prioritize dietary/health tag matches
           const aDiet = a.dietaryTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           const bDiet = b.dietaryTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           if (aDiet !== bDiet) return aDiet - bDiet;
 
-          // Then prioritize saved recipes
           const aSaved = savedRecipes.includes(a.id) ? 0 : 1;
           const bSaved = savedRecipes.includes(b.id) ? 0 : 1;
           return aSaved - bSaved;
@@ -219,7 +221,6 @@ export function RecipeSearchAutocomplete({
           const bTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
           if (aTitle !== bTitle) return aTitle - bTitle;
 
-          // Prioritize health tag matches
           const aHealth = a.healthTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           const bHealth = b.healthTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           if (aHealth !== bHealth) return aHealth - bHealth;
@@ -230,7 +231,20 @@ export function RecipeSearchAutocomplete({
         })
         .slice(0, 8);
     }
-  }, [search, mode, savedRecipes, savedDrinks, dietKeywordAliases]);
+  }, [search, mode, savedRecipes, savedDrinks, expandedTerms]);
+
+  // Quick filter chip toggle
+  const handleChipToggle = useCallback((searchTerm: string) => {
+    setSearch((prev) => {
+      if (prev.toLowerCase().trim() === searchTerm.toLowerCase()) {
+        return "";
+      }
+      return searchTerm;
+    });
+    setIsOpen(true);
+    setHighlightedIndex(-1);
+    inputRef.current?.focus();
+  }, []);
 
   // Popular/trending items when no search
   const popularItems = useMemo(() => {
