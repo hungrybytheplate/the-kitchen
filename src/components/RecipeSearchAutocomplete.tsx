@@ -37,6 +37,68 @@ const difficultyConfig: Record<string, { icon: typeof Flame; color: string; labe
   hard: { icon: Flame, color: "text-red-500", label: "Hard" },
 };
 
+interface QuickFilter {
+  label: string;
+  searchTerm: string;
+  icon: typeof Leaf;
+  activeClass: string;
+}
+
+const cookQuickFilters: QuickFilter[] = [
+  { label: "Vegan", searchTerm: "vegan", icon: Leaf, activeClass: "bg-green-600 text-white border-green-600" },
+  { label: "Keto", searchTerm: "keto", icon: Zap, activeClass: "bg-orange-600 text-white border-orange-600" },
+  { label: "Heart Healthy", searchTerm: "heart healthy", icon: HeartPulse, activeClass: "bg-red-600 text-white border-red-600" },
+  { label: "Low Sodium", searchTerm: "low sodium", icon: Droplets, activeClass: "bg-blue-600 text-white border-blue-600" },
+  { label: "Gluten-Free", searchTerm: "gluten-free", icon: Wheat, activeClass: "bg-amber-600 text-white border-amber-600" },
+  { label: "Anti-Inflammatory", searchTerm: "anti-inflammatory", icon: Sparkles, activeClass: "bg-orange-500 text-white border-orange-500" },
+];
+
+const drinkQuickFilters: QuickFilter[] = [
+  { label: "Immune Support", searchTerm: "immune", icon: Shield, activeClass: "bg-emerald-600 text-white border-emerald-600" },
+  { label: "Heart Healthy", searchTerm: "heart healthy", icon: HeartPulse, activeClass: "bg-red-600 text-white border-red-600" },
+  { label: "Detox", searchTerm: "detox", icon: Sparkles, activeClass: "bg-green-600 text-white border-green-600" },
+  { label: "Non-Alcoholic", searchTerm: "non-alcoholic", icon: Droplets, activeClass: "bg-teal-600 text-white border-teal-600" },
+  { label: "Energy Boost", searchTerm: "energy", icon: Zap, activeClass: "bg-amber-600 text-white border-amber-600" },
+];
+
+// Helper to get matched tags for highlighting
+function getMatchedRecipeTags(recipe: Recipe, expandedTerms: Set<string>): string[] {
+  const matched: string[] = [];
+  recipe.dietaryTags?.forEach((t) => {
+    const tLower = t.toLowerCase();
+    if ([...expandedTerms].some((term) => tLower.includes(term) || term.includes(tLower))) {
+      matched.push(t);
+    }
+  });
+  if (recipe.heartHealthy && [...expandedTerms].some((t) =>
+    ["heart healthy", "heart-healthy"].some((h) => h.includes(t) || t.includes(h))
+  )) matched.push("Heart Healthy");
+  if (recipe.antiInflammatory && [...expandedTerms].some((t) =>
+    ["anti-inflammatory", "antiinflammatory"].some((h) => h.includes(t) || t.includes(h))
+  )) matched.push("Anti-Inflammatory");
+  if (recipe.cuisine && [...expandedTerms].some((t) => recipe.cuisine!.toLowerCase().includes(t))) {
+    matched.push(recipe.cuisine);
+  }
+  return matched;
+}
+
+function getMatchedDrinkTags(drink: Drink, expandedTerms: Set<string>): string[] {
+  const matched: string[] = [];
+  drink.healthTags?.forEach((t) => {
+    const tLower = t.toLowerCase();
+    if ([...expandedTerms].some((term) => tLower.includes(term) || term.includes(tLower))) {
+      matched.push(t);
+    }
+  });
+  if (!drink.isAlcoholic && [...expandedTerms].some((t) =>
+    ["non-alcoholic", "non alcoholic", "virgin"].includes(t)
+  )) matched.push("Non-Alcoholic");
+  if (drink.occasion && [...expandedTerms].some((t) => drink.occasion!.toLowerCase().includes(t))) {
+    matched.push(drink.occasion);
+  }
+  return matched;
+}
+
 export function RecipeSearchAutocomplete({
   mode,
   onSelectRecipe,
