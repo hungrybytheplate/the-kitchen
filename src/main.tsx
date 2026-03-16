@@ -1,14 +1,17 @@
 import { createRoot } from "react-dom/client";
-import { registerSW } from "virtual:pwa-register";
 import App from "./App.tsx";
 import "./index.css";
 
-registerSW({
-  immediate: true,
-  onNeedRefresh() {
-    window.location.reload();
-  },
-  onOfflineReady() {},
-});
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      registrations.forEach((registration) => registration.update());
+    });
+
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      window.location.reload();
+    });
+  });
+}
 
 createRoot(document.getElementById("root")!).render(<App />);
