@@ -353,6 +353,12 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("ingredients");
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
 
+  useEffect(() => {
+    if (!hasSeenTour && !isMobile) {
+      setShowTour(true);
+    }
+  }, [hasSeenTour, isMobile]);
+
   // Keyboard shortcuts
   useKeyboardShortcuts([
     { key: 's', action: () => setActiveTab('shopping'), description: 'Shopping list' },
