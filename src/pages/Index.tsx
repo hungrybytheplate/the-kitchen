@@ -256,6 +256,7 @@ function DrinkLookupResults({ search, onAddToShopping, onClear, savedDrinks, onS
 }
 
 const Index = () => {
+  const isMobile = useIsMobile();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const {
