@@ -40,6 +40,7 @@ import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserData, type ShoppingItem, type MealPlanEntry, type RecipeNotes } from "@/hooks/useUserData";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import { useUndo } from "@/hooks/useUndo";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
@@ -255,6 +256,7 @@ function DrinkLookupResults({ search, onAddToShopping, onClear, savedDrinks, onS
 }
 
 const Index = () => {
+  const isMobile = useIsMobile();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const {
@@ -347,9 +349,15 @@ const Index = () => {
   const [calendarDialogRecipe, setCalendarDialogRecipe] = useState<Recipe | null>(null);
   const [shoppingDialogIngredient, setShoppingDialogIngredient] = useState<string | null>(null);
   const [hasSeenTour, setHasSeenTour] = useLocalStorage<boolean>("hasSeenTour", false);
-  const [showTour, setShowTour] = useState(!hasSeenTour);
+  const [showTour, setShowTour] = useState(false);
   const [activeTab, setActiveTab] = useState("ingredients");
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
+
+  useEffect(() => {
+    if (!hasSeenTour && !isMobile) {
+      setShowTour(true);
+    }
+  }, [hasSeenTour, isMobile]);
 
   // Keyboard shortcuts
   useKeyboardShortcuts([
