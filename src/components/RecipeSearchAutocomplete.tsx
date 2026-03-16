@@ -52,7 +52,7 @@ export function RecipeSearchAutocomplete({
 
   // Diet/health keyword aliases for smarter matching
   const dietKeywordAliases: Record<string, string[]> = useMemo(() => ({
-    "heart": ["heart healthy", "heart-healthy"],
+    "heart healthy": ["heart healthy", "heart-healthy"],
     "heart healthy": ["heart healthy", "heart-healthy"],
     "kidney": ["kidney healthy", "kidney-healthy"],
     "kidney healthy": ["kidney healthy", "kidney-healthy"],
