@@ -387,7 +387,7 @@ export function RecipeSearchAutocomplete({
         <div
           ref={listRef}
           className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden"
-          style={{ top: "calc(100% - 0.5rem)" }}
+          
         >
           {search.length < 2 && popularItems.length > 0 && (
             <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/30 border-b border-border/50">
