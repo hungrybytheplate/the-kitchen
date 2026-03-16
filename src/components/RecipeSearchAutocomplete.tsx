@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useMemo } from "react";
-import { Search, X, Clock, ChefHat, Flame } from "lucide-react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { Search, X, Clock, ChefHat, Flame, HeartPulse, Leaf, Wheat, Droplets, Shield, Sparkles, Zap } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,68 @@ const difficultyConfig: Record<string, { icon: typeof Flame; color: string; labe
   medium: { icon: Flame, color: "text-amber-500", label: "Medium" },
   hard: { icon: Flame, color: "text-red-500", label: "Hard" },
 };
+
+interface QuickFilter {
+  label: string;
+  searchTerm: string;
+  icon: typeof Leaf;
+  activeClass: string;
+}
+
+const cookQuickFilters: QuickFilter[] = [
+  { label: "Vegan", searchTerm: "vegan", icon: Leaf, activeClass: "bg-green-600 text-white border-green-600" },
+  { label: "Keto", searchTerm: "keto", icon: Zap, activeClass: "bg-orange-600 text-white border-orange-600" },
+  { label: "Heart Healthy", searchTerm: "heart healthy", icon: HeartPulse, activeClass: "bg-red-600 text-white border-red-600" },
+  { label: "Low Sodium", searchTerm: "low sodium", icon: Droplets, activeClass: "bg-blue-600 text-white border-blue-600" },
+  { label: "Gluten-Free", searchTerm: "gluten-free", icon: Wheat, activeClass: "bg-amber-600 text-white border-amber-600" },
+  { label: "Anti-Inflammatory", searchTerm: "anti-inflammatory", icon: Sparkles, activeClass: "bg-orange-500 text-white border-orange-500" },
+];
+
+const drinkQuickFilters: QuickFilter[] = [
+  { label: "Immune Support", searchTerm: "immune", icon: Shield, activeClass: "bg-emerald-600 text-white border-emerald-600" },
+  { label: "Heart Healthy", searchTerm: "heart healthy", icon: HeartPulse, activeClass: "bg-red-600 text-white border-red-600" },
+  { label: "Detox", searchTerm: "detox", icon: Sparkles, activeClass: "bg-green-600 text-white border-green-600" },
+  { label: "Non-Alcoholic", searchTerm: "non-alcoholic", icon: Droplets, activeClass: "bg-teal-600 text-white border-teal-600" },
+  { label: "Energy Boost", searchTerm: "energy", icon: Zap, activeClass: "bg-amber-600 text-white border-amber-600" },
+];
+
+// Helper to get matched tags for highlighting
+function getMatchedRecipeTags(recipe: Recipe, expandedTerms: Set<string>): string[] {
+  const matched: string[] = [];
+  recipe.dietaryTags?.forEach((t) => {
+    const tLower = t.toLowerCase();
+    if ([...expandedTerms].some((term) => tLower.includes(term) || term.includes(tLower))) {
+      matched.push(t);
+    }
+  });
+  if (recipe.heartHealthy && [...expandedTerms].some((t) =>
+    ["heart healthy", "heart-healthy"].some((h) => h.includes(t) || t.includes(h))
+  )) matched.push("Heart Healthy");
+  if (recipe.antiInflammatory && [...expandedTerms].some((t) =>
+    ["anti-inflammatory", "antiinflammatory"].some((h) => h.includes(t) || t.includes(h))
+  )) matched.push("Anti-Inflammatory");
+  if (recipe.cuisine && [...expandedTerms].some((t) => recipe.cuisine!.toLowerCase().includes(t))) {
+    matched.push(recipe.cuisine);
+  }
+  return matched;
+}
+
+function getMatchedDrinkTags(drink: Drink, expandedTerms: Set<string>): string[] {
+  const matched: string[] = [];
+  drink.healthTags?.forEach((t) => {
+    const tLower = t.toLowerCase();
+    if ([...expandedTerms].some((term) => tLower.includes(term) || term.includes(tLower))) {
+      matched.push(t);
+    }
+  });
+  if (!drink.isAlcoholic && [...expandedTerms].some((t) =>
+    ["non-alcoholic", "non alcoholic", "virgin"].includes(t)
+  )) matched.push("Non-Alcoholic");
+  if (drink.occasion && [...expandedTerms].some((t) => drink.occasion!.toLowerCase().includes(t))) {
+    matched.push(drink.occasion);
+  }
+  return matched;
+}
 
 export function RecipeSearchAutocomplete({
   mode,
@@ -78,18 +140,23 @@ export function RecipeSearchAutocomplete({
     "omega": ["omega-3"],
   }), []);
 
+  // Compute expanded terms (used by both suggestions and render)
+  const expandedTerms = useMemo(() => {
+    const query = search.toLowerCase().trim();
+    const terms = new Set<string>([query]);
+    if (query.length < 2) return terms;
+    for (const [keyword, aliases] of Object.entries(dietKeywordAliases)) {
+      if (query.includes(keyword) || keyword.includes(query)) {
+        aliases.forEach((a) => terms.add(a));
+      }
+    }
+    return terms;
+  }, [search, dietKeywordAliases]);
+
   // Get suggestions based on search
   const suggestions = useMemo(() => {
     const query = search.toLowerCase().trim();
     if (query.length < 2) return [];
-
-    // Expand query to include alias matches
-    const expandedTerms = new Set<string>([query]);
-    for (const [keyword, aliases] of Object.entries(dietKeywordAliases)) {
-      if (query.includes(keyword) || keyword.includes(query)) {
-        aliases.forEach((a) => expandedTerms.add(a));
-      }
-    }
 
     if (mode === "cook") {
       return sampleRecipes
@@ -118,17 +185,14 @@ export function RecipeSearchAutocomplete({
           return titleMatch || descMatch || ingredientMatch || tagMatch || cuisineMatch || difficultyMatch || heartMatch || antiInflamMatch || methodMatch || seasonMatch;
         })
         .sort((a, b) => {
-          // Prioritize title matches
           const aTitle = a.title.toLowerCase().includes(query) ? 0 : 1;
           const bTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
           if (aTitle !== bTitle) return aTitle - bTitle;
           
-          // Then prioritize dietary/health tag matches
           const aDiet = a.dietaryTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           const bDiet = b.dietaryTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           if (aDiet !== bDiet) return aDiet - bDiet;
 
-          // Then prioritize saved recipes
           const aSaved = savedRecipes.includes(a.id) ? 0 : 1;
           const bSaved = savedRecipes.includes(b.id) ? 0 : 1;
           return aSaved - bSaved;
@@ -157,7 +221,6 @@ export function RecipeSearchAutocomplete({
           const bTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
           if (aTitle !== bTitle) return aTitle - bTitle;
 
-          // Prioritize health tag matches
           const aHealth = a.healthTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           const bHealth = b.healthTags?.some((t) => [...expandedTerms].some((q) => t.toLowerCase().includes(q))) ? 0 : 1;
           if (aHealth !== bHealth) return aHealth - bHealth;
@@ -168,7 +231,20 @@ export function RecipeSearchAutocomplete({
         })
         .slice(0, 8);
     }
-  }, [search, mode, savedRecipes, savedDrinks, dietKeywordAliases]);
+  }, [search, mode, savedRecipes, savedDrinks, expandedTerms]);
+
+  // Quick filter chip toggle
+  const handleChipToggle = useCallback((searchTerm: string) => {
+    setSearch((prev) => {
+      if (prev.toLowerCase().trim() === searchTerm.toLowerCase()) {
+        return "";
+      }
+      return searchTerm;
+    });
+    setIsOpen(true);
+    setHighlightedIndex(-1);
+    inputRef.current?.focus();
+  }, []);
 
   // Popular/trending items when no search
   const popularItems = useMemo(() => {
@@ -284,10 +360,34 @@ export function RecipeSearchAutocomplete({
         )}
       </div>
 
+      {/* Quick-filter chips */}
+      <div className="flex flex-wrap gap-1.5 mt-2">
+        {(mode === "cook" ? cookQuickFilters : drinkQuickFilters).map((filter) => {
+          const isActive = search.toLowerCase().trim() === filter.searchTerm.toLowerCase();
+          const FilterIcon = filter.icon;
+          return (
+            <button
+              key={filter.searchTerm}
+              onClick={() => handleChipToggle(filter.searchTerm)}
+              className={cn(
+                "inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium border transition-all",
+                isActive
+                  ? filter.activeClass
+                  : "border-border/60 text-muted-foreground hover:border-foreground/30 hover:text-foreground bg-card/60"
+              )}
+            >
+              <FilterIcon className="h-3 w-3" />
+              {filter.label}
+            </button>
+          );
+        })}
+      </div>
+
       {showDropdown && (
         <div
           ref={listRef}
           className="absolute z-50 w-full mt-2 rounded-xl bg-card border border-border shadow-elevated overflow-hidden"
+          
         >
           {search.length < 2 && popularItems.length > 0 && (
             <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/30 border-b border-border/50">
@@ -300,7 +400,7 @@ export function RecipeSearchAutocomplete({
           {displayItems.length === 0 && search.length >= 2 && (
             <div className="p-4 text-center">
               <p className="text-muted-foreground text-sm">
-                No {mode === "cook" ? "recipes" : "drinks"} found for "{search}"
+                No {mode === "cook" ? "recipes" : "drinks"} found for &ldquo;{search}&rdquo;
               </p>
               <p className="text-muted-foreground text-xs mt-1">
                 Try searching by name, ingredient, or dietary tag
@@ -315,6 +415,7 @@ export function RecipeSearchAutocomplete({
                   const difficulty = recipe.difficulty
                     ? difficultyConfig[recipe.difficulty]
                     : null;
+                  const matchedTags = search.length >= 2 ? getMatchedRecipeTags(recipe, expandedTerms) : [];
 
                   return (
                     <div
@@ -330,7 +431,7 @@ export function RecipeSearchAutocomplete({
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <div className="flex items-center gap-1.5 flex-wrap mb-1">
                             <Badge
                               className={cn(
                                 "text-[10px] shrink-0",
@@ -347,15 +448,24 @@ export function RecipeSearchAutocomplete({
                                 ★ Saved
                               </Badge>
                             )}
-                            {recipe.dietaryTags?.slice(0, 2).map((tag) => (
-                              <Badge
-                                key={tag}
-                                variant="outline"
-                                className="text-[10px] capitalize"
-                              >
-                                {tag}
-                              </Badge>
-                            ))}
+                            {matchedTags.length > 0
+                              ? matchedTags.slice(0, 3).map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    className="text-[10px] capitalize bg-primary/15 text-primary border border-primary/30"
+                                  >
+                                    ✓ {tag}
+                                  </Badge>
+                                ))
+                              : recipe.dietaryTags?.slice(0, 2).map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    variant="outline"
+                                    className="text-[10px] capitalize"
+                                  >
+                                    {tag}
+                                  </Badge>
+                                ))}
                           </div>
                           <p className="font-medium text-sm truncate">
                             {recipe.title}
@@ -388,6 +498,7 @@ export function RecipeSearchAutocomplete({
               : (displayItems as Drink[]).map((drink, index) => {
                   const isSaved = savedDrinks.includes(drink.id);
                   const drinkType = drink.drinkType || "cocktail";
+                  const matchedTags = search.length >= 2 ? getMatchedDrinkTags(drink, expandedTerms) : [];
 
                   return (
                     <div
@@ -403,7 +514,7 @@ export function RecipeSearchAutocomplete({
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <div className="flex items-center gap-1.5 flex-wrap mb-1">
                             <Badge
                               className={cn(
                                 "text-[10px] shrink-0 capitalize",
@@ -421,14 +532,23 @@ export function RecipeSearchAutocomplete({
                                 ★ Saved
                               </Badge>
                             )}
-                            {drink.isAlcoholic === false && (
-                              <Badge
-                                variant="outline"
-                                className="text-[10px] text-green-600 border-green-600/50"
-                              >
-                                Non-alcoholic
-                              </Badge>
-                            )}
+                            {matchedTags.length > 0
+                              ? matchedTags.slice(0, 3).map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    className="text-[10px] capitalize bg-primary/15 text-primary border border-primary/30"
+                                  >
+                                    ✓ {tag}
+                                  </Badge>
+                                ))
+                              : drink.isAlcoholic === false && (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-[10px] text-green-600 border-green-600/50"
+                                  >
+                                    Non-alcoholic
+                                  </Badge>
+                                )}
                           </div>
                           <p className="font-medium text-sm truncate">
                             {drink.title}
