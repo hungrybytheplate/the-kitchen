@@ -499,7 +499,7 @@ const Index = () => {
       description: isSaving
         ? "Find it anytime in your Saved tab."
         : "Drink removed from your saved list.",
-      action: isSaving ? (
+      action: (
         <ToastAction
           altText="View saved drinks"
           onClick={() => {
@@ -509,7 +509,7 @@ const Index = () => {
         >
           View saved
         </ToastAction>
-      ) : undefined,
+      ),
     });
   };
 
@@ -530,7 +530,7 @@ const Index = () => {
       description: isSaving
         ? "Find it anytime in your Saved tab."
         : "Recipe removed from your saved list.",
-      action: isSaving ? (
+      action: (
         <ToastAction
           altText="View saved recipes"
           onClick={() => {
@@ -540,7 +540,7 @@ const Index = () => {
         >
           View saved
         </ToastAction>
-      ) : undefined,
+      ),
     });
   };
 
