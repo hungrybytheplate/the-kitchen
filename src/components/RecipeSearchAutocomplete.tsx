@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
-import { Search, X, Clock, ChefHat, Flame, HeartPulse, Leaf, Wheat, Droplets, Shield, Sparkles, Zap } from "lucide-react";
+import { Search, X, Clock, ChefHat, Flame, HeartPulse, Leaf, Wheat, Droplets, Shield, Sparkles, Zap, Soup, Salad, Cookie, Utensils, Coffee, GlassWater, Wine, Martini, Snowflake, Apple, Beef, Fish, Carrot, Egg } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -45,20 +45,52 @@ interface QuickFilter {
 }
 
 const cookQuickFilters: QuickFilter[] = [
+  // Health
   { label: "Vegan", searchTerm: "vegan", icon: Leaf, activeClass: "bg-green-600 text-white border-green-600" },
+  { label: "Vegetarian", searchTerm: "vegetarian", icon: Carrot, activeClass: "bg-lime-600 text-white border-lime-600" },
   { label: "Keto", searchTerm: "keto", icon: Zap, activeClass: "bg-orange-600 text-white border-orange-600" },
+  { label: "High Protein", searchTerm: "high protein", icon: Beef, activeClass: "bg-rose-600 text-white border-rose-600" },
+  { label: "High Fiber", searchTerm: "high fiber", icon: Wheat, activeClass: "bg-yellow-700 text-white border-yellow-700" },
   { label: "Heart Healthy", searchTerm: "heart healthy", icon: HeartPulse, activeClass: "bg-red-600 text-white border-red-600" },
   { label: "Low Sodium", searchTerm: "low sodium", icon: Droplets, activeClass: "bg-blue-600 text-white border-blue-600" },
+  { label: "Diabetes Friendly", searchTerm: "diabetes friendly", icon: Shield, activeClass: "bg-indigo-600 text-white border-indigo-600" },
   { label: "Gluten-Free", searchTerm: "gluten-free", icon: Wheat, activeClass: "bg-amber-600 text-white border-amber-600" },
+  { label: "Dairy-Free", searchTerm: "dairy-free", icon: Droplets, activeClass: "bg-sky-600 text-white border-sky-600" },
   { label: "Anti-Inflammatory", searchTerm: "anti-inflammatory", icon: Sparkles, activeClass: "bg-orange-500 text-white border-orange-500" },
+  { label: "Omega-3", searchTerm: "omega-3", icon: Fish, activeClass: "bg-cyan-600 text-white border-cyan-600" },
+  // Categories
+  { label: "Sauces", searchTerm: "sauce", icon: Utensils, activeClass: "bg-red-700 text-white border-red-700" },
+  { label: "Dips", searchTerm: "dip", icon: Utensils, activeClass: "bg-amber-700 text-white border-amber-700" },
+  { label: "Sides", searchTerm: "sides", icon: Salad, activeClass: "bg-stone-700 text-white border-stone-700" },
+  { label: "Snacks", searchTerm: "snack", icon: Cookie, activeClass: "bg-amber-500 text-white border-amber-500" },
+  { label: "Soups", searchTerm: "soup", icon: Soup, activeClass: "bg-orange-700 text-white border-orange-700" },
+  { label: "Salads", searchTerm: "salad", icon: Salad, activeClass: "bg-emerald-600 text-white border-emerald-600" },
+  { label: "Breakfast", searchTerm: "breakfast", icon: Egg, activeClass: "bg-yellow-600 text-white border-yellow-600" },
+  { label: "Desserts", searchTerm: "dessert", icon: Cookie, activeClass: "bg-pink-600 text-white border-pink-600" },
+  { label: "Quick & Easy", searchTerm: "easy", icon: Clock, activeClass: "bg-teal-600 text-white border-teal-600" },
 ];
 
 const drinkQuickFilters: QuickFilter[] = [
+  // Health
   { label: "Immune Support", searchTerm: "immune", icon: Shield, activeClass: "bg-emerald-600 text-white border-emerald-600" },
   { label: "Heart Healthy", searchTerm: "heart healthy", icon: HeartPulse, activeClass: "bg-red-600 text-white border-red-600" },
   { label: "Detox", searchTerm: "detox", icon: Sparkles, activeClass: "bg-green-600 text-white border-green-600" },
-  { label: "Non-Alcoholic", searchTerm: "non-alcoholic", icon: Droplets, activeClass: "bg-teal-600 text-white border-teal-600" },
+  { label: "Antioxidant", searchTerm: "antioxidant", icon: Sparkles, activeClass: "bg-purple-600 text-white border-purple-600" },
+  { label: "Hydrating", searchTerm: "hydrating", icon: Droplets, activeClass: "bg-cyan-600 text-white border-cyan-600" },
   { label: "Energy Boost", searchTerm: "energy", icon: Zap, activeClass: "bg-amber-600 text-white border-amber-600" },
+  { label: "Anti-Inflammatory", searchTerm: "anti-inflammatory", icon: Sparkles, activeClass: "bg-orange-500 text-white border-orange-500" },
+  { label: "Gut Health", searchTerm: "gut health", icon: Apple, activeClass: "bg-lime-600 text-white border-lime-600" },
+  { label: "Non-Alcoholic", searchTerm: "non-alcoholic", icon: Droplets, activeClass: "bg-teal-600 text-white border-teal-600" },
+  // Categories
+  { label: "Smoothies", searchTerm: "smoothie", icon: GlassWater, activeClass: "bg-green-700 text-white border-green-700" },
+  { label: "Wellness", searchTerm: "wellness", icon: Leaf, activeClass: "bg-emerald-700 text-white border-emerald-700" },
+  { label: "Mocktails", searchTerm: "mocktail", icon: GlassWater, activeClass: "bg-teal-700 text-white border-teal-700" },
+  { label: "Cocktails", searchTerm: "cocktail", icon: Martini, activeClass: "bg-purple-700 text-white border-purple-700" },
+  { label: "Coffee", searchTerm: "coffee", icon: Coffee, activeClass: "bg-amber-800 text-white border-amber-800" },
+  { label: "Tea", searchTerm: "tea", icon: Coffee, activeClass: "bg-orange-700 text-white border-orange-700" },
+  { label: "Hot Drinks", searchTerm: "hot", icon: Coffee, activeClass: "bg-red-700 text-white border-red-700" },
+  { label: "Iced", searchTerm: "iced", icon: Snowflake, activeClass: "bg-sky-600 text-white border-sky-600" },
+  { label: "Wine", searchTerm: "wine", icon: Wine, activeClass: "bg-rose-700 text-white border-rose-700" },
 ];
 
 // Helper to get matched tags for highlighting
