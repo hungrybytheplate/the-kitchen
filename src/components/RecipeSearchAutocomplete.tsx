@@ -346,6 +346,24 @@ export function RecipeSearchAutocomplete({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Listen for "popular-search" events fired from the SEO popular searches list.
+  // Prefill our search box, open the suggestions dropdown, and focus the input.
+  useEffect(() => {
+    if (mode !== "cook") return;
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent<{ term?: string }>).detail;
+      const term = detail?.term?.trim();
+      if (!term) return;
+      setSearch(term);
+      setIsOpen(true);
+      setHighlightedIndex(-1);
+      // Defer focus so the input is mounted & visible after the page scrolls.
+      setTimeout(() => inputRef.current?.focus(), 250);
+    };
+    window.addEventListener("popular-search", handler as EventListener);
+    return () => window.removeEventListener("popular-search", handler as EventListener);
+  }, [mode]);
+
   const displayItems = search.length >= 2 ? suggestions : popularItems;
   const showDropdown = isOpen && (search.length >= 2 || (search.length === 0 && popularItems.length > 0));
 
