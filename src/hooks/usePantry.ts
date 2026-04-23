@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { toast } from '@/hooks/use-toast';
+import React from 'react';
 
 const PANTRY_CACHE_PREFIX = 'kitchen.pantryCache.';
 
@@ -33,6 +34,26 @@ function writePantryCache(userId: string, items: string[]) {
   }
 }
 
+/** Compare two id lists irrespective of order. */
+function sameItems(a: string[], b: string[]): boolean {
+  if (a.length !== b.length) return false;
+  const set = new Set(a);
+  for (const id of b) if (!set.has(id)) return false;
+  return true;
+}
+
+/** Summarise the difference between cached and server lists. */
+function diffSummary(cached: string[], server: string[]): string {
+  const cachedSet = new Set(cached);
+  const serverSet = new Set(server);
+  const onlyLocal = cached.filter(id => !serverSet.has(id)).length;
+  const onlyServer = server.filter(id => !cachedSet.has(id)).length;
+  const parts: string[] = [];
+  if (onlyLocal) parts.push(`${onlyLocal} only on this device`);
+  if (onlyServer) parts.push(`${onlyServer} only on server`);
+  return parts.join(' · ') || 'Lists differ';
+}
+
 export function usePantry() {
   const { user } = useAuth();
   const [pantryItems, setPantryItems] = useState<string[]>([]);
@@ -48,6 +69,7 @@ export function usePantry() {
     // Hydrate immediately from local cache so the UI shows last-known state
     // even if the network is slow or offline.
     const cached = readPantryCache(user.id);
+    const hadCache = cached.length > 0;
     if (cached.length > 0) {
       setPantryItems(cached);
       setLoading(false);
@@ -61,8 +83,69 @@ export function usePantry() {
 
       if (error) throw error;
       const fresh = data?.map(item => item.ingredient_id) || [];
-      setPantryItems(fresh);
-      writePantryCache(user.id, fresh);
+
+      // Conflict: cached state existed and differs from server.
+      // Surface a toast and let the user pick which copy wins.
+      if (hadCache && !sameItems(cached, fresh)) {
+        const userId = user.id;
+
+        const useCached = async () => {
+          setPantryItems(cached);
+          try {
+            await supabase.from('user_pantry').delete().eq('user_id', userId);
+            if (cached.length > 0) {
+              await supabase.from('user_pantry').insert(
+                cached.map(ingredient_id => ({ user_id: userId, ingredient_id }))
+              );
+            }
+            writePantryCache(userId, cached);
+            toast({ title: 'Using cached pantry', description: 'Server updated to match this device.' });
+          } catch (e) {
+            console.error('Failed to push cached pantry to server:', e);
+            toast({ title: 'Sync failed', description: 'Could not update server. Will retry later.', variant: 'destructive' });
+          }
+        };
+
+        const useServer = () => {
+          setPantryItems(fresh);
+          writePantryCache(userId, fresh);
+          toast({ title: 'Using server pantry', description: 'Local cache updated to match server.' });
+        };
+
+        toast({
+          title: 'Pantry out of sync',
+          description: React.createElement(
+            'div',
+            { className: 'flex flex-col gap-2' },
+            React.createElement('span', null, diffSummary(cached, fresh) + '. Which copy should we use?'),
+            React.createElement(
+              'div',
+              { className: 'flex gap-2 mt-1' },
+              React.createElement(
+                'button',
+                {
+                  onClick: useCached,
+                  className: 'inline-flex h-8 items-center justify-center rounded-md border bg-background px-3 text-xs font-medium hover:bg-secondary',
+                },
+                'Use cached'
+              ),
+              React.createElement(
+                'button',
+                {
+                  onClick: useServer,
+                  className: 'inline-flex h-8 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90',
+                },
+                'Use server'
+              )
+            )
+          ),
+          duration: 15000,
+        });
+        // Leave UI on cached copy until the user chooses; do not overwrite cache yet.
+      } else {
+        setPantryItems(fresh);
+        writePantryCache(user.id, fresh);
+      }
     } catch (error) {
       console.error('Error loading pantry (using cached copy):', error);
       // Cache already populated above; nothing else to do.
