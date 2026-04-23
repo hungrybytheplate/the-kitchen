@@ -54,15 +54,20 @@ function diffSummary(cached: string[], server: string[]): string {
   return parts.join(' · ') || 'Lists differ';
 }
 
+export type PantrySyncStatus = 'idle' | 'syncing' | 'synced' | 'offline';
+
 export function usePantry() {
   const { user } = useAuth();
   const [pantryItems, setPantryItems] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [syncStatus, setSyncStatus] = useState<PantrySyncStatus>('idle');
+  const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
 
   const loadPantry = useCallback(async () => {
     if (!user) {
       setPantryItems([]);
       setLoading(false);
+      setSyncStatus('idle');
       return;
     }
 
@@ -74,6 +79,8 @@ export function usePantry() {
       setPantryItems(cached);
       setLoading(false);
     }
+
+    setSyncStatus('syncing');
 
     try {
       const { data, error } = await supabase
@@ -158,8 +165,11 @@ export function usePantry() {
         setPantryItems(fresh);
         writePantryCache(user.id, fresh);
       }
+      setSyncStatus('synced');
+      setLastSyncedAt(Date.now());
     } catch (error) {
       console.error('Error loading pantry (using cached copy):', error);
+      setSyncStatus('offline');
       // Network / server error: keep showing the cached copy. If we had no
       // cache, ensure UI doesn't get stuck in loading state with nothing.
       if (!hadCache) {
@@ -247,5 +257,7 @@ export function usePantry() {
     togglePantryItem,
     isInPantry,
     refetch: loadPantry,
+    syncStatus,
+    lastSyncedAt,
   };
 }
