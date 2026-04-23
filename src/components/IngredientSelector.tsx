@@ -3,19 +3,22 @@ import { IngredientCategory } from "./IngredientCategory";
 import { pantryItems, fridgeItems, spiceItems } from "@/data/ingredients";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ShoppingBasket, Refrigerator, Flame, Package } from "lucide-react";
+import { CustomIngredientInput } from "./CustomIngredientInput";
 
 interface IngredientSelectorProps {
   selectedIngredients: string[];
   onToggle: (id: string) => void;
   userPantryItems?: string[];
   onTogglePantry?: (id: string) => void;
+  onAddCustomIngredient?: (id: string) => void;
 }
 
 export function IngredientSelector({ 
   selectedIngredients, 
   onToggle,
   userPantryItems = [],
-  onTogglePantry
+  onTogglePantry,
+  onAddCustomIngredient,
 }: IngredientSelectorProps) {
   return (
     <Tabs defaultValue="fridge" className="w-full">
