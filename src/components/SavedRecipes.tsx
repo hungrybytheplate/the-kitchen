@@ -369,10 +369,27 @@ export function SavedRecipes({
                           {recipeNotes[recipe.id] && (
                             <span className="text-xs text-muted-foreground">📝</span>
                           )}
+                          {recipeOverrides[recipe.id]?.servings && (
+                            <span className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded">
+                              <Users className="h-3 w-3" />
+                              {recipeOverrides[recipe.id]?.servings}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-0.5 sm:gap-1" onClick={(e) => e.stopPropagation()}>
+                      {onUpdateOverride && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => setEditingRecipe(recipe)}
+                          className="h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                          aria-label="Edit servings and notes"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                      )}
                       <Button
                         variant="ghost"
                         size="icon"
