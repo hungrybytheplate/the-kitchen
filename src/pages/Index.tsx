@@ -362,6 +362,7 @@ const Index = () => {
     [],
   );
   const [showRecipes, setShowRecipes] = useState(false);
+  const [showRecipePreview, setShowRecipePreview] = useState(false);
   const recipeResultsRef = useRef<HTMLDivElement>(null);
   const [recipeSearch, setRecipeSearch] = useState("");
   
@@ -435,12 +436,17 @@ const Index = () => {
       });
       return;
     }
+    // Show confirmation summary first
+    setShowRecipePreview(true);
+  };
+
+  const handleConfirmGenerateRecipes = () => {
+    setShowRecipePreview(false);
     setShowRecipes(true);
     toast({
       title: "Recipes found!",
       description: `Found ${recipes.length} recipes matching your ingredients.`,
     });
-    // Scroll to results after render settles
     requestAnimationFrame(() => {
       setTimeout(() => {
         recipeResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
