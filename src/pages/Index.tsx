@@ -31,6 +31,7 @@ const WelcomeTour = lazy(() => import("@/components/WelcomeTour").then(m => ({ d
 const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsHelp").then(m => ({ default: m.KeyboardShortcutsHelp })));
 const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
 const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
+const RecipePreviewDialog = lazy(() => import("@/components/RecipePreviewDialog").then(m => ({ default: m.RecipePreviewDialog })));
 
 import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
@@ -361,6 +362,7 @@ const Index = () => {
     [],
   );
   const [showRecipes, setShowRecipes] = useState(false);
+  const [showRecipePreview, setShowRecipePreview] = useState(false);
   const recipeResultsRef = useRef<HTMLDivElement>(null);
   const [recipeSearch, setRecipeSearch] = useState("");
   
@@ -434,12 +436,17 @@ const Index = () => {
       });
       return;
     }
+    // Show confirmation summary first
+    setShowRecipePreview(true);
+  };
+
+  const handleConfirmGenerateRecipes = () => {
+    setShowRecipePreview(false);
     setShowRecipes(true);
     toast({
       title: "Recipes found!",
       description: `Found ${recipes.length} recipes matching your ingredients.`,
     });
-    // Scroll to results after render settles
     requestAnimationFrame(() => {
       setTimeout(() => {
         recipeResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1108,6 +1115,17 @@ const Index = () => {
         ingredientId={shoppingDialogIngredient || ""}
         onConfirm={handleConfirmShoppingAdd}
       />
+
+      <Suspense fallback={null}>
+        <RecipePreviewDialog
+          open={showRecipePreview}
+          onOpenChange={setShowRecipePreview}
+          recipes={recipes}
+          selectedIngredients={selectedIngredients}
+          onConfirm={handleConfirmGenerateRecipes}
+          onRemoveIngredient={handleToggleIngredient}
+        />
+      </Suspense>
 
       <Suspense fallback={null}>
         <KeyboardShortcutsHelp 
