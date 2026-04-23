@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { toast } from '@/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
+import React from 'react';
 
 const PANTRY_CACHE_PREFIX = 'kitchen.pantryCache.';
 
@@ -33,6 +35,26 @@ function writePantryCache(userId: string, items: string[]) {
   }
 }
 
+/** Compare two id lists irrespective of order. */
+function sameItems(a: string[], b: string[]): boolean {
+  if (a.length !== b.length) return false;
+  const set = new Set(a);
+  for (const id of b) if (!set.has(id)) return false;
+  return true;
+}
+
+/** Summarise the difference between cached and server lists. */
+function diffSummary(cached: string[], server: string[]): string {
+  const cachedSet = new Set(cached);
+  const serverSet = new Set(server);
+  const onlyLocal = cached.filter(id => !serverSet.has(id)).length;
+  const onlyServer = server.filter(id => !cachedSet.has(id)).length;
+  const parts: string[] = [];
+  if (onlyLocal) parts.push(`${onlyLocal} only on this device`);
+  if (onlyServer) parts.push(`${onlyServer} only on server`);
+  return parts.join(' · ') || 'Lists differ';
+}
+
 export function usePantry() {
   const { user } = useAuth();
   const [pantryItems, setPantryItems] = useState<string[]>([]);
@@ -48,6 +70,7 @@ export function usePantry() {
     // Hydrate immediately from local cache so the UI shows last-known state
     // even if the network is slow or offline.
     const cached = readPantryCache(user.id);
+    const hadCache = cached.length > 0;
     if (cached.length > 0) {
       setPantryItems(cached);
       setLoading(false);
@@ -61,8 +84,61 @@ export function usePantry() {
 
       if (error) throw error;
       const fresh = data?.map(item => item.ingredient_id) || [];
-      setPantryItems(fresh);
-      writePantryCache(user.id, fresh);
+
+      // Conflict: cached state existed and differs from server.
+      // Surface a toast and let the user pick which copy wins.
+      if (hadCache && !sameItems(cached, fresh)) {
+        const userId = user.id;
+        toast({
+          title: 'Pantry out of sync',
+          description: diffSummary(cached, fresh) + '. Which copy should we use?',
+          duration: 15000,
+          action: React.createElement(
+            'div',
+            { className: 'flex gap-2' },
+            React.createElement(
+              ToastAction,
+              {
+                altText: 'Use cached',
+                onClick: async () => {
+                  // Push cached selections to the server (overwrite).
+                  setPantryItems(cached);
+                  try {
+                    await supabase.from('user_pantry').delete().eq('user_id', userId);
+                    if (cached.length > 0) {
+                      await supabase.from('user_pantry').insert(
+                        cached.map(ingredient_id => ({ user_id: userId, ingredient_id }))
+                      );
+                    }
+                    writePantryCache(userId, cached);
+                    toast({ title: 'Using cached pantry', description: 'Server updated to match this device.' });
+                  } catch (e) {
+                    console.error('Failed to push cached pantry to server:', e);
+                    toast({ title: 'Sync failed', description: 'Could not update server. Will retry later.', variant: 'destructive' });
+                  }
+                },
+              },
+              'Use cached'
+            ),
+            React.createElement(
+              ToastAction,
+              {
+                altText: 'Use server',
+                onClick: () => {
+                  setPantryItems(fresh);
+                  writePantryCache(userId, fresh);
+                  toast({ title: 'Using server pantry', description: 'Local cache updated to match server.' });
+                },
+              },
+              'Use server'
+            )
+          ),
+        });
+        // Leave UI on cached copy until the user chooses; do not overwrite cache yet.
+      } else {
+        setPantryItems(fresh);
+        writePantryCache(user.id, fresh);
+      }
     } catch (error) {
       console.error('Error loading pantry (using cached copy):', error);
       // Cache already populated above; nothing else to do.
