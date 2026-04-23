@@ -122,6 +122,17 @@ export function useUserData() {
         ratingsMap[`${r.item_type}-${r.item_id}`] = r.rating;
       });
       setRatings(ratingsMap);
+
+      // Load per-recipe overrides (custom servings, etc.)
+      const { data: overridesData } = await supabase
+        .from('recipe_overrides')
+        .select('recipe_id, servings')
+        .eq('user_id', user.id);
+      const overridesMap: RecipeOverrides = {};
+      overridesData?.forEach(o => {
+        overridesMap[o.recipe_id] = { servings: o.servings };
+      });
+      setRecipeOverrides(overridesMap);
     } catch (error) {
       console.error('Error loading user data:', error);
     }
