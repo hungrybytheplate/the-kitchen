@@ -89,50 +89,58 @@ export function usePantry() {
       // Surface a toast and let the user pick which copy wins.
       if (hadCache && !sameItems(cached, fresh)) {
         const userId = user.id;
+
+        const useCached = async () => {
+          setPantryItems(cached);
+          try {
+            await supabase.from('user_pantry').delete().eq('user_id', userId);
+            if (cached.length > 0) {
+              await supabase.from('user_pantry').insert(
+                cached.map(ingredient_id => ({ user_id: userId, ingredient_id }))
+              );
+            }
+            writePantryCache(userId, cached);
+            toast({ title: 'Using cached pantry', description: 'Server updated to match this device.' });
+          } catch (e) {
+            console.error('Failed to push cached pantry to server:', e);
+            toast({ title: 'Sync failed', description: 'Could not update server. Will retry later.', variant: 'destructive' });
+          }
+        };
+
+        const useServer = () => {
+          setPantryItems(fresh);
+          writePantryCache(userId, fresh);
+          toast({ title: 'Using server pantry', description: 'Local cache updated to match server.' });
+        };
+
         toast({
           title: 'Pantry out of sync',
-          description: diffSummary(cached, fresh) + '. Which copy should we use?',
-          duration: 15000,
-          action: React.createElement(
+          description: React.createElement(
             'div',
-            { className: 'flex gap-2' },
+            { className: 'flex flex-col gap-2' },
+            React.createElement('span', null, diffSummary(cached, fresh) + '. Which copy should we use?'),
             React.createElement(
-              ToastAction,
-              {
-                altText: 'Use cached',
-                onClick: async () => {
-                  // Push cached selections to the server (overwrite).
-                  setPantryItems(cached);
-                  try {
-                    await supabase.from('user_pantry').delete().eq('user_id', userId);
-                    if (cached.length > 0) {
-                      await supabase.from('user_pantry').insert(
-                        cached.map(ingredient_id => ({ user_id: userId, ingredient_id }))
-                      );
-                    }
-                    writePantryCache(userId, cached);
-                    toast({ title: 'Using cached pantry', description: 'Server updated to match this device.' });
-                  } catch (e) {
-                    console.error('Failed to push cached pantry to server:', e);
-                    toast({ title: 'Sync failed', description: 'Could not update server. Will retry later.', variant: 'destructive' });
-                  }
+              'div',
+              { className: 'flex gap-2 mt-1' },
+              React.createElement(
+                'button',
+                {
+                  onClick: useCached,
+                  className: 'inline-flex h-8 items-center justify-center rounded-md border bg-background px-3 text-xs font-medium hover:bg-secondary',
                 },
-              },
-              'Use cached'
-            ),
-            React.createElement(
-              ToastAction,
-              {
-                altText: 'Use server',
-                onClick: () => {
-                  setPantryItems(fresh);
-                  writePantryCache(userId, fresh);
-                  toast({ title: 'Using server pantry', description: 'Local cache updated to match server.' });
+                'Use cached'
+              ),
+              React.createElement(
+                'button',
+                {
+                  onClick: useServer,
+                  className: 'inline-flex h-8 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90',
                 },
-              },
-              'Use server'
+                'Use server'
+              )
             )
           ),
+          duration: 15000,
         });
         // Leave UI on cached copy until the user chooses; do not overwrite cache yet.
       } else {
