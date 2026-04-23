@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { SEOHead, generateRecipeCollectionSchema, generateMealPlanningGuideSchema, injectStructuredData } from "@/components/SEOHead";
 import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
-import { formatIngredientLabel } from "@/components/CustomIngredientInput";
+import { formatIngredientLabel, isCustomIngredientId } from "@/components/CustomIngredientInput";
 
 // Lazy load components not needed for initial render
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));

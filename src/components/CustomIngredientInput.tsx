@@ -105,6 +105,7 @@ export function CustomIngredientInput({
     if (!trimmed) return;
     const id = toCustomIngredientId(trimmed);
     if (id === CUSTOM_INGREDIENT_PREFIX) return;
+    rememberCustomIngredientName(id, trimmed);
     if (!selectedIngredients.includes(id)) {
       onAdd(id);
     }
