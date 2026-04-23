@@ -1,10 +1,49 @@
 import { ChefHat, Clock, Heart, Calendar, ShoppingCart, Sparkles } from "lucide-react";
 
+interface SEOContentProps {
+  /** Which mode to surface popular searches for. Defaults to "cook". */
+  mode?: "cook" | "drink";
+}
+
 /**
  * SEO-focused content section with semantic HTML for search engines
  * This provides crawlable, keyword-rich content that improves rankings
  */
-export function SEOContent() {
+export function SEOContent({ mode = "cook" }: SEOContentProps = {}) {
+  const popularSearches = mode === "drink"
+    ? [
+        "easy cocktails to make at home",
+        "non-alcoholic drinks",
+        "summer mocktails",
+        "healthy smoothie recipes",
+        "green smoothie",
+        "iced coffee at home",
+        "matcha latte recipe",
+        "wellness shots",
+        "detox drink ideas",
+        "immune boosting drinks",
+        "hot toddy recipe",
+        "classic margarita recipe",
+      ]
+    : [
+        "what can I make for dinner",
+        "easy chicken recipes",
+        "30 minute meals",
+        "healthy meal prep",
+        "vegetarian dinner ideas",
+        "budget friendly recipes",
+        "one pot dinners",
+        "quick breakfast ideas",
+        "meal planning for families",
+        "recipes with pantry staples",
+        "keto dinner recipes",
+        "copycat restaurant recipes",
+      ];
+
+  const sectionTitle = mode === "drink"
+    ? "Popular Drink Searches"
+    : "Popular Recipe Searches";
+
   return (
     <section 
       className="mt-16 border-t border-border/50 pt-12"
