@@ -352,13 +352,21 @@ const Index = () => {
   const [appMode, setAppMode] = useState<"cook" | "drink">("cook");
   
   // Cook mode state
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  // Persisted in localStorage so selections (including custom "Other"
+  // ingredients) survive page reloads and return visits.
+  const [selectedIngredients, setSelectedIngredients] = useLocalStorage<string[]>(
+    "kitchen.selectedIngredients",
+    [],
+  );
   const [showRecipes, setShowRecipes] = useState(false);
   const recipeResultsRef = useRef<HTMLDivElement>(null);
   const [recipeSearch, setRecipeSearch] = useState("");
   
   // Drink mode state
-  const [selectedDrinkIngredients, setSelectedDrinkIngredients] = useState<string[]>([]);
+  const [selectedDrinkIngredients, setSelectedDrinkIngredients] = useLocalStorage<string[]>(
+    "kitchen.selectedDrinkIngredients",
+    [],
+  );
   const [showDrinks, setShowDrinks] = useState(false);
   const [drinkSearch, setDrinkSearch] = useState("");
   
