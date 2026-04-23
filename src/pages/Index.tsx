@@ -1065,6 +1065,10 @@ const Index = () => {
                 onRate={async (itemId, itemType, rating) => {
                   await setItemRating(itemId, itemType, rating);
                 }}
+                recipeOverrides={recipeOverrides}
+                onUpdateOverride={async (recipeId, override) => {
+                  await updateRecipeOverride(recipeId, override);
+                }}
               />
             </Suspense>
           </TabsContent>
