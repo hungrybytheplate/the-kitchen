@@ -9,6 +9,7 @@ import { Calendar as CalendarIcon, ExternalLink, Sparkles, Check } from "lucide-
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useUserPreferences, type MealTimes } from "@/hooks/useUserPreferences";
+import { formatIngredientLabel } from "@/components/CustomIngredientInput";
 interface AddToCalendarDialogProps {
   recipe: Recipe | null;
   open: boolean;
@@ -65,10 +66,10 @@ function formatNutrition(recipe: Recipe): string {
 function formatIngredientsList(recipe: Recipe): string {
   if (recipe.ingredientAmounts && recipe.ingredientAmounts.length > 0) {
     return recipe.ingredientAmounts
-      .map(ing => `• ${ing.amount} ${ing.unit} ${ing.id.replace(/-/g, ' ')}`)
+      .map(ing => `• ${ing.amount} ${ing.unit} ${formatIngredientLabel(ing.id)}`)
       .join('\n');
   }
-  return recipe.ingredients.map(ing => `• ${ing.replace(/-/g, ' ')}`).join('\n');
+  return recipe.ingredients.map(ing => `• ${formatIngredientLabel(ing)}`).join('\n');
 }
 
 function parseCookTimeMinutes(cookTime: string): number {
