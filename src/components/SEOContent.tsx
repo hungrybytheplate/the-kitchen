@@ -142,12 +142,19 @@ export function SEOContent() {
             "keto dinner recipes",
             "copycat restaurant recipes"
           ].map((term) => (
-            <span 
+            <button
               key={term}
-              className="text-xs px-3 py-1.5 rounded-full bg-muted text-muted-foreground"
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(
+                  new CustomEvent("popular-search", { detail: { term } }),
+                );
+              }}
+              className="text-xs px-3 py-1.5 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              aria-label={`Search recipes for ${term}`}
             >
               {term}
-            </span>
+            </button>
           ))}
         </div>
       </div>
