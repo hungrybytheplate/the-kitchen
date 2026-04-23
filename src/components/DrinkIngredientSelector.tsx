@@ -100,6 +100,7 @@ const extrasCategories = ["syrups", "garnishes"];
 export function DrinkIngredientSelector({
   selectedIngredients,
   onToggle,
+  onAddCustomIngredient,
 }: DrinkIngredientSelectorProps) {
   const spiritItems = drinkIngredientCategories.filter(c => spiritsCategories.includes(c.id));
   const mixerItems = drinkIngredientCategories.filter(c => mixersCategories.includes(c.id));
