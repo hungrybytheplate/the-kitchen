@@ -1117,6 +1117,17 @@ const Index = () => {
       />
 
       <Suspense fallback={null}>
+        <RecipePreviewDialog
+          open={showRecipePreview}
+          onOpenChange={setShowRecipePreview}
+          recipes={recipes}
+          selectedIngredients={selectedIngredients}
+          onConfirm={handleConfirmGenerateRecipes}
+          onRemoveIngredient={handleToggleIngredient}
+        />
+      </Suspense>
+
+      <Suspense fallback={null}>
         <KeyboardShortcutsHelp 
           open={showShortcutsHelp} 
           onOpenChange={setShowShortcutsHelp} 
