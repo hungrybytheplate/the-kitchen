@@ -29,6 +29,14 @@ export interface Ratings {
   [key: string]: number; // key format: `${itemType}-${itemId}`
 }
 
+export interface RecipeOverride {
+  servings?: number | null;
+}
+
+export interface RecipeOverrides {
+  [recipeId: string]: RecipeOverride;
+}
+
 export function useUserData() {
   const { user } = useAuth();
   const [savedRecipes, setSavedRecipes] = useState<string[]>([]);
@@ -37,6 +45,7 @@ export function useUserData() {
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
   const [recipeNotes, setRecipeNotes] = useState<RecipeNotes>({});
   const [ratings, setRatings] = useState<Ratings>({});
+  const [recipeOverrides, setRecipeOverrides] = useState<RecipeOverrides>({});
   const [loading, setLoading] = useState(true);
 
   // Load user data from database
