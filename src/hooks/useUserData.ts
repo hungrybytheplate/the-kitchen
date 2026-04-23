@@ -100,6 +100,7 @@ export function useUserData() {
 
     // Hydrate meal plan immediately from local cache so it's visible offline.
     const cachedMealPlan = readMealPlanCache(user.id);
+    const hadCachedMealPlan = cachedMealPlan.length > 0;
     if (cachedMealPlan.length > 0) {
       setMealPlan(cachedMealPlan);
     }
@@ -129,8 +130,15 @@ export function useUserData() {
           date: m.date,
           recipe: m.recipe_data as unknown as Recipe,
         }));
-        setMealPlan(fresh);
-        writeMealPlanCache(user.id, fresh);
+        // Suspicious-empty guard: if we had a populated cache but the server
+        // returned no entries, treat it as a possible outage and KEEP the
+        // cached plan visible rather than flashing the calendar empty.
+        if (hadCachedMealPlan && fresh.length === 0) {
+          // leave UI on cached copy; do not overwrite cache
+        } else {
+          setMealPlan(fresh);
+          writeMealPlanCache(user.id, fresh);
+        }
       }
 
       // Load shopping list

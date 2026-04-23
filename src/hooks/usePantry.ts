@@ -84,6 +84,12 @@ export function usePantry() {
       if (error) throw error;
       const fresh = data?.map(item => item.ingredient_id) || [];
 
+      // Suspicious-empty guard: if we had a populated cache but the server
+      // returns an empty list, treat it as a possible outage / partial response
+      // and KEEP the cached selections visible. The user can still confirm
+      // they cleared it via the conflict toast below.
+      const serverLooksEmpty = hadCache && fresh.length === 0;
+
       // Conflict: cached state existed and differs from server.
       // Surface a toast and let the user pick which copy wins.
       if (hadCache && !sameItems(cached, fresh)) {
@@ -113,11 +119,17 @@ export function usePantry() {
         };
 
         toast({
-          title: 'Pantry out of sync',
+          title: serverLooksEmpty ? 'Pantry looks empty on server' : 'Pantry out of sync',
           description: React.createElement(
             'div',
             { className: 'flex flex-col gap-2' },
-            React.createElement('span', null, diffSummary(cached, fresh) + '. Which copy should we use?'),
+            React.createElement(
+              'span',
+              null,
+              serverLooksEmpty
+                ? `Server returned no items but ${cached.length} are cached on this device. Keeping cached selections — confirm which copy to use.`
+                : diffSummary(cached, fresh) + '. Which copy should we use?',
+            ),
             React.createElement(
               'div',
               { className: 'flex gap-2 mt-1' },
@@ -148,7 +160,16 @@ export function usePantry() {
       }
     } catch (error) {
       console.error('Error loading pantry (using cached copy):', error);
-      // Cache already populated above; nothing else to do.
+      // Network / server error: keep showing the cached copy. If we had no
+      // cache, ensure UI doesn't get stuck in loading state with nothing.
+      if (!hadCache) {
+        setPantryItems([]);
+      } else {
+        toast({
+          title: 'Offline mode',
+          description: 'Showing your last saved pantry. Changes will sync when you reconnect.',
+        });
+      }
     } finally {
       setLoading(false);
     }
