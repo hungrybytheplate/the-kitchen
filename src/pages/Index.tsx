@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { SEOHead, generateRecipeCollectionSchema, generateMealPlanningGuideSchema, injectStructuredData } from "@/components/SEOHead";
 import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
+import { formatIngredientLabel } from "@/components/CustomIngredientInput";
 
 // Lazy load components not needed for initial render
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
@@ -314,6 +315,22 @@ const Index = () => {
       }
     }
   }, [searchParams, setSearchParams, addRecentlyViewed]);
+
+  // Listen for clicks on the "Popular Recipe Searches" tags in <SEOContent />.
+  // Switch to Plate mode + ingredients tab and scroll up so the search bar
+  // (which prefills itself by listening to the same event) is visible.
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent<{ term?: string }>).detail;
+      const term = detail?.term?.trim();
+      if (!term) return;
+      setAppMode("cook");
+      setActiveTab("ingredients");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    window.addEventListener("popular-search", handler as EventListener);
+    return () => window.removeEventListener("popular-search", handler as EventListener);
+  }, []);
 
   // Auto-select pantry items when user is logged in and pantry loads
   useEffect(() => {
@@ -809,7 +826,7 @@ const Index = () => {
                             )}
                             onClick={() => handleToggleIngredient(id)}
                           >
-                            {id.replace("-", " ")}
+                            {formatIngredientLabel(id)}
                             <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                           </Badge>
                         ))}
@@ -825,6 +842,7 @@ const Index = () => {
                       onToggle={handleToggleIngredient}
                       userPantryItems={userPantryItems}
                       onTogglePantry={togglePantryItem}
+                      onAddCustomIngredient={handleToggleIngredient}
                     />
                   </CardContent>
                 </Card>
@@ -905,7 +923,7 @@ const Index = () => {
                             )}
                             onClick={() => handleToggleDrinkIngredient(id)}
                           >
-                            {id.replace("-", " ")}
+                            {formatIngredientLabel(id)}
                             <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                           </Badge>
                         ))}
@@ -919,6 +937,7 @@ const Index = () => {
                     <DrinkIngredientSelector
                       selectedIngredients={selectedDrinkIngredients}
                       onToggle={handleToggleDrinkIngredient}
+                      onAddCustomIngredient={handleToggleDrinkIngredient}
                     />
 
                     {/* Garnish Suggestions */}

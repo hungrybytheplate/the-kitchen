@@ -6,10 +6,12 @@ import { Wine, CupSoda, Citrus, Droplet, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { drinkIngredientCategories, type DrinkIngredientCategory } from "@/data/drinkIngredients";
 import type { LucideIcon } from "lucide-react";
+import { CustomIngredientInput } from "./CustomIngredientInput";
 
 interface DrinkIngredientSelectorProps {
   selectedIngredients: string[];
   onToggle: (id: string) => void;
+  onAddCustomIngredient?: (id: string) => void;
 }
 
 // Color and icon mapping for drink categories
@@ -98,6 +100,7 @@ const extrasCategories = ["syrups", "garnishes"];
 export function DrinkIngredientSelector({
   selectedIngredients,
   onToggle,
+  onAddCustomIngredient,
 }: DrinkIngredientSelectorProps) {
   const spiritItems = drinkIngredientCategories.filter(c => spiritsCategories.includes(c.id));
   const mixerItems = drinkIngredientCategories.filter(c => mixersCategories.includes(c.id));
@@ -166,6 +169,13 @@ export function DrinkIngredientSelector({
           ))}
         </TabsContent>
       </ScrollArea>
+
+      {onAddCustomIngredient && (
+        <CustomIngredientInput
+          selectedIngredients={selectedIngredients}
+          onAdd={onAddCustomIngredient}
+        />
+      )}
     </Tabs>
   );
 }
