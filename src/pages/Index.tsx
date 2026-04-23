@@ -52,6 +52,7 @@ import { usePantry } from "@/hooks/usePantry";
 import { getRecipesForIngredients, sampleRecipes, type Recipe } from "@/data/recipes";
 import { getDrinksForIngredients, sampleDrinks, type Drink } from "@/data/drinks";
 import { toast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import { format } from "date-fns";
 import { Sparkles, Calendar, Heart, UtensilsCrossed, X, ShoppingCart, Wine, GlassWater, Search, Clock, Snowflake, Flower2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -494,10 +495,21 @@ const Index = () => {
     const isSaving = !savedDrinks.includes(drinkId);
     await saveDrink(drinkId);
     toast({
-      title: isSaving ? "Drink saved!" : "Drink removed",
+      title: isSaving ? "Drink saved! 🥂" : "Drink removed",
       description: isSaving
-        ? "You can find it in your saved recipes."
-        : "Drink removed from saved list.",
+        ? "Find it anytime in your Saved tab."
+        : "Drink removed from your saved list.",
+      action: isSaving ? (
+        <ToastAction
+          altText="View saved drinks"
+          onClick={() => {
+            setActiveTab("saved");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          View saved
+        </ToastAction>
+      ) : undefined,
     });
   };
 
@@ -514,10 +526,21 @@ const Index = () => {
     const isSaving = !savedRecipes.includes(recipeId);
     await saveRecipe(recipeId);
     toast({
-      title: isSaving ? "Recipe saved!" : "Recipe removed",
+      title: isSaving ? "Recipe saved! ❤️" : "Recipe removed",
       description: isSaving
-        ? "You can find it in your saved recipes."
-        : "Recipe removed from saved list.",
+        ? "Find it anytime in your Saved tab."
+        : "Recipe removed from your saved list.",
+      action: isSaving ? (
+        <ToastAction
+          altText="View saved recipes"
+          onClick={() => {
+            setActiveTab("saved");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          View saved
+        </ToastAction>
+      ) : undefined,
     });
   };
 
