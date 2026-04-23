@@ -9,6 +9,47 @@ import { toast } from "@/hooks/use-toast";
 
 export const CUSTOM_INGREDIENT_PREFIX = "custom:";
 
+const CUSTOM_NAME_STORAGE_KEY = "kitchen.customIngredientNames";
+
+/** Read the persisted map of custom-ingredient id → original entered name. */
+function readCustomNameMap(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.localStorage.getItem(CUSTOM_NAME_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeCustomNameMap(map: Record<string, string>) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(CUSTOM_NAME_STORAGE_KEY, JSON.stringify(map));
+  } catch {
+    // ignore quota / privacy-mode errors
+  }
+}
+
+/** Persist the original name a user typed for a custom ingredient id. */
+export function rememberCustomIngredientName(id: string, name: string) {
+  if (!isCustomIngredientId(id)) return;
+  const trimmed = name.trim();
+  if (!trimmed) return;
+  const map = readCustomNameMap();
+  if (map[id] === trimmed) return;
+  map[id] = trimmed;
+  writeCustomNameMap(map);
+}
+
+/** Look up the original name a user typed for a custom ingredient id, if any. */
+export function getCustomIngredientName(id: string): string | undefined {
+  if (!isCustomIngredientId(id)) return undefined;
+  return readCustomNameMap()[id];
+}
+
 /**
  * Convert a free-text ingredient name into a stable id with the custom: prefix.
  */
@@ -28,6 +69,11 @@ export function isCustomIngredientId(id: string): boolean {
 
 /** Get a display-friendly label for any ingredient id (custom or built-in). */
 export function formatIngredientLabel(id: string): string {
+  if (isCustomIngredientId(id)) {
+    const original = getCustomIngredientName(id);
+    if (original) return original;
+    return id.slice(CUSTOM_INGREDIENT_PREFIX.length).replace(/-/g, " ");
+  }
   const raw = isCustomIngredientId(id) ? id.slice(CUSTOM_INGREDIENT_PREFIX.length) : id;
   return raw.replace(/-/g, " ");
 }
@@ -59,6 +105,7 @@ export function CustomIngredientInput({
     if (!trimmed) return;
     const id = toCustomIngredientId(trimmed);
     if (id === CUSTOM_INGREDIENT_PREFIX) return;
+    rememberCustomIngredientName(id, trimmed);
     if (!selectedIngredients.includes(id)) {
       onAdd(id);
     }

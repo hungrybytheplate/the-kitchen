@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ExportMealPlanDialog } from "@/components/ExportMealPlanDialog";
+import { formatIngredientLabel } from "@/components/CustomIngredientInput";
 export interface MealPlanEntry {
   date: string;
   recipe: Recipe;
@@ -192,8 +193,8 @@ export function MealCalendar({
     
     // Build full recipe description
     const ingredientsList = recipe.ingredientAmounts && recipe.ingredientAmounts.length > 0
-      ? recipe.ingredientAmounts.map(ing => `• ${ing.amount} ${ing.unit} ${ing.id.replace(/-/g, ' ')}`).join('\n')
-      : recipe.ingredients.map(ing => `• ${ing.replace(/-/g, ' ')}`).join('\n');
+      ? recipe.ingredientAmounts.map(ing => `• ${ing.amount} ${ing.unit} ${formatIngredientLabel(ing.id)}`).join('\n')
+      : recipe.ingredients.map(ing => `• ${formatIngredientLabel(ing)}`).join('\n');
     
     const instructionsText = recipe.instructions.map((step, i) => `${i + 1}. ${step}`).join('\n');
     

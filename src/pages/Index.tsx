@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { SEOHead, generateRecipeCollectionSchema, generateMealPlanningGuideSchema, injectStructuredData } from "@/components/SEOHead";
 import { SEOContent } from "@/components/SEOContent";
 import { IngredientSelector } from "@/components/IngredientSelector";
-import { formatIngredientLabel } from "@/components/CustomIngredientInput";
+import { formatIngredientLabel, isCustomIngredientId } from "@/components/CustomIngredientInput";
 
 // Lazy load components not needed for initial render
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
@@ -644,8 +644,12 @@ const Index = () => {
     let addedCount = 0;
     
     for (const ing of ingredients) {
-      const variant = ing.replace(/-/g, " ");
-      const formattedVariant = variant.charAt(0).toUpperCase() + variant.slice(1);
+      const label = formatIngredientLabel(ing);
+      // Preserve user-entered casing for custom ingredients; title-case built-ins.
+      const formattedVariant = isCustomIngredientId(ing)
+        ? label
+        : label.charAt(0).toUpperCase() + label.slice(1);
+      const variant = formattedVariant;
       const exists = shoppingList.some(item => item.variant.toLowerCase() === variant.toLowerCase());
       if (!exists) {
         await addToShoppingList(ing, formattedVariant);
