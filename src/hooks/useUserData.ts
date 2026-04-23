@@ -245,7 +245,11 @@ export function useUserData() {
         recipe_id: recipe.id,
         recipe_data: recipeData
       });
-    setMealPlan(prev => [...prev, { date, recipe }]);
+    setMealPlan(prev => {
+      const next = [...prev, { date, recipe }];
+      writeMealPlanCache(user.id, next);
+      return next;
+    });
   };
 
   // Remove from meal plan
@@ -258,7 +262,11 @@ export function useUserData() {
       .eq('user_id', user.id)
       .eq('date', date)
       .eq('recipe_id', recipeId);
-    setMealPlan(prev => prev.filter(entry => !(entry.date === date && entry.recipe.id === recipeId)));
+    setMealPlan(prev => {
+      const next = prev.filter(entry => !(entry.date === date && entry.recipe.id === recipeId));
+      writeMealPlanCache(user.id, next);
+      return next;
+    });
   };
 
   // Move meal to a different date
@@ -274,11 +282,15 @@ export function useUserData() {
       .eq('recipe_id', recipeId);
     
     // Update local state
-    setMealPlan(prev => prev.map(entry => 
-      entry.date === fromDate && entry.recipe.id === recipeId
-        ? { ...entry, date: toDate }
-        : entry
-    ));
+    setMealPlan(prev => {
+      const next = prev.map(entry =>
+        entry.date === fromDate && entry.recipe.id === recipeId
+          ? { ...entry, date: toDate }
+          : entry
+      );
+      writeMealPlanCache(user.id, next);
+      return next;
+    });
   };
 
   // Add to shopping list
