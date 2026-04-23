@@ -1,10 +1,49 @@
 import { ChefHat, Clock, Heart, Calendar, ShoppingCart, Sparkles } from "lucide-react";
 
+interface SEOContentProps {
+  /** Which mode to surface popular searches for. Defaults to "cook". */
+  mode?: "cook" | "drink";
+}
+
 /**
  * SEO-focused content section with semantic HTML for search engines
  * This provides crawlable, keyword-rich content that improves rankings
  */
-export function SEOContent() {
+export function SEOContent({ mode = "cook" }: SEOContentProps = {}) {
+  const popularSearches = mode === "drink"
+    ? [
+        "easy cocktails to make at home",
+        "non-alcoholic drinks",
+        "summer mocktails",
+        "healthy smoothie recipes",
+        "green smoothie",
+        "iced coffee at home",
+        "matcha latte recipe",
+        "wellness shots",
+        "detox drink ideas",
+        "immune boosting drinks",
+        "hot toddy recipe",
+        "classic margarita recipe",
+      ]
+    : [
+        "what can I make for dinner",
+        "easy chicken recipes",
+        "30 minute meals",
+        "healthy meal prep",
+        "vegetarian dinner ideas",
+        "budget friendly recipes",
+        "one pot dinners",
+        "quick breakfast ideas",
+        "meal planning for families",
+        "recipes with pantry staples",
+        "keto dinner recipes",
+        "copycat restaurant recipes",
+      ];
+
+  const sectionTitle = mode === "drink"
+    ? "Popular Drink Searches"
+    : "Popular Recipe Searches";
+
   return (
     <section 
       className="mt-16 border-t border-border/50 pt-12"
@@ -125,33 +164,20 @@ export function SEOContent() {
       {/* Popular Searches - Keyword-rich content */}
       <div className="mt-12 text-center">
         <h3 className="text-sm font-medium text-muted-foreground mb-4">
-          Popular Recipe Searches
+          {sectionTitle}
         </h3>
         <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto px-4">
-          {[
-            "what can I make for dinner",
-            "easy chicken recipes",
-            "30 minute meals",
-            "healthy meal prep",
-            "vegetarian dinner ideas",
-            "budget friendly recipes",
-            "one pot dinners",
-            "quick breakfast ideas",
-            "meal planning for families",
-            "recipes with pantry staples",
-            "keto dinner recipes",
-            "copycat restaurant recipes"
-          ].map((term) => (
+          {popularSearches.map((term) => (
             <button
               key={term}
               type="button"
               onClick={() => {
                 window.dispatchEvent(
-                  new CustomEvent("popular-search", { detail: { term } }),
+                  new CustomEvent("popular-search", { detail: { term, mode } }),
                 );
               }}
               className="text-xs px-3 py-1.5 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              aria-label={`Search recipes for ${term}`}
+              aria-label={`Search ${mode === "drink" ? "drinks" : "recipes"} for ${term}`}
             >
               {term}
             </button>

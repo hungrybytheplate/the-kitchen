@@ -381,11 +381,14 @@ export function RecipeSearchAutocomplete({
   // Listen for "popular-search" events fired from the SEO popular searches list.
   // Prefill our search box, open the suggestions dropdown, and focus the input.
   useEffect(() => {
-    if (mode !== "cook") return;
     const handler = (event: Event) => {
-      const detail = (event as CustomEvent<{ term?: string }>).detail;
+      const detail = (event as CustomEvent<{ term?: string; mode?: "cook" | "drink" }>).detail;
       const term = detail?.term?.trim();
       if (!term) return;
+      // If the event specifies a target mode, only the matching autocomplete
+      // instance should react. Otherwise (legacy callers), default to "cook".
+      const targetMode = detail?.mode ?? "cook";
+      if (targetMode !== mode) return;
       setSearch(term);
       setIsOpen(true);
       setHighlightedIndex(-1);
