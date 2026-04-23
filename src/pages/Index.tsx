@@ -328,20 +328,21 @@ const Index = () => {
   // don't loop.
   useEffect(() => {
     const handler = (event: Event) => {
-      const detail = (event as CustomEvent<{ term?: string; __forwarded?: boolean }>).detail;
+      const detail = (event as CustomEvent<{ term?: string; mode?: "cook" | "drink"; __forwarded?: boolean }>).detail;
       if (detail?.__forwarded) return;
       const term = detail?.term?.trim();
       if (!term) return;
-      setAppMode("cook");
+      const targetMode = detail?.mode === "drink" ? "drink" : "cook";
+      setAppMode(targetMode);
       setActiveTab("ingredients");
       window.scrollTo({ top: 0, behavior: "smooth" });
       // Wait one tick for the autocomplete to register its listener with the
-      // updated `mode === "cook"` deps, then re-fire the event so the search
+      // updated mode-dependent deps, then re-fire the event so the search
       // box prefills and the suggestions dropdown opens.
       setTimeout(() => {
         window.dispatchEvent(
           new CustomEvent("popular-search", {
-            detail: { term, __forwarded: true },
+            detail: { term, mode: targetMode, __forwarded: true },
           }),
         );
       }, 50);
