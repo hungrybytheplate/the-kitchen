@@ -1,5 +1,6 @@
 import { pantryItems, fridgeItems, spiceItems } from "@/data/ingredients";
 import { drinkIngredientCategories } from "@/data/drinkIngredients";
+import { ingredientVariants } from "@/data/ingredientVariants";
 
 /**
  * Fuzzy resolver that maps free-text ingredient names typed by users into
@@ -48,6 +49,13 @@ function buildIndex(): FuzzyCandidate[] {
   }
   for (const cat of drinkIngredientCategories) {
     for (const item of cat.ingredients) add(item.id, item.name);
+  }
+  // Pull in fine-grained variant ids (e.g. salt-kosher, garlic-fresh) so users
+  // typing things like "kosher salt" still resolve even if the variant isn't
+  // listed as a standalone checkbox.
+  for (const [base, group] of Object.entries(ingredientVariants)) {
+    add(base, group.defaultName);
+    for (const v of group.variants) add(v.id, v.name);
   }
 
   cachedIndex = Array.from(seen.values());
