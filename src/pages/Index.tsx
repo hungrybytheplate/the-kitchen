@@ -321,16 +321,30 @@ const Index = () => {
   }, [searchParams, setSearchParams, addRecentlyViewed]);
 
   // Listen for clicks on the "Popular Recipe Searches" tags in <SEOContent />.
-  // Switch to Plate mode + ingredients tab and scroll up so the search bar
-  // (which prefills itself by listening to the same event) is visible.
+  // Switch to Plate mode + ingredients tab, scroll up, and re-dispatch the
+  // event after the autocomplete remounts in "cook" mode so its own listener
+  // (which early-returns when mode !== "cook") receives it. We tag the
+  // re-dispatched event with `__forwarded` so this handler ignores it and we
+  // don't loop.
   useEffect(() => {
     const handler = (event: Event) => {
-      const detail = (event as CustomEvent<{ term?: string }>).detail;
+      const detail = (event as CustomEvent<{ term?: string; __forwarded?: boolean }>).detail;
+      if (detail?.__forwarded) return;
       const term = detail?.term?.trim();
       if (!term) return;
       setAppMode("cook");
       setActiveTab("ingredients");
       window.scrollTo({ top: 0, behavior: "smooth" });
+      // Wait one tick for the autocomplete to register its listener with the
+      // updated `mode === "cook"` deps, then re-fire the event so the search
+      // box prefills and the suggestions dropdown opens.
+      setTimeout(() => {
+        window.dispatchEvent(
+          new CustomEvent("popular-search", {
+            detail: { term, __forwarded: true },
+          }),
+        );
+      }, 50);
     };
     window.addEventListener("popular-search", handler as EventListener);
     return () => window.removeEventListener("popular-search", handler as EventListener);
