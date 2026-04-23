@@ -57,6 +57,7 @@ export function useUserData() {
       setShoppingList([]);
       setRecipeNotes({});
       setRatings({});
+      setRecipeOverrides({});
       setLoading(false);
       return;
     }
