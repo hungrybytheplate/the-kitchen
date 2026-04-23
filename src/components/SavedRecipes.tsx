@@ -525,6 +525,24 @@ export function SavedRecipes({
           />
         )}
 
+        {editingRecipe && onUpdateOverride && (
+          <EditSavedRecipeDialog
+            open={!!editingRecipe}
+            onOpenChange={(open) => !open && setEditingRecipe(null)}
+            recipeId={editingRecipe.id}
+            recipeTitle={editingRecipe.title}
+            defaultServings={editingRecipe.servings ?? 4}
+            currentServings={recipeOverrides[editingRecipe.id]?.servings}
+            currentNote={recipeNotes[editingRecipe.id] || ""}
+            onSave={async ({ servings, note }) => {
+              await Promise.all([
+                onUpdateOverride(editingRecipe.id, { servings }),
+                onSaveNote(editingRecipe.id, note),
+              ]);
+            }}
+          />
+        )}
+
         {selectedRecipe && (
           <RecipeDetailDialog
             recipe={selectedRecipe}
