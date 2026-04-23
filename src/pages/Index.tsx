@@ -31,6 +31,7 @@ const WelcomeTour = lazy(() => import("@/components/WelcomeTour").then(m => ({ d
 const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsHelp").then(m => ({ default: m.KeyboardShortcutsHelp })));
 const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
 const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
+const RecipePreviewDialog = lazy(() => import("@/components/RecipePreviewDialog").then(m => ({ default: m.RecipePreviewDialog })));
 
 import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
