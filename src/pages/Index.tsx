@@ -317,8 +317,8 @@ const Index = () => {
   }, [searchParams, setSearchParams, addRecentlyViewed]);
 
   // Listen for clicks on the "Popular Recipe Searches" tags in <SEOContent />.
-  // Switch to Plate mode + ingredients tab, prefill the recipe search box,
-  // show results, and scroll up to the search bar.
+  // Switch to Plate mode + ingredients tab and scroll up so the search bar
+  // (which prefills itself by listening to the same event) is visible.
   useEffect(() => {
     const handler = (event: Event) => {
       const detail = (event as CustomEvent<{ term?: string }>).detail;
@@ -326,14 +326,7 @@ const Index = () => {
       if (!term) return;
       setAppMode("cook");
       setActiveTab("ingredients");
-      setRecipeSearch(term);
-      setShowRecipes(true);
-      // Scroll to the top so the user sees the search field with their query.
       window.scrollTo({ top: 0, behavior: "smooth" });
-      toast({
-        title: "Searching recipes",
-        description: `Showing matches for "${term}"`,
-      });
     };
     window.addEventListener("popular-search", handler as EventListener);
     return () => window.removeEventListener("popular-search", handler as EventListener);
