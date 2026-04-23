@@ -810,7 +810,7 @@ const Index = () => {
                             )}
                             onClick={() => handleToggleIngredient(id)}
                           >
-                            {id.replace("-", " ")}
+                            {formatIngredientLabel(id)}
                             <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                           </Badge>
                         ))}
@@ -826,6 +826,7 @@ const Index = () => {
                       onToggle={handleToggleIngredient}
                       userPantryItems={userPantryItems}
                       onTogglePantry={togglePantryItem}
+                      onAddCustomIngredient={handleToggleIngredient}
                     />
                   </CardContent>
                 </Card>
