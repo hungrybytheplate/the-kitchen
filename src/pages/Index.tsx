@@ -907,7 +907,7 @@ const Index = () => {
                             )}
                             onClick={() => handleToggleDrinkIngredient(id)}
                           >
-                            {id.replace("-", " ")}
+                            {formatIngredientLabel(id)}
                             <X className="h-3 w-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                           </Badge>
                         ))}
@@ -921,6 +921,7 @@ const Index = () => {
                     <DrinkIngredientSelector
                       selectedIngredients={selectedDrinkIngredients}
                       onToggle={handleToggleDrinkIngredient}
+                      onAddCustomIngredient={handleToggleDrinkIngredient}
                     />
 
                     {/* Garnish Suggestions */}
