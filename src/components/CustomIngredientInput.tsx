@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { fuzzyMatchIngredient } from "@/lib/fuzzyIngredientMatch";
+import { toast } from "@/hooks/use-toast";
 
 export const CUSTOM_INGREDIENT_PREFIX = "custom:";
 
@@ -60,6 +62,26 @@ export function CustomIngredientInput({
     if (!selectedIngredients.includes(id)) {
       onAdd(id);
     }
+
+    // Fuzzy-map the typed text to known ingredient ids so the recipe matcher
+    // can use it (e.g. "tomatto paste" -> tomato-paste, "kosher salt" -> salt-kosher).
+    const matches = fuzzyMatchIngredient(trimmed, 3).filter(
+      (m) => !selectedIngredients.includes(m.id) && m.id !== id,
+    );
+    matches.forEach((m) => onAdd(m.id));
+
+    if (matches.length > 0) {
+      toast({
+        title: `Added "${trimmed}"`,
+        description: `Also matched: ${matches.map((m) => m.name).join(", ")}`,
+      });
+    } else {
+      toast({
+        title: `Added "${trimmed}"`,
+        description: "No close matches found in our list — added as-is.",
+      });
+    }
+
     setValue("");
   };
 
