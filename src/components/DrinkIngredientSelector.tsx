@@ -6,10 +6,12 @@ import { Wine, CupSoda, Citrus, Droplet, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { drinkIngredientCategories, type DrinkIngredientCategory } from "@/data/drinkIngredients";
 import type { LucideIcon } from "lucide-react";
+import { CustomIngredientInput } from "./CustomIngredientInput";
 
 interface DrinkIngredientSelectorProps {
   selectedIngredients: string[];
   onToggle: (id: string) => void;
+  onAddCustomIngredient?: (id: string) => void;
 }
 
 // Color and icon mapping for drink categories
