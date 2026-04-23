@@ -278,7 +278,9 @@ const Index = () => {
     clearShoppingList,
     updateRecipeNotes,
     ratings,
-    setItemRating
+    setItemRating,
+    recipeOverrides,
+    updateRecipeOverride,
   } = useUserData();
   
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
@@ -1062,6 +1064,10 @@ const Index = () => {
                 ratings={ratings}
                 onRate={async (itemId, itemType, rating) => {
                   await setItemRating(itemId, itemType, rating);
+                }}
+                recipeOverrides={recipeOverrides}
+                onUpdateOverride={async (recipeId, override) => {
+                  await updateRecipeOverride(recipeId, override);
                 }}
               />
             </Suspense>

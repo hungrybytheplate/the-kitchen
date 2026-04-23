@@ -155,6 +155,33 @@ export type Database = {
         }
         Relationships: []
       }
+      recipe_overrides: {
+        Row: {
+          created_at: string
+          id: string
+          recipe_id: string
+          servings: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipe_id: string
+          servings?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipe_id?: string
+          servings?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       saved_drinks: {
         Row: {
           created_at: string

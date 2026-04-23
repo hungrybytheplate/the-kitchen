@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus, FolderPlus } from "lucide-react";
+import { Heart, Trash2, ChefHat, ArrowRight, Search, Wine, StickyNote, ExternalLink, Star, Lightbulb, BookOpen, Sparkles, Plus, FolderPlus, Pencil, Users } from "lucide-react";
 import { sampleRecipes, Recipe } from "@/data/recipes";
 import { sampleDrinks, Drink } from "@/data/drinks";
 import { cn } from "@/lib/utils";
 import { RecipeNotesDialog } from "@/components/RecipeNotesDialog";
+import { EditSavedRecipeDialog } from "@/components/EditSavedRecipeDialog";
 import { RecipeDetailDialog } from "@/components/RecipeDetailDialog";
 import { DrinkDetailDialog } from "@/components/DrinkDetailDialog";
 import { StarRating } from "@/components/StarRating";
@@ -18,7 +19,7 @@ import { ImportRecipeDialog } from "@/components/ImportRecipeDialog";
 import { RecipeCollections, AddToCollectionDialog } from "@/components/RecipeCollections";
 import { useRecipeCollections } from "@/hooks/useRecipeCollections";
 import { toast } from "@/hooks/use-toast";
-import type { Ratings } from "@/hooks/useUserData";
+import type { Ratings, RecipeOverrides } from "@/hooks/useUserData";
 
 export interface RecipeNotes {
   [recipeId: string]: string;
@@ -34,6 +35,8 @@ interface SavedRecipesProps {
   onAddToCalendar?: (recipe: Recipe) => void;
   ratings?: Ratings;
   onRate?: (itemId: string, itemType: 'recipe' | 'drink', rating: number) => void;
+  recipeOverrides?: RecipeOverrides;
+  onUpdateOverride?: (recipeId: string, override: { servings?: number | null }) => Promise<void> | void;
 }
 
 export function SavedRecipes({ 
@@ -45,11 +48,14 @@ export function SavedRecipes({
   onSaveNote,
   onAddToCalendar,
   ratings = {},
-  onRate
+  onRate,
+  recipeOverrides = {},
+  onUpdateOverride,
 }: SavedRecipesProps) {
   const [search, setSearch] = useState("");
   const [notesDialogOpen, setNotesDialogOpen] = useState(false);
   const [selectedRecipeForNotes, setSelectedRecipeForNotes] = useState<{ id: string; title: string } | null>(null);
+  const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
   const [addToCollectionRecipeId, setAddToCollectionRecipeId] = useState<string | null>(null);
@@ -363,10 +369,27 @@ export function SavedRecipes({
                           {recipeNotes[recipe.id] && (
                             <span className="text-xs text-muted-foreground">📝</span>
                           )}
+                          {recipeOverrides[recipe.id]?.servings && (
+                            <span className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded">
+                              <Users className="h-3 w-3" />
+                              {recipeOverrides[recipe.id]?.servings}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-0.5 sm:gap-1" onClick={(e) => e.stopPropagation()}>
+                      {onUpdateOverride && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => setEditingRecipe(recipe)}
+                          className="h-8 w-8 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                          aria-label="Edit servings and notes"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                      )}
                       <Button
                         variant="ghost"
                         size="icon"
@@ -499,6 +522,24 @@ export function SavedRecipes({
             recipeId={selectedRecipeForNotes.id}
             currentNote={recipeNotes[selectedRecipeForNotes.id] || ""}
             onSaveNote={onSaveNote}
+          />
+        )}
+
+        {editingRecipe && onUpdateOverride && (
+          <EditSavedRecipeDialog
+            open={!!editingRecipe}
+            onOpenChange={(open) => !open && setEditingRecipe(null)}
+            recipeId={editingRecipe.id}
+            recipeTitle={editingRecipe.title}
+            defaultServings={editingRecipe.servings ?? 4}
+            currentServings={recipeOverrides[editingRecipe.id]?.servings}
+            currentNote={recipeNotes[editingRecipe.id] || ""}
+            onSave={async ({ servings, note }) => {
+              await Promise.all([
+                onUpdateOverride(editingRecipe.id, { servings }),
+                onSaveNote(editingRecipe.id, note),
+              ]);
+            }}
           />
         )}
 
