@@ -3,6 +3,40 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import type { Recipe } from '@/data/recipes';
 
+const MEAL_PLAN_CACHE_PREFIX = 'kitchen.mealPlanCache.';
+
+/** Build the localStorage key for a given user's meal plan cache. */
+function mealPlanCacheKey(userId: string) {
+  return `${MEAL_PLAN_CACHE_PREFIX}${userId}`;
+}
+
+/** Read cached meal plan entries (returns [] when missing/corrupt). */
+function readMealPlanCache(userId: string): MealPlanEntry[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(mealPlanCacheKey(userId));
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (e): e is MealPlanEntry =>
+        e && typeof e === 'object' && typeof e.date === 'string' && e.recipe && typeof e.recipe.id === 'string',
+    );
+  } catch {
+    return [];
+  }
+}
+
+/** Persist meal plan entries for the given user to localStorage. */
+function writeMealPlanCache(userId: string, entries: MealPlanEntry[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(mealPlanCacheKey(userId), JSON.stringify(entries));
+  } catch {
+    // ignore quota / privacy-mode errors
+  }
+}
+
 export interface ShoppingItem {
   id: string;
   ingredientId: string;
@@ -64,6 +98,12 @@ export function useUserData() {
 
     setLoading(true);
 
+    // Hydrate meal plan immediately from local cache so it's visible offline.
+    const cachedMealPlan = readMealPlanCache(user.id);
+    if (cachedMealPlan.length > 0) {
+      setMealPlan(cachedMealPlan);
+    }
+
     try {
       // Load saved recipes
       const { data: recipesData } = await supabase
@@ -84,10 +124,14 @@ export function useUserData() {
         .from('meal_plans')
         .select('date, recipe_id, recipe_data')
         .eq('user_id', user.id);
-      setMealPlan(mealData?.map(m => ({
-        date: m.date,
-        recipe: m.recipe_data as unknown as Recipe
-      })) || []);
+      if (mealData) {
+        const fresh: MealPlanEntry[] = mealData.map(m => ({
+          date: m.date,
+          recipe: m.recipe_data as unknown as Recipe,
+        }));
+        setMealPlan(fresh);
+        writeMealPlanCache(user.id, fresh);
+      }
 
       // Load shopping list
       const { data: shoppingData } = await supabase
@@ -135,6 +179,7 @@ export function useUserData() {
       setRecipeOverrides(overridesMap);
     } catch (error) {
       console.error('Error loading user data:', error);
+      // Meal plan already hydrated from cache above; leave UI on cached copy.
     }
 
     setLoading(false);
@@ -200,7 +245,11 @@ export function useUserData() {
         recipe_id: recipe.id,
         recipe_data: recipeData
       });
-    setMealPlan(prev => [...prev, { date, recipe }]);
+    setMealPlan(prev => {
+      const next = [...prev, { date, recipe }];
+      writeMealPlanCache(user.id, next);
+      return next;
+    });
   };
 
   // Remove from meal plan
@@ -213,7 +262,11 @@ export function useUserData() {
       .eq('user_id', user.id)
       .eq('date', date)
       .eq('recipe_id', recipeId);
-    setMealPlan(prev => prev.filter(entry => !(entry.date === date && entry.recipe.id === recipeId)));
+    setMealPlan(prev => {
+      const next = prev.filter(entry => !(entry.date === date && entry.recipe.id === recipeId));
+      writeMealPlanCache(user.id, next);
+      return next;
+    });
   };
 
   // Move meal to a different date
@@ -229,11 +282,15 @@ export function useUserData() {
       .eq('recipe_id', recipeId);
     
     // Update local state
-    setMealPlan(prev => prev.map(entry => 
-      entry.date === fromDate && entry.recipe.id === recipeId
-        ? { ...entry, date: toDate }
-        : entry
-    ));
+    setMealPlan(prev => {
+      const next = prev.map(entry =>
+        entry.date === fromDate && entry.recipe.id === recipeId
+          ? { ...entry, date: toDate }
+          : entry
+      );
+      writeMealPlanCache(user.id, next);
+      return next;
+    });
   };
 
   // Add to shopping list
