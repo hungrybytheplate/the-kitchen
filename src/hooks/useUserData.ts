@@ -98,6 +98,12 @@ export function useUserData() {
 
     setLoading(true);
 
+    // Hydrate meal plan immediately from local cache so it's visible offline.
+    const cachedMealPlan = readMealPlanCache(user.id);
+    if (cachedMealPlan.length > 0) {
+      setMealPlan(cachedMealPlan);
+    }
+
     try {
       // Load saved recipes
       const { data: recipesData } = await supabase
@@ -118,10 +124,14 @@ export function useUserData() {
         .from('meal_plans')
         .select('date, recipe_id, recipe_data')
         .eq('user_id', user.id);
-      setMealPlan(mealData?.map(m => ({
-        date: m.date,
-        recipe: m.recipe_data as unknown as Recipe
-      })) || []);
+      if (mealData) {
+        const fresh: MealPlanEntry[] = mealData.map(m => ({
+          date: m.date,
+          recipe: m.recipe_data as unknown as Recipe,
+        }));
+        setMealPlan(fresh);
+        writeMealPlanCache(user.id, fresh);
+      }
 
       // Load shopping list
       const { data: shoppingData } = await supabase
@@ -169,6 +179,7 @@ export function useUserData() {
       setRecipeOverrides(overridesMap);
     } catch (error) {
       console.error('Error loading user data:', error);
+      // Meal plan already hydrated from cache above; leave UI on cached copy.
     }
 
     setLoading(false);
