@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { QuickTooltip } from "@/components/Tooltip";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { UserPreferencesDialog } from "@/components/UserPreferencesDialog";
+import { SyncIndicator } from "@/components/SyncIndicator";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
@@ -73,6 +74,7 @@ export function Header({ onShowTour }: HeaderProps) {
         </motion.div>
         
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          {user && <SyncIndicator />}
           <ThemeToggle />
           
           {user && (
