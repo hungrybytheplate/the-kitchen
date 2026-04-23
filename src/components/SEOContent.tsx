@@ -164,33 +164,20 @@ export function SEOContent({ mode = "cook" }: SEOContentProps = {}) {
       {/* Popular Searches - Keyword-rich content */}
       <div className="mt-12 text-center">
         <h3 className="text-sm font-medium text-muted-foreground mb-4">
-          Popular Recipe Searches
+          {sectionTitle}
         </h3>
         <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto px-4">
-          {[
-            "what can I make for dinner",
-            "easy chicken recipes",
-            "30 minute meals",
-            "healthy meal prep",
-            "vegetarian dinner ideas",
-            "budget friendly recipes",
-            "one pot dinners",
-            "quick breakfast ideas",
-            "meal planning for families",
-            "recipes with pantry staples",
-            "keto dinner recipes",
-            "copycat restaurant recipes"
-          ].map((term) => (
+          {popularSearches.map((term) => (
             <button
               key={term}
               type="button"
               onClick={() => {
                 window.dispatchEvent(
-                  new CustomEvent("popular-search", { detail: { term } }),
+                  new CustomEvent("popular-search", { detail: { term, mode } }),
                 );
               }}
               className="text-xs px-3 py-1.5 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              aria-label={`Search recipes for ${term}`}
+              aria-label={`Search ${mode === "drink" ? "drinks" : "recipes"} for ${term}`}
             >
               {term}
             </button>
