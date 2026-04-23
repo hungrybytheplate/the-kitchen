@@ -97,6 +97,13 @@ export function IngredientSelector({
           ))}
         </TabsContent>
       </ScrollArea>
+
+      {onAddCustomIngredient && (
+        <CustomIngredientInput
+          selectedIngredients={selectedIngredients}
+          onAdd={onAddCustomIngredient}
+        />
+      )}
     </Tabs>
   );
 }
