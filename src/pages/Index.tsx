@@ -278,7 +278,9 @@ const Index = () => {
     clearShoppingList,
     updateRecipeNotes,
     ratings,
-    setItemRating
+    setItemRating,
+    recipeOverrides,
+    updateRecipeOverride,
   } = useUserData();
   
   const { pendingAction, addUndoAction, executeUndo, dismissUndo, hasUndo } = useUndo();
