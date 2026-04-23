@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, Printer } from "lucide-react";
 import { format, addDays } from "date-fns";
 import type { MealPlanEntry } from "@/components/MealCalendar";
+import { formatIngredientLabel } from "@/components/CustomIngredientInput";
 
 interface ExportMealPlanDialogProps {
   open: boolean;
@@ -78,7 +79,7 @@ export function ExportMealPlanDialog({ open, onOpenChange, mealPlan, weekStart, 
     if (unchecked.length > 0) {
       html += `<div class="shopping"><h2>Shopping List (${unchecked.length} items)</h2>`;
       for (const item of unchecked) {
-        html += `<div class="shopping-item"><span class="checkbox"></span> ${item.variant.replace(/-/g, ' ')}</div>`;
+        html += `<div class="shopping-item"><span class="checkbox"></span> ${formatIngredientLabel(item.variant)}</div>`;
       }
       html += `</div>`;
     }

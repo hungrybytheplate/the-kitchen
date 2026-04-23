@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ExportMealPlanDialog } from "@/components/ExportMealPlanDialog";
+import { formatIngredientLabel } from "@/components/CustomIngredientInput";
 export interface MealPlanEntry {
   date: string;
   recipe: Recipe;
