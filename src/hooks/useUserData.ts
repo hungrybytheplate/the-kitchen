@@ -3,6 +3,40 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import type { Recipe } from '@/data/recipes';
 
+const MEAL_PLAN_CACHE_PREFIX = 'kitchen.mealPlanCache.';
+
+/** Build the localStorage key for a given user's meal plan cache. */
+function mealPlanCacheKey(userId: string) {
+  return `${MEAL_PLAN_CACHE_PREFIX}${userId}`;
+}
+
+/** Read cached meal plan entries (returns [] when missing/corrupt). */
+function readMealPlanCache(userId: string): MealPlanEntry[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(mealPlanCacheKey(userId));
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (e): e is MealPlanEntry =>
+        e && typeof e === 'object' && typeof e.date === 'string' && e.recipe && typeof e.recipe.id === 'string',
+    );
+  } catch {
+    return [];
+  }
+}
+
+/** Persist meal plan entries for the given user to localStorage. */
+function writeMealPlanCache(userId: string, entries: MealPlanEntry[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(mealPlanCacheKey(userId), JSON.stringify(entries));
+  } catch {
+    // ignore quota / privacy-mode errors
+  }
+}
+
 export interface ShoppingItem {
   id: string;
   ingredientId: string;
