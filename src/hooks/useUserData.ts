@@ -384,6 +384,51 @@ export function useUserData() {
     });
   };
 
+  // Upsert a per-user recipe override (e.g. custom servings).
+  // The (user_id, recipe_id) unique constraint guarantees a single row,
+  // so editing always updates the existing override instead of duplicating it.
+  const updateRecipeOverride = async (
+    recipeId: string,
+    override: RecipeOverride,
+  ) => {
+    if (!user) return;
+
+    const { error } = await supabase
+      .from('recipe_overrides')
+      .upsert(
+        {
+          user_id: user.id,
+          recipe_id: recipeId,
+          servings: override.servings ?? null,
+        },
+        { onConflict: 'user_id,recipe_id' },
+      );
+
+    if (error) {
+      console.error('Error saving recipe override:', error);
+      throw error;
+    }
+
+    setRecipeOverrides(prev => ({ ...prev, [recipeId]: override }));
+  };
+
+  // Remove a per-user override (revert to the recipe's defaults).
+  const clearRecipeOverride = async (recipeId: string) => {
+    if (!user) return;
+
+    await supabase
+      .from('recipe_overrides')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('recipe_id', recipeId);
+
+    setRecipeOverrides(prev => {
+      const next = { ...prev };
+      delete next[recipeId];
+      return next;
+    });
+  };
+
   return {
     savedRecipes,
     savedDrinks,
@@ -391,6 +436,7 @@ export function useUserData() {
     shoppingList,
     recipeNotes,
     ratings,
+    recipeOverrides,
     loading,
     saveRecipe,
     saveDrink,
@@ -404,6 +450,8 @@ export function useUserData() {
     updateRecipeNotes,
     setItemRating,
     getItemRating,
-    removeItemRating
+    removeItemRating,
+    updateRecipeOverride,
+    clearRecipeOverride,
   };
 }
