@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Flame, Drumstick, Wheat, Droplets, Heart, Activity, Sparkles, CircleDot } from "lucide-react";
-import { format, addDays, startOfWeek } from "date-fns";
+import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import type { MealPlanEntry } from "@/components/MealCalendar";
 
 interface WeeklyNutritionSummaryProps {
@@ -28,6 +28,23 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
     const entryDate = new Date(entry.date);
     return entryDate >= currentWeekStart && entryDate <= weekEnd;
   });
+
+  // Today's meals snapshot
+  const today = new Date();
+  const todayMeals = mealPlan.filter(entry => isSameDay(new Date(entry.date), today));
+  const todayTotals = todayMeals.reduce(
+    (acc, entry) => {
+      const n = entry.recipe.nutrition;
+      if (n) {
+        acc.calories += n.calories || 0;
+        acc.protein += n.protein || 0;
+        acc.carbs += n.carbs || 0;
+        acc.fat += n.fat || 0;
+      }
+      return acc;
+    },
+    { calories: 0, protein: 0, carbs: 0, fat: 0 }
+  );
 
   // Calculate nutrition totals
   const totals = weekMeals.reduce<NutritionTotals>(
@@ -135,7 +152,7 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
           <div>
             <CardTitle className="font-serif text-xl flex items-center gap-2">
               <Heart className="h-5 w-5 text-red-500" />
-              Weekly Nutrition
+              Nutrition Overview
             </CardTitle>
             <p className="text-sm text-muted-foreground mt-1">
               {format(currentWeekStart, "MMM d")} - {format(weekEnd, "MMM d")} • {totals.mealCount} meal{totals.mealCount !== 1 ? 's' : ''} planned
@@ -156,6 +173,60 @@ export function WeeklyNutritionSummary({ mealPlan, weekStart }: WeeklyNutritionS
           </div>
         ) : (
           <>
+            {/* Today's snapshot — most prominent */}
+            {todayMeals.length > 0 && (
+              <div className="mb-5 p-4 rounded-xl bg-gradient-to-br from-orange-500/10 via-red-500/10 to-amber-500/10 border border-orange-500/20">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                      Today
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      • {todayMeals.length} meal{todayMeals.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">{format(today, "EEE, MMM d")}</span>
+                </div>
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
+                  <div>
+                    <div className="text-xl sm:text-3xl font-bold text-orange-500">
+                      {todayTotals.calories.toLocaleString()}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide">
+                      kcal
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xl sm:text-3xl font-bold text-red-500">
+                      {todayTotals.protein}<span className="text-xs sm:text-sm font-normal">g</span>
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide">
+                      Protein
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xl sm:text-3xl font-bold text-sky-500">
+                      {todayTotals.carbs}<span className="text-xs sm:text-sm font-normal">g</span>
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide">
+                      Carbs
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xl sm:text-3xl font-bold text-violet-500">
+                      {todayTotals.fat}<span className="text-xs sm:text-sm font-normal">g</span>
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide">
+                      Fat
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">
+              This Week
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
               {nutritionItems.map((item) => (
                 <div
