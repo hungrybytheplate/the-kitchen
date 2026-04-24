@@ -839,21 +839,6 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
-            {/* What's for [meal] tonight? — quick suggestion based on time + pantry */}
-            {appMode === "cook" && (
-              <Suspense fallback={null}>
-                <WhatsForDinner
-                  pantryItems={userPantryItems}
-                  selectedIngredients={selectedIngredients}
-                  savedRecipes={savedRecipes}
-                  onSaveRecipe={handleSaveRecipe}
-                  onAddToCalendar={handleAddToCalendar}
-                  onAddToShopping={(ing) => handleAddToShopping(ing)}
-                  onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
-                />
-              </Suspense>
-            )}
-
             {/* Recently Viewed Section */}
             {appMode === "cook" && recentlyViewed.length > 0 && (
               <Suspense fallback={null}>
