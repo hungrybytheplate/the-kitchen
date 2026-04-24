@@ -1089,6 +1089,9 @@ const Index = () => {
                 onSaveDrink={handleSaveDrink}
               />
 
+              {/* Weekly Nutrition Summary — surfaced above the calendar so totals are visible at a glance */}
+              <WeeklyNutritionSummary mealPlan={mealPlan} />
+
               {/* Regular Meal Calendar */}
               <MealCalendar 
                 mealPlan={mealPlan} 
@@ -1100,9 +1103,6 @@ const Index = () => {
                 onAddToCalendar={handleAddToCalendar}
                 shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
               />
-
-              {/* Weekly Nutrition Summary */}
-              <WeeklyNutritionSummary mealPlan={mealPlan} />
             </Suspense>
           </TabsContent>
 
