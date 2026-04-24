@@ -32,7 +32,6 @@ const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsH
 const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
 const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
 const RecipePreviewDialog = lazy(() => import("@/components/RecipePreviewDialog").then(m => ({ default: m.RecipePreviewDialog })));
-const WhatsForDinner = lazy(() => import("@/components/WhatsForDinner").then(m => ({ default: m.WhatsForDinner })));
 
 import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
