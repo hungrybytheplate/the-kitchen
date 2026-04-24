@@ -32,6 +32,7 @@ const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsH
 const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
 const SmartSuggestions = lazy(() => import("@/components/SmartSuggestions").then(m => ({ default: m.SmartSuggestions })));
 const RecipePreviewDialog = lazy(() => import("@/components/RecipePreviewDialog").then(m => ({ default: m.RecipePreviewDialog })));
+const WhatsForDinner = lazy(() => import("@/components/WhatsForDinner").then(m => ({ default: m.WhatsForDinner })));
 
 import { QuickTooltip } from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
@@ -839,6 +840,21 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="ingredients" className="space-y-8 mt-8 animate-fade-in">
+            {/* What's for [meal] tonight? — quick suggestion based on time + pantry */}
+            {appMode === "cook" && (
+              <Suspense fallback={null}>
+                <WhatsForDinner
+                  pantryItems={userPantryItems}
+                  selectedIngredients={selectedIngredients}
+                  savedRecipes={savedRecipes}
+                  onSaveRecipe={handleSaveRecipe}
+                  onAddToCalendar={handleAddToCalendar}
+                  onAddToShopping={(ing) => handleAddToShopping(ing)}
+                  onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
+                />
+              </Suspense>
+            )}
+
             {/* Recently Viewed Section */}
             {appMode === "cook" && recentlyViewed.length > 0 && (
               <Suspense fallback={null}>
@@ -1073,6 +1089,9 @@ const Index = () => {
                 onSaveDrink={handleSaveDrink}
               />
 
+              {/* Weekly Nutrition Summary — surfaced above the calendar so totals are visible at a glance */}
+              <WeeklyNutritionSummary mealPlan={mealPlan} />
+
               {/* Regular Meal Calendar */}
               <MealCalendar 
                 mealPlan={mealPlan} 
@@ -1084,9 +1103,6 @@ const Index = () => {
                 onAddToCalendar={handleAddToCalendar}
                 shoppingList={shoppingList.map(i => ({ variant: i.variant, checked: i.checked }))}
               />
-
-              {/* Weekly Nutrition Summary */}
-              <WeeklyNutritionSummary mealPlan={mealPlan} />
             </Suspense>
           </TabsContent>
 
