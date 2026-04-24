@@ -849,7 +849,7 @@ const Index = () => {
                   savedRecipes={savedRecipes}
                   onSaveRecipe={handleSaveRecipe}
                   onAddToCalendar={handleAddToCalendar}
-                  onAddToShopping={(ing) => handleAddToShopping([ing])}
+                  onAddToShopping={(ing) => handleAddToShopping(ing)}
                   onViewRecipe={(recipe) => addRecentlyViewed(recipe.id)}
                 />
               </Suspense>
