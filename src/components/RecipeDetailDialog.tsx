@@ -257,7 +257,7 @@ export function RecipeDetailDialog({
         cookingModePortal
       )}
       
-      <Dialog open={open} onOpenChange={handleClose}>
+      <Dialog open={open && !isFullCookingMode} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden w-[calc(100vw-1rem)] sm:w-full rounded-xl">
           {/* Header with gradient */}
           <div className={cn("relative px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4", config.bg)}>
