@@ -5,6 +5,15 @@ import { format, addDays } from "date-fns";
 import type { MealPlanEntry } from "@/components/MealCalendar";
 import { formatIngredientLabel } from "@/components/CustomIngredientInput";
 
+function escapeHtml(str: string | number): string {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 interface ExportMealPlanDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -26,8 +35,9 @@ export function ExportMealPlanDialog({ open, onOpenChange, mealPlan, weekStart, 
   const handlePrint = () => {
     const weekEnd = addDays(weekStart, 6);
     const title = `Meal Plan: ${format(weekStart, "MMM d")} - ${format(weekEnd, "MMM d, yyyy")}`;
+    const safeTitle = escapeHtml(title);
 
-    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>
+    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${safeTitle}</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: Georgia, serif; color: #1a1a1a; padding: 40px; max-width: 800px; margin: 0 auto; }
@@ -48,7 +58,7 @@ export function ExportMealPlanDialog({ open, onOpenChange, mealPlan, weekStart, 
   @media print { body { padding: 20px; } }
 </style></head><body>`;
 
-    html += `<h1>${title}</h1>`;
+    html += `<h1>${safeTitle}</h1>`;
     html += `<div class="subtitle">Generated from The Kitchen</div>`;
 
     for (const day of days) {
@@ -58,16 +68,16 @@ export function ExportMealPlanDialog({ open, onOpenChange, mealPlan, weekStart, 
       );
       
       html += `<div class="day">`;
-      html += `<div class="day-header">${format(day, "EEEE, MMMM d")}</div>`;
+      html += `<div class="day-header">${escapeHtml(format(day, "EEEE, MMMM d"))}</div>`;
       
       if (sortedMeals.length === 0) {
         html += `<div class="empty">No meals planned</div>`;
       } else {
         for (const entry of sortedMeals) {
           html += `<div class="meal">`;
-          html += `<span class="meal-type">${entry.recipe.mealType}</span>`;
-          html += `<div><div class="meal-title">${entry.recipe.title}</div>`;
-          html += `<div class="meal-meta">${entry.recipe.cookTime} · ${entry.recipe.servings} servings</div>`;
+          html += `<span class="meal-type">${escapeHtml(entry.recipe.mealType)}</span>`;
+          html += `<div><div class="meal-title">${escapeHtml(entry.recipe.title)}</div>`;
+          html += `<div class="meal-meta">${escapeHtml(entry.recipe.cookTime)} · ${escapeHtml(entry.recipe.servings)} servings</div>`;
           html += `</div></div>`;
         }
       }
@@ -79,7 +89,7 @@ export function ExportMealPlanDialog({ open, onOpenChange, mealPlan, weekStart, 
     if (unchecked.length > 0) {
       html += `<div class="shopping"><h2>Shopping List (${unchecked.length} items)</h2>`;
       for (const item of unchecked) {
-        html += `<div class="shopping-item"><span class="checkbox"></span> ${formatIngredientLabel(item.variant)}</div>`;
+        html += `<div class="shopping-item"><span class="checkbox"></span> ${escapeHtml(formatIngredientLabel(item.variant))}</div>`;
       }
       html += `</div>`;
     }
