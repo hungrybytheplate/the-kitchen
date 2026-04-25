@@ -127,13 +127,48 @@ Deno.serve(async (req) => {
 
     // Fetch the webpage
     console.log('Fetching recipe from:', trimmedUrl);
-    const pageResponse = await fetch(trimmedUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; RecipeParser/1.0)',
-        'Accept': 'text/html,application/xhtml+xml',
-      },
-      redirect: 'follow',
-    });
+    // Manual redirect handling to prevent SSRF via redirect to internal IPs
+    let currentUrl = trimmedUrl;
+    let pageResponse: Response | null = null;
+    const MAX_REDIRECTS = 5;
+    for (let i = 0; i <= MAX_REDIRECTS; i++) {
+      pageResponse = await fetch(currentUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; RecipeParser/1.0)',
+          'Accept': 'text/html,application/xhtml+xml',
+        },
+        redirect: 'manual',
+      });
+
+      if (pageResponse.status >= 300 && pageResponse.status < 400) {
+        const location = pageResponse.headers.get('location');
+        if (!location) break;
+        // Resolve relative redirects against current URL
+        const nextUrl = new URL(location, currentUrl).toString();
+        if (isPrivateUrl(nextUrl)) {
+          return new Response(
+            JSON.stringify({ error: 'Invalid URL' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        if (i === MAX_REDIRECTS) {
+          return new Response(
+            JSON.stringify({ error: 'Too many redirects' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        currentUrl = nextUrl;
+        continue;
+      }
+      break;
+    }
+
+    if (!pageResponse) {
+      return new Response(
+        JSON.stringify({ error: 'Could not fetch the page' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     if (!pageResponse.ok) {
       return new Response(
@@ -274,7 +309,7 @@ Rules:
   } catch (error) {
     console.error('Parse recipe error:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Failed to parse recipe' }),
+      JSON.stringify({ error: 'Failed to parse recipe. Please try again.' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
