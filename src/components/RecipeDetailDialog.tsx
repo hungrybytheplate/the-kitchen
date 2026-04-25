@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState, useMemo, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence } from "framer-motion";
 import { 
   Clock, 
@@ -237,20 +238,24 @@ export function RecipeDetailDialog({
   };
 
   const allStepsComplete = completedSteps.length === displayedRecipe.instructions.length;
+  const cookingModePortal = typeof document !== "undefined" ? document.body : null;
 
   return (
     <>
       {/* Full-screen Cooking Mode - rendered outside Dialog for proper z-index */}
-      <AnimatePresence>
-        {isFullCookingMode && (
-          <CookingMode
-            recipe={displayedRecipe}
-            open={isFullCookingMode}
-            onClose={() => setIsFullCookingMode(false)}
-            servingMultiplier={servingMultiplier}
-          />
-        )}
-      </AnimatePresence>
+      {cookingModePortal && createPortal(
+        <AnimatePresence>
+          {isFullCookingMode && (
+            <CookingMode
+              recipe={displayedRecipe}
+              open={isFullCookingMode}
+              onClose={() => setIsFullCookingMode(false)}
+              servingMultiplier={servingMultiplier}
+            />
+          )}
+        </AnimatePresence>,
+        cookingModePortal
+      )}
       
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 overflow-hidden w-[calc(100vw-1rem)] sm:w-full rounded-xl">
