@@ -61,7 +61,6 @@ const cookQuickFilters: QuickFilter[] = [
   // Categories
   { label: "Sauces", searchTerm: "sauce", icon: Utensils, activeClass: "bg-red-700 text-white border-red-700" },
   { label: "Dips", searchTerm: "dip", icon: Utensils, activeClass: "bg-amber-700 text-white border-amber-700" },
-  { label: "Sides", searchTerm: "sides", icon: Salad, activeClass: "bg-stone-700 text-white border-stone-700" },
   { label: "Snacks", searchTerm: "snack", icon: Cookie, activeClass: "bg-amber-500 text-white border-amber-500" },
   { label: "Soups", searchTerm: "soup", icon: Soup, activeClass: "bg-orange-700 text-white border-orange-700" },
   { label: "Salads", searchTerm: "salad", icon: Salad, activeClass: "bg-emerald-600 text-white border-emerald-600" },
