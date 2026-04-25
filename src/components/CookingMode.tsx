@@ -114,6 +114,17 @@ export function CookingMode({ recipe, open, onClose, servingMultiplier = 1 }: Co
     }
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   // Timer countdown logic
   useEffect(() => {
     if (activeTimer?.isRunning && activeTimer.seconds > 0) {
@@ -246,7 +257,7 @@ export function CookingMode({ recipe, open, onClose, servingMultiplier = 1 }: Co
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] bg-background flex flex-col"
+      className="fixed inset-0 z-[9999] bg-background flex flex-col"
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-card/95 backdrop-blur-sm safe-area-top">
