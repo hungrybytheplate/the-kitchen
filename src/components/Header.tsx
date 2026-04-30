@@ -1,4 +1,4 @@
-import { HelpCircle, LogIn, LogOut, User, Settings2, Package } from "lucide-react";
+import { HelpCircle, LogIn, LogOut, User, Settings2, Package, Shield } from "lucide-react";
 import logo from "@/assets/logo-sm.webp";
 import taglineIcon from "@/assets/tagline-icon-sm.webp";
 import { Button } from "@/components/ui/button";
@@ -105,6 +105,18 @@ export function Header({ onShowTour }: HeaderProps) {
               />
             </>
           )}
+
+          <QuickTooltip content="Privacy Policy" side="bottom">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate('/privacy')}
+              className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9"
+              aria-label="Privacy Policy"
+            >
+              <Shield className="h-4 w-4 sm:h-5 sm:w-5" />
+            </Button>
+          </QuickTooltip>
           
           {onShowTour && (
             <QuickTooltip content="Take a tour" side="bottom">
