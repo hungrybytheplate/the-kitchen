@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
 import { Leaf, Mail, Lock, Loader2, ArrowLeft, Home } from 'lucide-react';
 import { z } from 'zod';
+import { PageSchema } from '@/components/PageSchema';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
 const passwordSchema = z.string().min(6, 'Password must be at least 6 characters').max(72);

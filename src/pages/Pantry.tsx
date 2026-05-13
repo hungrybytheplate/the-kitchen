@@ -31,6 +31,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { PageSchema } from "@/components/PageSchema";
 
 const allCategories: IngredientCategory[] = [...fridgeItems, ...pantryItems, ...spiceItems];
 
