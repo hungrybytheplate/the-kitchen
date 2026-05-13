@@ -13,8 +13,8 @@ interface SEOHeadProps {
  * for better search engine visibility and rich snippets
  */
 export function SEOHead({
-  title = "The Kitchen - What Can I Make With Ingredients I Have | Recipe Finder",
-  description = "Find recipes based on ingredients you already have at home. Free meal planner, weekly dinner ideas, easy recipes for beginners, and a smart shopping list.",
+  title = "The Kitchen — Recipes From Ingredients You Have",
+  description = "Find recipes from ingredients you already have. Free meal planner, weekly dinner ideas, and a smart shopping list — all in one app.",
   canonicalPath = "/",
   type = "website"
 }: SEOHeadProps) {
