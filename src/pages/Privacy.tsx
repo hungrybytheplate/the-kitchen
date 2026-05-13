@@ -3,12 +3,19 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageSchema } from "@/components/PageSchema";
+import { SEOHead } from "@/components/SEOHead";
 
 export default function Privacy() {
   const lastUpdated = "April 30, 2026";
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Privacy Policy - The Kitchen"
+        description="How The Kitchen collects, stores, and protects your data. We don't sell your data, run ads, or share with data brokers."
+        canonicalPath="/privacy"
+        type="article"
+      />
       <PageSchema
         id="schema-privacy"
         schema={{

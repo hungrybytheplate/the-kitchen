@@ -10,6 +10,7 @@ import { toast } from '@/hooks/use-toast';
 import { Leaf, Mail, Lock, Loader2, ArrowLeft, Home } from 'lucide-react';
 import { z } from 'zod';
 import { PageSchema } from '@/components/PageSchema';
+import { SEOHead } from '@/components/SEOHead';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
 const passwordSchema = z.string().min(6, 'Password must be at least 6 characters').max(72);
@@ -318,6 +319,11 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center p-4">
+      <SEOHead
+        title="Sign In - The Kitchen"
+        description="Sign in or create a free account to sync your saved recipes, meal plans, and shopping list across devices."
+        canonicalPath="/auth"
+      />
       <PageSchema
         id="schema-auth"
         schema={{
