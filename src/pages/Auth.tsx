@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
 import { Leaf, Mail, Lock, Loader2, ArrowLeft, Home } from 'lucide-react';
 import { z } from 'zod';
+import { PageSchema } from '@/components/PageSchema';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
 const passwordSchema = z.string().min(6, 'Password must be at least 6 characters').max(72);
@@ -317,6 +318,30 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center p-4">
+      <PageSchema
+        id="schema-auth"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Sign In to The Kitchen",
+          description:
+            "Sign in or create a free account to sync your saved recipes, meal plans, and shopping list across devices.",
+          url: "https://the-kitchen.org/auth",
+          inLanguage: "en",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "The Kitchen",
+            url: "https://the-kitchen.org/",
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://the-kitchen.org/" },
+              { "@type": "ListItem", position: 2, name: "Sign In", item: "https://the-kitchen.org/auth" },
+            ],
+          },
+        }}
+      />
       <Card className="w-full max-w-md border-border/50 shadow-lg">
         <CardHeader className="text-center space-y-3">
           <div className="mx-auto w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">

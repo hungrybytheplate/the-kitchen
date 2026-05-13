@@ -31,6 +31,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { PageSchema } from "@/components/PageSchema";
 
 const allCategories: IngredientCategory[] = [...fridgeItems, ...pantryItems, ...spiceItems];
 
@@ -249,6 +250,30 @@ export default function Pantry() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSchema
+        id="schema-pantry"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "My Pantry",
+          description:
+            "Save your baseline pantry, fridge, and spice ingredients so The Kitchen can pre-select them every time you look for a recipe.",
+          url: "https://the-kitchen.org/pantry",
+          inLanguage: "en",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "The Kitchen",
+            url: "https://the-kitchen.org/",
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://the-kitchen.org/" },
+              { "@type": "ListItem", position: 2, name: "Pantry", item: "https://the-kitchen.org/pantry" },
+            ],
+          },
+        }}
+      />
       {/* Header */}
       <motion.header 
         className="py-4 px-4 border-b border-border/30 glass sticky top-0 z-50"
