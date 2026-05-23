@@ -1062,16 +1062,6 @@ const Index = () => {
 
           <TabsContent value="calendar" className="mt-6 space-y-8">
             <Suspense fallback={<LazyFallback />}>
-              {/* Spring Hosting Planner */}
-              <SpringHostingPlanner
-                onAddToCalendar={handleAddToCalendar}
-                onAddToShopping={handleAddToShopping}
-                savedRecipes={savedRecipes}
-                onSaveRecipe={handleSaveRecipe}
-                savedDrinks={savedDrinks}
-                onSaveDrink={handleSaveDrink}
-              />
-
               {/* Weekly Nutrition Summary — surfaced above the calendar so totals are visible at a glance */}
               <WeeklyNutritionSummary mealPlan={mealPlan} />
 
