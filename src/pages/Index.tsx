@@ -26,7 +26,6 @@ const MealCalendar = lazy(() => import("@/components/MealCalendar").then(m => ({
 const SavedRecipes = lazy(() => import("@/components/SavedRecipes").then(m => ({ default: m.SavedRecipes })));
 const ShoppingList = lazy(() => import("@/components/ShoppingList").then(m => ({ default: m.ShoppingList })));
 const WeeklyNutritionSummary = lazy(() => import("@/components/WeeklyNutritionSummary").then(m => ({ default: m.WeeklyNutritionSummary })));
-const SpringHostingPlanner = lazy(() => import("@/components/SpringHostingPlanner").then(m => ({ default: m.SpringHostingPlanner })));
 const WelcomeTour = lazy(() => import("@/components/WelcomeTour").then(m => ({ default: m.WelcomeTour })));
 const KeyboardShortcutsHelp = lazy(() => import("@/components/KeyboardShortcutsHelp").then(m => ({ default: m.KeyboardShortcutsHelp })));
 const RecentlyViewed = lazy(() => import("@/components/RecentlyViewed").then(m => ({ default: m.RecentlyViewed })));
@@ -1063,16 +1062,6 @@ const Index = () => {
 
           <TabsContent value="calendar" className="mt-6 space-y-8">
             <Suspense fallback={<LazyFallback />}>
-              {/* Spring Hosting Planner */}
-              <SpringHostingPlanner
-                onAddToCalendar={handleAddToCalendar}
-                onAddToShopping={handleAddToShopping}
-                savedRecipes={savedRecipes}
-                onSaveRecipe={handleSaveRecipe}
-                savedDrinks={savedDrinks}
-                onSaveDrink={handleSaveDrink}
-              />
-
               {/* Weekly Nutrition Summary — surfaced above the calendar so totals are visible at a glance */}
               <WeeklyNutritionSummary mealPlan={mealPlan} />
 
