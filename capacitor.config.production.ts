@@ -20,7 +20,7 @@ const config: CapacitorConfig = {
   // Example: 'com.yourname.thekitchen' or 'org.thekitchen.app'
   // Must match the Bundle Identifier you set in Xcode → Signing & Capabilities.
   appId: 'com.yourname.thekitchen',
-  appName: 'The Kitchen HQ',
+  appName: 'The Kitchen',
   webDir: 'dist',
   ios: {
     contentInset: 'always',
